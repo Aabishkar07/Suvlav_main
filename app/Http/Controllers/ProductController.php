@@ -71,7 +71,7 @@ class ProductController extends Controller
     if ($request->image) {
       $imageName = $slug . '_' . time() . '.' . $request->image->extension();
       $image = Image::read($request->image);
-    //   $image->resize(550, 550);
+      //   $image->resize(550, 550);
       $image->save(public_path($destinationPath . $imageName));
       $product->image = $destinationPath . $imageName;
     }
@@ -99,7 +99,7 @@ class ProductController extends Controller
     $product->content = $request->input('content');
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');
-        $product->points = $request->input('points');
+    $product->points = $request->input('points');
 
     $product->prod_code = $prod_code;
     $product->brand_id = $request->input('brand_id');
@@ -163,7 +163,7 @@ class ProductController extends Controller
     if ($request->image) {
       $imageName = $product->slug . '_' . time() . '.' . $request->image->extension();
       $image = Image::read($request->image);
-    //   $image->resize(550, 550);
+      //   $image->resize(550, 550);
       $image->save(public_path($destinationPath . $imageName));
       $product->image = $destinationPath . $imageName;
     }
@@ -190,7 +190,7 @@ class ProductController extends Controller
 
           $imageName = $slug . '_' . time() . '.' . $new_image->extension();
           $image = Image::read($new_image);
-        //   $image->resize(550, 550);
+          //   $image->resize(550, 550);
           $image->save(public_path($destinationPath . $imageName));
           $updated_images[] = $destinationPath . $imageName;
         }
@@ -209,7 +209,7 @@ class ProductController extends Controller
     $product->content = $request->input('content');
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');
-        $product->points = $request->input('points');
+    $product->points = $request->input('points');
 
     $product->brand_id = $request->input('brand_id');
     if ($request->input('prod_cats')) {
@@ -330,5 +330,16 @@ class ProductController extends Controller
       ->get();
 
     return view('front.products.detail', compact('product', 'member', 'prod_categories', 'prod_sizes', 'prod_colors', 'cartItems', 'categories'));
+  }
+
+  public function togleActive(Product $product)
+  {
+    if ($product->status == "1") {
+      $product->status = "0";
+    } else {
+      $product->status = "1";
+    }
+    $product->save();
+    return redirect()->back()->with("popsuccess", "Active Status Changed");
   }
 }
