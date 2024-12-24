@@ -58,6 +58,7 @@ class ProductController extends Controller
       'short_desc' => 'required|string|max:255',
       'regular_price' => 'required|string',
       'status' => 'required',
+      'availablestock' => 'required',
       'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
@@ -103,6 +104,7 @@ class ProductController extends Controller
 
     $product->prod_code = $prod_code;
     $product->brand_id = $request->input('brand_id');
+    $product->availablestock = $request->input('availablestock');
     if ($request->input('prod_cats')) {
       $product->prod_categories = json_encode($request->input('prod_cats'));
     }
@@ -151,6 +153,7 @@ class ProductController extends Controller
       'short_desc' => 'required|string|max:255',
       'regular_price' => 'required|string',
       'status' => 'required',
+      'availablestock' => 'required',
       'image' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
     ]);
 
@@ -210,6 +213,7 @@ class ProductController extends Controller
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');
     $product->points = $request->input('points');
+    $product->availablestock = $request->input('availablestock');
 
     $product->brand_id = $request->input('brand_id');
     if ($request->input('prod_cats')) {
