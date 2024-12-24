@@ -37,13 +37,12 @@
             <div class="product-price">
                 <span>{!! showProductPrice($list->regular_price, $list->sale_price) !!}</span>
             </div>
-            @if ($list->sale_price)
-                @php
-                    $regular_price = $list->regular_price;
-                    $sale_price = $list->sale_price;
-                    $percent = (($regular_price - $sale_price) / $regular_price) * 100;
-                @endphp
-
+            @php
+                $regular_price = $list->regular_price;
+                $sale_price = $list->sale_price;
+                $percent = (($regular_price - $sale_price) / $regular_price) * 100;
+            @endphp
+            @if ($list->sale_price && $percent > 0)
                 <div class="px-2 py-1 text-xs text-white rounded discount-badge bg-success">
                     {{ number_format($percent) }} % OFF
                 </div>
