@@ -26,11 +26,27 @@ class ProductController extends Controller
   {
     $products = new Product;
     $search = $products->query();
-    if ($request->search == 'search') {
-      if ($request->title) {
-        $search->where('title', 'like', '%' . $request->title . '%')->orWhere('prod_code', '=', $request->title);
+
+    if ($request->title) {
+      $search->where('title', 'like', '%' . $request->title . '%')->orWhere('prod_code', '=', $request->title);
+    }
+    if ($request->price) {
+      if ($request->price == "high-to-low") {
+        $search->orderBy('sale_price', 'DESC');
+      }
+      if ($request->price == "low-to-high") {
+        $search->orderBy('sale_price', 'ASC');
       }
     }
+    if ($request->sortbystock) {
+      if ($request->sortbystock == "high-to-low") {
+        $search->orderBy('availablestock', 'DESC');
+      }
+      if ($request->sortbystock == "low-to-high") {
+        $search->orderBy('availablestock', 'ASC');
+      }
+    }
+
 
     $products = $search->latest()->paginate(siteSettings('posts_per_page'));
     return view('admin.product.index', compact('products', 'request'));

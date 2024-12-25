@@ -26,29 +26,85 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                <div class="row">
+                    <div class="w-full justify-content-between d-flex ">
+                        @can('Add Product')
+                            <div>
+                                <a href="{{ route('product.create') }}" class="btn btn-info sfw btn-sm">
+                                    <i class="fa fa-plus"></i> Add New
+                                </a>
+                            </div>
+                        @endcan
 
-                <div class="row margin-bottom-30">
-                    <form method="get" class="forms-sample deceased-search">
-                        <input type="hidden" name="search" value="search">
-                        <div class="form-group row">
-                            @can('Add Product')
-                                <div class="col-sm-6"> <a href="{{ route('product.create') }}"
-                                        class="btn btn-info sfw btn-sm"><i class="fa fa-plus"></i> Add New </a> </div>
-                            @endcan
-                            <div class="col-sm-3">
-                                <input type="text" name= "title" class="form-control" id="searchName"
-                                    value="{{ $request->title }}" placeholder="Search...">
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-info sfw btn-sm btn_search" type="submit"><i
-                                        class="fa fa-search"></i> Search</button>
-                                <a href="{{ route('product.index') }}" class="btn btn-info sfw btn-sm"><i
-                                        class="fa fa-mail-reply"></i> Reset </a>
-                            </div>
+                        <div>
+                            <form method="get" class="deceased-search">
+                                {{-- <input type="hidden" name="search" value="search"> --}}
+                                <div class="gap-1 form-group d-flex">
+
+                                    <div>
+                                        <input type="text" name="title" required class="px-3 py-2 border rounded"
+                                            id="searchName" value="{{ $request->title }}" placeholder="Search...">
+                                    </div>
+
+                                    <div class="gap-1 d-flex">
+                                        <button class="btn btn-info sfw btn-sm btn_search" type="submit">
+                                            <i class="fa fa-search"></i> Search
+                                        </button>
+                                        <a href="{{ route('product.index') }}" class="btn btn-info sfw btn-sm">
+                                            <i class="fa fa-mail-reply"></i> Reset
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
 
-                    </form>
+
+
+                    </div>
+
+                    <div class="pb-4 d-flex justify-content-end align-items-center">
+
+                        <div class="d-flex align-items-center me-3 ">
+                            <label for="price-sort" class="mb-0 form-label me-2" style="width: 180px;">Sort By Price
+                                :</label>
+                            <form method="get" class="w-100">
+                                <select id="price-sort" name="price" onchange="this.form.submit()"
+                                    class="form-select form-select-sm w-100">
+                                    <option value="" {{ !request()->price ? 'selected' : '' }}>Choose option . . .
+                                    </option>
+                                    <option {{ request()->price == 'low-to-high' ? 'selected' : '' }} value="low-to-high">
+                                        Low to High</option>
+                                    <option {{ request()->price == 'high-to-low' ? 'selected' : '' }} value="high-to-low">
+                                        High to Low</option>
+                                </select>
+
+                            </form>
+                        </div>
+
+
+                        <div class="d-flex align-items-center">
+                            <label for="stock-sort" class="mb-0 form-label me-2" style="width: 320px;">Sort By Available
+                                Stock:</label>
+                            <form method="get" class="w-100">
+
+                                <select id="stock-sort" name="sortbystock" class="form-select form-select-sm"
+                                    onchange="this.form.submit()">
+                                    <option value="" {{ !request()->sortbystock ? 'selected' : '' }} disabled>Choose
+                                        option . . .</option>
+
+                                    <option {{ request()->sortbystock == 'low-to-high' ? 'selected' : '' }}
+                                        value="low-to-high">Low to High</option>
+                                    <option {{ request()->sortbystock == 'high-to-low' ? 'selected' : '' }}
+                                        value="high-to-low">High to Low</option>
+                                </select>
+                            </form>
+                        </div>
+
+                    </div>
+
+
                 </div>
+
                 <table class="table table-bordered table-hover">
                     <thead class="table-light">
                         <tr>
