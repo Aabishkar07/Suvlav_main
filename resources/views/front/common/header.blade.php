@@ -184,11 +184,12 @@
                             ?>
                             @foreach ($cartItems as $cartItem)
                                 <li>
+
                                     <a href="javascript:void(0)" class="remove"
                                         onClick="deleteCartItem(<?php echo $csrf_token; ?>,<?php echo $cartItem->id; ?>, <?php echo $delete_url; ?>);"
                                         title="Remove this item"><i class="fa fa-remove"></i></a>
                                     <a class="cart-img" href="javascript:void(0);"><img
-                                            src="{{ 'assets/images' . $cartItem->product_image }}"></a>
+                                            src="{{ $cartItem->product_image }}"></a>
                                     <h4><a
                                             href="{{ url('/product/' . $cartItem->product_slug) }}">{{ $cartItem->product_title }}</a>
                                     </h4>
