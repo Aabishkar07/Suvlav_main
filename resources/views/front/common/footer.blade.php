@@ -28,25 +28,26 @@
 									</div>
 							
 									<!-- Column 2: Search Form -->
-									{{-- <div class="col-md-6">
-										<form action="{{ route('product.search') }}" method="GET" class="d-flex">
+									<div class="col-md-6">
+										<p class="text-white">Track Your Order </p>
+										<form action="{{ route('trackorder') }}" method="GET" class="d-flex">
 											<div class="input-group">
 												<input 
 													class="form-control rounded-pill text-xs pl-2" 
-													name="query" 
+													name="tracking_code" 
 													type="search" 
 													id="form1" 
-													placeholder="Search..." 
+													placeholder="track your order..." 
 												/>
 												<button 
 													type="submit" 
 													class="btn" 
 													style="background-color: orange; color: white; border-radius: 0px; padding: 8px 16px; border: none;">
-													Search
+													Track Order
 												</button>
 											</div>
 										</form>
-									</div> --}}
+									</div>
 								</div>
 							</div>
 													

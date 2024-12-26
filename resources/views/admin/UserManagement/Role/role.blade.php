@@ -2,7 +2,7 @@
 @section('page_title', 'Admin - Banner')
 @section('banner_select', 'bg-black text-white')
 @section('content')
-    <div class=" py-5 bg-light w-100">
+    <div class=" py-5  w-100 px-5">
         {{-- @include('admin.message.index') --}}
 
         <div class="d-flex justify-content-between align-items-center mb-4">

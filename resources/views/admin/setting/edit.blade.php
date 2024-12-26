@@ -31,7 +31,7 @@ if($settings){
     @endif 
 
     <form action="{{ route('admin.setting.update')}}" method="POST" enctype="multipart/form-data" class="forms-sample">
-    <div class="col-lg-12 grid-margin stretch-card">
+    <div class="col-lg-12 grid-margin stretch-card px-5">
                 <div class="card">
                   <div class="card-body">
               

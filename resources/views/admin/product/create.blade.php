@@ -17,9 +17,9 @@
 
     <form action="{{ route('product.store') }}" method="POST" class="forms-sample" enctype="multipart/form-data">
         @csrf
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
+    <div class="col-lg-12 grid-margin stretch-card px-5">
+      <div class="card">
+        <div class="card-body">
 
                     <div class="form-group row">
                         <label for="titleInput" class="col-sm-3 col-form-label">Name</label>
