@@ -7,6 +7,7 @@ use App\Models\AffiliatePoint;
 use App\Models\Blog;
 use App\Models\Faq;
 use App\Models\Member;
+use App\Models\Order;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\Setting;
@@ -16,6 +17,9 @@ use Illuminate\Support\Facades\Auth;
 //use Session;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Nette\Utils\Random;
+use Illuminate\Support\Facades\Cookie;
+
 
 class FrontController extends Controller
 {
@@ -74,6 +78,44 @@ class FrontController extends Controller
         return view('front.index', $results, compact('blogs'));
     }
 
+
+public function featuredproduct(){
+    $cartItems = $this->cartdata;
+    $categories = $this->categories;
+
+    $results['home_prod_featured'] = DB::table('products')
+    ->where(['status' => 1])
+    ->where(['prod_featured' => '1'])
+    ->get();
+
+   
+    $title = "Featured Products";
+
+    return view('front.products.viewall', $results , compact('title','cartItems' ,'categories'));
+
+
+}
+
+
+public function newarrivals(){
+    $cartItems = $this->cartdata;
+    $categories = $this->categories;
+
+    $results['home_prod_featured'] = DB::table('products')
+    ->where(['status' => 1])
+    ->where(['prod_new_arrival' => '1'])
+    ->get();
+
+
+
+   
+    $title = "New Arrivals";
+
+    return view('front.products.viewall', $results , compact('title','cartItems' ,'categories'));
+
+
+}
+
     public function checkout()
     {
         //$key = "bijay@123";
@@ -107,6 +149,62 @@ class FrontController extends Controller
 
         return view('front.checkout', compact('cartItems', 'states_del', 'shippings', 'districts', 'categories'));
     }
+
+
+
+
+
+
+    public function trackorder(Request $request)
+    {
+
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+        $order_id = $request->input('tracking_code');
+
+        $order = Order::where('tracking_code', $order_id)->first();
+
+
+    
+     
+        if (!$order) {
+            $message = 'Order not found. Please search for another order.';
+            return view('Frontend.trackOrder.orderdetails', compact('message'));
+        }
+       
+
+     
+        $orderid = $order->id;
+
+        $orders = DB::table('orders as a')
+            ->join('order_details as b', 'b.order_id', '=', 'a.id')
+            ->where('a.id', $orderid)
+            ->get()->toArray();
+
+        $user_id = $orders[0]->user_id;
+
+        $userdata = DB::table('members')
+            ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
+            ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+            ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+            ->where('members.id', $user_id)
+            ->get()->toArray();
+
+        $shippings = DB::table('shippings')
+            ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
+            ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
+            ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+            ->where('member_id', $user_id)
+            ->get()->toArray();
+
+
+
+        return view('front.ordertracking.index', compact('orders', 'userdata', 'shippings','categories' ,'cartItems' ,'order_id'));
+
+    }
+
+
 
     public function check($name)
     {
@@ -316,6 +414,7 @@ class FrontController extends Controller
         $value = 0;
         $checkmember = "";
 
+        $trackingid = rand(10000, 99999); 
 
         $cart_order = [
             'user_id' => $user_id,
@@ -331,7 +430,9 @@ class FrontController extends Controller
             'city' => $request->city_del,
             'tole' => $request->tole_del,
             'houseno' => $request->house_del,
+            'tracking_code' => $trackingid,
             'created_at' => @date('Y-m-d H:i')
+
         ];
 
 
@@ -703,10 +804,32 @@ class FrontController extends Controller
         $categories = $this->categories;
         $query = $request->input('query');
 
+
+        $searchHistory = json_decode(Cookie::get('search_history', '[]'), true);
+
+        $searchHistory[] = $query;
+        $searchHistory = array_unique(array_slice($searchHistory, -10));
+    
+        Cookie::queue('search_history', json_encode($searchHistory), 60);
+
+
+
+
         $productIDs = Product::where('title', 'like', '%' . $query . '%')->pluck('id');
 
         $products = Product::whereIn('id', $productIDs)
             ->get();
-        return view('front.products.search', compact('cartItems', 'categories', 'products', 'query'));
+        return view('front.products.search', compact('cartItems', 'categories', 'products', 'query','searchHistory'));
     }
+
+
+    public function clearSearchHistory()
+    {
+
+        dd('<div class'); 
+        Cookie::queue(Cookie::forget('search_history'));
+    
+        return redirect()->back()->with('message', 'Search history cleared successfully!');
+    }
+
 }

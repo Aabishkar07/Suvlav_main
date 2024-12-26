@@ -34,7 +34,7 @@
         @include('admin.common.menu')
         <!-- partial -->
         <div class="main-panel">
-          <div class="content-wrapper">
+          <div class="content-wrapper" style="background-color: rgb(240, 240, 240);">
             @include('admin.common.heading')
         
              @yield('content')

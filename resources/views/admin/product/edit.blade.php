@@ -36,7 +36,7 @@ if(isset($product->images) && !empty($product->images)){
   <form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data" class="forms-sample">
         @csrf
         @method('PUT')
-    <div class="col-lg-12 grid-margin stretch-card">
+    <div class="col-lg-12 grid-margin stretch-card px-5">
                 <div class="card">
                   <div class="card-body">
           

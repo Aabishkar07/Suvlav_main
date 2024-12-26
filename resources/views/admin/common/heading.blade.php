@@ -10,7 +10,7 @@ if(!isset($breadcrumbs) || empty($breadcrumbs)){
 
 @endphp
 
-<div class="page-header">
+<div class="page-header p-3">
     <h3 class="page-title">
         <span class="page-title-icon bg-gradient-primary text-white me-2">
         <i class="fa fa-eye"></i>

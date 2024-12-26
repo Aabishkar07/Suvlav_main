@@ -25,7 +25,7 @@
     --info: #17a2b8;
     --warning: #ffc107;
     --danger: #dc3545;
-    --light: #f8f9fa;
+    --light: #e0e0e0;
     --dark: #343a40;
     --breakpoint-xs: 0;
     --breakpoint-sm: 576px;
@@ -620,7 +620,7 @@ code {
     padding: .2rem .4rem;
     font-size: 90%;
     color: #bd4147;
-    background-color: #f8f9fa;
+    background-color: #e0e0e0;
     border-radius: .25rem
 }
 
@@ -2607,8 +2607,8 @@ fieldset[disabled] a.btn {
 
 .btn-light {
     color: #111;
-    background-color: #f8f9fa;
-    border-color: #f8f9fa
+    background-color: #e0e0e0;
+    border-color: #e0e0e0
 }
 
 .btn-light:hover {
@@ -2624,8 +2624,8 @@ fieldset[disabled] a.btn {
 
 .btn-light.disabled,
 .btn-light:disabled {
-    background-color: #f8f9fa;
-    border-color: #f8f9fa
+    background-color: #e0e0e0;
+    border-color: #e0e0e0
 }
 
 .btn-light:not([disabled]):not(.disabled).active,
@@ -2868,16 +2868,16 @@ fieldset[disabled] a.btn {
 }
 
 .btn-outline-light {
-    color: #f8f9fa;
+    color: #e0e0e0;
     background-color: transparent;
     background-image: none;
-    border-color: #f8f9fa
+    border-color: #e0e0e0
 }
 
 .btn-outline-light:hover {
     color: #212529;
-    background-color: #f8f9fa;
-    border-color: #f8f9fa
+    background-color: #e0e0e0;
+    border-color: #e0e0e0
 }
 
 .btn-outline-light.focus,
@@ -2887,7 +2887,7 @@ fieldset[disabled] a.btn {
 
 .btn-outline-light.disabled,
 .btn-outline-light:disabled {
-    color: #f8f9fa;
+    color: #e0e0e0;
     background-color: transparent
 }
 
@@ -2895,8 +2895,8 @@ fieldset[disabled] a.btn {
 .btn-outline-light:not([disabled]):not(.disabled):active,
 .show>.btn-outline-light.dropdown-toggle {
     color: #212529;
-    background-color: #f8f9fa;
-    border-color: #f8f9fa;
+    background-color: #e0e0e0;
+    border-color: #e0e0e0;
     box-shadow: 0 0 0 .2rem rgba(248, 249, 250, .5)
 }
 
@@ -3108,7 +3108,7 @@ tbody.collapse.show {
 .dropdown-item:hover {
     color: #16181b;
     text-decoration: none;
-    background-color: #f8f9fa
+    background-color: #e0e0e0
 }
 
 .dropdown-item.active,
@@ -4669,7 +4669,7 @@ tbody.collapse.show {
 
 .badge-light {
     color: #111;
-    background-color: #f8f9fa
+    background-color: #e0e0e0
 }
 
 .badge-light[href]:focus,
@@ -4926,7 +4926,7 @@ tbody.collapse.show {
 .list-group-item-action:hover {
     color: #495057;
     text-decoration: none;
-    background-color: #f8f9fa
+    background-color: #e0e0e0
 }
 
 .list-group-item-action:active {
@@ -5960,7 +5960,7 @@ a.bg-danger:hover {
 }
 
 .bg-light {
-    background-color: #f8f9fa!important
+    background-color: #e0e0e0!important
 }
 
 a.bg-light:focus,
@@ -6034,7 +6034,7 @@ a.bg-dark:hover {
 }
 
 .border-light {
-    border-color: #f8f9fa!important
+    border-color: #e0e0e0!important
 }
 
 .border-dark {
@@ -8593,7 +8593,7 @@ a.text-danger:hover {
 }
 
 .text-light {
-    color: #f8f9fa!important
+    color: #e0e0e0!important
 }
 
 a.text-light:focus,

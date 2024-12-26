@@ -2,7 +2,7 @@
 @section('page_title', 'Admin - Banner')
 @section('banner_select', 'bg-black text-white')
 @section('content')
-<div class="mx-32    mt-10  rounded-lg">
+<div class="mx-32    mt-10  rounded-lg ">
     <form id="myForm" action="{{ route('userRole.update', $role->id) }}" method="POST">
         @csrf
      

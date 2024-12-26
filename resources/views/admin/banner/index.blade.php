@@ -22,7 +22,7 @@ $start = (isset($request->page) && !empty($request->page))? ($request->page * $p
         </div>     
     @endif 
 
-    <div class="col-lg-12 grid-margin stretch-card">
+    <div class="col-lg-12 grid-margin stretch-card px-5">
                 <div class="card">
                   <div class="card-body">
               
@@ -34,14 +34,14 @@ $start = (isset($request->page) && !empty($request->page))? ($request->page * $p
                       @can('View Banner')
                         
                    
-                        <div class="col-sm-6">  <a href="{{ route('banner.create') }}" class="btn btn-info sfw btn-sm"><i class="fa fa-plus"></i> Add New </a> </div>
+                        <div class="col-sm-6 mt-2">  <a href="{{ route('banner.create') }}" class="btn btn-info sfw btn-sm bg-black border-0"><i class="fa fa-plus"></i> Add New </a> </div>
                         @endcan
-                        <div class="col-sm-3">
-                          <input type="text" name= "title" class="form-control" id="searchName" value="{{ $request->title }}" placeholder="Search...">
+                        <div class="col-sm-3" >
+                          <input type="text" name= "title" class="form-control " id="searchName" value="{{ $request->title }}" placeholder="Search...">
                             </div>
-                            <div class="col-sm-3">
-                          <button class="btn btn-info sfw btn-sm btn_search" type="submit"><i class="fa fa-search"></i> Search</button>
-                          <a href="{{route('banner.index')}}" class="btn btn-info sfw btn-sm" ><i class="fa fa-mail-reply"></i> Reset </a>
+                            <div class="col-sm-3 mt-2">
+                          <button class="btn btn-info sfw btn-sm btn_search bg-black border-0" type="submit"><i class="fa fa-search"></i> Search</button>
+                          <a href="{{route('banner.index')}}" class="btn btn-info sfw btn-sm bg-black border-0" ><i class="fa fa-mail-reply"></i> Reset </a>
                         </div>
                       </div>
 
@@ -94,10 +94,10 @@ $start = (isset($request->page) && !empty($request->page))? ($request->page * $p
 
               @can('Delete Banner')
               <td>
-                <form action="{{route('banner.destroy', $banner->id)}}" method="POST" class="delete_confirm">
+                <form action="{{route('banner.destroy', $banner->id)}}" method="POST" class="delete_confirm ">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <input type="hidden" name="_method" value="DELETE">
-                <button class="btn btn-danger sfw btn-sm"><i class="fa fa-trash-o"></i> </button>
+                <button class="btn btn-danger sfw btn-sm "><i class="fa fa-trash-o "></i> </button>
               </form>
               </td>
               @endcan

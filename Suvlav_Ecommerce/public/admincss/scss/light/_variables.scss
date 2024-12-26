@@ -64,7 +64,7 @@ $theme-colors: (
   info: #198ae3,
   warning: #fed713,
   danger: #fe7c96,
-  light: #f8f9fa,
+  light: #e0e0e0,
   dark: #3e4b5b
 );
 
@@ -74,7 +74,7 @@ $success: #1bcfb4;
 $info: #198ae3;
 $warning: #fed713;
 $danger: #fe7c96;
-$light: #f8f9fa;
+$light: #e0e0e0;
 $dark: #3e4b5b;
 
 $theme-gradient-colors: (primary: linear-gradient(to right, #da8cff, #9a55ff),
@@ -90,7 +90,7 @@ dark: linear-gradient(89deg, #5e7188, #3e4b5b));
 ////////// COLOR SYSTEM //////////
 
 ////////// COLOR VARIABLES //////////
-$content-bg: #f2edf3;
+$content-bg: #e0e0e0;
 $footer-bg: $content-bg;
 $footer-color: color(dark);
 $border-color: #ebedf2;
@@ -243,7 +243,7 @@ $dropdown-divider-bg: $border-color;
 $dropdown-link-color: $body-color;
 $dropdown-header-color: $body-color;
 $dropdown-menu-box-shadow: 0px 1px 15px 1px rgba(230, 234, 236, 0.35);
-$dropdown-hover-bg: #f8f9fa;
+$dropdown-hover-bg: #e0e0e0;
 ////////  DROPDOWNS ///////
 
 
@@ -334,7 +334,7 @@ $chat-container-height:100%s;
 $text-gray:gray;
 $bullet-line-list-shape-bg: color(white) !default;
 $arrow-color: $white;
-$tab-head-bg: darken(#f2edf3, 2%);
+$tab-head-bg: darken(#e0e0e0, 2%);
 $accordian-shadow-color:rgba(230, 234, 236, 0.35);
 $landing-bg:#1a142dfa;
 $private-btn-bg:#eae2ec;

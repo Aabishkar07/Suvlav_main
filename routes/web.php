@@ -64,6 +64,11 @@ Route::get('/faqs', [FrontController::class, 'faqs'])->name('faqs');
 Route::get('/allblogs', [FrontController::class, 'allblogs'])->name('allblogs');
 Route::get('/blogs/{blog:slug}', [FrontController::class, 'blogsdetails'])->name('blogsdetails');
 Route::get('/search', [FrontController::class, 'search'])->name('product.search');
+Route::post('/search-history/clear', [FrontController::class, 'clearSearchHistory'])->name('search.history.clear');
+
+Route::get('order/trackorder', [FrontController::class, 'trackorder'])->name('trackorder');
+Route::get('/featuredproduct', [FrontController::class, 'featuredproduct'])->name('featuredproduct');
+Route::get('/newarrivals', [FrontController::class, 'newarrivals'])->name('newarrivals');
 
 // Route::get('/', function () {
 //     return view('welcome');
