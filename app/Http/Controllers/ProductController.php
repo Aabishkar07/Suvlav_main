@@ -26,11 +26,27 @@ class ProductController extends Controller
   {
     $products = new Product;
     $search = $products->query();
-    if ($request->search == 'search') {
-      if ($request->title) {
-        $search->where('title', 'like', '%' . $request->title . '%')->orWhere('prod_code', '=', $request->title);
+
+    if ($request->title) {
+      $search->where('title', 'like', '%' . $request->title . '%')->orWhere('prod_code', '=', $request->title);
+    }
+    if ($request->price) {
+      if ($request->price == "high-to-low") {
+        $search->orderBy('sale_price', 'DESC');
+      }
+      if ($request->price == "low-to-high") {
+        $search->orderBy('sale_price', 'ASC');
       }
     }
+    if ($request->sortbystock) {
+      if ($request->sortbystock == "high-to-low") {
+        $search->orderBy('availablestock', 'DESC');
+      }
+      if ($request->sortbystock == "low-to-high") {
+        $search->orderBy('availablestock', 'ASC');
+      }
+    }
+
 
     $products = $search->latest()->paginate(siteSettings('posts_per_page'));
     return view('admin.product.index', compact('products', 'request'));
@@ -58,6 +74,7 @@ class ProductController extends Controller
       'short_desc' => 'required|string|max:255',
       'regular_price' => 'required|string',
       'status' => 'required',
+      'availablestock' => 'required',
       'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
@@ -71,7 +88,7 @@ class ProductController extends Controller
     if ($request->image) {
       $imageName = $slug . '_' . time() . '.' . $request->image->extension();
       $image = Image::read($request->image);
-    //   $image->resize(550, 550);
+      //   $image->resize(550, 550);
       $image->save(public_path($destinationPath . $imageName));
       $product->image = $destinationPath . $imageName;
     }
@@ -99,10 +116,11 @@ class ProductController extends Controller
     $product->content = $request->input('content');
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');
-        $product->points = $request->input('points');
+    $product->points = $request->input('points');
 
     $product->prod_code = $prod_code;
     $product->brand_id = $request->input('brand_id');
+    $product->availablestock = $request->input('availablestock');
     if ($request->input('prod_cats')) {
       $product->prod_categories = json_encode($request->input('prod_cats'));
     }
@@ -151,6 +169,7 @@ class ProductController extends Controller
       'short_desc' => 'required|string|max:255',
       'regular_price' => 'required|string',
       'status' => 'required',
+      'availablestock' => 'required',
       'image' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
     ]);
 
@@ -163,7 +182,7 @@ class ProductController extends Controller
     if ($request->image) {
       $imageName = $product->slug . '_' . time() . '.' . $request->image->extension();
       $image = Image::read($request->image);
-    //   $image->resize(550, 550);
+      //   $image->resize(550, 550);
       $image->save(public_path($destinationPath . $imageName));
       $product->image = $destinationPath . $imageName;
     }
@@ -190,7 +209,7 @@ class ProductController extends Controller
 
           $imageName = $slug . '_' . time() . '.' . $new_image->extension();
           $image = Image::read($new_image);
-        //   $image->resize(550, 550);
+          //   $image->resize(550, 550);
           $image->save(public_path($destinationPath . $imageName));
           $updated_images[] = $destinationPath . $imageName;
         }
@@ -209,7 +228,8 @@ class ProductController extends Controller
     $product->content = $request->input('content');
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');
-        $product->points = $request->input('points');
+    $product->points = $request->input('points');
+    $product->availablestock = $request->input('availablestock');
 
     $product->brand_id = $request->input('brand_id');
     if ($request->input('prod_cats')) {
@@ -330,5 +350,16 @@ class ProductController extends Controller
       ->get();
 
     return view('front.products.detail', compact('product', 'member', 'prod_categories', 'prod_sizes', 'prod_colors', 'cartItems', 'categories'));
+  }
+
+  public function togleActive(Product $product)
+  {
+    if ($product->status == "1") {
+      $product->status = "0";
+    } else {
+      $product->status = "1";
+    }
+    $product->save();
+    return redirect()->back()->with("popsuccess", "Active Status Changed");
   }
 }

@@ -9,11 +9,11 @@
 
 
                 <!-- Dropdown Button -->
-           
-                
-                
-                
-                
+
+
+
+
+
 
 
 
@@ -48,7 +48,8 @@
                         <!-- If the category has subcategories -->
                         <?php if($hasChildren): ?>
                         <li class="relative">
-                            <a href="{{url('/productcategory/'.$catnamepp[0])}}" class="block px-4 py-2 hover:bg-gray-100"><?php echo $catnamepp[1]; ?></a>
+                            <a href="{{ url('/productcategory/' . $catnamepp[0]) }}"
+                                class="block px-4 py-2 hover:bg-gray-100"><?php echo $catnamepp[1]; ?></a>
 
                             <ul class="sub-category pl-4 mt-2 hidden absolute left-0 bg-white shadow-lg z-20">
                                 <?php foreach($catvalue as $mm): 
@@ -56,7 +57,8 @@
                             $catnamechild = explode('~~~',$mm);
                             if($catnamechild[0] != '~~~'): ?>
                                 <li>
-                                    <a href="{{url('/productcategory/'.$catnamechild[0])}}" class="block px-4 py-2 hover:bg-gray-100"><?php echo $catnamechild[1]; ?></a>
+                                    <a href="{{ url('/productcategory/' . $catnamechild[0]) }}"
+                                        class="block px-4 py-2 hover:bg-gray-100"><?php echo $catnamechild[1]; ?></a>
                                 </li>
                                 <?php endif; 
                         endforeach; ?>
@@ -64,7 +66,8 @@
                         </li>
                         <?php else: ?>
                         <li>
-                            <a href="{{url('/productcategory/'.$catnamepp[0])}}" class="block px-4 py-2 hover:bg-gray-100"><?php echo $catnamepp[1]; ?></a>
+                            <a href="{{ url('/productcategory/' . $catnamepp[0]) }}"
+                                class="block px-4 py-2 hover:bg-gray-100"><?php echo $catnamepp[1]; ?></a>
                         </li>
                         <?php endif; ?>
 
@@ -73,13 +76,13 @@
                 </div>
 
                 <!-- Add JavaScript for Hover Functionality -->
-        
+
 
 
 
                 <a href="/" class="">
                     <img src="{{ asset('public/front_assets/images/swastik.png') }}" alt="logo" class='w-10 ' />
-               
+
                 </a>
             </div>
 
@@ -109,14 +112,14 @@
             </div> --}}
 
             <!--<div class="bg-white flex items-center border rounded-lg shadow-md max-md:order-1 border-transparent focus-within:border-black focus-within:bg-gray-50 px-4 py-2 rounded-lg h-12 min-w-[40%] lg:w-2/4 max-md:w-full transition-all duration-300">-->
-                <!-- Search Form -->
+            <!-- Search Form -->
             <!--    <form action="{{ route('product.search') }}" method="GET" class="w-full flex items-center">-->
-                    <!-- Search Icon -->
+            <!-- Search Icon -->
             <!--        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904" class="fill-gray-400 mr-3 w-4 h-4 max-md:w-3 max-md:h-3">-->
             <!--            <path d="m190.707 180.101-47.078-47.077c11.702-14.072 18.752-32.142 18.752-51.831C162.381 36.423 125.959 0 81.191 0 36.422 0 0 36.423 0 81.193c0 44.767 36.422 81.187 81.191 81.187 19.688 0 37.759-7.049 51.831-18.751l47.079 47.078a7.474 7.474 0 0 0 5.303 2.197 7.498 7.498 0 0 0 5.303-12.803zM15 81.193C15 44.694 44.693 15 81.191 15c36.497 0 66.189 29.694 66.189 66.193 0 36.496-29.692 66.187-66.189 66.187C44.693 147.38 15 117.689 15 81.193z"></path>-->
             <!--        </svg>-->
-            
-                    <!-- Search Input -->
+
+            <!-- Search Input -->
             <!--        <input -->
             <!--            type="text" -->
             <!--            name="query" -->
@@ -124,46 +127,48 @@
             <!--            class="w-full outline-none bg-transparent text-black text-sm focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 px-3 py-2 rounded-lg" -->
             <!--            required-->
             <!--        />-->
-            
-                    <!-- Submit Button -->
+
+            <!-- Submit Button -->
             <!--        <button type="submit" class="ml-4 p-1 px-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black hover:text-white border-2 border-transparent hover:border-white focus:outline-none focus:ring-2 focus:ring-black transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg">-->
             <!--            Search-->
             <!--        </button>-->
             <!--    </form>-->
             <!--</div>-->
-            
-            
-            
+
+
+
 
             <div class="right-bar-section" style="display: flex; align-items: center; gap: 20px;">
                 <div class="user-actions" style="display: flex; align-items: center; gap: 20px;">
 
-                    
-                <button id="dropdownHoverButton" class="border-none p-0  h-6 w-6 mt-[1px]" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black"
-                        stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
-                        <path d="M5 10h14"></path>
-                        <path d="M5 14h14"></path>
-                    </svg>
-                </button>
+
+                    <button id="dropdownHoverButton" class="border-none p-0  h-6 w-6 mt-[1px]" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black"
+                            stroke-linecap="round" stroke-linejoin="round" width="24" height="24"
+                            stroke-width="2">
+                            <path d="M5 10h14"></path>
+                            <path d="M5 14h14"></path>
+                        </svg>
+                    </button>
                     <a href="{{ url('/myprofile') }}">
                         <i class="ri-user-line"></i> Profile
                     </a>
-            
+
                     <a>
                         <i class="ti-power-off"></i>
                         <?php if(Session::get('memeber_email_ss') == '') { ?>
-                            <a href="{{ url('/memberloginform') }}" style="display: inline;" class="login-btn">Logins</a>
+                        <a href="{{ url('/memberloginform') }}" style="display: inline;" class="login-btn">Logins</a>
                         <?php } else { ?>
-                            <a href="{{ url('/memberlogout') }}">Logout</a>
+                        <a href="{{ url('/memberlogout') }}">Logout</a>
                         <?php } ?>
                     </a>
                 </div>
-            
+
                 <!-- Shopping Cart Section -->
-                <div class="sinlge-bar shopping" id="js_cartInfo" style="display: flex; align-items: center; gap: 20px;">
+                <div class="sinlge-bar shopping" id="js_cartInfo"
+                    style="display: flex; align-items: center; gap: 20px;">
                     <a href="#" class="single-icon">
-                        <i class="ti-bag"></i> 
+                        <i class="ti-bag"></i>
                         <span class="total-count">{{ count($cartItems) }}</span>
                     </a>
                     <div class="shopping-item">
@@ -173,19 +178,23 @@
                         </div>
                         <ul class="shopping-list">
                             <?php
-                                $delete_url = "'" . route('cart.remove') . "'";
-                                $csrf_token = "'" . csrf_token() . "'";
-                                $total_amt = 0;
+                            $delete_url = "'" . route('cart.remove') . "'";
+                            $csrf_token = "'" . csrf_token() . "'";
+                            $total_amt = 0;
                             ?>
                             @foreach ($cartItems as $cartItem)
                                 <li>
-                                    <a href="javascript:void(0)" class="remove" 
-                                       onClick="deleteCartItem(<?php echo $csrf_token; ?>,<?php echo $cartItem->id; ?>, <?php echo $delete_url; ?>);"
-                                       title="Remove this item"><i class="fa fa-remove"></i></a>
+                                   
+                                    <a href="javascript:void(0)" class="remove"
+                                        onClick="deleteCartItem(<?php echo $csrf_token; ?>,<?php echo $cartItem->id; ?>, <?php echo $delete_url; ?>);"
+                                        title="Remove this item"><i class="fa fa-remove"></i></a>
                                     <a class="cart-img" href="javascript:void(0);"><img
                                             src="{{ asset('public' . $cartItem->product_image) }}"></a>
-                                    <h4><a href="{{ url('/product/' . $cartItem->product_slug) }}">{{ $cartItem->product_title }}</a></h4>
-                                    <p class="quantity">{{ $cartItem->quantity }} - <span class="amount">{{ moneyFormat($cartItem->price) }}</span></p>
+                                    <h4><a
+                                            href="{{ url('/product/' . $cartItem->product_slug) }}">{{ $cartItem->product_title }}</a>
+                                    </h4>
+                                    <p class="quantity">{{ $cartItem->quantity }} - <span
+                                            class="amount">{{ moneyFormat($cartItem->price) }}</span></p>
                                 </li>
                                 <?php $total_amt += $cartItem->quantity * $cartItem->price; ?>
                             @endforeach
@@ -200,10 +209,10 @@
                     </div>
                 </div>
             </div>
-            
 
 
-            
+
+
         </div>
 
         <div id="collapseMenu"

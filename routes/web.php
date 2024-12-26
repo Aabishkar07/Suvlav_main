@@ -94,6 +94,8 @@ Route::group(array('prefix' => 'admin', 'middleware'=>['auth', 'admin']), functi
     
     //Route::get('dashboard',[HomeController::class, 'index']);
     Route::resource('product', ProductController::class);  
+    Route::post('/togleActive/{product}', [ProductController::class, 'togleActive'])->name('togleActive');
+
     Route::resource('brand', BrandController::class);  
     Route::resource('productcat', ProductCategoryController::class);  
     Route::resource('productcolor', ProductColorController::class);
