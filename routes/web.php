@@ -21,6 +21,7 @@ use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\UserRoleController;
 
@@ -114,8 +115,13 @@ Route::group(array('prefix' => 'admin', 'middleware'=>['auth', 'admin']), functi
     Route::resource('banner', BannerController::class);  
     Route::get('/settings', [SettingController::class, 'edit'])->name('admin.setting.edit');
     Route::post('/settings', [SettingController::class, 'update'])->name('admin.setting.update');
+    
+    Route::get('/searchhistory', [ReportController::class, 'searchhistory'])->name('admin.searchhistory');
 
     Route::resource('userRole', UserRoleController::class);
     Route::resource('userManagement', UserManagementController::class);
+
+    Route::get('report/productwise', [ReportController::class, 'productindex'])->name('admin.report.product');
+    Route::get('report/customerwise', [ReportController::class, 'customerindex'])->name('admin.report.customer');
 
 });
