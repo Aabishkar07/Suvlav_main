@@ -810,7 +810,7 @@ public function newarrivals(){
         $searchHistory[] = $query;
         $searchHistory = array_unique(array_slice($searchHistory, -10));
     
-        Cookie::queue('search_history', json_encode($searchHistory), 60);
+        Cookie::queue('search_history', json_encode($searchHistory), 60 * 24 * 365 * 5); // 5 years
 
 
 
@@ -826,9 +826,10 @@ public function newarrivals(){
     public function clearSearchHistory()
     {
 
-        dd('<div class'); 
+        
         Cookie::queue(Cookie::forget('search_history'));
-    
+   
+
         return redirect()->back()->with('message', 'Search history cleared successfully!');
     }
 
