@@ -22,13 +22,46 @@
     <!-- Start Most Popular -->
     <div class="product-area most-popular section ">
         <div class="container">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-12">
                     <div class="section-title">
                         <h2>Featured Products</h2>
                     </div>
                 </div>
+            </div> --}}
+
+
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <!-- Title -->
+                    <h2 class="Featured Products  text-black text-2xl text-start fs-3" style="font-weight: 600">
+                        Featured Products
+                    </h2>
+                    
+                    <a href="{{ route('featuredproduct') }}" class="text-decoration-none">
+                        <div class="d-none d-sm-flex align-items-center gap-2 text-danger hover-underline">
+                            View All
+                            <div class="bg-danger text-white rounded-circle p-1 d-flex justify-content-center align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                                    <path d="M12 2l.324 .005a10 10 0 1 1 -.648 0l.324 -.005zm.613 5.21a1 1 0 0 0 -1.32 1.497l2.291 2.293h-5.584l-.117 .007a1 1 0 0 0 .117 1.993h5.584l-2.291 2.293l-.083 .094a1 1 0 0 0 1.497 1.32l4 -4l.073 -.082l.064 -.089l.062 -.113l.044 -.11l.03 -.112l.017 -.126l.003 -.075l-.007 -.118l-.029 -.148l-.035 -.105l-.054 -.113l-.071 -.111a1.008 1.008 0 0 0 -.097 -.112l-4 -4z"></path>
+                                  </svg>
+                            </div>
+                        </div>
+            
+                        <!-- For smaller screens -->
+                        <div class="d-flex d-sm-none">
+                            <span class="text-danger">View All</span>
+                        </div>
+                    </a>
+                </div>
+            
+                <!-- Divider -->
+                <div class="d-flex py-4">
+                    <div class="flex-shrink-0" style="width: 10%; border-top: 2px solid #ff6f10;"></div>
+                    <div class="flex-grow-1 border-top"></div>
+                </div>
             </div>
+
             <div class="row">
                 <div class="col-12">
                     <div class="owl-carousel popular-slider" style="margin-top: -15px;">
@@ -45,14 +78,50 @@
 
     <!-- Start Product Area -->
     <div class="product-area section">
+        
         <div class="container">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-12">
                     <div class="section-title">
                         <h2>New Arrivals</h2>
                     </div>
                 </div>
+            </div> --}}
+
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <!-- Title -->
+                    <h2 class="New Arrivals  text-black text-2xl text-start fs-3" style="font-weight: 600">
+                        New Arrivals
+                    </h2>
+                    
+                    <a href="{{ route('newarrivals') }}" class="text-decoration-none">
+                        <div class="d-none d-sm-flex align-items-center gap-2 text-danger hover-underline">
+                            View All
+                            <div class="bg-danger text-white rounded-circle p-1 d-flex justify-content-center align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                                    <path d="M12 2l.324 .005a10 10 0 1 1 -.648 0l.324 -.005zm.613 5.21a1 1 0 0 0 -1.32 1.497l2.291 2.293h-5.584l-.117 .007a1 1 0 0 0 .117 1.993h5.584l-2.291 2.293l-.083 .094a1 1 0 0 0 1.497 1.32l4 -4l.073 -.082l.064 -.089l.062 -.113l.044 -.11l.03 -.112l.017 -.126l.003 -.075l-.007 -.118l-.029 -.148l-.035 -.105l-.054 -.113l-.071 -.111a1.008 1.008 0 0 0 -.097 -.112l-4 -4z"></path>
+                                  </svg>
+                            </div>
+                        </div>
+            
+                        <!-- For smaller screens -->
+                        <div class="d-flex d-sm-none">
+                            <span class="text-danger">View All</span>
+                        </div>
+                    </a>
+                </div>
+            
+                <!-- Divider -->
+                <div class="d-flex py-4">
+                    <div class="flex-shrink-0" style="width: 10%; border-top: 2px solid #ff6f10;"></div>
+                    <div class="flex-grow-1 border-top"></div>
+                </div>
             </div>
+
+            
+
+            
             <div class="row">
                 <div class="col-12">
                     <div class="product-info" style="margin-top: -15px;">

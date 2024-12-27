@@ -19,7 +19,7 @@ $breadcrumbs = [
   <form action="{{ route('productcat.update', $productcat->id) }}" method="POST" enctype="multipart/form-data" class="forms-sample">
         @csrf
         @method('PUT')
-    <div class="col-lg-12 grid-margin stretch-card">
+    <div class="col-lg-12 grid-margin stretch-card px-5">
                 <div class="card">
                   <div class="card-body">
 

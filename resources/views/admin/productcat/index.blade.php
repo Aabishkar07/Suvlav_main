@@ -28,7 +28,7 @@ $start = (isset($request->page) && !empty($request->page))? ($request->page * $p
         </div>     
     @endif 
 
-    <div class="col-lg-12 grid-margin stretch-card">
+    <div class="col-lg-12 grid-margin stretch-card px-5">
                 <div class="card">
                   <div class="card-body">
               

@@ -5,16 +5,15 @@
 @section('banner_select', 'bg-black text-white')
 
 @section('content')
-<section class="bg-white px-5 py-4">
+<section class="bg-white px-5 container py-4">
     <div class="text-3xl pb-6 font-bold">
-        Add User
+        Add User Role
     </div>
 
     <form action="{{ route('userManagement.store') }}" method="POST">
         @csrf
 
         <!-- Role Selection -->
-        <label class="form-label">Role</label>
         <div class="mb-4">
             <div class="form-check form-check-inline">
                 @foreach ($roles as $key => $role)

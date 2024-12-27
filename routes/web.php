@@ -21,6 +21,7 @@ use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\UserRoleController;
 
@@ -64,6 +65,11 @@ Route::get('/faqs', [FrontController::class, 'faqs'])->name('faqs');
 Route::get('/allblogs', [FrontController::class, 'allblogs'])->name('allblogs');
 Route::get('/blogs/{blog:slug}', [FrontController::class, 'blogsdetails'])->name('blogsdetails');
 Route::get('/search', [FrontController::class, 'search'])->name('product.search');
+Route::post('/search-history/clear', [FrontController::class, 'clearSearchHistory'])->name('search.history.clear');
+
+Route::get('order/trackorder', [FrontController::class, 'trackorder'])->name('trackorder');
+Route::get('/featuredproduct', [FrontController::class, 'featuredproduct'])->name('featuredproduct');
+Route::get('/newarrivals', [FrontController::class, 'newarrivals'])->name('newarrivals');
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -109,8 +115,13 @@ Route::group(array('prefix' => 'admin', 'middleware'=>['auth', 'admin']), functi
     Route::resource('banner', BannerController::class);  
     Route::get('/settings', [SettingController::class, 'edit'])->name('admin.setting.edit');
     Route::post('/settings', [SettingController::class, 'update'])->name('admin.setting.update');
+    
+    Route::get('/searchhistory', [ReportController::class, 'searchhistory'])->name('admin.searchhistory');
 
     Route::resource('userRole', UserRoleController::class);
     Route::resource('userManagement', UserManagementController::class);
+
+    Route::get('report/productwise', [ReportController::class, 'productindex'])->name('admin.report.product');
+    Route::get('report/customerwise', [ReportController::class, 'customerindex'])->name('admin.report.customer');
 
 });
