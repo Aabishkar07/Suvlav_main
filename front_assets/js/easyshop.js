@@ -137,6 +137,10 @@ window.addToCart = function(event, product_id, _token, routeUrl, pageOption) {
           isCartProcessing = false;
           //thisEvent.innerHTML = response.count;
         }
+        else
+        {
+            toastr.error(response.message, "Error");
+        }
       }
     });
   }
@@ -144,7 +148,7 @@ window.addToCart = function(event, product_id, _token, routeUrl, pageOption) {
 };
 
 window.mybuynow = function(event, product_id, _token, routeUrl, pageOption) {
-  
+ 
     let thisEvent = event;
     if (isCartProcessing) return; // Exit if already processing
     isCartProcessing = true;
@@ -184,6 +188,10 @@ window.mybuynow = function(event, product_id, _token, routeUrl, pageOption) {
                 isCartProcessing = false;
                 //thisEvent.innerHTML = response.count;
             }
+            else
+        {
+            toastr.error(response.message, "Error");
+        }
       }
     });
 };

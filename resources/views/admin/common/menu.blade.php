@@ -1,4 +1,4 @@
-<nav class="sidebar sidebar-offcanvas bg-white " id="sidebar">
+<nav class="bg-white sidebar sidebar-offcanvas " id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
@@ -20,7 +20,7 @@
         </li>
 
 
-        
+
 
 
 
@@ -29,21 +29,22 @@
                 <a class="nav-link text-black   {{ request()->routeIs('dashboard') ? 'bg-black text-white w-full ' : '' }}"
                     href="{{ route('dashboard') }}">
                     <span class="menu-title">
-                        <i 
-                            class="mdi  mdi-home menu-icon  {{ request()->routeIs('dashboard') ? 'text-white' : 'text-black' }}  " style="font-size: 20px"></i>
-                      <span class="pb-1 ps-1">
-                         Dashboard
-                      </span>
+                        <i class="mdi  mdi-home menu-icon  {{ request()->routeIs('dashboard') ? 'text-white' : 'text-black' }}  "
+                            style="font-size: 20px"></i>
+                        <span class="pb-1 ps-1">
+                            Dashboard
+                        </span>
                     </span>
                 </a>
             </li>
         @endcan
 
         <style>
-            li .nav-link{
+            li .nav-link {
                 padding-inline: 40px;
-           
+
             }
+
             li:hover {
                 background-color: rgb(230, 230, 230)
             }
@@ -51,23 +52,18 @@
 
 
         @can('View Banner')
-            
-
-        <li class="">
-            <a class="nav-link  text-black   {{ request()->routeIs('banner.index') ? 'bg-black text-white w-full ' : '' }}"
-                href="{{ route('banner.index') }}">
-                <span class="menu-title ">
-                    <i 
-                        class="fa fa-sliders menu-icon  py-2 {{ request()->routeIs('banner.index') ? 'text-white' : 'text-black' }}  " style="font-size: 20px"></i>
-                  <span class="pb-1 ps-1">
-                          Banner
-                  </span>
-                </span>
-            </a>
-        </li>
-
-         
-
+            <li class="">
+                <a class="nav-link  text-black   {{ request()->routeIs('banner.index') ? 'bg-black text-white w-full ' : '' }}"
+                    href="{{ route('banner.index') }}">
+                    <span class="menu-title ">
+                        <i class="fa fa-sliders menu-icon  py-2 {{ request()->routeIs('banner.index') ? 'text-white' : 'text-black' }}  "
+                            style="font-size: 20px"></i>
+                        <span class="pb-1 ps-1">
+                            Banner
+                        </span>
+                    </span>
+                </a>
+            </li>
         @endcan
 
 
@@ -76,7 +72,7 @@
             <li class="nav-item ">
                 <a class="nav-link" data-bs-toggle="collapse" href="#products" aria-expanded="false"
                     aria-controls="products">
-                    <span class="menu-title"><i class="fa fa-product-hunt menu-icon text-black pt-1 p-1 "></i>
+                    <span class="menu-title"><i class="p-1 pt-1 text-black fa fa-product-hunt menu-icon "></i>
                         Products</span>
                     <i class="menu-arrow"></i>
                 </a>
@@ -108,7 +104,7 @@
         @can('View Page')
             <li class="nav-item ">
                 <a class="nav-link" data-bs-toggle="collapse" href="#pages" aria-expanded="false" aria-controls="pages">
-                    <span class="menu-title"><i class="fa fa-pagelines menu-icon text-black pt-1 p-1"></i> Pages</span>
+                    <span class="menu-title"><i class="p-1 pt-1 text-black fa fa-pagelines menu-icon"></i> Pages</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="collapse" id="pages">
@@ -141,7 +137,7 @@
         @can('View Posts')
             <li class="nav-item ">
                 <a class="nav-link" data-bs-toggle="collapse" href="#posts" aria-expanded="false" aria-controls="posts">
-                    <span class="menu-title"><i class="fa fa-newspaper-o menu-icon text-black pt-1 p-1"></i> Posts</span>
+                    <span class="menu-title"><i class="p-1 pt-1 text-black fa fa-newspaper-o menu-icon"></i> Posts</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="collapse" id="posts">
@@ -176,61 +172,50 @@
             </li> -->
 
         @can('View Order')
-           
-
-
             <li class="">
                 <a class="nav-link text-black   {{ request()->routeIs('order.index') ? 'bg-black text-white w-full ' : '' }}"
                     href="{{ route('order.index') }}">
                     <span class="menu-title">
-                        <i 
-                            class="fa fa-first-order menu-icon  py-2 {{ request()->routeIs('order.index') ? 'text-white' : 'text-black' }}" style="font-size: 18px"></i>
-                           <span class="ps-2">
+                        <i class="fa fa-first-order menu-icon  py-2 {{ request()->routeIs('order.index') ? 'text-white' : 'text-black' }}"
+                            style="font-size: 18px"></i>
+                        <span class="ps-2">
                             Product Orders
-                           </span>
+                        </span>
                     </span>
                 </a>
             </li>
-
-        
-
         @endcan
 
 
         @can('View AdminUser')
-           
-
             <li class="">
                 <a class="nav-link text-black   {{ request()->routeIs('user.index') ? 'bg-black text-white w-full ' : '' }}"
                     href="{{ route('user.index') }}">
                     <span class="menu-title">
-                        <i 
-                            class="fa fa-user menu-icon py-2  {{ request()->routeIs('user.index') ? 'text-white' : 'text-black' }} " style="font-size: 18px"></i>
-                          
-                          
+                        <i class="fa fa-user menu-icon py-2  {{ request()->routeIs('user.index') ? 'text-white' : 'text-black' }} "
+                            style="font-size: 18px"></i>
+
+
                         <span class="ps-2">
                             Admin Users
-                            </span>
+                        </span>
                     </span>
                 </a>
             </li>
-
         @endcan
 
 
 
         @can('View ShopUsers')
-            
-
             <li class="">
                 <a class="nav-link text-black   {{ request()->routeIs('member.index') ? 'bg-black text-white w-full ' : '' }}"
                     href="{{ route('member.index') }}">
                     <span class="menu-title">
-                        <i 
-                            class="fa fa-user menu-icon  py-2 {{ request()->routeIs('member.index') ? 'text-white' : 'text-black' }} " style="font-size: 18px"></i>
-                            <span class="ps-2">
+                        <i class="fa fa-user menu-icon  py-2 {{ request()->routeIs('member.index') ? 'text-white' : 'text-black' }} "
+                            style="font-size: 18px"></i>
+                        <span class="ps-2">
                             Shop Users
-                            </span>
+                        </span>
                     </span>
                 </a>
             </li>
@@ -241,7 +226,7 @@
             <li class="nav-item ">
                 <a class="nav-link" data-bs-toggle="collapse" href="#settings" aria-expanded="false"
                     aria-controls="settings">
-                    <span class="menu-title"><i class="fa fa-gear menu-icon text-black pt-1 p-1"></i> Settings</span>
+                    <span class="menu-title"><i class="p-1 pt-1 text-black fa fa-gear menu-icon"></i> Settings</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="collapse" id="settings">
@@ -254,11 +239,34 @@
             </li>
         @endcan
 
+        {{-- @can('View Settings') --}}
+        <li class="nav-item ">
+            <a class="nav-link" data-bs-toggle="collapse" href="#reports" aria-expanded="false"
+                aria-controls="reports">
+                <span class="menu-title"><i class="p-1 pt-1 text-black fa fa-gear menu-icon"></i> Report</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="reports">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('admin.searchhistory') }}">Search History</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('admin.report.product') }}">Product Report</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('admin.report.customer') }}">Customer Report</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        {{-- @endcan --}}
+
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-                <span class="menu-title"><i class="mdi mdi-logout me-2 menu-icon text-black pt-1 p-1"></i>
+                <span class="menu-title"><i class="p-1 pt-1 text-black mdi mdi-logout me-2 menu-icon"></i>
                     Logout</span>
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -272,40 +280,35 @@
 
 
         @can('View Users')
-
-        <li class="">
-            <a class="nav-link text-black   {{ request()->routeIs('userManagement.index') ? 'bg-black text-white w-full ' : '' }}"
-                href="{{ route('userManagement.index') }}">
-                <span class="menu-title">
-                    <i 
-                        class="fa fa-user-circle-o menu-icon py-2 {{ request()->routeIs('userManagement.index') ? 'text-white' : 'text-black' }} " style="font-size: 18px"></i>
+            <li class="">
+                <a class="nav-link text-black   {{ request()->routeIs('userManagement.index') ? 'bg-black text-white w-full ' : '' }}"
+                    href="{{ route('userManagement.index') }}">
+                    <span class="menu-title">
+                        <i class="fa fa-user-circle-o menu-icon py-2 {{ request()->routeIs('userManagement.index') ? 'text-white' : 'text-black' }} "
+                            style="font-size: 18px"></i>
                         <span class="ps-2">
-                        Manage Users
+                            Manage Users
                         </span>
-                </span>
-            </a>
-        </li>
-
-       
+                    </span>
+                </a>
+            </li>
         @endcan
 
 
 
         @can('View Roles')
-
-        <li class="">
-            <a class="nav-link text-black   {{ request()->routeIs('userRole.index') ? 'bg-black text-white w-full ' : '' }}"
-                href="{{ route('userRole.index') }}">
-                <span class="menu-title">
-                    <i 
-                        class="fa fa-user menu-icon  py-2 {{ request()->routeIs('userRole.index') ? 'text-white' : 'text-black' }} " style="font-size: 20px"></i>
+            <li class="">
+                <a class="nav-link text-black   {{ request()->routeIs('userRole.index') ? 'bg-black text-white w-full ' : '' }}"
+                    href="{{ route('userRole.index') }}">
+                    <span class="menu-title">
+                        <i class="fa fa-user menu-icon  py-2 {{ request()->routeIs('userRole.index') ? 'text-white' : 'text-black' }} "
+                            style="font-size: 20px"></i>
                         <span class="ps-2">
-                        Manage Roles
+                            Manage Roles
                         </span>
-                </span>
-            </a>
-        </li>
-           
+                    </span>
+                </a>
+            </li>
         @endcan
 
 

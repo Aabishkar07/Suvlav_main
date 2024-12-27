@@ -80,110 +80,134 @@ class CartController extends Controller
 
     /*** Add to Cart */
 
-     public function AddToCart(Request $request){
+    public function AddToCart(Request $request)
+    {
         $response_data = [];
         $cart = new Cart();
         $guest_id = $_COOKIE['guest_auth_token'];
-        $user_id = (Session::get('memeber_id_ss') != '')? Session::get('memeber_id_ss') : 0; 
+        $user_id = (Session::get('memeber_id_ss') != '') ? Session::get('memeber_id_ss') : 0;
         $product = Product::where('id', $request->product_id)->firstOrFail();
 
         $prod_attr = [
             'color' => $request->cartColor,
             'size' => $request->cartSize
         ];
-        
-        $price = $product->regular_price; 
-        if(!empty($product->sale_price)){
+
+        $price = $product->regular_price;
+        if (!empty($product->sale_price)) {
             $price = $product->sale_price;
         }
 
         $cartItem = Cart::where('product_id', $request->product_id)
-             ->where(function ($query) use ($user_id, $guest_id) {
-                 $query->where('user_id', $user_id)
-                       ->orWhere('guest_id', $guest_id);
-             })
-             ->first();
+            ->where(function ($query) use ($user_id, $guest_id) {
+                $query->where('user_id', $user_id)
+                    ->orWhere('guest_id', $guest_id);
+            })
+            ->first();
 
-        if($cartItem) {
-            $cartItem->quantity += $request->quantity;
-            $cartItem->attributes = json_encode($prod_attr);
-            $cartItem->save();
+        $available_qty = $product->availablestock ?? 0;
+
+        if ($cartItem) {
+            $qty = $cartItem->quantity + $request->quantity;
+            if ($available_qty < $qty) {
+                return response()->json(["success" => false, "message" => "Only ".$available_qty ." quantity is available" ]);
+            } else {
+                $cartItem->quantity += $request->quantity;
+                $cartItem->attributes = json_encode($prod_attr);
+                $cartItem->save();
+            }
         } else {
 
             $cart = new Cart();
 
-            if($user_id != 0) { $cart->user_id = $user_id; }
-                
-            $cart->guest_id = $guest_id;
-            $cart->product_id = $request->product_id;
-            $cart->quantity = $request->quantity;
-            $cart->product_title = $product->title;          
-            $cart->product_image = $product->image;
-            $cart->product_slug = $product->slug;
-            $cart->attributes = json_encode($prod_attr);
-            $cart->price = $price;
-            $cart->save();
-            
+            if ($user_id != 0) {
+                $cart->user_id = $user_id;
+            }
+            if ($available_qty < $request->quantity) {
+                return response()->json(["success" => false, "message" => "Only ".$available_qty ." quantity is available" ]);
+            } else {
+                $cart->guest_id = $guest_id;
+                $cart->product_id = $request->product_id;
+                $cart->quantity = $request->quantity;
+                $cart->product_title = $product->title;
+                $cart->product_image = $product->image;
+                $cart->product_slug = $product->slug;
+                $cart->attributes = json_encode($prod_attr);
+                $cart->price = $price;
+                $cart->save();
+            }
         }
         $cartDropDown = $this->cartDropDown();
         $response_data['status'] = 'success';
-        $response_data['msg']= 'The product has been added to cart.';
+        $response_data['msg'] = 'The product has been added to cart.';
         $response_data['content'] = $cartDropDown;
         echo json_encode($response_data);
         exit;
-     }
-     public function buynow(Request $request){
+    } 
+    
+    public function buynow(Request $request)
+    {
+        alert("aa");
         $response_data = [];
         $cart = new Cart();
         $guest_id = $_COOKIE['guest_auth_token'];
-        $user_id = (Session::get('memeber_id_ss') != '')? Session::get('memeber_id_ss') : 0; 
+        $user_id = (Session::get('memeber_id_ss') != '') ? Session::get('memeber_id_ss') : 0;
         $product = Product::where('id', $request->product_id)->firstOrFail();
 
         $prod_attr = [
             'color' => $request->cartColor,
             'size' => $request->cartSize
         ];
-        
-        $price = $product->regular_price; 
-        if(!empty($product->sale_price)){
+
+        $price = $product->regular_price;
+        if (!empty($product->sale_price)) {
             $price = $product->sale_price;
         }
-
+        $available_qty = $product->availablestock ?? 0;
         $cartItem = Cart::where('product_id', $request->product_id)
-             ->where(function ($query) use ($user_id, $guest_id) {
-                 $query->where('user_id', $user_id)
-                       ->orWhere('guest_id', $guest_id);
-             })
-             ->first();
+            ->where(function ($query) use ($user_id, $guest_id) {
+                $query->where('user_id', $user_id)
+                    ->orWhere('guest_id', $guest_id);
+            })
+            ->first();
 
-        if($cartItem) {
-            $cartItem->quantity += $request->quantity;
-            $cartItem->attributes = json_encode($prod_attr);
-            $cartItem->save();
+        if ($cartItem) {
+            $qty = $cartItem->quantity + $request->quantity;
+            if ($available_qty < $qty) {
+                return response()->json(["success" => false, "message" => "Only " . $available_qty . " quantity is available"]);
+            } else {
+                $cartItem->quantity += $request->quantity;
+                $cartItem->attributes = json_encode($prod_attr);
+                $cartItem->save();
+            }
         } else {
 
             $cart = new Cart();
 
-            if($user_id != 0) { $cart->user_id = $user_id; }
-                
-            $cart->guest_id = $guest_id;
-            $cart->product_id = $request->product_id;
-            $cart->quantity = $request->quantity;
-            $cart->product_title = $product->title;          
-            $cart->product_image = $product->image;
-            $cart->product_slug = $product->slug;
-            $cart->attributes = json_encode($prod_attr);
-            $cart->price = $price;
-            $cart->save();
-            
+            if ($user_id != 0) {
+                $cart->user_id = $user_id;
+            }
+            if ($available_qty < $request->quantity) {
+                return response()->json(["success" => false, "message" => "Only " . $available_qty . " quantity is available"]);
+            } else {
+                $cart->guest_id = $guest_id;
+                $cart->product_id = $request->product_id;
+                $cart->quantity = $request->quantity;
+                $cart->product_title = $product->title;
+                $cart->product_image = $product->image;
+                $cart->product_slug = $product->slug;
+                $cart->attributes = json_encode($prod_attr);
+                $cart->price = $price;
+                $cart->save();
+            }
         }
         $cartDropDown = $this->cartDropDown();
         $response_data['status'] = 'success';
-        $response_data['msg']= 'The product has been added to cart.';
+        $response_data['msg'] = 'The product has been added to cart.';
         $response_data['content'] = $cartDropDown;
         echo json_encode($response_data);
         exit;
-     }
+    }
 
      public function cartDropDown(){
         $guest_id = $_COOKIE['guest_auth_token'];  
