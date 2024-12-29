@@ -65,7 +65,9 @@
 	
 	<!-- Start Footer Area -->
 	@include('front.common.footer')
-	
+	@php
+    $searchHistory = json_decode(Cookie::get('search_history', '[]'), true);
+@endphp
 	<div class="">
 	@include('front.common.searchfooter')
 
