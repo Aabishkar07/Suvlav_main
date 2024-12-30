@@ -211,41 +211,41 @@ class FrontController extends Controller
         $categories = $this->categories;
 
         $order_id = $request->input('tracking_code');
+        $orders=[];
+        $shippings=[];
+        $userdata=[];
 
         $order = Order::where('tracking_code', $order_id)->first();
 
 
 
 
-        if (!$order) {
-            $message = 'Order not found. Please search for another order.';
-            return view('Frontend.trackOrder.orderdetails', compact('message'));
-        }
+        
+if($order){
+    $orderid = $order->id;
+    
+    $orders = DB::table('orders as a')
+        ->join('order_details as b', 'b.order_id', '=', 'a.id')
+        ->where('a.id', $orderid)
+        ->get()->toArray();
+    
+    $user_id = $orders[0]->user_id;
+    
+    $userdata = DB::table('members')
+        ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
+        ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+        ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+        ->where('members.id', $user_id)
+        ->get()->toArray();
+    
+    $shippings = DB::table('shippings')
+        ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
+        ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
+        ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+        ->where('member_id', $user_id)
+        ->get()->toArray();
+}
 
-
-
-        $orderid = $order->id;
-
-        $orders = DB::table('orders as a')
-            ->join('order_details as b', 'b.order_id', '=', 'a.id')
-            ->where('a.id', $orderid)
-            ->get()->toArray();
-
-        $user_id = $orders[0]->user_id;
-
-        $userdata = DB::table('members')
-            ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
-            ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
-            ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
-            ->where('members.id', $user_id)
-            ->get()->toArray();
-
-        $shippings = DB::table('shippings')
-            ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
-            ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
-            ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
-            ->where('member_id', $user_id)
-            ->get()->toArray();
 
 
 
@@ -998,11 +998,56 @@ class FrontController extends Controller
 
             return view('front.products.search', compact('cartItems', 'categories', 'products', 'query', 'searchHistory'));
         } else {
-            return view('front.memloginform', compact('cartItems', 'categories'));
+
+
+
+
+            $cartItems = $this->cartdata;
+            $categories = $this->categories;
+            $query = $request->input('query');
+          
+
+            if ($query) {
+                SearchHistory::create([
+                    'search_item' => $query,
+                ]);
+            }
+
+            $searchHistory = json_decode(Cookie::get('search_history', '[]'), true);
+            $searchHistory[] = $query;
+            $searchHistory = array_unique(array_slice($searchHistory, -10));
+
+            Cookie::queue('search_history', json_encode($searchHistory), 60 * 24 * 365 * 5); // 5 years
+
+            $productIDs = Product::where('title', 'like', '%' . $query . '%')->pluck('id');
+            $products = Product::whereIn('id', $productIDs)->get();
+
+            return view('front.products.search', compact('cartItems', 'categories', 'products', 'query', 'searchHistory'));
+
+
+
         }
     }
 
 
+    public function searchstore(Request $request)
+{
+    $query = $request->input('query');
+    
+    SearchHistory::where('search_item', $query)->update([
+        'email' => $request->email,
+        'name' => $request->name,
+        'phonenumber' => $request->phonenumber,
+        'district' => $request->district,
+    ]);
+
+    return redirect('/')->with("message", "Search history submitted successfully!");
+
+
+}
+
+
+ 
 
     public function clearSearchHistory()
     {

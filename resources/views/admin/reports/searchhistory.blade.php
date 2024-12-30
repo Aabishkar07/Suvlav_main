@@ -33,10 +33,11 @@
                     <th scope="col">#</th>
                     <th scope="col">Search Item / Searched For</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Contact number</th>
+
                     <th scope="col">Email</th>
-                    {{-- <th scope="col">State</th>
                     <th scope="col">District</th>
-                    <th scope="col">Gaupalika</th> --}}
+                  
                     <th scope="col">Search Date</th>
                 </tr>
             </thead>
@@ -49,7 +50,11 @@
                         <th scope="row">{{ $key + 1 }}</th>
                         <td>{{ $customer->search_item }}</td>
                         <td>{{ $customer->name }}</td>
+                        <td>{{ $customer->phonenumber }}</td>
+
                         <td>{{ $customer->email }}</td>
+                        <td>{{ $customer->district }}</td>
+
                         {{-- <td>{{ $customer->state }}</td>
                         <td>{{ $customer->district }}</td>
                         <td>{{ $customer->gaupalika}}</td> --}}
