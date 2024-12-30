@@ -122,7 +122,7 @@
 														<p class="product-des">Maboriosam in a tonto nesciung eget  distingy magndapibus.</p>
 													</td>
 													<td class="price"><span>{{ moneyFormat($order->price)}} </span></td>
-													<td class="qty text-center">{{ $order->total_no_qnty }}</td>
+													<td class="text-center qty">{{ $order->total_no_qnty }}</td>
 													<td class="total-amount" data-title="Total"><span>{{ moneyFormat($order->total_amt);}}</span></td>
 													<td class="text-center">{{ $order->created_at }}</td>
 													<td class="text-center">{{ $order->status }}</td>
@@ -332,7 +332,7 @@
 						<div class="single-service">
 							<i class="ti-reload"></i>
 							<h4>Exchange</h4>
-							<p>Within 30 days returns</p>
+							<p>Within 7 days returns</p>
 						</div>
 						<!-- End Single Service -->
 					</div>
