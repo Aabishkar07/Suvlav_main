@@ -17,6 +17,8 @@
     ];
 @endphp
 
+
+
 <div class="container sm:mt-32  my-10" id="printableArea">
     {{-- @dd($orders) --}}
     <h1 class="mb-2 text-xl">Tracking Order Details of Order Id : {{ $order_id ?? "" }}</h1>
