@@ -47,6 +47,13 @@ Route::get('/memberloginform', [FrontController::class, 'memberloginform'])->nam
 Route::get('/memberreg', [FrontController::class, 'memberreg'])->name('member.reg');
 
 Route::get('/forgotpwform', [FrontController::class, 'forgotpwform'])->name('member.forgetpw');
+Route::post('/forgotpwform', [FrontController::class, 'forgotpwformstore'])->name('member.forgotpwformstore');
+Route::get('/otp', [FrontController::class, 'otp'])->name('otp');
+Route::post('/checkotp', [FrontController::class, 'checkotp'])->name('checkotp');
+Route::get('/newpassword', [FrontController::class, 'newpassword'])->name('newpassword');
+Route::post('/changepassword', [FrontController::class, 'changepassword'])->name('changepasswords');
+
+
 Route::get('/myprofile', [FrontController::class, 'myprofile'])->name('member.myprofile');
 Route::post('/memberchanagepw', [FrontController::class, 'memberchanagepw'])->name('member.changepw');
 Route::post('/profileshippingsave', [FrontController::class, 'profileshippingsave'])->name('member.profileshipping');
@@ -85,6 +92,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile/order/{order}', [FrontController::class, 'myprofileorder'])->name('profile.order');
+
 });
 
 require __DIR__.'/auth.php';

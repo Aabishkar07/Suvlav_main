@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Mail\otp;
+use App\Mail\registerUser;
+use App\Mail\welcome;
 use App\Models\AffiliatePoint;
 use App\Models\Blog;
 use App\Models\Faq;
@@ -20,6 +23,11 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Nette\Utils\Random;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
+
 
 
 class FrontController extends Controller
@@ -46,6 +54,47 @@ class FrontController extends Controller
             ->get();
     }
 
+
+
+
+
+    public function newpassword(Request $request)
+    {
+
+        $email = request('email');
+
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+        return view("front.newpassword", compact('cartItems', 'categories', 'email'));
+    }
+
+
+
+    public function changepassword(Request $request)
+    {
+        # Validation
+        $email = request('email');
+
+
+        $customer = Member::where('email', $email)->first();
+
+
+        if (!$customer) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        $hashedpw = base64_encode($request->newpassword);
+        $customer->update([
+
+
+            'passwrd' => $hashedpw
+        ]);
+
+        $customer->save();
+
+        return redirect()->route('member.loginform')->with("status", "Password changed successfully!");
+    }
     public function index(Request $request)
     {
 
@@ -132,6 +181,7 @@ class FrontController extends Controller
             ->get();
 
         $user_id = (Session::get('memeber_id_ss') != '') ? Session::get('memeber_id_ss') : 0;
+        $member = Member::findOrFail($user_id);
 
         $shippings = DB::table('shippings')
             ->where(['member_id' => $user_id])
@@ -146,7 +196,7 @@ class FrontController extends Controller
         }
 
 
-        return view('front.checkout', compact('cartItems', 'states_del', 'shippings', 'districts', 'categories'));
+        return view('front.checkout', compact('cartItems', 'states_del', 'shippings', 'districts', 'categories', 'member'));
     }
 
 
@@ -261,6 +311,16 @@ class FrontController extends Controller
                 $request->session()->put('memeber_name_ss', $request->fname);
                 $request->session()->put('memeber_email_ss', $request->email);
                 $request->session()->put('memeber_id_ss', $memberid);
+
+                $member = Member::find($memberid);
+
+
+                Mail::to($request->email)->send(new welcome('Thank You'));
+
+
+                Mail::to('aaviscar09@gmail.com')->send(new registerUser($member));
+
+
 
                 $cartData = [
                     'user_id' => $memberid,
@@ -377,16 +437,14 @@ class FrontController extends Controller
 
     public function checkoutsmt(Request $request)
     {
-
-
-
+        $user_id = Session::get('memeber_id_ss');
+        $member = Member::findOrFail($user_id);
 
         // dd(session('suvcode'));
         $code = session('suvcode');
         $session_product_id = session('suvproduct');
         // dd($session_product_id);
 
-        $user_id = Session::get('memeber_id_ss');
 
 
 
@@ -432,6 +490,22 @@ class FrontController extends Controller
             'created_at' => @date('Y-m-d H:i')
 
         ];
+
+        if ($request->redeem_point == 1) {
+            $points = $member->total_points;
+
+            if ($totalprice <= $points) {
+                $usedPoints = $totalprice;
+                $remainingPoints = $points - $totalprice;
+            } else {
+                $usedPoints = $points;
+                $remainingPoints = 0;
+                $totalprice -= $points;
+            }
+            $cart_order["use_point"] = $usedPoints;
+            $member->total_points -= $usedPoints;
+            $member->save();
+        }
 
 
         $orderid =  DB::table('orders')->insertGetId($cart_order);
@@ -533,8 +607,14 @@ class FrontController extends Controller
         if (Session::get('memeber_id_ss') != '') {
             return redirect('/');
         }
+
+
         $cartItems = $this->cartdata;
         $categories = $this->categories;
+
+
+
+
         return view('front.memregform', compact('cartItems', 'categories'));
     }
 
@@ -544,6 +624,90 @@ class FrontController extends Controller
         $categories = $this->categories;
         return view('front.forgetpwform', compact('cartItems', 'categories'));
     }
+
+
+
+    public function forgotpwformstore(Request $request)
+    {
+
+
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+        $email = request('email');
+        if (!$email) {
+            return view('front.forgetpwform');
+        } else {
+            $customer = Member::where("email", $request->email)->first();
+
+
+            if (!$customer) {
+                return redirect()->back()->with('error', 'Email not found');
+            }
+
+
+            $otp = rand(100000, 999999);
+
+
+            $customer->update([
+                'otp' => $otp,
+            ]);
+
+
+            Mail::to($email)->send(new otp($otp));
+
+
+            return view('front.otp', ['email' => $email],  compact('cartItems', 'categories'));
+        }
+    }
+
+
+
+
+    public function otp(Request $request)
+    {
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+        $email = request('email');
+
+        if (!$email) {
+
+            return redirect()->back();
+        } else {
+            $customer = Member::where("email", $request->email)->first();
+
+            if (!$customer) {
+
+                return redirect()->back()->with('error', 'Invalid Otp');
+            }
+
+
+            return view('front.otp', compact('cartItems', 'categories', 'email'));
+        }
+    }
+
+
+
+
+
+
+    public function checkotp(Request $request)
+    {
+
+
+        $email = $request->email;
+
+
+        $otp = $request->otp;
+        $checkotp = Member::where('email', $email)->first();
+
+
+        if ($otp == $checkotp->otp) {
+            return redirect()->route('newpassword', ['email' => $email]);
+        } else {
+            return redirect()->back()->with('error', 'Invalid Otp');
+        }
+    }
+
 
     public function myprofile()
     {
@@ -569,9 +733,10 @@ class FrontController extends Controller
             // ->get()->toArray();
 
             $orders = DB::table('orders as a')
-                ->join('order_details as b', 'b.order_id', '=', 'a.id')
                 ->where('user_id', $user_id)
+                ->orderBy('a.id', 'desc')
                 ->get()->toArray();
+
 
             $states = DB::table('provinces')
                 ->get();
@@ -797,32 +962,20 @@ class FrontController extends Controller
 
     public function search(Request $request)
     {
-
-        
         $cartItems = $this->cartdata;
         $categories = $this->categories;
 
         $id = Session::get('memeber_id_ss');
 
-
         $userdata = DB::table('members')
-        // ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
-        // ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
-        // ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
-        ->where('members.id', $id)
-        ->first();
-    
-
-    
+            ->where('members.id', $id)
+            ->first();
 
         if ($id) {
-
             $cartItems = $this->cartdata;
             $categories = $this->categories;
             $query = $request->input('query');
-
             $name = $userdata->name;
-
 
             if ($query) {
                 SearchHistory::create([
@@ -831,30 +984,24 @@ class FrontController extends Controller
                     'user_id' => $id,
                     'name' => $name,
                     'phonenumber' => $userdata->mobileno,
-                 
-
                 ]);
             }
 
             $searchHistory = json_decode(Cookie::get('search_history', '[]'), true);
-
             $searchHistory[] = $query;
             $searchHistory = array_unique(array_slice($searchHistory, -10));
 
             Cookie::queue('search_history', json_encode($searchHistory), 60 * 24 * 365 * 5); // 5 years
 
-
-
-
             $productIDs = Product::where('title', 'like', '%' . $query . '%')->pluck('id');
+            $products = Product::whereIn('id', $productIDs)->get();
 
-            $products = Product::whereIn('id', $productIDs)
-                ->get();
             return view('front.products.search', compact('cartItems', 'categories', 'products', 'query', 'searchHistory'));
         } else {
-            return  view('front.memloginform' , compact('cartItems', 'categories'));
+            return view('front.memloginform', compact('cartItems', 'categories'));
         }
     }
+
 
 
     public function clearSearchHistory()
@@ -865,5 +1012,43 @@ class FrontController extends Controller
 
 
         return redirect()->back()->with('message', 'Search history cleared successfully!');
+    }
+
+    public function myprofileorder($order)
+    {
+
+        $order_id=$order;
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+        $order = Order::where('id', $order_id)->first();
+
+
+        $orderid = $order->id;
+
+        $orders = DB::table('orders as a')
+            ->join('order_details as b', 'b.order_id', '=', 'a.id')
+            ->where('a.id', $orderid)
+            ->get()->toArray();
+
+        $user_id = $orders[0]->user_id;
+
+        $userdata = DB::table('members')
+            ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
+            ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+            ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+            ->where('members.id', $user_id)
+            ->get()->toArray();
+
+        $shippings = DB::table('shippings')
+            ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
+            ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
+            ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+            ->where('member_id', $user_id)
+            ->get()->toArray();
+
+
+
+        return view('front.profileorder_view', compact('orders', 'userdata', 'shippings', 'categories', 'cartItems', 'order_id'));
     }
 }

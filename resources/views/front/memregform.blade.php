@@ -1,4 +1,4 @@
-@extends('layouts.frontendapp')
+{{-- @extends('layouts.frontendapp')
 @section('content')
 <style>
 	/* Style the tab */
@@ -95,4 +95,148 @@
 			</div>
 		</section>
 		
+@endsection --}}
+
+
+@extends('layouts.frontendapp')
+@section('content')
+<style>
+    /* General Styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .checkout-section {
+        padding: 40px 0;
+    }
+
+    .form-wrapper {
+        background: #ffffff;
+        padding: 30px 40px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    h2 {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #333333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        color: #555555;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    #submitbtm {
+        width: 100%;
+        height: 45px;
+        background-color: #000000;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+
+    #submitbtm:hover {
+        background-color: #ffffff;
+		color: #000;
+    }
+
+    .signup {
+        text-align: center;
+        font-size: 16px;
+        margin-top: 15px;
+    }
+
+    .signup a {
+        color: #125ee0;
+        font-weight: 600;
+        text-decoration: underline;
+    }
+
+    .acenter {
+        display: flex;
+        justify-content: center;
+    }
+
+    .error_msg {
+        color: #d9534f;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .form-wrapper {
+            padding: 20px 15px;
+        }
+
+        h2 {
+            font-size: 24px;
+        }
+    }
+</style>
+
+<section class="checkout-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="form-wrapper">
+                    <h2>Signup</h2>
+                    @if($errors->any())
+                        <div class="error_msg">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
+                    <form action="{{ route('memberstore') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="prev_url" value="{{ url()->previous() }}">
+
+                        <div class="form-group">
+                            <label for="fname">Full Name <span>*</span></label>
+                            <input type="text" id="fname" name="fname" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email <span>*</span></label>
+                            <input type="email" id="email" name="email" placeholder="Enter a valid email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password <span>*</span></label>
+                            <input type="password" id="password" name="password" placeholder="Enter a secure password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobileno">Mobile No.</label>
+                            <input type="number" id="mobileno" name="mobileno" placeholder="Enter your mobile number" maxlength="10">
+                        </div>
+                        <button type="submit" id="submitbtm">Register</button>
+                        <div class="signup">
+                            Have an account? <a href="{{ route('member.loginform') }}">Login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 @endsection

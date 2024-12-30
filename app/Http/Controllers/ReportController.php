@@ -10,16 +10,24 @@ class ReportController extends Controller
     public function productindex(Request $request)
     {
         $products = DB::table('products')->get();
-        $customers = [];
+        $customers = DB::table('orders as a')
+            ->join('order_details as b', 'b.order_id', '=', 'a.id');
+
         $myproduct = "";
+        $fromdate = $request->input("from") ?? "";
+        $todate = $request->input("to") ?? "";
+
         if ($request->product) {
             $myproduct = DB::table('products')->where("id", $request->product)->first();
-            $customers = DB::table('orders as a')
-                ->join('order_details as b', 'b.order_id', '=', 'a.id')
-                ->where('b.product_id', $request->product)
-                ->paginate(siteSettings('posts_per_page'));
+            $customers = $customers->where('b.product_id', $request->product);
         }
-
+        if ($fromdate) {
+            $customers = $customers->whereDate('b.created_at', ">=", $fromdate);
+        }
+        if ($todate) {
+            $customers = $customers->whereDate('b.created_at', "<=", $todate);
+        }
+        $customers = $customers->paginate(siteSettings('posts_per_page'));
         return view('admin.reports.productreport', compact("products", 'myproduct', 'customers'));
     }
     public function customerindex(Request $request)

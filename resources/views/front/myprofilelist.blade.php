@@ -133,7 +133,10 @@
             <div class="row">
                 <div class="col-lg-12 col-12">
                     <div>
-                        <h2>My Profile</h2>
+                        <div style="background-color: green" class="my-4 text-center text-white rounded card-header">
+                            <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">My Profile </h4>
+                        </div>
+
                         @if (Session::has('message'))
                             <p class="alert alert-info">{{ Session::get('message') }}</p>
                         @endif
@@ -154,19 +157,20 @@
                         <!-- Tab content -->
                         <div id="order_history" class="tabcontent">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="mt-12 col-12 table-responsive">
                                     <!-- Shopping Summery -->
-                                    <table class="table shopping-summery">
+                                    <table class="table ">
                                         <thead>
-                                            <tr class="main-hading">
-                                                <th>OrderID</th>
-                                                <th>Image</th>
-                                                <th>Name</th>
-                                                <th class="text-center">Unit Price</th>
-                                                <th class="text-center">Quantity</th>
-                                                <th class="text-center">Total</th>
-                                                <th class="text-center">Date</th>
-                                                <th class="text-center">Status</th>
+                                            <tr style="background-color: orange" class="text-white main-hading">
+                                                <th> # </th>
+                                                <th> Tracking Code </th>
+                                                <th> OrderId </th>
+
+                                                <th> Total Items </th>
+                                                <th> Amount </th>
+                                                <th> Status </th>
+                                                <th> Order Date </th>
+                                                <th> Action </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -175,21 +179,72 @@
 											 	foreach($orders as $order) {
 													$cdate = explode(' ',$order->created_at);
 											    ?>
-                                            <tr>
+                                            <tr class="text-center">
                                                 <td><?php echo $sn; ?></td>
-                                                <td class="image" data-title="No"><img
-                                                        src="{{ asset($order->product_image) }}"></td>
-                                                <td class="product-des" data-title="Description">
-                                                    <p class="product-des">Maboriosam in a tonto nesciung eget distingy
-                                                        magndapibus.</p>
+                                                <td class="id">{{ $order->tracking_code }}</td>
+                                                <td class="id">{{ $order->id }}</td>
+                                                <td class="text-center qty">{{ $order->total_items }}</td>
+                                                <td>
+                                                    <div class="">
+                                                        <div class="">
+                                                            <label>
+                                                                Total :
+                                                            </label>
+                                                            Rs. {{ $order->total_amt }}
+                                                        </div>
+                                                        @if ($order->use_point)
+                                                            <div class="mt-2">
+                                                                <label>Point Use : </label>
+                                                                Rs. {{ $order->use_point }}
+                                                            </div>
+                                                            <hr />
+                                                            <div class="">
+                                                                To Be Paid : <span style="font-weight: bold"
+                                                                    class="text-danger">Rs.
+                                                                    {{ $order->total_amt - $order->use_point }}
+                                                                </span>
+                                                            </div>
+                                                        @endif
+                                                    </div>
                                                 </td>
-                                                <td class="price"><span>{{ moneyFormat($order->price) }} </span></td>
-                                                <td class="text-center qty">{{ $order->total_no_qnty }}</td>
-                                                <td class="total-amount" data-title="Total">
-                                                    <span>{{ moneyFormat($order->total_amt) }}</span>
+
+
+
+                                                <td class="text-center"> @switch($order->status)
+                                                        @case('Pending')
+                                                            <label class="badge bg-warning">{{ strtoupper($order->status) }}</label>
+                                                        @break
+
+                                                        @case('Ongoing')
+                                                            <label class="badge badge-info">{{ strtoupper($order->status) }}</label>
+                                                        @break
+
+                                                        @case('Cancel')
+                                                            <label
+                                                                class="badge badge-danger">{{ strtoupper($order->status) }}</label>
+                                                        @break
+
+                                                        @case('Delevered')
+                                                            <label
+                                                                class="badge badge-success">{{ strtoupper($order->status) }}</label>
+                                                        @break
+
+                                                        @default
+                                                            <label
+                                                                class="badge badge-info">{{ strtoupper($order->status) }}</label>
+                                                    @endswitch
                                                 </td>
                                                 <td class="text-center">{{ $order->created_at }}</td>
-                                                <td class="text-center">{{ $order->status }}</td>
+                                                <td class="">
+                                                    <a href="{{ route('profile.order', $order->id) }}">
+
+                                                        <div style="background-color: green;width: 50px;color:white"
+                                                            class="rounded">
+
+                                                            <i class="fa fa-eye"></i>
+                                                        </div>
+                                                    </a>
+                                                </td>
                                             </tr>
                                             <?php $sn++; } ?>
                                         </tbody>
@@ -200,163 +255,173 @@
                         </div>
 
                         <!-- Start login and register form -->
-                     
+
                         <div id="Profile" class="tabcontent">
-                            <h5> Personal Profile</h2>
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>Full Name</span> &nbsp; : &nbsp; {{ $userdata[0]->name }}
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>Email</span>&nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                        </div>
-                                    </div>
+                            <div style="background-color: orange" class="my-4 text-center text-white rounded card-header">
+                                <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">Personal Profile </h4>
+                            </div>
 
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>Mobile No.</span>&nbsp; : &nbsp; {{ $userdata[0]->mobileno }}
-                                        </div>
+
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>Full Name</span> &nbsp; : &nbsp; {{ $userdata[0]->name }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>Email</span>&nbsp; : &nbsp; {{ $userdata[0]->email }}
                                     </div>
                                 </div>
 
-                                <div class="row">
-
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>Gender</span>&nbsp; : &nbsp; {{ $userdata[0]->gender }}
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>State</span>&nbsp; : &nbsp; {{ $userdata[0]->statename }}
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>District</span> &nbsp; : &nbsp; {{ $userdata[0]->district }}
-                                        </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>Mobile No.</span>&nbsp; : &nbsp; {{ $userdata[0]->mobileno }}
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-8 col-md-8 col-12">
-                                        <div class="form-group">
-                                            <span>Address.</span> &nbsp; : &nbsp; {{ $userdata[0]->address }}
-                                        </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>Gender</span>&nbsp; : &nbsp; {{ $userdata[0]->gender }}
                                     </div>
                                 </div>
 
-                                <div class="row fulllg">
-                                    <div class="col-lg-12 col-md-12 col-12 popupdatebtm">
-                                        <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"
-                                            class="updatebtm">Update it </a>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>State</span>&nbsp; : &nbsp; {{ $userdata[0]->statename }}
                                     </div>
                                 </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>District</span> &nbsp; : &nbsp; {{ $userdata[0]->district }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-12">
+                                    <div class="form-group">
+                                        <span>Address.</span> &nbsp; : &nbsp; {{ $userdata[0]->address }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row fulllg">
+                                <div class="col-lg-12 col-md-12 col-12 popupdatebtm">
+                                    <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"
+                                        class="updatebtm">Update it </a>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Start  delivery Addresss form -->
                         <div id="deladdress" class="tabcontent">
 
-                            <h5> Delevery Address </h2>
+                            <div style="background-color: orange" class="my-4 text-center text-white rounded card-header">
+                                <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">Delivery Address </h4>
+                            </div>
 
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>Full Name</span> &nbsp; : &nbsp; {{ @$shippings[0]->fullname }}
-                                        </div>
-                                    </div>
-                                    <!-- <div class="col-lg-4 col-md-4 col-12">
-                          <div class="form-group">
-                           <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                           </div>
-                       </div> -->
 
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>Mobile No.</span> &nbsp; : &nbsp; {{ @$shippings[0]->mobile }}
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>State</span>&nbsp; : &nbsp; {{ @$shippings[0]->statename }}
-                                        </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>Full Name</span> &nbsp; : &nbsp; {{ @$shippings[0]->fullname }}
                                     </div>
                                 </div>
+                                <!-- <div class="col-lg-4 col-md-4 col-12">
+                                                                  <div class="form-group">
+                                                                   <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
+                                                                   </div>
+                                                               </div> -->
 
-                                <div class="row">
-
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>District</span> &nbsp; : &nbsp; {{ @$shippings[0]->district }}
-                                        </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>Mobile No.</span> &nbsp; : &nbsp; {{ @$shippings[0]->mobile }}
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>City</span> &nbsp; : &nbsp; {{ @$shippings[0]->city }}
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>Address.</span> &nbsp; : &nbsp; {{ @$shippings[0]->address }}
-                                        </div>
-                                    </div>
-
-
                                 </div>
-                                <div class="row">
-
-
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>Tole.</span> &nbsp; : &nbsp; {{ @$shippings[0]->tole }}
-                                        </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>State</span>&nbsp; : &nbsp; {{ @$shippings[0]->statename }}
                                     </div>
+                                </div>
+                            </div>
 
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>House No.</span> &nbsp; : &nbsp; {{ @$shippings[0]->houseno }}
-                                        </div>
+                            <div class="row">
+
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>District</span> &nbsp; : &nbsp; {{ @$shippings[0]->district }}
                                     </div>
-
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>Gaupalika</span> &nbsp; : &nbsp; {{ @$shippings[0]->gaupalika }}
-                                        </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>City</span> &nbsp; : &nbsp; {{ @$shippings[0]->city }}
                                     </div>
-
-
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>Nagarpalika</span> &nbsp; : &nbsp; {{ @$shippings[0]->nagarpalika }}
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="form-group">
-                                            <span>Wardno</span> &nbsp; : &nbsp; {{ @$shippings[0]->wardno }}
-                                        </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>Address.</span> &nbsp; : &nbsp; {{ @$shippings[0]->address }}
                                     </div>
                                 </div>
 
 
+                            </div>
+                            <div class="row">
 
-                                <div class="row fulllg">
-                                    <div class="col-lg-12 col-md-12 col-12 popupdatebtm">
-                                        <a data-toggle="modal" data-target="#deleveryAddresssModal" title="Quick View"
-                                            href="#" class="updatebtm">Update it </a>
+
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>Tole.</span> &nbsp; : &nbsp; {{ @$shippings[0]->tole }}
                                     </div>
                                 </div>
+
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>House No.</span> &nbsp; : &nbsp; {{ @$shippings[0]->houseno }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>Gaupalika</span> &nbsp; : &nbsp; {{ @$shippings[0]->gaupalika }}
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>Nagarpalika</span> &nbsp; : &nbsp; {{ @$shippings[0]->nagarpalika }}
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+                                        <span>Wardno</span> &nbsp; : &nbsp; {{ @$shippings[0]->wardno }}
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row fulllg">
+                                <div class="col-lg-12 col-md-12 col-12 popupdatebtm">
+                                    <a data-toggle="modal" data-target="#deleveryAddresssModal" title="Quick View"
+                                        href="#" class="updatebtm">Update it </a>
+                                </div>
+                            </div>
                         </div>
 
                         <!--	 End login register fomr-->
 
                         <div id="mypoints" class="tabcontent">
-                            <h5>My Points</h2>
-                                <div class="">{{ $userdata[0]->total_points ?? 0 }}</div>
+                            <div style="background-color: orange" class="my-4 text-center text-white rounded card-header">
+                                <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">My Points </h4>
+                            </div>
+                            <label>Available Points</label>
+                            <div class="">{{ $userdata[0]->total_points ?? 0 }}</div>
 
                         </div>
 
@@ -378,7 +443,7 @@
                     <div class="single-service">
                         <i class="ti-rocket"></i>
                         <h4>Free shiping</h4>
-						<p>Orders over Rs 1000</p>
+                        <p>Orders over Rs 1000</p>
                     </div>
                     <!-- End Single Service -->
                 </div>
@@ -540,10 +605,10 @@
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                           <div class="form-group">
-                           <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                           </div>
-                          </div> -->
+                                                                   <div class="form-group">
+                                                                   <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                   </div>
+                                                                  </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">

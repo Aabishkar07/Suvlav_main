@@ -25,7 +25,7 @@
         </div>
     @endif
 
-    <div class="col-lg-12 grid-margin stretch-card px-5">
+    <div class="px-5 col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
 
@@ -63,6 +63,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         <?php $GLOBALS['counter'] = $start; ?>
                         @if (count($orders) > 0)
                             @foreach ($orders as $key => $order)
@@ -72,7 +73,28 @@
                                     <td>{{ $order->fullname }}</td>
 
                                     <td>{{ $order->mobile }}</td>
-                                    <td>Rs. {{ $order->total_amt }}</td>
+                                    <td>
+                                        <div class="">
+                                            <div class="">
+                                                <label>
+                                                    Total :
+                                                </label>
+                                                Rs. {{ $order->total_amt }}
+                                            </div>
+                                            @if ($order->use_point)
+                                                <div class="mt-2">
+                                                    <label>Point Use : </label>
+                                                    Rs. {{ $order->use_point }}
+                                                </div>
+                                                <hr />
+                                                <div class="">
+                                                    To Be Receive : <span style="font-weight: bold" class="text-danger">Rs.
+                                                        {{ $order->total_amt - $order->use_point }}
+                                                    </span>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </td>
 
                                     <td>
                                         @switch($order->status)
