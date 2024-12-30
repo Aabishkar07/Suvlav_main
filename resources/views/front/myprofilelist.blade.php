@@ -452,7 +452,7 @@
                     <div class="single-service">
                         <i class="ti-reload"></i>
                         <h4>Exchange</h4>
-                        <p>Within 30 days returns</p>
+                        <p>Within 7 days returns</p>
                     </div>
                     <!-- End Single Service -->
                 </div>

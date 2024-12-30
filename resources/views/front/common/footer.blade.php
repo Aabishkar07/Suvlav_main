@@ -2,7 +2,7 @@
 	$setting= getSetting();
 @endphp
 
-<footer class="footer pb-20">
+<footer class="pb-20 footer">
 		<!-- Footer Top -->
 		<div class="footer-top section">
 			<div class="container">
@@ -12,7 +12,7 @@
 						<div class="single-footer about">
 							<div class="logo d-flex">
 								{{-- <a href="index.html"><img width="100px" src="{{ asset('front_assets/images/logo.png') }}" alt="#"></a> --}}
-								<h1 class="text-white text-3xl font-bold">Suvlav </h1>
+								<h1 class="text-3xl font-bold text-white">Suvlav </h1>
 							</div>
 
 						
@@ -20,8 +20,8 @@
 							<div class="">
 								<div class="row align-items-center">
 									<!-- Column 1: Call to Action -->
-									<div class="col-md-6  text-md-start mb-3 mb-md-0">
-										<p class="call mb-0">
+									<div class="mb-3 col-md-6 text-md-start mb-md-0">
+										<p class="mb-0 call">
 											Got Question? Call us 24/7 
 											<span><a href="tel:123456789" class="text-primary">{{ $setting['site_phone'] }}</a></span>
 										</p>
@@ -33,7 +33,7 @@
 										<form action="{{ route('trackorder') }}" method="GET" class="d-flex">
 											<div class="input-group">
 												<input 
-													class="form-control rounded-pill text-xs pl-2" 
+													class="pl-2 text-xs form-control rounded-pill" 
 													name="tracking_code" 
 													type="search" 
 													id="form1" 
