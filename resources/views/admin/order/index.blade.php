@@ -63,6 +63,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         <?php $GLOBALS['counter'] = $start; ?>
                         @if (count($orders) > 0)
                             @foreach ($orders as $key => $order)
@@ -74,14 +75,24 @@
                                     <td>{{ $order->mobile }}</td>
                                     <td>
                                         <div class="">
-
                                             <div class="">
+                                                <label>
+                                                    Total :
+                                                </label>
                                                 Rs. {{ $order->total_amt }}
                                             </div>
-                                            {{-- <div class="">
-
-                                                a
-                                            </div> --}}
+                                            @if ($order->use_point)
+                                                <div class="mt-2">
+                                                    <label>Point Use : </label>
+                                                    Rs. {{ $order->use_point }}
+                                                </div>
+                                                <hr />
+                                                <div class="">
+                                                    To Be Receive : <span style="font-weight: bold" class="text-danger">Rs.
+                                                        {{ $order->total_amt - $order->use_point }}
+                                                    </span>
+                                                </div>
+                                            @endif
                                         </div>
                                     </td>
 

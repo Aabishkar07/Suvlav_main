@@ -733,10 +733,10 @@ class FrontController extends Controller
             // ->get()->toArray();
 
             $orders = DB::table('orders as a')
-                ->join('order_details as b', 'b.order_id', '=', 'a.id')
                 ->where('user_id', $user_id)
                 ->orderBy('a.id', 'desc')
                 ->get()->toArray();
+
 
             $states = DB::table('provinces')
                 ->get();
@@ -1012,5 +1012,43 @@ class FrontController extends Controller
 
 
         return redirect()->back()->with('message', 'Search history cleared successfully!');
+    }
+
+    public function myprofileorder($order)
+    {
+
+        $order_id=$order;
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+        $order = Order::where('id', $order_id)->first();
+
+
+        $orderid = $order->id;
+
+        $orders = DB::table('orders as a')
+            ->join('order_details as b', 'b.order_id', '=', 'a.id')
+            ->where('a.id', $orderid)
+            ->get()->toArray();
+
+        $user_id = $orders[0]->user_id;
+
+        $userdata = DB::table('members')
+            ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
+            ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+            ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+            ->where('members.id', $user_id)
+            ->get()->toArray();
+
+        $shippings = DB::table('shippings')
+            ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
+            ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
+            ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+            ->where('member_id', $user_id)
+            ->get()->toArray();
+
+
+
+        return view('front.profileorder_view', compact('orders', 'userdata', 'shippings', 'categories', 'cartItems', 'order_id'));
     }
 }
