@@ -17,8 +17,11 @@
     ];
 @endphp
 
-<div class="container mt-32 my-10" id="printableArea">
-    <h1 class="mb-2 text-xl">Tracking Order Details of Order Id : {{ $order_id }}</h1>
+<div class="container sm:mt-32  my-10" id="printableArea">
+    {{-- @dd($orders) --}}
+    <h1 class="mb-2 text-xl">Tracking Order Details of Order Id : {{ $order_id ?? "" }}</h1>
+    @if ($orders)
+        
     <div class="card">
         <div class="card-body">
             @if ($message = Session::get('success'))
@@ -202,11 +205,32 @@
             <!-- Action Buttons -->
             <div>
           
-                <a href="{{ route('order.index') }}" class="btn btn-secondary text-white"><i class="fa fa-mail-reply"></i> Back</a>
+                <a href="/" class="btn btn-secondary text-white"><i class="fa fa-mail-reply"></i> Back</a>
             </div>
 
         </div>
     </div>
+    @else
+    <div class="flex items-center justify-center">
+        <div class="p-6 bg-white rounded-lg shadow-lg custom-margin">
+          <p class="text-red-600 text-2xl font-bold border-l-4 border-red-600 pl-4">
+            No order is available for this tracking ID.
+          </p>
+        </div>
+      </div>
+<style>.custom-margin {
+    margin: 0; /* Default margin for small screens */
+  }
+  
+  @media (min-width: 1024px) {
+    /* Applies margin on screens 1024px and larger */
+    .custom-margin {
+      margin: 200px;
+    }
+  }
+</style>        
+      
+    @endif
 </div>
 
 {{-- <script>

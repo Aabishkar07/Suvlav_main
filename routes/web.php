@@ -73,6 +73,7 @@ Route::get('/allblogs', [FrontController::class, 'allblogs'])->name('allblogs');
 Route::get('/blogs/{blog:slug}', [FrontController::class, 'blogsdetails'])->name('blogsdetails');
 Route::get('/search', [FrontController::class, 'search'])->name('product.search');
 Route::post('/search-history/clear', [FrontController::class, 'clearSearchHistory'])->name('search.history.clear');
+Route::post('/search', [FrontController::class, 'searchstore'])->name('search.history.store');
 
 Route::get('order/trackorder', [FrontController::class, 'trackorder'])->name('trackorder');
 Route::get('/featuredproduct', [FrontController::class, 'featuredproduct'])->name('featuredproduct');

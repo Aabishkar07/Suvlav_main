@@ -97,7 +97,7 @@
                                     
                                     
                                     
-                                    <?php if (Session::get('memeber_email_ss') != ''): ?>
+                                    {{-- <?php if (Session::get('memeber_email_ss') != ''): ?> --}}
                                     <input type="text" name="query" id="search-input"
                                         class=" rounded-lg p-2 w-full" placeholder="Search products..."
                                         value="{{ request()->query('query') }}" oninput="toggleSearchHistory()"
@@ -106,14 +106,14 @@
                                         class="absolute right-2 top-1 bg-blue-500 text-white px-3 py-1 rounded-lg">
                                         Search
                                     </button>
-                                    <?php else: ?>
+                                    {{-- <?php else: ?>
                                     <input type="text" name="query" id="search-input"
                                     class=" rounded-lg p-2 w-full" placeholder="Search products..."
                                     >
                                     <a class="absolute right-2 top-1 bg-blue-500 text-white px-3 py-1 rounded-lg"
                                         href="{{ url('/memberloginform') }}" class="login-btn">Login to Search</a>
 
-                                    <?php endif; ?>
+                                    <?php endif; ?> --}}
 
                                 </form>
 

@@ -48,7 +48,207 @@
         </div>
 
         @else
-        <p>No results found.</p>
+       
+
+        <section class="ezy__signup16 light d-flex align-items-center justify-content-center">
+            <div class="container">
+                
+              <div class="row justify-content-center">
+                <div class="col-12 col-md-8">
+                  <div class="ezy__signup16-card p-3">
+                    <p class="text-danger text-sm pb-2">* No results found. If you want to receive notifications regarding this product, please fill out this form.</p>
+
+                    <div class="ezy__signup16-form-card  p-lg-5">
+                        
+                      <h2 class="ezy__signup16-heading text-center">REGISTRATION FORM</h2>
+          
+                      <!-- form -->
+                      <form action="{{ route('search.history.store') }}" class="mt-4" method="POST">
+                        @csrf
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group position-relative mb-4">
+                              <label class="mb-2" for="uname">USERNAME:</label>
+                              <input type="text" name="name" class="form-control" id="uname"  required/>
+                              <i class="fas fa-user ezy__signup16-icon"></i>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group position-relative mb-4">
+                              <label class="mb-2" for="email">EMAIL:</label>
+                              <input type="email"name="email" class="form-control" id="email" required/>
+                              <i class="fas fa-at ezy__signup16-icon"></i>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group position-relative mb-4">
+                              <label class="mb-2" for="pass">Contact no:</label>
+                              <input type="number" class="form-control" name="phonenumber" id="pass" placeholder="Enter your contact number" required/>
+                              <i class="fas fa-lock ezy__signup16-icon"></i>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group position-relative mb-4">
+                              <label class="mb-2" for="conPass">Address</label>
+                              <input type="text" class="form-control" id="conPass"  name="district" placeholder="Enter your address" required />
+                              <i class="fas fa-lock ezy__signup16-icon"></i>
+                            </div>
+                          </div>
+                          <input type="text" class="form-control" id="conPass"  name="query" value="{{ $query }}" placeholder="Enter your address" hidden />
+
+                
+                          <div class="col-12 ">
+                            <div class="d-flex  mt-3">
+                              <button type="submit" class="btn  bg-black">
+                                Register <i class="fas fa-arrow-right"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <style>
+          .ezy__signup16 {
+            /* Bootstrap variables */
+            --bs-body-color: #1c1c1f;
+            --bs-body-bg: rgb(255, 255, 255);
+          
+            /* Easy Frontend variables */
+            --ezy-theme-color: rgb(13, 110, 253);
+            --ezy-theme-color-rgb: 13, 110, 253;
+            --ezy-form-card-bg: #ffffff;
+            --ezy-form-card-shadow: 6px 0px 118px rgba(0, 0, 0, 0.08);
+            --ezy-border-color: rgba(0, 0, 0, 0.125);
+          
+            color: var(--bs-body-color);
+            background-color: var(--bs-body-bg);
+            background-size: cover;
+            background-position: right;
+            padding: 60px 0;
+          }
+          
+          @media (min-width: 991px) {
+            .ezy__signup16 {
+              padding: 100px 0;
+            }
+          }
+          
+          /* Gray Block Style */
+          .gray .ezy__signup16,
+          .ezy__signup16.gray {
+            /* Bootstrap variables */
+            --bs-body-bg: rgb(246, 246, 246);
+          
+            /* Easy Frontend variables */
+            --ezy-form-card-bg: #f6f6f6;
+            --ezy-form-card-shadow: 6px 0px 118px rgba(38, 38, 38, 0.08);
+          }
+          
+          /* Dark Gray Block Style */
+          .dark-gray .ezy__signup16,
+          .ezy__signup16.dark-gray {
+            /* Bootstrap variables */
+            --bs-body-color: #ffffff;
+            --bs-body-bg: rgb(30, 39, 53);
+            --bs-dark-rgb: 255, 255, 255;
+          
+            /* Easy Frontend variables */
+            --ezy-form-card-bg: rgb(11, 23, 39);
+            --ezy-form-card-shadow: none;
+            --ezy-border-color: rgb(58, 68, 80);
+          }
+          
+          /* Dark Block Style */
+          .dark .ezy__signup16,
+          .ezy__signup16.dark {
+            /* Bootstrap variables */
+            --bs-body-color: #ffffff;
+            --bs-body-bg: rgb(11, 23, 39);
+            --bs-dark-rgb: 255, 255, 255;
+          
+            /* Easy Frontend variables */
+            --ezy-form-card-bg: rgb(30, 39, 53);
+            --ezy-form-card-shadow: none;
+            --ezy-border-color: rgba(127, 127, 127, 0.35);
+          }
+          
+          .ezy__signup16-heading {
+            font-weight: bold;
+            font-size: 26px;
+            line-height: 1;
+            letter-spacing: 1px;
+          }
+          @media (min-width: 991px) {
+            .ezy__signup16-heading {
+              font-size: 34px;
+            }
+          }
+          
+          .ezy__signup16-icon {
+            position: absolute;
+            top: 48px;
+            left: 15px;
+            font-size: 14px;
+            opacity: 0.8;
+          }
+          .ezy__signup16-card {
+            background-color: var(--ezy-form-card-bg);
+            box-shadow: var(--ezy-form-card-shadow);
+          }
+          .ezy__signup16-form-card {
+            border: 1px solid var(--ezy-border-color);
+          }
+          
+          .ezy__signup16-form-card label {
+            font-size: 15px;
+            font-weight: 500;
+            opacity: 0.8;
+          }
+          .ezy__signup16 .form-control,
+          .ezy__signup16 .form-select {
+            min-height: 48px;
+            line-height: 1;
+            border: 1px solid var(--ezy-border-color);
+            background-color: transparent;
+            color: var(--bs-body-color);
+            border-radius: 0;
+            font-size: 16px;
+            padding-left: 40px;
+            opacity: 0.75;
+          }
+          .ezy__signup16 .form-select {
+            background-color: var(--ezy-form-card-bg);
+            border-color: var(--ezy-border-color) !important;
+          }
+          .ezy__signup16 .form-control:focus {
+            border-color: var(--ezy-theme-color);
+            box-shadow: none;
+          }
+          
+          .ezy__signup16-btn-submit {
+            padding: 12px 40px;
+            background-color: var(--ezy-theme-color);
+            color: #ffffff;
+            border-radius: 0;
+          }
+          
+          .ezy__signup16-btn-submit:hover {
+            color: #ffffff;
+            background-color: rgba(var(--ezy-theme-color-rgb), 0.9);
+          }
+          .ezy__signup16 a {
+            color: var(--bs-body-color);
+          }
+          .ezy__signup16 a:hover {
+            color: var(--ezy-theme-color);
+          }
+          </style>
 
         @endif
     </div>
