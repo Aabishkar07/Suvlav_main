@@ -19,19 +19,67 @@
     @endphp
     <div class="px-4">
         <div class="py-4 ">
-            <div style="width:210px;" class="">
+            <div class="">
 
                 <form method="GET">
-                    <label class="py-1 ">Choose Product</label>
-                    <select name="product" onchange="this.form.submit()" class="text-black form-select"
-                        aria-label="Default select example">
-                        <option disabled value="" {{ request()->product ? '' : 'selected' }}>Select the Product
-                        </option>
-                        @foreach ($products as $product)
-                            <option {{ request()->product == $product->id ? 'selected' : '' }} value="{{ $product->id }}">
-                                {{ $product->title }}</option>
-                        @endforeach
-                    </select>
+
+
+                    <div class="flex-wrap w-full gap-3 d-flex align-items-center">
+                        <!-- Product Dropdown -->
+                        <div class="w-auto">
+                            <label class="text-sm text-gray-600 form-label">Choose Product</label>
+                            <select name="product" class="form-select">
+                                <option disabled value="" {{ request()->product ? '' : 'selected' }}>Select the Product
+                                </option>
+                                @foreach ($products as $product)
+                                    <option {{ request()->product == $product->id ? 'selected' : '' }}
+                                        value="{{ $product->id }}">
+                                        {{ $product->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- From Date Picker -->
+                        <div class="w-auto">
+                            <label class="text-sm text-gray-600 form-label">From</label>
+                            <input id="datepicker-from" name="from" class="form-control" type="date"
+                                value="{{ old('form',request()->from) }}" placeholder="YYYY-MM-DD" required>
+                        </div>
+
+                        <!-- To Date Picker -->
+                        <div class="w-auto">
+                            <label class="text-sm text-gray-600 form-label">To</label>
+                            <input id="datepicker-to" name="to" class="form-control" type="date"
+                                value="{{ old('to',request()->to) }}" placeholder="YYYY-MM-DD" required>
+                        </div>
+
+                        <!-- Filter Button -->
+                        <div>
+                            <button class="gap-2 btn btn-primary d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-filter"
+                                    width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path
+                                        d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z">
+                                    </path>
+                                </svg>
+                                <span>Filter</span>
+                            </button>
+                        </div>
+                    </div>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+                    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+                    <script>
+                        flatpickr("#datepicker-from, #datepicker-to", {
+                            // dateFormat: "Y-m-d",
+                        });
+                    </script>
+
+
+
                 </form>
                 @if ($myproduct)
                     <div class="py-2">
