@@ -20,6 +20,8 @@ class Member extends Model
         'district_id',
         'address',
         'status',
+        'otp',
         'total_points'
+
     ];
 }

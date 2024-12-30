@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Mail\otp;
+use App\Mail\registerUser;
+use App\Mail\welcome;
 use App\Models\AffiliatePoint;
 use App\Models\Blog;
 use App\Models\Faq;
@@ -10,6 +13,7 @@ use App\Models\Member;
 use App\Models\Order;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\SearchHistory;
 use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -19,6 +23,11 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Nette\Utils\Random;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
+
 
 
 class FrontController extends Controller
@@ -45,6 +54,47 @@ class FrontController extends Controller
             ->get();
     }
 
+
+
+
+
+    public function newpassword(Request $request)
+    {
+
+        $email = request('email');
+
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+        return view("front.newpassword", compact('cartItems', 'categories', 'email'));
+    }
+
+
+
+    public function changepassword(Request $request)
+    {
+        # Validation
+        $email = request('email');
+
+
+        $customer = Member::where('email', $email)->first();
+
+
+        if (!$customer) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        $hashedpw = base64_encode($request->newpassword);
+        $customer->update([
+
+
+            'passwrd' => $hashedpw
+        ]);
+
+        $customer->save();
+
+        return redirect()->route('member.loginform')->with("status", "Password changed successfully!");
+    }
     public function index(Request $request)
     {
 
@@ -261,6 +311,16 @@ class FrontController extends Controller
                 $request->session()->put('memeber_name_ss', $request->fname);
                 $request->session()->put('memeber_email_ss', $request->email);
                 $request->session()->put('memeber_id_ss', $memberid);
+
+                $member = Member::find($memberid);
+
+
+                Mail::to($request->email)->send(new welcome('Thank You'));
+
+
+                Mail::to('aaviscar09@gmail.com')->send(new registerUser($member));
+
+
 
                 $cartData = [
                     'user_id' => $memberid,
@@ -547,8 +607,14 @@ class FrontController extends Controller
         if (Session::get('memeber_id_ss') != '') {
             return redirect('/');
         }
+
+
         $cartItems = $this->cartdata;
         $categories = $this->categories;
+
+
+
+
         return view('front.memregform', compact('cartItems', 'categories'));
     }
 
@@ -558,6 +624,90 @@ class FrontController extends Controller
         $categories = $this->categories;
         return view('front.forgetpwform', compact('cartItems', 'categories'));
     }
+
+
+
+    public function forgotpwformstore(Request $request)
+    {
+
+
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+        $email = request('email');
+        if (!$email) {
+            return view('front.forgetpwform');
+        } else {
+            $customer = Member::where("email", $request->email)->first();
+
+
+            if (!$customer) {
+                return redirect()->back()->with('error', 'Email not found');
+            }
+
+
+            $otp = rand(100000, 999999);
+
+
+            $customer->update([
+                'otp' => $otp,
+            ]);
+
+
+            Mail::to($email)->send(new otp($otp));
+
+
+            return view('front.otp', ['email' => $email],  compact('cartItems', 'categories'));
+        }
+    }
+
+
+
+
+    public function otp(Request $request)
+    {
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+        $email = request('email');
+
+        if (!$email) {
+
+            return redirect()->back();
+        } else {
+            $customer = Member::where("email", $request->email)->first();
+
+            if (!$customer) {
+
+                return redirect()->back()->with('error', 'Invalid Otp');
+            }
+
+
+            return view('front.otp', compact('cartItems', 'categories', 'email'));
+        }
+    }
+
+
+
+
+
+
+    public function checkotp(Request $request)
+    {
+
+
+        $email = $request->email;
+
+
+        $otp = $request->otp;
+        $checkotp = Member::where('email', $email)->first();
+
+
+        if ($otp == $checkotp->otp) {
+            return redirect()->route('newpassword', ['email' => $email]);
+        } else {
+            return redirect()->back()->with('error', 'Invalid Otp');
+        }
+    }
+
 
     public function myprofile()
     {
@@ -812,35 +962,54 @@ class FrontController extends Controller
 
     public function search(Request $request)
     {
-
         $cartItems = $this->cartdata;
         $categories = $this->categories;
-        $query = $request->input('query');
 
+        $id = Session::get('memeber_id_ss');
 
-        $searchHistory = json_decode(Cookie::get('search_history', '[]'), true);
+        $userdata = DB::table('members')
+            ->where('members.id', $id)
+            ->first();
 
-        $searchHistory[] = $query;
-        $searchHistory = array_unique(array_slice($searchHistory, -10));
+        if ($id) {
+            $cartItems = $this->cartdata;
+            $categories = $this->categories;
+            $query = $request->input('query');
+            $name = $userdata->name;
 
-        Cookie::queue('search_history', json_encode($searchHistory), 60);
+            if ($query) {
+                SearchHistory::create([
+                    'email' => session('memeber_email_ss'), // Store the user's email from session
+                    'search_item' => $query,
+                    'user_id' => $id,
+                    'name' => $name,
+                    'phonenumber' => $userdata->mobileno,
+                ]);
+            }
 
+            $searchHistory = json_decode(Cookie::get('search_history', '[]'), true);
+            $searchHistory[] = $query;
+            $searchHistory = array_unique(array_slice($searchHistory, -10));
 
+            Cookie::queue('search_history', json_encode($searchHistory), 60 * 24 * 365 * 5); // 5 years
 
+            $productIDs = Product::where('title', 'like', '%' . $query . '%')->pluck('id');
+            $products = Product::whereIn('id', $productIDs)->get();
 
-        $productIDs = Product::where('title', 'like', '%' . $query . '%')->pluck('id');
-
-        $products = Product::whereIn('id', $productIDs)
-            ->get();
-        return view('front.products.search', compact('cartItems', 'categories', 'products', 'query', 'searchHistory'));
+            return view('front.products.search', compact('cartItems', 'categories', 'products', 'query', 'searchHistory'));
+        } else {
+            return view('front.memloginform', compact('cartItems', 'categories'));
+        }
     }
+
 
 
     public function clearSearchHistory()
     {
 
-        dd('<div class');
+
         Cookie::queue(Cookie::forget('search_history'));
+
 
         return redirect()->back()->with('message', 'Search history cleared successfully!');
     }
