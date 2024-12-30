@@ -183,19 +183,20 @@
 				<div class="row justify-content-center">
 					<div class="col-lg-6 col-md-8">
 						<div class="form-wrapper">
-							<h2>Forget Password
+							<h2>OTP
 							</h2>
 							@if($errors->any())
 								<div class="alert alert-danger">
 									{{ $errors->first() }}
 								</div>
 							@endif
-							<form action="{{ route('member.forgotpwformstore') }}" method="POST">
+							<form action="{{ route('checkotp') }}" method="POST">
 								@csrf
 								<input type="hidden" name="prev_url" value="{{ url()->previous() }}">
 								<div class="form-group">
-									<label for="email">Email <span>*</span></label>
-									<input type="email" id="email" name="email" placeholder="Enter your email" required>
+                                    <input type="hidden" name="email" value="{{ $email }}" />
+									<label for="otp">Otp <span class="text-danger">* Check your email</span></label>
+									<input type="number" id="otp" name="otp" placeholder="Enter your otp" required>
 								</div>
 						
 								<button type="submit" id="submitbtm">Submit</button>

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Mail\otp;
+use App\Mail\registerUser;
+use App\Mail\welcome;
 use App\Models\AffiliatePoint;
 use App\Models\Blog;
 use App\Models\Faq;
@@ -20,6 +23,11 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Nette\Utils\Random;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
+
 
 
 class FrontController extends Controller
@@ -46,6 +54,47 @@ class FrontController extends Controller
             ->get();
     }
 
+
+
+
+
+    public function newpassword(Request $request)
+    {
+
+        $email = request('email');
+       
+              $cartItems = $this->cartdata;
+        $categories = $this->categories;
+        
+        return view("front.newpassword" , compact('cartItems', 'categories','email'));
+    }
+
+
+
+    public function changepassword(Request $request)
+    {
+        # Validation
+        $email = request('email');
+
+
+       $customer = Member::where('email',$email)->first();
+
+    
+       if(!$customer){
+        return redirect()->back()->with('error', 'User not found.');
+       }
+
+       $hashedpw = base64_encode($request->newpassword);
+       $customer->update([
+
+
+        'passwrd' =>$hashedpw
+       ]);
+               
+       $customer->save();
+
+        return redirect()->route('member.loginform')->with("status", "Password changed successfully!");
+    }
     public function index(Request $request)
     {
 
@@ -261,6 +310,16 @@ class FrontController extends Controller
                 $request->session()->put('memeber_name_ss', $request->fname);
                 $request->session()->put('memeber_email_ss', $request->email);
                 $request->session()->put('memeber_id_ss', $memberid);
+
+                $member = Member::find($memberid);
+
+           
+                Mail::to($request->email)->send(new welcome('Thank You'));
+
+
+                Mail::to('aaviscar09@gmail.com')->send(new registerUser($member));
+
+
 
                 $cartData = [
                     'user_id' => $memberid,
@@ -533,8 +592,14 @@ class FrontController extends Controller
         if (Session::get('memeber_id_ss') != '') {
             return redirect('/');
         }
+
+
         $cartItems = $this->cartdata;
         $categories = $this->categories;
+
+
+
+
         return view('front.memregform', compact('cartItems', 'categories'));
     }
 
@@ -544,6 +609,90 @@ class FrontController extends Controller
         $categories = $this->categories;
         return view('front.forgetpwform', compact('cartItems', 'categories'));
     }
+
+
+
+    public function forgotpwformstore(Request $request)
+    {
+
+      
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+        $email = request('email');
+        if (!$email) {
+            return view('front.forgetpwform');
+        } else {
+            $customer = Member::where("email", $request->email)->first();
+    
+          
+            if (!$customer) {
+                return redirect()->back()->with('error', 'Email not found');
+            }
+
+            
+            $otp = rand(100000, 999999); 
+    
+           
+            $customer->update([
+                'otp' => $otp,
+            ]);
+
+
+            Mail::to($email)->send(new otp($otp));
+    
+    
+            return view('front.otp', ['email' => $email],  compact('cartItems', 'categories'));
+        }
+    }
+
+
+
+
+    public function otp(Request $request)
+    {
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+        $email = request('email');
+        
+        if (!$email) {
+
+            return redirect()->back();
+        } else {
+            $customer = Member::where("email", $request->email)->first();
+
+            if (!$customer) {
+
+                return redirect()->back()->with('error', 'Invalid Otp');
+            }
+
+
+            return view('front.otp' , compact('cartItems', 'categories' ,'email'));
+        }
+    }
+
+
+
+
+
+
+    public function checkotp(Request $request)
+    {
+       
+
+        $email = $request->email;  
+     
+      
+        $otp = $request->otp;
+        $checkotp = Member::where('email', $email)->first();
+
+  
+        if ($otp == $checkotp->otp) {
+            return redirect()->route('newpassword', ['email' => $email]);
+        } else {
+            return redirect()->back()->with('error', 'Invalid Otp');
+        }
+    }
+
 
     public function myprofile()
     {
@@ -798,7 +947,7 @@ class FrontController extends Controller
     public function search(Request $request)
     {
 
-        
+
         $cartItems = $this->cartdata;
         $categories = $this->categories;
 
@@ -806,14 +955,14 @@ class FrontController extends Controller
 
 
         $userdata = DB::table('members')
-        // ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
-        // ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
-        // ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
-        ->where('members.id', $id)
-        ->first();
-    
+            // ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
+            // ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+            // ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+            ->where('members.id', $id)
+            ->first();
 
-    
+
+
 
         if ($id) {
 
@@ -831,7 +980,7 @@ class FrontController extends Controller
                     'user_id' => $id,
                     'name' => $name,
                     'phonenumber' => $userdata->mobileno,
-                 
+
 
                 ]);
             }
@@ -852,7 +1001,7 @@ class FrontController extends Controller
                 ->get();
             return view('front.products.search', compact('cartItems', 'categories', 'products', 'query', 'searchHistory'));
         } else {
-            return  view('front.memloginform' , compact('cartItems', 'categories'));
+            return  view('front.memloginform', compact('cartItems', 'categories'));
         }
     }
 
