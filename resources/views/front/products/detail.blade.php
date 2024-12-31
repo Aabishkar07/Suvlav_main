@@ -105,19 +105,19 @@
 
     <!-- Breadcrumbs -->
     <!-- <div class="breadcrumbs">
-                                                                                          <div class="container">
-                                                                                           <div class="row">
-                                                                                            <div class="col-12">
-                                                                                             <div class="bread-inner">
-                                                                                              <ul class="bread-list">
-                                                                                               <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-                                                                                               <li class="active"><a href="blog-single.html">Products</a></li>
-                                                                                              </ul>
-                                                                                             </div>
-                                                                                            </div>
-                                                                                           </div>
-                                                                                          </div>
-                                                                                         </div> -->
+                                                                                                                                                  <div class="container">
+                                                                                                                                                   <div class="row">
+                                                                                                                                                    <div class="col-12">
+                                                                                                                                                     <div class="bread-inner">
+                                                                                                                                                      <ul class="bread-list">
+                                                                                                                                                       <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                                                                                                                                                       <li class="active"><a href="blog-single.html">Products</a></li>
+                                                                                                                                                      </ul>
+                                                                                                                                                     </div>
+                                                                                                                                                    </div>
+                                                                                                                                                   </div>
+                                                                                                                                                  </div>
+                                                                                                                                                 </div> -->
     <!-- End Breadcrumbs -->
 
     <section class="shop single section">
@@ -264,9 +264,160 @@
                                             <input type="hidden" id="cart_color" value="{{ $productDefaultColor }}">
                                             <input type="hidden" id="cart_size" value="{{ $productDefaultSize }}">
                                             <input type="hidden" name="cart_url" value="{{ route('cart.addtocart') }}">
-                                            <button type="button" class="btn addtocart"
-                                                onclick="addToCart(this, {{ $product->id }}, '{{ csrf_token() }}', '{{ route('cart.addtocart') }}', 'single');">
-                                                Add to Cart </button>
+
+                                            {{-- add to cart --}}
+                                            <button type="button" class="btn addtocart" id="addToCartButton"
+                                                data-product-id="{{ $product->id }}"
+                                                data-csrf-token="{{ csrf_token() }}"
+                                                data-url="{{ route('cart.addtocart') }}">
+                                                Add to Cart
+                                            </button>
+
+                                            {{-- addtocart script --}}
+                                            <script>
+                                                document.getElementById('addToCartButton').addEventListener('click', function() {
+                                                    let quantity = 1;
+                                                    let cartColor = '';
+                                                    let cartSize = '';
+                                                    let isCartProcessing = false; // Initialize the variable
+
+                                                    const elementQuantity = document.getElementById('quantity');
+                                                    if (elementQuantity) {
+                                                        quantity = parseInt(elementQuantity.value, 10); // Ensure quantity is an integer
+                                                    }
+
+                                                    const elementSize = document.getElementById('cart_size');
+                                                    if (elementSize) {
+                                                        cartSize = elementSize.value;
+                                                    }
+
+                                                    const elementColor = document.getElementById('cart_color');
+                                                    if (elementColor) {
+                                                        cartColor = elementColor.value;
+                                                    }
+
+                                                    // Check if quantity is valid
+                                                    if (quantity <= 0) {
+                                                        toastr.error(
+                                                            "Your quantity is " + quantity + ". Please increase the Quantity.",
+                                                            "Error"
+                                                        );
+                                                        return; // Exit the function if quantity is invalid
+                                                    }
+
+                                                    const productId = this.getAttribute('data-product-id');
+                                                    const csrfToken = this.getAttribute('data-csrf-token');
+                                                    const url = this.getAttribute('data-url');
+
+                                                    const payload = JSON.stringify({
+                                                        product_id: productId,
+                                                        quantity: quantity,
+                                                        cartSize: cartSize,
+                                                        cartColor: cartColor,
+                                                        type: 'single'
+                                                    });
+
+                                                    const xhr = new XMLHttpRequest();
+                                                    xhr.open('POST', url, true); // Use asynchronous requests for better performance
+                                                    xhr.setRequestHeader('Content-Type', 'application/json');
+                                                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+
+                                                    xhr.onreadystatechange = function() {
+                                                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                                                            const response = JSON.parse(xhr.responseText);
+                                                            console.log("test", response)
+                                                            if (response.status === "success") {
+                                                                toastr.success(response.msg, "Success");
+                                                                document.getElementById("js_cartInfo").innerHTML = response.content;
+                                                                isCartProcessing = false;
+                                                            } else {
+                                                                toastr.error(response.message, "Error");
+                                                            }
+                                                        }
+                                                    };
+
+                                                    xhr.send(payload);
+                                                });
+                                            </script>
+
+                                            {{-- Buy Now --}}
+                                            <button type="button" class="btn buynow" id="buyNowButton"
+                                                data-product-id="{{ $product->id }}"
+                                                data-csrf-token="{{ csrf_token() }}"
+                                                data-url="{{ route('cart.addtocart') }}">
+                                                Buy Now
+                                            </button>
+
+                                            {{-- buynow script --}}
+                                            <script>
+                                                document.getElementById('buyNowButton').addEventListener('click', function() {
+                                                    let quantity = 1;
+                                                    let cartColor = '';
+                                                    let cartSize = '';
+                                                    let isCartProcessing = false; // Initialize the variable
+
+                                                    const elementQuantity = document.getElementById('quantity');
+                                                    if (elementQuantity) {
+                                                        quantity = parseInt(elementQuantity.value, 10); // Ensure quantity is an integer
+                                                    }
+
+                                                    const elementSize = document.getElementById('cart_size');
+                                                    if (elementSize) {
+                                                        cartSize = elementSize.value;
+                                                    }
+
+                                                    const elementColor = document.getElementById('cart_color');
+                                                    if (elementColor) {
+                                                        cartColor = elementColor.value;
+                                                    }
+
+                                                    // Check if quantity is valid
+                                                    if (quantity <= 0) {
+                                                        toastr.error(
+                                                            "Your quantity is " + quantity + ". Please increase the Quantity.",
+                                                            "Error"
+                                                        );
+                                                        return; // Exit the function if quantity is invalid
+                                                    }
+
+                                                    const productId = this.getAttribute('data-product-id');
+                                                    const csrfToken = this.getAttribute('data-csrf-token');
+                                                    const url = this.getAttribute('data-url');
+
+                                                    const payload = JSON.stringify({
+                                                        product_id: productId,
+                                                        quantity: quantity,
+                                                        cartSize: cartSize,
+                                                        cartColor: cartColor,
+                                                        type: 'single'
+                                                    });
+
+                                                    const xhr = new XMLHttpRequest();
+                                                    xhr.open('POST', url, true); // Use asynchronous requests for better performance
+                                                    xhr.setRequestHeader('Content-Type', 'application/json');
+                                                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+
+                                                    xhr.onreadystatechange = function() {
+                                                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                                                            const response = JSON.parse(xhr.responseText);
+                                                            console.log("test", response)
+                                                            if (response.status === "success") {
+                                                                toastr.success(response.msg, "Success");
+                                                                document.getElementById("js_cartInfo").innerHTML = response.content;
+                                                                window.location.href = "https://suvlav.com/checkout";
+                                                                isCartProcessing = false;
+                                                            } else {
+                                                                toastr.error(response.message, "Error");
+                                                            }
+                                                        }
+                                                    };
+
+                                                    xhr.send(payload);
+                                                });
+                                            </script>
+
+
+
 
                                             <style>
                                                 .addtocart {
@@ -283,9 +434,9 @@
                                                 }
                                             </style>
 
-                                            <button type="button" class="btn buynow"
+                                            {{-- <button type="button" class="btn buynow"
                                                 onclick="mybuynow(this, {{ $product->id }}, '{{ csrf_token() }}', '{{ route('cart.addtocart') }}', 'buy');">
-                                                Buy Now</button>
+                                                Buy Now</button> --}}
 
                                             <style>
                                                 .buynow {
@@ -421,7 +572,7 @@
                                     <h4>Description </h4>
                                     <!-- Tab Nav -->
                                     <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                                                                                  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a></li> -->
+                                                                                                                                                          <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a></li> -->
                                     <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews</a></li> -->
                                     <!-- </ul> -->
                                     <!--/ End Tab Nav -->
@@ -440,108 +591,108 @@
                                     <!--/ End Description Tab -->
                                     <!-- Reviews Tab -->
                                     <!-- <div class="tab-pane fade" id="reviews" role="tabpanel">
-                                                                                                  <div class="tab-single review-panel">
-                                                                                                   <div class="row">
-                                                                                                    <div class="col-12">
-                                                                                                     <div class="ratting-main">
-                                                                                                      <div class="avg-ratting">
-                                                                                                       <h4>4.5 <span>(Overall)</span></h4>
-                                                                                                       <span>Based on 1 Comments</span>
-                                                                                                      </div>
-                                                                                                     
-                                                                                                      <div class="single-rating">
-                                                                                                       <div class="rating-author">
-                                                                                                        <img src="{{ asset('front_assets/images/comments1.jpg') }}" alt="#">
-                                                                                                       </div>
-                                                                                                       <div class="rating-des">
-                                                                                                        <h6>Naimur Rahman</h6>
-                                                                                                        <div class="ratings">
-                                                                                                         <ul class="rating">
-                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                          <li><i class="fa fa-star-half-o"></i></li>
-                                                                                                          <li><i class="fa fa-star-o"></i></li>
-                                                                                                         </ul>
-                                                                                                         <div class="rate-count">(<span>3.5</span>)</div>
-                                                                                                        </div>
-                                                                                                        <p>Duis tincidunt mauris ac aliquet congue. Donec vestibulum consequat cursus. Aliquam pellentesque nulla dolor, in imperdiet.</p>
-                                                                                                       </div>
-                                                                                                      </div>
-                                                                                                    
-                                                                                                      <div class="single-rating">
-                                                                                                       <div class="rating-author">
-                                                                                                        <img src="{{ asset('front_assets/images/comments1.jpg') }}" alt="#">
-                                                                                                       </div>
-                                                                                                       <div class="rating-des">
-                                                                                                        <h6>Advin Geri</h6>
-                                                                                                        <div class="ratings">
-                                                                                                         <ul class="rating">
-                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                         </ul>
-                                                                                                         <div class="rate-count">(<span>5.0</span>)</div>
-                                                                                                        </div>
-                                                                                                        <p>Duis tincidunt mauris ac aliquet congue. Donec vestibulum consequat cursus. Aliquam pellentesque nulla dolor, in imperdiet.</p>
-                                                                                                       </div>
-                                                                                                      </div>
-                                                                                                      
-                                                                                                     </div>
-                                                                                                    
-                                                                                                     <div class="comment-review">
-                                                                                                      <div class="add-review">
-                                                                                                       <h5>Add A Review</h5>
-                                                                                                       <p>Your email address will not be published. Required fields are marked</p>
-                                                                                                      </div>
-                                                                                                      <h4>Your Rating</h4>
-                                                                                                      <div class="review-inner">
-                                                                                                       <div class="ratings">
-                                                                                                        <ul class="rating">
-                                                                                                         <li><i class="fa fa-star"></i></li>
-                                                                                                         <li><i class="fa fa-star"></i></li>
-                                                                                                         <li><i class="fa fa-star"></i></li>
-                                                                                                         <li><i class="fa fa-star"></i></li>
-                                                                                                         <li><i class="fa fa-star"></i></li>
-                                                                                                        </ul>
-                                                                                                       </div>
-                                                                                                      </div>
-                                                                                                     </div>
-                                                                                                    
-                                                                                                     <form class="form" method="post" action="mail/mail.php">
-                                                                                                      <div class="row">
-                                                                                                       <div class="col-lg-6 col-12">
-                                                                                                        <div class="form-group">
-                                                                                                         <label>Your Name<span>*</span></label>
-                                                                                                         <input type="text" name="name" required="required" placeholder="">
-                                                                                                        </div>
-                                                                                                       </div>
-                                                                                                       <div class="col-lg-6 col-12">
-                                                                                                        <div class="form-group">
-                                                                                                         <label>Your Email<span>*</span></label>
-                                                                                                         <input type="email" name="email" required="required" placeholder="">
-                                                                                                        </div>
-                                                                                                       </div>
-                                                                                                       <div class="col-lg-12 col-12">
-                                                                                                        <div class="form-group">
-                                                                                                         <label>Write a review<span>*</span></label>
-                                                                                                         <textarea name="message" rows="6" placeholder=""></textarea>
-                                                                                                        </div>
-                                                                                                       </div>
-                                                                                                       <div class="col-lg-12 col-12">
-                                                                                                        <div class="form-group button5">
-                                                                                                         <button type="submit" class="btn">Submit</button>
-                                                                                                        </div>
-                                                                                                       </div>
-                                                                                                      </div>
-                                                                                                     </form>
-                                                                                                     
-                                                                                                    </div>
-                                                                                                   </div>
-                                                                                                  </div>
-                                                                                                 </div> -->
+                                                                                                                                                          <div class="tab-single review-panel">
+                                                                                                                                                           <div class="row">
+                                                                                                                                                            <div class="col-12">
+                                                                                                                                                             <div class="ratting-main">
+                                                                                                                                                              <div class="avg-ratting">
+                                                                                                                                                               <h4>4.5 <span>(Overall)</span></h4>
+                                                                                                                                                               <span>Based on 1 Comments</span>
+                                                                                                                                                              </div>
+                                                                                                                                                             
+                                                                                                                                                              <div class="single-rating">
+                                                                                                                                                               <div class="rating-author">
+                                                                                                                                                                <img src="{{ asset('front_assets/images/comments1.jpg') }}" alt="#">
+                                                                                                                                                               </div>
+                                                                                                                                                               <div class="rating-des">
+                                                                                                                                                                <h6>Naimur Rahman</h6>
+                                                                                                                                                                <div class="ratings">
+                                                                                                                                                                 <ul class="rating">
+                                                                                                                                                                  <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                  <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                  <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                  <li><i class="fa fa-star-half-o"></i></li>
+                                                                                                                                                                  <li><i class="fa fa-star-o"></i></li>
+                                                                                                                                                                 </ul>
+                                                                                                                                                                 <div class="rate-count">(<span>3.5</span>)</div>
+                                                                                                                                                                </div>
+                                                                                                                                                                <p>Duis tincidunt mauris ac aliquet congue. Donec vestibulum consequat cursus. Aliquam pellentesque nulla dolor, in imperdiet.</p>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                            
+                                                                                                                                                              <div class="single-rating">
+                                                                                                                                                               <div class="rating-author">
+                                                                                                                                                                <img src="{{ asset('front_assets/images/comments1.jpg') }}" alt="#">
+                                                                                                                                                               </div>
+                                                                                                                                                               <div class="rating-des">
+                                                                                                                                                                <h6>Advin Geri</h6>
+                                                                                                                                                                <div class="ratings">
+                                                                                                                                                                 <ul class="rating">
+                                                                                                                                                                  <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                  <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                  <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                  <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                  <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                 </ul>
+                                                                                                                                                                 <div class="rate-count">(<span>5.0</span>)</div>
+                                                                                                                                                                </div>
+                                                                                                                                                                <p>Duis tincidunt mauris ac aliquet congue. Donec vestibulum consequat cursus. Aliquam pellentesque nulla dolor, in imperdiet.</p>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                              
+                                                                                                                                                             </div>
+                                                                                                                                                            
+                                                                                                                                                             <div class="comment-review">
+                                                                                                                                                              <div class="add-review">
+                                                                                                                                                               <h5>Add A Review</h5>
+                                                                                                                                                               <p>Your email address will not be published. Required fields are marked</p>
+                                                                                                                                                              </div>
+                                                                                                                                                              <h4>Your Rating</h4>
+                                                                                                                                                              <div class="review-inner">
+                                                                                                                                                               <div class="ratings">
+                                                                                                                                                                <ul class="rating">
+                                                                                                                                                                 <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                 <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                 <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                 <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                 <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                </ul>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                             </div>
+                                                                                                                                                            
+                                                                                                                                                             <form class="form" method="post" action="mail/mail.php">
+                                                                                                                                                              <div class="row">
+                                                                                                                                                               <div class="col-lg-6 col-12">
+                                                                                                                                                                <div class="form-group">
+                                                                                                                                                                 <label>Your Name<span>*</span></label>
+                                                                                                                                                                 <input type="text" name="name" required="required" placeholder="">
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                               <div class="col-lg-6 col-12">
+                                                                                                                                                                <div class="form-group">
+                                                                                                                                                                 <label>Your Email<span>*</span></label>
+                                                                                                                                                                 <input type="email" name="email" required="required" placeholder="">
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                               <div class="col-lg-12 col-12">
+                                                                                                                                                                <div class="form-group">
+                                                                                                                                                                 <label>Write a review<span>*</span></label>
+                                                                                                                                                                 <textarea name="message" rows="6" placeholder=""></textarea>
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                               <div class="col-lg-12 col-12">
+                                                                                                                                                                <div class="form-group button5">
+                                                                                                                                                                 <button type="submit" class="btn">Submit</button>
+                                                                                                                                                                </div>
+                                                                                                                                                               </div>
+                                                                                                                                                              </div>
+                                                                                                                                                             </form>
+                                                                                                                                                             
+                                                                                                                                                            </div>
+                                                                                                                                                           </div>
+                                                                                                                                                          </div>
+                                                                                                                                                         </div> -->
                                     <!--/ End Reviews Tab -->
                                 </div>
                             </div>
@@ -560,7 +711,7 @@
 
             let currentValue = parseInt(quantity.value, 10) || 0;
             if (currentValue >= availableStock) {
-            
+
                 toastr.error('Maximum quantity reached!');
                 return;
             } else {

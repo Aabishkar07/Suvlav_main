@@ -82,6 +82,7 @@ class CartController extends Controller
 
     public function AddToCart(Request $request)
     {
+        
         $response_data = [];
         $cart = new Cart();
         $guest_id = $_COOKIE['guest_auth_token'];
