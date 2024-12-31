@@ -437,6 +437,15 @@ if($order){
 
     public function checkoutsmt(Request $request)
     {
+
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+
+        if (count($cartItems) == 0) {
+            return redirect('/view-cart')->with('message', 'Cart is empty');
+        }
+        
         $user_id = Session::get('memeber_id_ss');
         $member = Member::findOrFail($user_id);
 
