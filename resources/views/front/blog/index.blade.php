@@ -138,7 +138,8 @@
             @foreach ($blogs as $list)
                 <div class="col-12 col-md-6 col-lg-4">
                     <article class="ezy__blog2-post rounded overflow-hidden h-100">
-                        <img src="{{ asset('public/' . $list->featured_image) }}" alt="{{ $list->title }}" class="img-fluid w-100" />
+                        <img src="{{ asset('public/' . $list->featured_image) }}" alt="{{ $list->title }}" class="img-fluid w-100 h-96 object-contain" />
+
                         <div class="p-3 p-md-4">
                             <h4 class="ezy__blog2-title fs-4 mb-2"> {!! Str::limit($list->title, 50) !!} </h4>
                             <p class="ezy__blog2-author">
