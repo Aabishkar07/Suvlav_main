@@ -57,7 +57,7 @@
 	</div>
 	<!--/ End Header -->
 	
-		<div class="herosection mt-16">
+		<div class="mt-16 max-sm:-mt-5 herosection">
 
 	@yield('content')
 	</div>
