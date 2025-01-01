@@ -65,9 +65,9 @@
             width: 240px;
         }
 
-        .btn {
+        /* .btn {
             background-color: #000 !important;
-        }
+        } */
 
         .changepw {
             margin: 0px auto;

@@ -6,7 +6,7 @@
     <h1 class="mb-5">Searched Results for <span class="text-[#Ec1464]">{{ $query }}</span></h1>
 
     @if (count($products) > 0)
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 ">
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 ">
 
             @foreach ($products as $list)
             @include('front.components.productcard', ['list' => $list, 'slider' => '1'])
@@ -50,56 +50,56 @@
         @else
        
 
-        <section class="ezy__signup16 light d-flex align-items-center justify-content-center">
+        <section class="md:pt-4 ezy__signup16 light d-flex align-items-center justify-content-center">
             <div class="container">
                 
               <div class="row justify-content-center">
                 <div class="col-12 col-md-8">
-                  <div class="ezy__signup16-card p-3">
-                    <p class="text-danger text-sm pb-2">* No results found. If you want to receive notifications regarding this product, please fill out this form.</p>
+                  <div class="p-3 rounded shadow ezy__signup16-card">
+                    <p class="pb-2 text-sm text-danger">* No results found. If you want to receive notifications regarding this product,.</p>
 
-                    <div class="ezy__signup16-form-card  p-lg-5">
+                    <div class="md:shadow p-lg-5">
                         
-                      <h2 class="ezy__signup16-heading text-center">REGISTRATION FORM</h2>
+                      <h2 class="pt-2 text-center ezy__signup16-heading"> Please fill out this form</h2>
           
                       <!-- form -->
                       <form action="{{ route('search.history.store') }}" class="mt-4" method="POST">
                         @csrf
                         <div class="row">
                           <div class="col-12 col-md-6">
-                            <div class="form-group position-relative mb-4">
-                              <label class="mb-2" for="uname">USERNAME:</label>
-                              <input type="text" name="name" class="form-control" id="uname"  required/>
-                              <i class="fas fa-user ezy__signup16-icon"></i>
+                            <div class="mb-4 form-group position-relative">
+                              <label class="mb-2" for="uname">NAME:</label>
+                              <input type="text" placeholder="Enter Name" name="name" class="form-control" id="uname"  required/>
+                              
                             </div>
                           </div>
                           <div class="col-12 col-md-6">
-                            <div class="form-group position-relative mb-4">
+                            <div class="mb-4 form-group position-relative">
                               <label class="mb-2" for="email">EMAIL:</label>
-                              <input type="email"name="email" class="form-control" id="email" required/>
-                              <i class="fas fa-at ezy__signup16-icon"></i>
+                              <input type="email"  placeholder="Enter Your Email" name="email" class="form-control" id="email" required/>
+                            
                             </div>
                           </div>
                           <div class="col-12 col-md-6">
-                            <div class="form-group position-relative mb-4">
+                            <div class="mb-4 form-group position-relative">
                               <label class="mb-2" for="pass">Contact no:</label>
                               <input type="number" class="form-control" name="phonenumber" id="pass" placeholder="Enter your contact number" required/>
-                              <i class="fas fa-lock ezy__signup16-icon"></i>
+                          
                             </div>
                           </div>
                           <div class="col-12 col-md-6">
-                            <div class="form-group position-relative mb-4">
+                            <div class="mb-4 form-group position-relative">
                               <label class="mb-2" for="conPass">Address</label>
                               <input type="text" class="form-control" id="conPass"  name="district" placeholder="Enter your address" required />
-                              <i class="fas fa-lock ezy__signup16-icon"></i>
+                              
                             </div>
                           </div>
                           <input type="text" class="form-control" id="conPass"  name="query" value="{{ $query }}" placeholder="Enter your address" hidden />
 
                 
                           <div class="col-12 ">
-                            <div class="d-flex  mt-3">
-                              <button type="submit" class="btn  bg-black">
+                            <div class="mt-3 d-flex">
+                              <button type="submit" class="bg-black btn">
                                 Register <i class="fas fa-arrow-right"></i>
                               </button>
                             </div>
@@ -130,12 +130,12 @@
             background-color: var(--bs-body-bg);
             background-size: cover;
             background-position: right;
-            padding: 60px 0;
+            /* padding: 60px 0; */
           }
           
           @media (min-width: 991px) {
             .ezy__signup16 {
-              padding: 100px 0;
+              /* padding: 100px 0; */
             }
           }
           
@@ -219,7 +219,7 @@
             color: var(--bs-body-color);
             border-radius: 0;
             font-size: 16px;
-            padding-left: 40px;
+            padding-left: 10px;
             opacity: 0.75;
           }
           .ezy__signup16 .form-select {
