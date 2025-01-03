@@ -39,7 +39,7 @@
 
         <a href="{{ url('product/' . $list->slug) }}" style="display: block; height: 450px; position: relative;">
             {{-- <img class="default-img" src="{{ asset('public/' . $product_image_url) }}" alt="{{ $list->title }}" --}}
-            <img class="default-img" src="{{ asset('public/' . $product_image_url) }}"
+            <img class="default-img" src="https://suvlav.com/public//uploads/products/k_1734187821.jpg"
                 alt="{{ $list->title }}" style="width: 100%; height: 100%; object-fit: contain; display: block;">
             {!! productBadge($list) !!}
 
@@ -48,19 +48,30 @@
 
 
 
+        <div id="colorsss">
+       
+            <style>
+                #colorsss {
+                    padding: 20px;
+                  
+                }
+            
+            
+            </style>
+
         {{-- <div class="button-head "> --}}
-        <div class=" bg-white shadow-sm">
+            <div class="button-heads ">
 
             <div class="product-action ">
 
 
 
-                <div class="flex items-center  ">
+                <div class="flex items-center">
                     {{-- <a title="Quick View" href="{{ url('product/' . $list->slug) }}">
                         <i class="ti-eye"></i><span>Quick Shop</span>
                     </a> --}}
                     <a data-product-id="{{ $list->id }}" title="Wishlist"
-                        class="px-2 wishlistToggle  flex items-center pt-3 {{ $wishlist->contains('product_id', $list->id) ? 'text-red-500' : 'text-blue-500' }}">
+                        class="px-2 pt-3 wishlistToggle flex items-center {{ $wishlist->contains('product_id', $list->id) ? 'text-red-500' : 'text-blue-500' }}">
                         <i
                             class="{{ $wishlist->contains('product_id', $list->id) ? 'fas fa-heart text-lg' : 'ti-heart text-lg' }} mr-1"></i>
                         <span>{{ $wishlist->contains('product_id', $list->id) ? 'Remove from Wishlist' : 'Wish to Buy' }}</span>
@@ -162,7 +173,11 @@
             </div>
         </div>
     </div>
-    <div class="px-3 py-2 product-content">
+
+
+
+    </div>
+    <div class="px-3 py-2 product-content border-[1.5px] border-t-black">
         {{-- <h3><a href="{{ url('product/' . $list->slug) }}">{{ $list->title }}</a></h3> --}}
         <div class="items-center justify-between d-flex">
             <div class="product-price">
