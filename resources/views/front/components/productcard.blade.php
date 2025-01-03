@@ -48,81 +48,25 @@
 
 
 
-        <div class="button-head ">
+        {{-- <div class="button-head "> --}}
+        <div class=" ">
+
             <div class="product-action ">
 
 
 
                 <div class="flex items-center">
-                    <a title="Quick View" href="{{ url('product/' . $list->slug) }}">
+                    {{-- <a title="Quick View" href="{{ url('product/' . $list->slug) }}">
                         <i class="ti-eye"></i><span>Quick Shop</span>
-                    </a>
+                    </a> --}}
                     <a data-product-id="{{ $list->id }}" title="Wishlist"
-                        class="px-2 wishlistToggle flex items-center {{ $wishlist->contains('product_id', $list->id) ? 'text-red-500' : 'text-blue-500' }}">
+                        class="px-2 wishlistToggle flex items-center pt-3 {{ $wishlist->contains('product_id', $list->id) ? 'text-red-500' : 'text-blue-500' }}">
                         <i
                             class="{{ $wishlist->contains('product_id', $list->id) ? 'fas fa-heart text-lg' : 'ti-heart text-lg' }} mr-1"></i>
                         <span>{{ $wishlist->contains('product_id', $list->id) ? 'Remove from Wishlist' : 'Wish to Buy' }}</span>
                     </a>
                 </div>
 
-                {{-- <script>
-                    document.querySelectorAll('.wishlistToggle').forEach(button => {
-                        button.addEventListener('click', function (event) {
-                            event.preventDefault(); // Prevent default link behavior
-                            
-                            const button = this;
-                            const productId = button.getAttribute('data-product-id');
-                            const isRemoving = button.classList.contains('text-red-500'); // Check if currently in "Remove" state
-                
-                            // Disable the button to prevent multiple clicks
-                            button.disabled = true;
-                            button.querySelector('span').textContent = isRemoving ? 'Removing...' : 'Adding...';
-                
-                            // Determine the appropriate URL and method
-                            const url = isRemoving 
-                            ? `{{ route('wishlist.destroy', ':id') }}`.replace(':id', productId)
-                            : '{{ route('wishlist.add') }}';
-                            const method = isRemoving ? 'DELETE' : 'POST';
-                
-                            // Send AJAX request
-                            fetch(url, {
-                                method: method,
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                },
-                                body: !isRemoving ? JSON.stringify({ productId: productId }) : null
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    // Update button state based on action
-                                    if (isRemoving) {
-                                        button.classList.remove('text-red-500');
-                                        button.classList.add('text-blue-500');
-                                        button.querySelector('i').className = 'ti-heart text-lg mr-1';
-                                        button.querySelector('span').textContent = 'Wish to Buy';
-                                    } else {
-                                        button.classList.remove('text-blue-500');
-                                        button.classList.add('text-red-500');
-                                        button.querySelector('i').className = 'fas fa-heart text-lg mr-1';
-                                        button.querySelector('span').textContent = 'Remove from Wishlist';
-                                    }
-                                } else if (data.redirect) {
-                                    window.location.href = data.redirect;
-                                } else {
-                                    console.error('Error:', data.message);
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            })
-                            .finally(() => {
-                                button.disabled = false; // Re-enable the button
-                            });
-                        });
-                    });
-                </script> --}}
 
                 <script>
                     document.querySelectorAll('.wishlistToggle').forEach(button => {
