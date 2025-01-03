@@ -55,7 +55,7 @@
 
 
 
-                <div class="flex items-center">
+                <div class="flex items-center bg-white shadow-sm">
                     {{-- <a title="Quick View" href="{{ url('product/' . $list->slug) }}">
                         <i class="ti-eye"></i><span>Quick Shop</span>
                     </a> --}}
