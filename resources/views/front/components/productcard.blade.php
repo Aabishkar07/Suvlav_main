@@ -49,18 +49,18 @@
 
 
         {{-- <div class="button-head "> --}}
-        <div class=" ">
+        <div class=" bg-white shadow-sm">
 
             <div class="product-action ">
 
 
 
-                <div class="flex items-center bg-white shadow-sm">
+                <div class="flex items-center  ">
                     {{-- <a title="Quick View" href="{{ url('product/' . $list->slug) }}">
                         <i class="ti-eye"></i><span>Quick Shop</span>
                     </a> --}}
                     <a data-product-id="{{ $list->id }}" title="Wishlist"
-                        class="px-2 wishlistToggle flex items-center pt-3 {{ $wishlist->contains('product_id', $list->id) ? 'text-red-500' : 'text-blue-500' }}">
+                        class="px-2 wishlistToggle  flex items-center pt-3 {{ $wishlist->contains('product_id', $list->id) ? 'text-red-500' : 'text-blue-500' }}">
                         <i
                             class="{{ $wishlist->contains('product_id', $list->id) ? 'fas fa-heart text-lg' : 'ti-heart text-lg' }} mr-1"></i>
                         <span>{{ $wishlist->contains('product_id', $list->id) ? 'Remove from Wishlist' : 'Wish to Buy' }}</span>
