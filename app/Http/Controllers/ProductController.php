@@ -8,6 +8,7 @@ use App\Models\Member;
 use App\Models\ProductCategory;
 use App\Models\ProductSize;
 use App\Models\ProductColor;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Intervention\Image\Laravel\Facades\Image;
@@ -337,6 +338,7 @@ class ProductController extends Controller
 
     // dd($user_id);
 
+
     $cartItems = DB::table('carts')
       ->where('user_id', $user_id)
       ->orwhere('guest_id', $guest_id)
@@ -349,7 +351,35 @@ class ProductController extends Controller
       ->where('a.status', 1)
       ->get();
 
-    return view('front.products.detail', compact('product', 'member', 'prod_categories', 'prod_sizes', 'prod_colors', 'cartItems', 'categories'));
+
+
+
+
+    if ($member) {
+
+      $hasOrdered = DB::table('order_details')->join('orders', 'orders.id', '=', 'order_details.order_id')
+      ->where('orders.user_id', '=' , $member->id)
+      ->where('order_details.product_id',$product->id)
+      ->exists()
+      ;
+
+ 
+ 
+    } else {
+      $hasOrdered = false;
+    }
+
+    $reviews = Review::where('product_id', $product->id)->get();
+    $allfeedback = Review::where('product_id', $product->id)->get();
+    $reviewcount = Review::where("product_id", $product->id)->count();
+
+    if ($reviewcount == 0) {
+      $averagerating = "";
+    } else {
+      $averagerating = $reviews->avg('rating');
+    }
+
+    return view('front.products.detail', compact('product', 'member', 'prod_categories', 'prod_sizes', 'prod_colors', 'cartItems', 'categories', 'averagerating', 'reviewcount', 'reviews', 'allfeedback' ,'hasOrdered'));
   }
 
   public function togleActive(Product $product)

@@ -210,6 +210,12 @@
                         </div>
                     </div>
                 </div>
+<div class="">
+   <a href="{{ route('wishlist') }}">
+    <i class="ti-heart"> </i>
+   </a>
+</div>
+
             </div>
 
 
