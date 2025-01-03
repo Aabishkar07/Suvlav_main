@@ -78,7 +78,7 @@ $start = (isset($request->page) && !empty($request->page))? (($request->page -1 
                             <p> {!! wordwrap($review->review_detail,40,"<br>\n") !!} </p>
                             <div class="col float-end"> -  {{ $review->user->name }} </div>
                           </td>  
-                            <td>{{ $review->product->title; }}</td>
+                            <td>{{ $review->product->title ?? ''; }}</td>
                             <td>{!! ($review->isNew === '0')? '<label class="badge badge-success">READ</label>':'<label class="badge badge-danger">UNREAD</label>' !!}  </td>                        
                             <td>{!! ($review->status === '0')? '<i class="fa fa-times"></i>':'<i class="fa fa-check"></i>' !!} </td>
                             <td><a href="{{ route('review.edit', $review->id)}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> </a>
