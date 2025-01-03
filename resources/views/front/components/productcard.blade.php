@@ -39,7 +39,7 @@
 
         <a href="{{ url('product/' . $list->slug) }}" style="display: block; height: 450px; position: relative;">
             {{-- <img class="default-img" src="{{ asset('public/' . $product_image_url) }}" alt="{{ $list->title }}" --}}
-            <img class="default-img" src="https://suvlav.com/public//uploads/products/k_1734187821.jpg"
+            <img class="default-img" src="{{ asset('public/' . $product_image_url) }}"
                 alt="{{ $list->title }}" style="width: 100%; height: 100%; object-fit: contain; display: block;">
             {!! productBadge($list) !!}
 
