@@ -317,7 +317,7 @@ class FrontController extends Controller
 
 
 
-        $title = "New Arrivals";
+        $title = "Products";
 
         return view('front.products.viewall', $results, compact('title', 'cartItems', 'categories'));
     }

@@ -371,23 +371,31 @@
                             </div>
                         </div>
 
-                        <div class="">
-                            <div class="">
-                                <label>Available Point</label>
-                                <div id="available-points" class="">
-                                    {{ $member->total_points ?? 0 }}
+                        <div class="container mt-4">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <!-- Available Points Section -->
+                                    <div class="mb-3">
+                                        <label class="form-label text-muted">Available Points</label>
+                                        <div id="available-points" class="fw-bold text-primary h5">
+                                            {{ $member->total_points ?? 0 }}
+                                        </div>
+                                    </div>
+                        
+                                    <!-- Remaining Points Section -->
+                                    <div class="remaining-points mb-3" id="remaining-points-container" style="display: none;">
+                                        <label class="form-label text-muted">Remaining Points</label>
+                                        <span id="remaining-points" class="fw-bold text-success">0</span>
+                                    </div>
+                        
+                                    <!-- Redeem Button -->
+                                    <div class="d-grid">
+                                        <button id="redeem-btn" class="btn btn-primary btn-lg">Redeem Points</button>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="remaining-points" id="remaining-points-container" style="display: none;">
-                                <label>Remaining Points</label>
-                                <span id="remaining-points">0</span>
-                            </div>
-
-                            <div class="">
-                                <button id="redeem-btn">Redeem Point</button>
-                            </div>
                         </div>
+                        
 
 
 
