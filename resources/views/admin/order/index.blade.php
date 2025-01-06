@@ -34,7 +34,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
 
- 
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <div class="px-5 col-lg-12 grid-margin stretch-card">
@@ -60,6 +60,80 @@
                                         class="fa fa-mail-reply"></i> Reset </a>
                             </div>
                         </div>
+
+                    </form>
+                </div>
+
+                <div class="">
+                    <form method="GET">
+
+
+                        <div class="flex-wrap w-full gap-3 d-flex align-items-center">
+                            <!-- Product Dropdown -->
+                            <div class="w-auto">
+                                <div class="pt-2 form-group row">
+                                    <label for="statusInput" class="text-sm text-gray-600 form-label">Status</label>
+                                    <div class="">
+                                        <select class="form-select" name="status" id="">
+                                            <option value="">
+                                                Choose Status
+                                            </option>
+                                            <option {{ request()->status == 'Pending' ? 'selected' : '' }} value="Pending">
+                                                Pending
+                                            </option>
+                                            <option {{ request()->status == 'Ongoing' ? 'selected' : '' }} value="Ongoing">
+                                                Ongoing
+                                            </option>
+                                            <option {{ request()->status == 'Delevered' ? 'selected' : '' }} value="Delevered">
+                                                Delevered</option>
+                                            <option {{ request()->status == 'Cancel' ? 'selected' : '' }} value="Cancel">
+                                                Canceled
+                                            </option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- From Date Picker -->
+                            <div class="w-auto">
+                                <label class="text-sm text-gray-600 form-label">From</label>
+                                <input id="datepicker-from" name="from" class="form-control" type="date"
+                                    value="{{ old('form', request()->from) }}" placeholder="YYYY-MM-DD" required>
+                            </div>
+
+                            <!-- To Date Picker -->
+                            <div class="w-auto">
+                                <label class="text-sm text-gray-600 form-label">To</label>
+                                <input id="datepicker-to" name="to" class="form-control" type="date"
+                                    value="{{ old('to', request()->to) }}" placeholder="YYYY-MM-DD" required>
+                            </div>
+
+                            <!-- Filter Button -->
+                            <div>
+                                <button class="gap-2 btn btn-primary d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-filter"
+                                        width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path
+                                            d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z">
+                                        </path>
+                                    </svg>
+                                    <span>Filter</span>
+                                </button>
+                            </div>
+                        </div>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+                        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+                        <script>
+                            flatpickr("#datepicker-from, #datepicker-to", {
+                                // dateFormat: "Y-m-d",
+                            });
+                        </script>
+
+
 
                     </form>
                 </div>
