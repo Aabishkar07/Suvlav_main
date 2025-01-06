@@ -175,7 +175,7 @@
 
 
     </div>
-    <div class="px-3 py-2 product-content">
+    <div class="px-3 py-2 ">
         {{-- <h3><a href="{{ url('product/' . $list->slug) }}">{{ $list->title }}</a></h3> --}}
         <div class="items-center justify-between d-flex">
             <div class="product-price">
