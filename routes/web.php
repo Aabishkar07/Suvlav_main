@@ -24,6 +24,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\UserRoleController;
+use Illuminate\Support\Facades\Artisan;
 
 // Frontend Routing
 
@@ -139,4 +140,14 @@ Route::group(array('prefix' => 'admin', 'middleware'=>['auth', 'admin']), functi
     Route::get('report/productwise', [ReportController::class, 'productindex'])->name('admin.report.product');
     Route::get('report/customerwise', [ReportController::class, 'customerindex'])->name('admin.report.customer');
 
+});
+
+Route::get('/clear', function () {
+    Artisan::call('optimize:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('route:cache');
+    Artisan::call('config:cache');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    return 'Application all kind of cache has been cleared';
 });
