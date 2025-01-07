@@ -32,7 +32,7 @@ if (!function_exists('showProductPrice')) {
     {
         $content = '';
 
-        $sale_content = !empty($sale_price) ? sprintf('<br /><del class="text-danger">%s</del>', moneyFormat($regular_price)) : '';
+        $sale_content = !empty($sale_price) ? sprintf('<br /><del class="text-danger text-[10px]">%s</del>', moneyFormat($regular_price)) : '';
         $content .= !empty($sale_content) ? moneyFormat($sale_price) . $sale_content : moneyFormat($regular_price);
 
         return $content;

@@ -195,7 +195,9 @@
 
 
             <div class="product-price">
-                <span style="font-size: 12px">{!! showProductPrice($list->regular_price, $list->sale_price) !!}</span>
+                <span style="font-size: 12px">
+                    {!! showProductPrice($list->regular_price, $list->sale_price) !!}
+                </span>
             </div>
             @php
                 $regular_price = $list->regular_price;
