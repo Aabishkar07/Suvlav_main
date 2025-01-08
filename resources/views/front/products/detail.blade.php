@@ -972,7 +972,7 @@
                             <div class="">
 
 
-                                @if (Auth::guard('web')->user())
+                                {{-- @if (Auth::guard('web')->user())
                                     <form method="POST" action="{{ route('reviewdestroy', $feedback->id) }}"
                                         id="delete-form-{{ $feedback->id }}">
                                         @csrf
@@ -998,7 +998,7 @@
 
                                             Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'You will not be able to recover this Property Type!',
+                                                text: 'You will not be able to recover this !',
                                                 icon: 'warning',
                                                 showCancelButton: true,
                                                 confirmButtonColor: '#d33',
@@ -1011,7 +1011,7 @@
                                             });
                                         }
                                     </script>
-                                @endif
+                                @endif --}}
 
                                 {{-- <p class="text-sm font-normal leading-8 text-gray-400">
                                     {{ $feedback->created_at->format('F, d,Y') }}
