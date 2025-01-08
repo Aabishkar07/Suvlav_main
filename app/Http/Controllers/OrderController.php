@@ -17,10 +17,25 @@ class OrderController extends Controller
     {
         $orders = new Order;
         $search = $orders->query();
+
+        $fromdate = $request->input("from") ?? "";
+        $todate = $request->input("to") ?? "";
+
         if ($request->search == 'search') {
             if ($request->tracking_code) {
                 $search->where('id', '=', $request->tracking_code);
             }
+        }
+
+        if ($request->status) {
+            $search->where('status', '=', $request->status);
+        }
+
+        if ($fromdate) {
+            $search = $search->whereDate('created_at', ">=", $fromdate);
+        }
+        if ($todate) {
+            $search = $search->whereDate('created_at', "<=", $todate);
         }
 
         $orders = $search->latest()->paginate(siteSettings('posts_per_page'));

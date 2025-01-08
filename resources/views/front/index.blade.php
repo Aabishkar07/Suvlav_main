@@ -6,6 +6,8 @@
 
 
 
+
+
     <section class="hero-slider">
         @foreach ($home_banners as $list)
             @include('front.components.bannerCol3Card', ['list' => $list, 'display_option' => '1'])
@@ -92,7 +94,7 @@
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
                     <!-- Title -->
                     <h2 class="text-2xl text-black New Arrivals text-start fs-3" style="font-weight: 600">
-                        New Arrivals
+                        Products
                     </h2>
                     
                     <a href="{{ route('newarrivals') }}" class="text-decoration-none">

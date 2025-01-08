@@ -13,8 +13,10 @@ use App\Models\Member;
 use App\Models\Order;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\SearchHistory;
 use App\Models\Setting;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -129,6 +131,137 @@ class FrontController extends Controller
     }
 
 
+    // public function wishlist()
+    // {
+    //     $cartItems = $this->cartdata;
+    //     $categories = $this->categories;
+
+    //     $user_id = (Session::get('memeber_id_ss'));
+
+    //     $wishlist = Wishlist::where('user_id', $user_id)->get();
+    //     $results['home_prod_new_arrivals'] = DB::table('products')
+    //     ->where(['status' => 1])
+    //     ->where(['prod_new_arrival' => '1'])
+    //     // ->limit(8)
+    //     ->get();
+    //     return view('front.components.wishlist', compact('cartItems', 'categories', 'wishlist'));
+    // }
+
+    public function wishlist()
+{
+    $cartItems = $this->cartdata; 
+    $categories = $this->categories;
+
+    $userId = Session::get('memeber_id_ss'); 
+
+    if (!$userId) {
+        return redirect()->route('member.loginform')->with('error', 'Please log in to view your wishlist.');
+    }
+
+    $wishlistProducts = DB::table('wishlists')
+        ->join('products', 'wishlists.product_id', '=', 'products.id') 
+        ->where('wishlists.user_id', $userId) 
+        ->select('products.*') 
+        ->get();
+
+    return view('front.components.wishlist', compact('cartItems', 'categories', 'wishlistProducts'));
+}
+
+
+    // public function addToWishlist($productId)
+    // {
+    //     $cartItems = $this->cartdata;
+    //     $categories = $this->categories;
+
+
+    //     if (!Session::get('memeber_id_ss')) {
+    //         return view('front.memloginform', compact('cartItems', 'categories'))
+    //             ->with('error', 'Please login to add items to your wishlist.');
+    //     }
+
+
+    //     $customerId = Session::get('memeber_id_ss');
+
+
+    //     Wishlist::create([
+    //         'user_id' => $customerId,
+    //         'product_id' => $productId,
+    //     ]);
+
+    //     return redirect()->back()->with('success', 'Product added to your wishlist successfully!');
+    // }
+
+    public function addToWishlist(Request $request)
+    {
+
+
+
+
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+        if (!Session::get('memeber_id_ss')) {
+            return response()->json([
+                'success' => false,
+                'redirect' => route('member.loginform'),
+                'message' => 'Please login to add items to your wishlist.'
+            ]);
+        }
+
+        $customerId = Session::get('memeber_id_ss');
+
+
+
+        Wishlist::create([
+            'user_id' => $customerId,
+            'product_id' => $request->input('productId'),
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Product added to your wishlist successfully!']);
+    }
+
+
+
+
+    // public function deleteWishlist($productId)
+    // {
+    //     $wishlist = Wishlist::where('product_id', $productId)->first();
+
+    //     if (!$wishlist) {
+    //         return redirect()->back()->with('error', 'Wishlist item not found!');
+
+    //     }
+
+    //     $wishlist->delete();
+
+
+    //     return redirect()->back()->with('success', 'Wishlist item deleted successfully!');
+
+    // }
+
+
+    public function deletewishlist($id)
+    {
+
+        $userId = Session::get('memeber_id_ss');
+
+        if (!$userId) {
+            return response()->json(['success' => false, 'message' => 'User not authenticated.']);
+        }
+
+        $deleted = Wishlist::where('user_id', $userId)->where('product_id', $id)->delete();
+
+        if ($deleted) {
+            return response()->json(['success' => true, 'message' => 'Item removed from wishlist.']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Failed to remove item from wishlist.']);
+        }
+    }
+
+
+
+
+
     public function featuredproduct()
     {
         $cartItems = $this->cartdata;
@@ -146,6 +279,31 @@ class FrontController extends Controller
     }
 
 
+
+
+    public function store(Request $request, $slug)
+    {
+
+
+        $product = Product::where('slug', $slug)->firstOrFail();
+
+
+
+        $user_id =   (Session::get('memeber_id_ss'));
+
+
+
+        Review::create([
+            'product_id' => $product->id,
+            'review_detail' => $request->input('feedback'),
+            'rating' => $request->input('rating'),
+            'user_id' => $user_id,
+        ]);
+
+        return redirect()->back()->with('success', 'Review submitted successfully!');
+    }
+
+
     public function newarrivals()
     {
         $cartItems = $this->cartdata;
@@ -159,7 +317,7 @@ class FrontController extends Controller
 
 
 
-        $title = "New Arrivals";
+        $title = "Products";
 
         return view('front.products.viewall', $results, compact('title', 'cartItems', 'categories'));
     }
@@ -211,40 +369,40 @@ class FrontController extends Controller
         $categories = $this->categories;
 
         $order_id = $request->input('tracking_code');
-        $orders=[];
-        $shippings=[];
-        $userdata=[];
+        $orders = [];
+        $shippings = [];
+        $userdata = [];
 
         $order = Order::where('tracking_code', $order_id)->first();
 
 
 
 
-        
-if($order){
-    $orderid = $order->id;
-    
-    $orders = DB::table('orders as a')
-        ->join('order_details as b', 'b.order_id', '=', 'a.id')
-        ->where('a.id', $orderid)
-        ->get()->toArray();
-    
-    $user_id = $orders[0]->user_id;
-    
-    $userdata = DB::table('members')
-        ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
-        ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
-        ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
-        ->where('members.id', $user_id)
-        ->get()->toArray();
-    
-    $shippings = DB::table('shippings')
-        ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
-        ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
-        ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
-        ->where('member_id', $user_id)
-        ->get()->toArray();
-}
+
+        if ($order) {
+            $orderid = $order->id;
+
+            $orders = DB::table('orders as a')
+                ->join('order_details as b', 'b.order_id', '=', 'a.id')
+                ->where('a.id', $orderid)
+                ->get()->toArray();
+
+            $user_id = $orders[0]->user_id;
+
+            $userdata = DB::table('members')
+                ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
+                ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+                ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+                ->where('members.id', $user_id)
+                ->get()->toArray();
+
+            $shippings = DB::table('shippings')
+                ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
+                ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
+                ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+                ->where('member_id', $user_id)
+                ->get()->toArray();
+        }
 
 
 
@@ -445,7 +603,7 @@ if($order){
         if (count($cartItems) == 0) {
             return redirect('/view-cart')->with('message', 'Cart is empty');
         }
-        
+
         $user_id = Session::get('memeber_id_ss');
         $member = Member::findOrFail($user_id);
 
@@ -1014,7 +1172,7 @@ if($order){
             $cartItems = $this->cartdata;
             $categories = $this->categories;
             $query = $request->input('query');
-          
+
 
             if ($query) {
                 SearchHistory::create([
@@ -1032,31 +1190,26 @@ if($order){
             $products = Product::whereIn('id', $productIDs)->get();
 
             return view('front.products.search', compact('cartItems', 'categories', 'products', 'query', 'searchHistory'));
-
-
-
         }
     }
 
 
     public function searchstore(Request $request)
-{
-    $query = $request->input('query');
-    
-    SearchHistory::where('search_item', $query)->update([
-        'email' => $request->email,
-        'name' => $request->name,
-        'phonenumber' => $request->phonenumber,
-        'district' => $request->district,
-    ]);
+    {
+        $query = $request->input('query');
 
-    return redirect('/')->with("message", "Search history submitted successfully!");
+        SearchHistory::where('search_item', $query)->update([
+            'email' => $request->email,
+            'name' => $request->name,
+            'phonenumber' => $request->phonenumber,
+            'district' => $request->district,
+        ]);
 
-
-}
+        return redirect('/')->with("message", "Search history submitted successfully!");
+    }
 
 
- 
+
 
     public function clearSearchHistory()
     {
@@ -1071,7 +1224,7 @@ if($order){
     public function myprofileorder($order)
     {
 
-        $order_id=$order;
+        $order_id = $order;
         $cartItems = $this->cartdata;
         $categories = $this->categories;
 

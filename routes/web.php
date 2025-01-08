@@ -24,6 +24,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\UserRoleController;
+use Illuminate\Support\Facades\Artisan;
 
 // Frontend Routing
 
@@ -52,7 +53,11 @@ Route::get('/otp', [FrontController::class, 'otp'])->name('otp');
 Route::post('/checkotp', [FrontController::class, 'checkotp'])->name('checkotp');
 Route::get('/newpassword', [FrontController::class, 'newpassword'])->name('newpassword');
 Route::post('/changepassword', [FrontController::class, 'changepassword'])->name('changepasswords');
+Route::get('/wishlist', [FrontController::class, 'wishlist'])->name('wishlist');
+// Route::get('/wishlist/add/{productId}', [FrontController::class, 'addToWishlist'])->name('wishlist.add');
+Route::post('/wishlist/add', [FrontController::class, 'addToWishlist'])->name('wishlist.add');
 
+Route::delete('wishlist/{id}', [FrontController::class, 'deletewishlist'])->name('wishlist.destroy');
 
 Route::get('/myprofile', [FrontController::class, 'myprofile'])->name('member.myprofile');
 Route::post('/memberchanagepw', [FrontController::class, 'memberchanagepw'])->name('member.changepw');
@@ -78,6 +83,7 @@ Route::post('/search', [FrontController::class, 'searchstore'])->name('search.hi
 Route::get('order/trackorder', [FrontController::class, 'trackorder'])->name('trackorder');
 Route::get('/featuredproduct', [FrontController::class, 'featuredproduct'])->name('featuredproduct');
 Route::get('/newarrivals', [FrontController::class, 'newarrivals'])->name('newarrivals');
+Route::post('/review/{slug}', [FrontController::class, 'store'])->name('review');
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -134,4 +140,14 @@ Route::group(array('prefix' => 'admin', 'middleware'=>['auth', 'admin']), functi
     Route::get('report/productwise', [ReportController::class, 'productindex'])->name('admin.report.product');
     Route::get('report/customerwise', [ReportController::class, 'customerindex'])->name('admin.report.customer');
 
+});
+
+Route::get('/clear', function () {
+    Artisan::call('optimize:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('route:cache');
+    Artisan::call('config:cache');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    return 'Application all kind of cache has been cleared';
 });
