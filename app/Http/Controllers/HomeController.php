@@ -13,7 +13,7 @@ use App\Models\Product;
 class HomeController extends Controller
 {
     public function index()
-    {z
+    {
         $posts = Post::orderBy('id', 'desc')->take(2)->get();
 
         $orders = Order::orderBy('id', 'desc')->take(5)->get();
