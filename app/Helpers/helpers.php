@@ -20,7 +20,7 @@ if (!function_exists('moneyFormat')) {
 
         if ($money != '') {
             $content .= siteSettings('site_currency') . ' ';
-            $content .=  number_format($money, 2, '.', ',');
+            $content .=  number_format($money);
         }
         return $content;
     }
@@ -33,7 +33,9 @@ if (!function_exists('showProductPrice')) {
         $content = '';
 
         $sale_content = !empty($sale_price) ? sprintf('<br /><del class="text-danger text-[10px]">%s</del>', moneyFormat($regular_price)) : '';
-        $content .= !empty($sale_content) ? moneyFormat($sale_price) . $sale_content : moneyFormat($regular_price);
+
+        $p_content = sprintf('<br /><span style="font-weight: 500;" class="text-black ">%s</span>', moneyFormat($sale_price));
+        $content .= !empty($sale_content) ?  $p_content . $sale_content : moneyFormat($regular_price);
 
         return $content;
     }
