@@ -124,6 +124,9 @@ Route::group(array('prefix' => 'admin', 'middleware'=>['auth', 'admin']), functi
     Route::resource('category', CategoryController::class);  
     Route::resource('post', PostController::class);  
     Route::resource('review', ReviewController::class);  
+
+    Route::delete('deletereview//{review}', [ReviewController::class, 'frontdelete'])->name('admin.review.frontdelete');
+
     Route::resource('order', OrderController::class);
     Route::get('order/showdetails/{id}', [OrderController::class, 'showdetails'])->name('admin.order.showdetails');
     Route::resource('user', UserController::class);  
