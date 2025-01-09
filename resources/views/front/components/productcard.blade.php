@@ -206,31 +206,24 @@
                         onclick="addToCart(this, {{ $list->id }}, '{{ csrf_token() }}', '{{ route('cart.addtocart') }}', 'card');">Add
                         to cart</a> --}}
 
-                    <div class="px-2 transition duration-300 ease-in-out addToCartButton hover:text-orange-500" title="Add to cart" id=""
+                    <div class="px-2 transition duration-300 ease-in-out addToCartButton hover:text-orange-500"
+                        title="Add to cart" id="addToCartButton_{{ $list->id }}"
                         data-product-id="{{ $list->id }}" data-csrf-token="{{ csrf_token() }}"
                         data-url="{{ route('cart.addtocart') }}">Add to cart
                     </div>
 
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
-                            const addToCartButtons = document.querySelectorAll('.addToCartButton');
+                            const button = document.getElementById('addToCartButton_{{ $list->id }}');
 
-                            addToCartButtons.forEach(button => {
+                            if (button) {
                                 button.addEventListener('click', function() {
-                                    //    alert("aa");
-
                                     let quantity = 1;
                                     let cartColor = '';
                                     let cartSize = '';
                                     let isCartProcessing = false;
 
                                     // Retrieve quantity, size, and color values if available
-                                    const elementQuantity = document.getElementById('quantity');
-                                    if (elementQuantity) {
-                                        quantity = parseInt(elementQuantity.value, 10) ||
-                                            1; // Default to 1 if parsing fails
-                                    }
-
                                     const elementSize = document.getElementById('cart_size');
                                     if (elementSize) {
                                         cartSize = elementSize.value || '';
@@ -256,7 +249,7 @@
 
                                     const payload = {
                                         product_id: productId,
-                                        quantity: quantity,
+                                        quantity: 1,
                                         cartSize: cartSize,
                                         cartColor: cartColor,
                                         type: 'single'
@@ -298,9 +291,10 @@
                                             isCartProcessing = false;
                                         });
                                 });
-                            });
+                            }
                         });
                     </script>
+
 
 
 
@@ -323,32 +317,24 @@
 
 
 
-                <div class="px-2 py-1 text-xs text-white rounded cursor-pointer buynowButton discount-badge bg-primary" title="Buy Now"
-                    id="addToCartButton" data-product-id="{{ $list->id }}" data-csrf-token="{{ csrf_token() }}"
-                    data-url="{{ route('cart.addtocart') }}">Buy
+                <div class="px-2 py-1 text-xs text-white rounded cursor-pointer buynowButton discount-badge bg-primary"
+                    title="Buy Now" id="mybuynowCartButton_{{ $list->id }}" data-product-id="{{ $list->id }}"
+                    data-csrf-token="{{ csrf_token() }}" data-url="{{ route('cart.addtocart') }}">Buy
                     Now</div>
 
 
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
-                        const addToCartBuyButtons = document.querySelectorAll('.buynowButton');
+                        const button = document.getElementById('mybuynowCartButton_{{ $list->id }}');
 
-                        addToCartBuyButtons.forEach(button => {
+                        if (button) {
                             button.addEventListener('click', function() {
-                                //    alert("aa");
-
                                 let quantity = 1;
                                 let cartColor = '';
                                 let cartSize = '';
                                 let isCartProcessing = false;
 
                                 // Retrieve quantity, size, and color values if available
-                                const elementQuantity = document.getElementById('quantity');
-                                if (elementQuantity) {
-                                    quantity = parseInt(elementQuantity.value, 10) ||
-                                        1; // Default to 1 if parsing fails
-                                }
-
                                 const elementSize = document.getElementById('cart_size');
                                 if (elementSize) {
                                     cartSize = elementSize.value || '';
@@ -374,7 +360,7 @@
 
                                 const payload = {
                                     product_id: productId,
-                                    quantity: quantity,
+                                    quantity: 1,
                                     cartSize: cartSize,
                                     cartColor: cartColor,
                                     type: 'single'
@@ -417,7 +403,7 @@
                                         isCartProcessing = false;
                                     });
                             });
-                        });
+                        }
                     });
                 </script>
             </div>
