@@ -16,14 +16,14 @@ class ReviewController extends Controller
     {
         $reviews = new Review;
         $search = $reviews->query();
-        if($request->search == 'search'){
-            if($request->product_id) {
-                  $search->where('product_id', '=', $request->product_id);
-            }    
-        }  
+        if ($request->search == 'search') {
+            if ($request->product_id) {
+                $search->where('product_id', '=', $request->product_id);
+            }
+        }
         $products = Product::all();
-        $reviews = $search->latest()->paginate(siteSettings('posts_per_page'));        
-        return view('admin.review.index', compact('reviews','request', 'products'));
+        $reviews = $search->latest()->paginate(siteSettings('posts_per_page'));
+        return view('admin.review.index', compact('reviews', 'request', 'products'));
     }
 
     /**
@@ -47,17 +47,16 @@ class ReviewController extends Controller
             'status' => 'required',
             'product_id' => 'required',
             'user_id' => 'required',
-          ]);
-  
-          $review = new Review();
-          $review->review_detail = $request->input('review_detail');
-          $review->rating = $request->input('rating');
-          $review->user_id = $request->input('user_id');
-          $review->product_id = $request->input('product_id');
-          $review->status = $request->input('status');           
-          $review->save();
-          return redirect()->route('review.index')->with('success', 'Review created successfully');
+        ]);
 
+        $review = new Review();
+        $review->review_detail = $request->input('review_detail');
+        $review->rating = $request->input('rating');
+        $review->user_id = $request->input('user_id');
+        $review->product_id = $request->input('product_id');
+        $review->status = $request->input('status');
+        $review->save();
+        return redirect()->route('review.index')->with('success', 'Review created successfully');
     }
 
     /**
@@ -75,7 +74,7 @@ class ReviewController extends Controller
     {
         $products = Product::all();
         $users = User::all();
-        return view('admin.review.edit', compact('review','products', 'users'));
+        return view('admin.review.edit', compact('review', 'products', 'users'));
     }
 
     /**
@@ -89,17 +88,16 @@ class ReviewController extends Controller
             'status' => 'required',
             'product_id' => 'required',
             'user_id' => 'required',
-          ]);
+        ]);
 
-          $review->review_detail = $request->input('review_detail');
-          $review->rating = $request->input('rating');
-          $review->user_id = $request->input('user_id');
-          $review->product_id = $request->input('product_id');
-          $review->status = $request->input('status');   
-          $review->isNew = '0';   
-          $review->update();
-          return redirect()->route('review.index')->with('success', 'Review updated successfully');
-
+        $review->review_detail = $request->input('review_detail');
+        $review->rating = $request->input('rating');
+        $review->user_id = $request->input('user_id');
+        $review->product_id = $request->input('product_id');
+        $review->status = $request->input('status');
+        $review->isNew = '0';
+        $review->update();
+        return redirect()->route('review.index')->with('success', 'Review updated successfully');
     }
 
     /**
@@ -109,5 +107,10 @@ class ReviewController extends Controller
     {
         $review->delete();
         return redirect()->route('review.index')->with('success', 'Review deleted successfully');
+    }
+    public function frontdelete(Review $review)
+    {
+        $review->delete();
+        return redirect()->back()->with('success', 'Review deleted successfully');
     }
 }

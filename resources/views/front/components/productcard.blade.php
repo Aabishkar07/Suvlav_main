@@ -65,9 +65,6 @@
 
 
                     <div class="flex items-center">
-                        {{-- <a title="Quick View" href="{{ url('product/' . $list->slug) }}">
-                        <i class="ti-eye"></i><span>Quick Shop</span>
-                    </a> --}}
                         <a data-product-id="{{ $list->id }}" title="Wishlist"
                             class="px-2 pt-3 wishlistToggle flex items-center {{ $wishlist->contains('product_id', $list->id) ? 'text-red-500' : 'text-blue-500' }}">
                             @if ($wishlist->contains('product_id', $list->id))
@@ -83,8 +80,6 @@
                             <span>{{ $wishlist->contains('product_id', $list->id) ? 'Remove from Wishlist' : 'Wish to Buy' }}</span>
                         </a>
                     </div>
-
-
                     <script>
                         document.querySelectorAll('.wishlistToggle').forEach(button => {
                             button.addEventListener('click', function(event) {
@@ -131,12 +126,45 @@
                                             if (isRemoving) {
                                                 button.classList.remove('text-red-500');
                                                 button.classList.add('text-blue-500');
-                                                button.querySelector('i').className = 'ti-heart text-lg mr-1';
+
+                                                // Replace SVG with an icon
+                                                const svg = button.querySelector('svg');
+                                                if (svg) svg.remove();
+
+                                                const icon = document.createElement('i');
+                                                icon.className = 'mr-1 text-lg ti-heart';
+                                                button.prepend(icon);
+
                                                 button.querySelector('span').textContent = 'Wish to Buy';
                                             } else {
                                                 button.classList.remove('text-blue-500');
                                                 button.classList.add('text-red-500');
-                                                button.querySelector('i').className = 'fas fa-heart text-lg mr-1';
+
+                                                // Replace icon with SVG
+                                                const icon = button.querySelector('i');
+                                                if (icon) icon.remove();
+
+                                                const svg = document.createElementNS('http://www.w3.org/2000/svg',
+                                                    'svg');
+                                                svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+                                                svg.setAttribute('viewBox', '0 0 24 24');
+                                                svg.setAttribute('width', '24');
+                                                svg.setAttribute('height', '24');
+                                                svg.setAttribute('color', 'orange');
+                                                svg.setAttribute('fill', 'orange');
+
+                                                const path = document.createElementNS('http://www.w3.org/2000/svg',
+                                                    'path');
+                                                path.setAttribute('d',
+                                                    'M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z'
+                                                );
+                                                path.setAttribute('stroke', 'currentColor');
+                                                path.setAttribute('stroke-width', '1.5');
+                                                path.setAttribute('stroke-linecap', 'round');
+
+                                                svg.appendChild(path);
+                                                button.prepend(svg);
+
                                                 button.querySelector('span').textContent = 'Remove from Wishlist';
                                             }
                                         } else if (data.redirect) {
@@ -159,6 +187,7 @@
 
 
 
+
                     {{-- <script>
                     var wishlistButtons = document.getElementsByClassName('wishlistButton');
 
@@ -173,9 +202,113 @@
                 </script> --}}
                 </div>
                 <div class="product-action-2 ">
-                    <a class="px-2" title="Add to cart" href="javascript:void(0)"
+                    {{-- <a class="px-2" title="Add to cart" href="javascript:void(0)"
                         onclick="addToCart(this, {{ $list->id }}, '{{ csrf_token() }}', '{{ route('cart.addtocart') }}', 'card');">Add
-                        to cart</a>
+                        to cart</a> --}}
+
+                    <div class="px-2 transition duration-300 ease-in-out hover:text-orange-500" title="Add to cart" id="addToCartButton"
+                        data-product-id="{{ $list->id }}" data-csrf-token="{{ csrf_token() }}"
+                        data-url="{{ route('cart.addtocart') }}">Add to cart
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const addToCartButtons = document.querySelectorAll('.addToCartButton');
+
+                            addToCartButtons.forEach(button => {
+                                button.addEventListener('click', function() {
+                                    //    alert("aa");
+
+                                    let quantity = 1;
+                                    let cartColor = '';
+                                    let cartSize = '';
+                                    let isCartProcessing = false;
+
+                                    // Retrieve quantity, size, and color values if available
+                                    const elementQuantity = document.getElementById('quantity');
+                                    if (elementQuantity) {
+                                        quantity = parseInt(elementQuantity.value, 10) ||
+                                            1; // Default to 1 if parsing fails
+                                    }
+
+                                    const elementSize = document.getElementById('cart_size');
+                                    if (elementSize) {
+                                        cartSize = elementSize.value || '';
+                                    }
+
+                                    const elementColor = document.getElementById('cart_color');
+                                    if (elementColor) {
+                                        cartColor = elementColor.value || '';
+                                    }
+
+                                    // Validate quantity
+                                    if (quantity <= 0) {
+                                        toastr.error(
+                                            "Your quantity is " + quantity + ". Please increase the Quantity.",
+                                            "Error"
+                                        );
+                                        return;
+                                    }
+
+                                    const productId = this.getAttribute('data-product-id');
+                                    const csrfToken = this.getAttribute('data-csrf-token');
+                                    const url = this.getAttribute('data-url');
+
+                                    const payload = {
+                                        product_id: productId,
+                                        quantity: quantity,
+                                        cartSize: cartSize,
+                                        cartColor: cartColor,
+                                        type: 'single'
+                                    };
+
+                                    // Prevent multiple requests
+                                    if (isCartProcessing) {
+                                        toastr.warning("Cart is already processing. Please wait.");
+                                        return;
+                                    }
+                                    isCartProcessing = true;
+
+                                    // Send AJAX request
+                                    fetch(url, {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': csrfToken
+                                            },
+                                            body: JSON.stringify(payload)
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.status === "success") {
+                                                toastr.success(data.msg, "Success");
+                                                const cartInfo = document.getElementById("js_cartInfo");
+                                                if (cartInfo) {
+                                                    cartInfo.innerHTML = data.content;
+                                                }
+                                            } else {
+                                                toastr.error(data.message, "Error");
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error("Error adding to cart:", error);
+                                            toastr.error("An unexpected error occurred.", "Error");
+                                        })
+                                        .finally(() => {
+                                            isCartProcessing = false;
+                                        });
+                                });
+                            });
+                        });
+                    </script>
+
+
+
+                    {{-- <button type="button" class="btn addtocart" id="addToCartButtonss"
+                        data-product-id="{{ $product->id }}" data-csrf-token="{{ csrf_token() }}"
+                        data-url="{{ route('cart.addtocart') }}">
+                        Add to Cart
+                    </button> --}}
                 </div>
             </div>
         </div>
@@ -187,10 +320,106 @@
         {{-- <h3><a href="{{ url('product/' . $list->slug) }}">{{ $list->title }}</a></h3> --}}
         <div class="items-center justify-between d-flex">
             <div class="product-price">
-                <a class="px-2 py-1 text-xs text-white rounded discount-badge bg-primary" title="Buy Now"
-                    href="javascript:void(0)"
-                    onclick="addToCart(this, {{ $list->id }}, '{{ csrf_token() }}', '{{ route('cart.addtocart') }}', 'card');">Buy
-                    Now</a>
+
+
+
+                <div class="px-2 py-1 text-xs text-white rounded cursor-pointer buynowButton discount-badge bg-primary" title="Buy Now"
+                    id="addToCartButton" data-product-id="{{ $list->id }}" data-csrf-token="{{ csrf_token() }}"
+                    data-url="{{ route('cart.addtocart') }}">Buy
+                    Now</div>
+
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const addToCartBuyButtons = document.querySelectorAll('.buynowButton');
+
+                        addToCartBuyButtons.forEach(button => {
+                            button.addEventListener('click', function() {
+                                //    alert("aa");
+
+                                let quantity = 1;
+                                let cartColor = '';
+                                let cartSize = '';
+                                let isCartProcessing = false;
+
+                                // Retrieve quantity, size, and color values if available
+                                const elementQuantity = document.getElementById('quantity');
+                                if (elementQuantity) {
+                                    quantity = parseInt(elementQuantity.value, 10) ||
+                                        1; // Default to 1 if parsing fails
+                                }
+
+                                const elementSize = document.getElementById('cart_size');
+                                if (elementSize) {
+                                    cartSize = elementSize.value || '';
+                                }
+
+                                const elementColor = document.getElementById('cart_color');
+                                if (elementColor) {
+                                    cartColor = elementColor.value || '';
+                                }
+
+                                // Validate quantity
+                                if (quantity <= 0) {
+                                    toastr.error(
+                                        "Your quantity is " + quantity + ". Please increase the Quantity.",
+                                        "Error"
+                                    );
+                                    return;
+                                }
+
+                                const productId = this.getAttribute('data-product-id');
+                                const csrfToken = this.getAttribute('data-csrf-token');
+                                const url = this.getAttribute('data-url');
+
+                                const payload = {
+                                    product_id: productId,
+                                    quantity: quantity,
+                                    cartSize: cartSize,
+                                    cartColor: cartColor,
+                                    type: 'single'
+                                };
+
+                                // Prevent multiple requests
+                                if (isCartProcessing) {
+                                    toastr.warning("Cart is already processing. Please wait.");
+                                    return;
+                                }
+                                isCartProcessing = true;
+
+                                // Send AJAX request
+                                fetch(url, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': csrfToken
+                                        },
+                                        body: JSON.stringify(payload)
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.status === "success") {
+                                            toastr.success(data.msg, "Success");
+                                            const cartInfo = document.getElementById("js_cartInfo");
+                                            if (cartInfo) {
+                                                cartInfo.innerHTML = data.content;
+                                                window.location.href = "https://suvlav.com/checkout";
+                                            }
+                                        } else {
+                                            toastr.error(data.message, "Error");
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error("Error adding to cart:", error);
+                                        toastr.error("An unexpected error occurred.", "Error");
+                                    })
+                                    .finally(() => {
+                                        isCartProcessing = false;
+                                    });
+                            });
+                        });
+                    });
+                </script>
             </div>
 
 
