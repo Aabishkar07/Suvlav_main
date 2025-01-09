@@ -206,7 +206,7 @@
                         onclick="addToCart(this, {{ $list->id }}, '{{ csrf_token() }}', '{{ route('cart.addtocart') }}', 'card');">Add
                         to cart</a> --}}
 
-                    <div class="px-2 transition duration-300 ease-in-out hover:text-orange-500" title="Add to cart" id="addToCartButton"
+                    <div class="px-2 transition duration-300 ease-in-out addToCartButton hover:text-orange-500" title="Add to cart" id=""
                         data-product-id="{{ $list->id }}" data-csrf-token="{{ csrf_token() }}"
                         data-url="{{ route('cart.addtocart') }}">Add to cart
                     </div>
