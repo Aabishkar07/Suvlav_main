@@ -811,7 +811,7 @@
                 @else
                     <div class="flex items-center justify-center p-4 bg-gray-100 rounded-md">
                         <p class="mr-2 text-sm text-gray-600">Login to write a review</p>
-                        <a href="{{ route('login') }}"
+                        <a href="{{ route('member.loginform') }}"
                             class="border p-1.5 bg-blue-500 px-5  border-black  rounded-xl  text-white">
                             Login
                         </a>
@@ -821,7 +821,7 @@
                 @if (!Session::get('memeber_id_ss'))
                     <div class="flex items-center justify-center p-4 bg-gray-100 rounded-md">
                         <p class="mr-2 text-sm text-gray-600">Login to write a review</p>
-                        <a href="{{ route('login') }}"
+                        <a href="{{ route('member.loginform') }}"
                             class="border p-1.5 bg-blue-500 px-5  border-black  rounded-xl  text-white">
                             Login
                         </a>
