@@ -178,8 +178,15 @@
                                         <label>Full Name<span>*</span></label>
                                         <input type="text" name="name" value="{{ @$shippings[0]->fullname }}"
                                             required="required">
-                                        <input type="hidden" readonly name="email"
-                                            value="{{ Session::get('memeber_email_ss') }}" required="required">
+                                        {{-- <input type="hidden" readonly name="email"
+                                            value="{{ Session::get('memeber_email_ss') }}" required="required"> --}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email<span>*</span></label>
+                                        <input type="text" name="email" value="{{ @$shippings[0]->email }}"
+                                            required="required">
+                                        {{-- <input type="hidden" readonly name="email"
+                                            value="{{ Session::get('memeber_email_ss') }}" required="required"> --}}
                                     </div>
                                 </div>
 
@@ -372,7 +379,7 @@
                         </div>
 
                         <div class="container mt-4">
-                            <div class="card shadow-sm">
+                            <div class="shadow-sm card">
                                 <div class="card-body">
                                     <!-- Available Points Section -->
                                     <div class="mb-3">
@@ -383,7 +390,7 @@
                                     </div>
                         
                                     <!-- Remaining Points Section -->
-                                    <div class="remaining-points mb-3" id="remaining-points-container" style="display: none;">
+                                    <div class="mb-3 remaining-points" id="remaining-points-container" style="display: none;">
                                         <label class="form-label text-muted">Remaining Points</label>
                                         <span id="remaining-points" class="fw-bold text-success">0</span>
                                     </div>

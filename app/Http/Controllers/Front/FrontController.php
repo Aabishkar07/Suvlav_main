@@ -148,24 +148,24 @@ class FrontController extends Controller
     // }
 
     public function wishlist()
-{
-    $cartItems = $this->cartdata; 
-    $categories = $this->categories;
+    {
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
 
-    $userId = Session::get('memeber_id_ss'); 
+        $userId = Session::get('memeber_id_ss');
 
-    if (!$userId) {
-        return redirect()->route('member.loginform')->with('error', 'Please log in to view your wishlist.');
+        if (!$userId) {
+            return redirect()->route('member.loginform')->with('error', 'Please log in to view your wishlist.');
+        }
+
+        $wishlistProducts = DB::table('wishlists')
+            ->join('products', 'wishlists.product_id', '=', 'products.id')
+            ->where('wishlists.user_id', $userId)
+            ->select('products.*')
+            ->get();
+
+        return view('front.components.wishlist', compact('cartItems', 'categories', 'wishlistProducts'));
     }
-
-    $wishlistProducts = DB::table('wishlists')
-        ->join('products', 'wishlists.product_id', '=', 'products.id') 
-        ->where('wishlists.user_id', $userId) 
-        ->select('products.*') 
-        ->get();
-
-    return view('front.components.wishlist', compact('cartItems', 'categories', 'wishlistProducts'));
-}
 
 
     // public function addToWishlist($productId)
@@ -595,6 +595,7 @@ class FrontController extends Controller
 
     public function checkoutsmt(Request $request)
     {
+        // dd(vars: $request->email);
 
         $cartItems = $this->cartdata;
         $categories = $this->categories;
@@ -727,6 +728,7 @@ class FrontController extends Controller
         $memberData = [
             'member_id' => $user_id,
             'fullname' => $request->name,
+            'email' => $request->email,
             'mobile' => $request->mobileno,
             'province' => $request->province_id,
             'district_id' => $request->district,
@@ -734,15 +736,19 @@ class FrontController extends Controller
             'address' => $request->address,
             'tole' => $request->tole_del,
             'houseno' => $request->house_del,
-            // 'gaupalika' => $request->gaupalika,
-            // 'nagarpalika' => $request->nagarpalika,
-            // 'wardno' => $request->wardno
+            'gaupalika' => $request->gaupalika,
+            'nagarpalika' => $request->nagarpalika,
+            'wardno' => $request->wardno
 
         ];
 
         if (!isset($exist[0]->fullname)) {
             $memberData['created_at'] = date('Y-m-d H:i');
             DB::table('shippings')->insert($memberData);
+        } else {
+            DB::table('shippings')
+                ->where('id', $exist[0]->id) 
+                ->update($memberData);
         }
 
         DB::table('carts')->where('user_id', '=', $user_id)->delete();
@@ -752,7 +758,6 @@ class FrontController extends Controller
 
     public function profileorder()
     {
-
         return view('front.memloginform', compact('cartItems'));
     }
 
