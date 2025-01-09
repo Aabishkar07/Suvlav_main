@@ -181,13 +181,7 @@
                                         {{-- <input type="hidden" readonly name="email"
                                             value="{{ Session::get('memeber_email_ss') }}" required="required"> --}}
                                     </div>
-                                    <div class="form-group">
-                                        <label>Email<span>*</span></label>
-                                        <input type="text" name="email" value="{{ @$shippings[0]->email }}"
-                                            required="required">
-                                        {{-- <input type="hidden" readonly name="email"
-                                            value="{{ Session::get('memeber_email_ss') }}" required="required"> --}}
-                                    </div>
+                                    
                                 </div>
 
                                 <!-- <div class="col-lg-6 col-md-6 col-12">
@@ -202,6 +196,13 @@
                                         <input type="number" name="mobileno" placeholder=""
                                             value="{{ @$shippings[0]->mobile }}" maxlength="10" required="required">
                                     </div>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label>Email<span>*</span></label>
+                                    <input type="text" name="email" value="{{ @$shippings[0]->email }}"
+                                        required="required">
+                                    {{-- <input type="hidden" readonly name="email"
+                                        value="{{ Session::get('memeber_email_ss') }}" required="required"> --}}
                                 </div>
                                 <?php
                                 // echo '<pre>';
