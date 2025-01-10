@@ -75,100 +75,10 @@
             <div class="row">
                 <div class="col-lg-8 col-12">
                     <div class="checkout-form">
-                        <!-- <h2>Make Your Checkout Here</h2>
-                               <p>Please register in order to checkout more quickly</p> -->
-                        <?php if (Session::get('memeber_email_ss') == '') { ?>
-                        <div class="tab">
-                            <button class="tablinks" onclick="clicktab(event, 'login')" id="defaultOpen">login Here</button>
-                            <button class="tablinks" onclick="clicktab(event, 'register')">Join/Register Here</button>
-                        </div>
+                     
 
-
-                        <!-- Tab content -->
-                        <div id="login" class="tabcontent">
-                            @if ($errors->any())
-                                <div class="error_msg">{{ $errors->first() }}</div>
-                            @endif
-                            <form class="forms-sample" action="{{ route('member.login') }}" method="POST">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Email<span>*</span></label>
-                                            <input type="email" name="email" placeholder="" required="required">
-                                            <input type="hidden" name="current_url" value="<?php echo url('/checkout'); ?>" />
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Password<span>*</span></label>
-                                            <input type="password" name="password" placeholder="" required="required">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row fulllg">
-                                    <div class="col-lg-12 col-md-12 col-12">
-                                        <input type="submit" name="loginsmt" id="submitbtm" value="Login">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <!-- Start login and register form -->
-                        <div id="register" class="tabcontent">
-                            <p style="text-align: center;">Please register in order to checkout more quickly</p>
-                            @if ($errors->any())
-                                <div class="error_msg">{{ $errors->first() }}</div>
-                            @endif
-                            <form class="forms-sample" action="{{ route('memberstore') }}" method="POST">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Full Name<span>*</span></label>
-                                            <input type="text" name="fname" placeholder="" required="required">
-                                            <input type="hidden" name="current_url" value="<?php echo url('/checkout'); ?>" />
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Email<span>*</span></label>
-                                            <input type="email" name="email" placeholder="Please write valid email"
-                                                required="required">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Password<span>*</span></label>
-                                            <input type="password" name="password" placeholder="" required="required"
-                                                minlength="6">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Mobile No.<span></span></label>
-                                            <input type="text" name="mobileno" placeholder="" maxlength="10">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row fulllg">
-                                    <div class="col-lg-12 col-md-12 col-12">
-                                        <input type="submit" name="register" id="submitbtm" value="Register">
-
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- End login register fomr-->
-
-
-                        <?php } else{ ?>
                         <h2>Make Your Checkout Here</h2>
-                        <p>Please fill <b><i>delevery address</i></b> to checkout more quickly</p>
+                        {{-- <p>Please fill <b><i>delevery address</i></b> to checkout more quickly</p> --}}
                         <!-- Form -->
                         <form class="form" action="{{ route('cart.checkoutsmt') }}" method="POST">
                             @csrf
@@ -329,7 +239,6 @@
 
                         <!--/ End Button Widget -->
 
-                        <?php } ?>
                     </div>
 
                 </div>

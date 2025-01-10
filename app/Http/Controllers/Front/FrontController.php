@@ -326,10 +326,11 @@ class FrontController extends Controller
     {
         //$key = "bijay@123";
         //echo $enc = base64_encode ($key);
-
         $cartItems = $this->cartdata;
         $categories = $this->categories;
+        $cok_data = Cookie::get('suvdata');
 
+        // Cookie::queue('suvdata', 1234, 60 * 24 * 365); // 1 year
 
         if (count($cartItems) == 0) {
             return redirect('/view-cart')->with('message', 'Cart is empty');
@@ -339,11 +340,23 @@ class FrontController extends Controller
             ->get();
 
         $user_id = (Session::get('memeber_id_ss') != '') ? Session::get('memeber_id_ss') : 0;
-        $member = Member::findOrFail($user_id);
+        $shippings = "";
+        $member = "";
+        $guest_id = 0;
+        if ($user_id == 0) {
+            if ($cok_data) {
+                $shippings = DB::table('shippings')
+                    ->where(['guest_id' => $cok_data])
+                    ->get()->toArray();
+            }
+        } else {
+            $member = Member::findOrFail($user_id);
+            $shippings = DB::table('shippings')
+                ->where(['member_id' => $user_id])
+                ->get()->toArray();
+        }
 
-        $shippings = DB::table('shippings')
-            ->where(['member_id' => $user_id])
-            ->get()->toArray();
+
 
         if (isset($shippings[0]->province)) {
             $districts = DB::table('districts')
@@ -605,8 +618,21 @@ class FrontController extends Controller
             return redirect('/view-cart')->with('message', 'Cart is empty');
         }
 
-        $user_id = Session::get('memeber_id_ss');
-        $member = Member::findOrFail($user_id);
+        $user_id = Session::get('memeber_id_ss') ?? 0;
+        $guest_id = 0;
+        $cartItems="";
+        if ($user_id == 0) {
+            $guest_id = $_COOKIE['guest_auth_token'];
+            Cookie::queue('suvdata', $guest_id, 60 * 24 * 365); // 1 year
+            $cartItems = DB::table('carts')
+                ->where('guest_id', $guest_id)
+                ->get()->toArray();
+        } else {
+            $cartItems = DB::table('carts')
+                ->where('user_id', $user_id)
+                ->get()->toArray();
+            $member = Member::findOrFail($user_id);
+        }
 
         // dd(session('suvcode'));
         $code = session('suvcode');
@@ -617,9 +643,7 @@ class FrontController extends Controller
 
 
 
-        $cartItems = DB::table('carts')
-            ->where('user_id', $user_id)
-            ->get()->toArray();
+
 
         $item_count = 0;
         $totalprice = 0;
@@ -727,6 +751,7 @@ class FrontController extends Controller
 
         $memberData = [
             'member_id' => $user_id,
+            'guest_id' => $guest_id,
             'fullname' => $request->name,
             'email' => $request->email,
             'mobile' => $request->mobileno,
@@ -747,13 +772,18 @@ class FrontController extends Controller
             DB::table('shippings')->insert($memberData);
         } else {
             DB::table('shippings')
-                ->where('id', $exist[0]->id) 
+                ->where('id', $exist[0]->id)
                 ->update($memberData);
         }
 
-        DB::table('carts')->where('user_id', '=', $user_id)->delete();
-
-        return redirect()->route('member.myprofile')->with('success', 'Order has been Successfully Placed.');
+        
+        if ($user_id != 0) {
+            DB::table('carts')->where('user_id', '=', $user_id)->delete();
+            return redirect()->route('member.myprofile')->with('success', 'Order has been Successfully Placed.');
+        } else {
+            DB::table('carts')->where('guest_id', '=', $guest_id)->delete();
+            return redirect()->route('home.index')->with('success', 'Order has been Successfully Placed.');
+        }
     }
 
     public function profileorder()
@@ -1075,7 +1105,7 @@ class FrontController extends Controller
 
         Auth::logout();
         Session::flush();
-        return redirect('/');
+        return redirect('/')->with("success", "Sucessfully Logout");
     }
 
 

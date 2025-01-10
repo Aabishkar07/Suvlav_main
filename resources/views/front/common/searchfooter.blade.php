@@ -15,7 +15,7 @@
                             {{-- <form action="{{ route('product.search') }}" method="GET" class="d-flex">
                                     <div class="input-group">
                                         <input 
-                                            class="form-control rounded-pill text-xs pl-2" 
+                                            class="pl-2 text-xs form-control rounded-pill" 
                                             name="query" 
                                             type="search" 
                                             id="form1" 
@@ -41,16 +41,16 @@
 
                                 <form action="{{ route('product.search') }}" method="GET" class="relative">
                                     <input type="text" name="query" id="search-input"
-                                        class="border rounded-lg p-2 w-full" placeholder="Search products..."
+                                        class="w-full p-2 border rounded-lg" placeholder="Search products..."
                                         value="{{ request()->query('query') }}" oninput="showSearchHistory()">
                                     <button type="submit"
-                                        class="absolute right-2 top-2 bg-blue-500 text-white p-2 rounded-lg">
+                                        class="absolute p-2 text-white bg-blue-500 rounded-lg right-2 top-2">
                                         Search
                                     </button>
                                 </form>
 
                                 <div id="search-history-outside" class="mt-4">
-                                    <ul class="bg-white border shadow-lg rounded-lg w-full relative bottom-10">
+                                    <ul class="relative w-full bg-white border rounded-lg shadow-lg bottom-10">
                                         @if (!empty($searchHistory))
                                             @foreach ($searchHistory as $history)
                                                 <li>
@@ -93,24 +93,24 @@
                                 <!-- Search Form -->
                                 <form action="{{ route('product.search') }}" method="GET"
                                     class="relative flex items-center">
-                                    
-                                    
-                                    
-                                    
+
+
+
+
                                     {{-- <?php if (Session::get('memeber_email_ss') != ''): ?> --}}
                                     <input type="text" name="query" id="search-input"
-                                        class=" rounded-lg p-2 w-full" placeholder="Search products..."
+                                        class="w-full p-2 rounded-lg " placeholder="Search products..."
                                         value="{{ request()->query('query') }}" oninput="toggleSearchHistory()"
                                         onclick="toggleSearchHistory()">
                                     <button type="submit"
-                                        class="absolute right-2 top-1 bg-blue-500 text-white px-3 py-1 rounded-lg">
+                                        class="absolute px-3 py-1 text-white bg-blue-500 rounded-lg right-2 top-1">
                                         Search
                                     </button>
                                     {{-- <?php else: ?>
                                     <input type="text" name="query" id="search-input"
-                                    class=" rounded-lg p-2 w-full" placeholder="Search products..."
+                                    class="w-full p-2 rounded-lg " placeholder="Search products..."
                                     >
-                                    <a class="absolute right-2 top-1 bg-blue-500 text-white px-3 py-1 rounded-lg"
+                                    <a class="absolute px-3 py-1 text-white bg-blue-500 rounded-lg right-2 top-1"
                                         href="{{ url('/memberloginform') }}" class="login-btn">Login to Search</a>
 
                                     <?php endif; ?> --}}
@@ -122,10 +122,10 @@
 
 
                                 <!-- Search History and Clear Button -->
-                                <div class="mt-2 bottom-10 w-full absolute">
+                                <div class="absolute w-full mt-2 bottom-10">
                                     <!-- Search History List -->
                                     <ul id="search-history"
-                                        class="bg-white border shadow-lg rounded-lg w-full max-h-40 overflow-auto hidden">
+                                        class="hidden w-full overflow-auto bg-white border rounded-lg shadow-lg max-h-40">
                                         @if (!empty($searchHistory))
                                             @foreach ($searchHistory as $history)
                                                 <li class="px-4 py-2 hover:bg-gray-100">
@@ -177,16 +177,12 @@
                     </div>
 
                     <div class="col-lg-6 col-12">
-                        <?php if (Session::get('memeber_email_ss') != ''): ?>
-                        <div class="right flex items-center">
-                            <p>My Points {{ $userdata[0]->total_points ?? 0 }}</p>
-                        </div>
-                        <?php else: ?>
-                        <div class="right flex items-center">
-                            {{-- <p>                            <a href="{{ url('/memberloginform') }}" style="display: inline;" class="login-btn">Login</a>
-                                </p> --}}
-                        </div>
-                        <?php endif; ?>
+                        @if (Session::get('memeber_email_ss') != '')
+                            <div class="flex items-center right">
+                                <p style="color: white;padding:10px;background-color: #222;width: 100%">My Points {{ $userdata[0]->total_points ?? 0 }}
+                                </p>
+                            </div>
+                        @endif
 
 
                     </div>

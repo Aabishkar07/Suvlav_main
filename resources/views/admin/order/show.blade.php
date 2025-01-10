@@ -36,18 +36,18 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-12">
                             <div class="form-group">
-                                <span>Full Name</span> &nbsp; : &nbsp; {{ $userdata[0]->name }}
+                                <span>Full Name</span> &nbsp; : &nbsp; {{ $userdata[0]->name ?? @$shippings[0]->fullname }}
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-12">
                             <div class="form-group">
-                                <span>Email</span>&nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                <span>Email</span>&nbsp; : &nbsp; {{ $userdata[0]->email ?? @$shippings[0]->email }}
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-4 col-12">
                             <div class="form-group">
-                                <span>Mobile No.</span>&nbsp; : &nbsp; {{ $userdata[0]->mobileno }}
+                                <span>Mobile No.</span>&nbsp; : &nbsp; {{ $userdata[0]->mobileno ?? @$shippings[0]->mobile }}
                             </div>
                         </div>
                     </div>
@@ -56,25 +56,25 @@
 
                         <div class="col-lg-4 col-md-4 col-12">
                             <div class="form-group">
-                                <span>Gender</span>&nbsp; : &nbsp; {{ $userdata[0]->gender }}
+                                <span>Gender</span>&nbsp; : &nbsp; {{ $userdata[0]->gender ?? "-"  }}
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-4 col-12">
                             <div class="form-group">
-                                <span>State</span>&nbsp; : &nbsp; {{ $userdata[0]->statename }}
+                                <span>State</span>&nbsp; : &nbsp; {{ $userdata[0]->statename ?? @$shippings[0]->statename }}
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-12">
                             <div class="form-group">
-                                <span>District</span> &nbsp; : &nbsp; {{ $userdata[0]->district }}
+                                <span>District</span> &nbsp; : &nbsp; {{ $userdata[0]->district ?? @$shippings[0]->district }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-12">
                             <div class="form-group">
-                                <span>Address.</span> &nbsp; : &nbsp; {{ $userdata[0]->address }}
+                                <span>Address.</span> &nbsp; : &nbsp; {{ $userdata[0]->address ?? @$shippings[0]->address }}
                             </div>
                         </div>
                     </div>

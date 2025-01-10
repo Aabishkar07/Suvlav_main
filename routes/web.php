@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Artisan;
 
 // Frontend Routing
 
-Route::get('/', [FrontController::class, 'index']);
+Route::get('/', [FrontController::class, 'index'])->name("home.index");
 Route::get('/product/{slug}', [ProductController::class, 'detail']);
 Route::get('/contactus', [FrontController::class, 'contactus']);
 Route::post('/contactmail', [FrontController::class, 'contactmail']);
