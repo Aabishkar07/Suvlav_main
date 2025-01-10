@@ -77,16 +77,19 @@
                     <div class="checkout-form">
                      
 
-                        <h2>Make Your Checkout Here</h2>
+                        <div class="">
+
+                            <h2 >Make Your Checkout Here</h2>
+                        </div>
                         {{-- <p>Please fill <b><i>delevery address</i></b> to checkout more quickly</p> --}}
                         <!-- Form -->
                         <form class="form" action="{{ route('cart.checkoutsmt') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-group">
+                                    <div style="margin-top: -1px" class=" form-group">
                                         <label>Full Name<span>*</span></label>
-                                        <input type="text" name="name" value="{{ @$shippings[0]->fullname }}"
+                                        <input id="asd" type="text" name="name" value="{{ @$shippings[0]->fullname }}"
                                             required="required">
                                         {{-- <input type="hidden" readonly name="email"
                                             value="{{ Session::get('memeber_email_ss') }}" required="required"> --}}
@@ -100,31 +103,23 @@
                                    <input type="email" readonly name="email" value="{{ Session::get('memeber_email_ss') }}" required="required">
                                   </div>
                                  </div> -->
-                                <div class="col-lg-6 col-md-6 col-12">
+                                <div style="margin-top: -15px" class="col-lg-6 col-md-6 col-12">
                                     <div class="form-group">
                                         <label>Mobile No.<span>*</span></label>
                                         <input type="number" name="mobileno" placeholder=""
                                             value="{{ @$shippings[0]->mobile }}" maxlength="10" required="required">
                                     </div>
                                 </div>
-                                <div class="form-group col-12">
+                                <div style="margin-top: -15px" class="form-group col-12">
                                     <label>Email<span>*</span></label>
                                     <input type="text" name="email" value="{{ @$shippings[0]->email }}"
                                         required="required">
                                     {{-- <input type="hidden" readonly name="email"
                                         value="{{ Session::get('memeber_email_ss') }}" required="required"> --}}
                                 </div>
-                                <?php
-                                // echo '<pre>';
-                                // print_r($states_del);
-                                // foreach($states_del as $dd){
-                                
-                                // 	echo $dd->id;
-                                // }
-                                // die();
-                                ?>
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-group">
+                               
+                                <div  class="col-lg-6 col-md-6 col-12">
+                                    <div style="margin-top: -15px" class="form-group">
                                         <label>State<span>*</span></label>
                                         <select id="province_data" class="form-control district" name="province_id"
                                             required onchange="getDistrictsByState('<?php echo url('getdistricts'); ?>')">
@@ -139,7 +134,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-group">
+                                    <div style="margin-top: -15px" class="form-group">
                                         <label>District<span>*</span></label>
                                         <select class="form-control" name="district" id="district_id" required>
                                             <option value=''> Select District </option>
@@ -156,7 +151,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-12">
+                                {{-- <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-group">
                                         <label>City<span>*</span></label> &nbsp; <input type="text" name="city_del"
                                             value="{{ @$shippings[0]->city }}" required="required">
@@ -168,25 +163,25 @@
                                         <input type="text" name="address" placeholder=""
                                             value="{{ @$shippings[0]->address }}" required="required">
                                     </div>
-                                </div>
+                                </div> --}}
 
 
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-group">
+                                    <div style="margin-top: -15px" class="form-group">
                                         <span>Tole.</span> &nbsp;<input type="text" name="tole_del"
                                             value="{{ @$shippings[0]->tole }}">
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-12">
+                                {{-- <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-group">
                                         <span>House No.</span> &nbsp;<input type="text" name="house_del"
                                             value="{{ @$shippings[0]->houseno }}">
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-group">
+                                    <div style="margin-top: -15px" class="form-group">
                                         <span>Gaupalika</span> &nbsp;<input type="text" name="gaupalika"
                                             value="{{ @$shippings[0]->gaupalika }}">
                                     </div>
@@ -194,14 +189,14 @@
 
 
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-group">
+                                    <div style="margin-top: -15px" class="form-group">
                                         <span>Nagarpalika</span> &nbsp;<input type="text" name="nagarpalika"
                                             value="{{ @$shippings[0]->nagarpalika }}">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-group">
+                                    <div style="margin-top: -15px" class="form-group">
                                         <span>Ward no</span> &nbsp;<input type="text" name="wardno"
                                             value="{{ @$shippings[0]->wardno }}">
                                     </div>

@@ -674,10 +674,10 @@ class FrontController extends Controller
             'mobile' => $request->mobileno,
             'province' => $request->province_id,
             'district_id' => $request->district,
-            'address' => $request->address,
-            'city' => $request->city_del,
+            // 'address' => $request->address,
+            // 'city' => $request->city_del,
             'tole' => $request->tole_del,
-            'houseno' => $request->house_del,
+            // 'houseno' => $request->house_del,
             'tracking_code' => $trackingid,
             'created_at' => @date('Y-m-d H:i')
 
