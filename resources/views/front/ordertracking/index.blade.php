@@ -19,7 +19,7 @@
 
 
 
-<div class="container sm:mt-32  my-10" id="printableArea">
+<div class="container my-10 sm:mt-32" id="printableArea">
     {{-- @dd($orders) --}}
     <h1 class="mb-2 text-xl">Tracking Order Details of Order Id : {{ $order_id ?? "" }}</h1>
     @if ($orders)
@@ -37,41 +37,41 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <strong>Full Name:</strong> {{ $userdata[0]->name }}
+                        <strong>Full Name:</strong> {{ $userdata[0]->name ?? @$shippings[0]->fullname }}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <strong>Email:</strong> {{ $userdata[0]->email }}
+                        <strong>Email:</strong> {{ $userdata[0]->email ?? @$shippings[0]->email }}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <strong>Mobile No.:</strong> {{ $userdata[0]->mobileno }}
+                        <strong>Mobile No.:</strong> {{ $userdata[0]->mobileno ?? @$shippings[0]->mobile }}
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <strong>Gender:</strong> {{ $userdata[0]->gender }}
+                        <strong>Gender:</strong> {{ $userdata[0]->gender ?? "-" }}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <strong>State:</strong> {{ $userdata[0]->statename }}
+                        <strong>State:</strong> {{ $userdata[0]->statename ?? @$shippings[0]->statename }}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <strong>District:</strong> {{ $userdata[0]->district }}
+                        <strong>District:</strong> {{ $userdata[0]->district ?? @$shippings[0]->district }}
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <strong>Address:</strong> {{ $userdata[0]->address }}
+                        <strong>Address:</strong> {{ $userdata[0]->address ?? @$shippings[0]->address }}
                     </div>
                 </div>
             </div>
@@ -207,7 +207,7 @@
             <!-- Action Buttons -->
             <div>
           
-                <a href="/" class="btn btn-secondary text-white"><i class="fa fa-mail-reply"></i> Back</a>
+                <a href="/" class="text-white btn btn-secondary"><i class="fa fa-mail-reply"></i> Back</a>
             </div>
 
         </div>
@@ -215,7 +215,7 @@
     @else
     <div class="flex items-center justify-center">
         <div class="p-6 bg-white rounded-lg shadow-lg custom-margin">
-          <p class="text-red-600 text-2xl font-bold border-l-4 border-red-600 pl-4">
+          <p class="pl-4 text-2xl font-bold text-red-600 border-l-4 border-red-600">
             No order is available for this tracking ID.
           </p>
         </div>

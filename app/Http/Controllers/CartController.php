@@ -153,7 +153,6 @@ class CartController extends Controller
 
     public function buynow(Request $request)
     {
-        alert("aa");
         $response_data = [];
         $cart = new Cart();
         $guest_id = $_COOKIE['guest_auth_token'];
@@ -169,7 +168,7 @@ class CartController extends Controller
         if (!empty($product->sale_price)) {
             $price = $product->sale_price;
         }
-        $available_qty = $product->availablestock ?? 0;
+
         $cartItem = Cart::where('product_id', $request->product_id)
             ->where(function ($query) use ($user_id, $guest_id) {
                 $query->where('user_id', $user_id)
@@ -177,10 +176,12 @@ class CartController extends Controller
             })
             ->first();
 
+        $available_qty = $product->availablestock ?? 0;
+
         if ($cartItem) {
             $qty = $cartItem->quantity + $request->quantity;
             if ($available_qty < $qty) {
-                return response()->json(["success" => false, "message" => "Only " . $available_qty . " quantity is available"]);
+                return response()->json(["success" => false, "message" => "Only " . $available_qty . " quantity is available. Please Check in Cart"]);
             } else {
                 $cartItem->quantity += $request->quantity;
                 $cartItem->attributes = json_encode($prod_attr);
@@ -196,16 +197,16 @@ class CartController extends Controller
             if ($available_qty < $request->quantity) {
                 return response()->json(["success" => false, "message" => "Only " . $available_qty . " quantity is available"]);
             } else {
-                $aa = Cart::create([
-                    'guest_id' => $guest_id,
-                    'product_id' => $request->product_id,
-                    'quantity' => $request->quantity,
-                    'product_title' => $product->title,
-                    'product_image' => $product->image,
-                    'product_slug' => $product->slug,
-                    'attributes' => json_encode($prod_attr),
-                    'price' => $price
-                ]);
+                // dd($request->quantity);
+                $cart->guest_id = $guest_id;
+                $cart->product_id = $request->product_id;
+                $cart->quantity = $request->quantity;
+                $cart->product_title = $product->title;
+                $cart->product_image = $product->image;
+                $cart->product_slug = $product->slug;
+                $cart->attributes = json_encode($prod_attr);
+                $cart->price = $price;
+                $cart->save();
             }
         }
         $cartDropDown = $this->cartDropDown();
