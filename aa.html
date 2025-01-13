@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Details</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f3f4f6;
+        color: #333;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 900px;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .section {
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .section:last-child {
+        border-bottom: none;
+      }
+
+      .section-header {
+        background: #838385;
+        color: #ffffff;
+        padding: 15px;
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+
+      .section-content {
+        padding: 20px;
+      }
+
+      .row {
+        display: flex;
+        /* justify-content: space-between; */
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+      .myrow {
+        display: flex;
+        /* justify-content: space-between; */
+        gap: 30px;
+        margin-bottom: 15px;
+      }
+
+      .row label {
+        font-weight: bold;
+        color: #555;
+      }
+
+      .row span {
+        color: #333;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      .table th,
+      .table td {
+        border: 1px solid #e0e0e0;
+        padding: 12px;
+        text-align: left;
+      }
+
+      .table th {
+        background: #838385;
+        color: #ffffff;
+      }
+
+      .table td {
+        background: #f9fafb;
+      }
+
+      .text-right {
+        text-align: right;
+      }
+
+      .highlight {
+        background: #fef3c7;
+        font-weight: bold;
+      }
+
+      .section-content img {
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      @media (max-width: 600px) {
+        .row {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .row label {
+          margin-bottom: 5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Customer Details -->
+      <div class="section">
+        <div class="section-header">Customer Detail</div>
+        <div class="section-content myrow">
+          <div class="">
+            <div class="row">
+              <label>Full Name:</label>
+              <span>ak Kasula</span>
+            </div>
+            <div class="row">
+              <label>Email:</label>
+              <span>anupkasula5@gmail.com</span>
+            </div>
+            <div class="row">
+              <label>Mobile No.:</label>
+              <span>9898998989</span>
+            </div>
+          </div>
+          <div class="">
+           
+            <div class="row">
+              <label>State:</label>
+              <span>Koshi</span>
+            </div>
+            <div class="row">
+              <label>District:</label>
+              <span>Panchthar</span>
+            </div>
+            <div class="row">
+                <label>Gender:</label>
+                <span>-</span>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Details -->
+      <div class="section">
+        <div class="section-header">Order Detail</div>
+        <div class="section-content">
+          <div class="row">
+            <label>Order ID:</label>
+            <span>50</span>
+          </div>
+          <div class="row">
+            <label>Order Date:</label>
+            <span>2025-01-13 05:27:00</span>
+          </div>
+          <div class="row">
+            <label>Order Status:</label>
+            <span>Pending</span>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><img src="#" alt="Kurti" width="50" height="50" /></td>
+                <td>Kurti</td>
+                <td>Rs. 1,999</td>
+                <td>1</td>
+                <td>Rs. 1,999</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="highlight">
+                <td colspan="4" class="text-right">
+                  <strong>Total Amount:</strong>
+                </td>
+                <td>Rs. 1,999</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Delivery Address -->
+      <div class="section">
+        <div class="section-header">Delivery Address</div>
+        <div class="section-content">
+          <div class="row">
+            <label>Full Name:</label>
+            <span>ak Kasula</span>
+          </div>
+          <div class="row">
+            <label>Mobile No.:</label>
+            <span>9898998989</span>
+          </div>
+          <div class="row">
+            <label>State:</label>
+            <span>Koshi</span>
+          </div>
+          <div class="row">
+            <label>District:</label>
+            <span>Panchthar</span>
+          </div>
+          <div class="row">
+            <label>City:</label>
+            <span>-</span>
+          </div>
+          <div class="row">
+            <label>Address:</label>
+            <span>-</span>
+          </div>
+          <div class="row">
+            <label>House No.:</label>
+            <span>Gaupalika</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
