@@ -109,8 +109,8 @@ class FrontController extends Controller
         // New Products
         $results['home_prod_new_arrivals'] = DB::table('products')
             ->where(['status' => 1])
-            ->where(['prod_new_arrival' => '1'])
-            // ->limit(8)
+            // ->where(['prod_new_arrival' => '1'])
+            ->limit(24)
             ->get();
 
         // Featured Products
@@ -311,7 +311,7 @@ class FrontController extends Controller
 
         $results['home_prod_featured'] = DB::table('products')
             ->where(['status' => 1])
-            ->where(['prod_new_arrival' => '1'])
+            // ->where(['prod_new_arrival' => '1'])
             ->get();
 
 

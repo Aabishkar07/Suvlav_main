@@ -5,13 +5,12 @@
 
 
     @if (Session::has('success'))
-
-    <script>
-        Toast.fire({
-            icon: "success",
-            title: "{{ Session::get('popsuccess') }}"
-        })
-    </script>
+        <script>
+            Toast.fire({
+                icon: "success",
+                title: "{{ Session::get('popsuccess') }}"
+            })
+        </script>
     @endif
 
 
@@ -30,20 +29,14 @@
 
 
     <!-- Start Most Popular -->
-    <div class="product-area most-popular section ">
+
+    {{-- <div class="product-area most-popular section ">
         <div class="container">
-            {{-- <div class="row">
-                <div class="col-12">
-                    <div class="section-title">
-                        <h2>Featured Products</h2>
-                    </div>
-                </div>
-            </div> --}}
+           
 
 
             <div class="container">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
-                    <!-- Title -->
                     <h2 class="text-2xl text-black Featured Products text-start fs-3" style="font-weight: 600">
                         Featured Products
                     </h2>
@@ -62,14 +55,12 @@
                             </div>
                         </div>
 
-                        <!-- For smaller screens -->
                         <div class="d-flex d-sm-none">
                             <span class="text-danger">View All</span>
                         </div>
                     </a>
                 </div>
 
-                <!-- Divider -->
                 <div class="py-4 d-flex">
                     <div class="flex-shrink-0" style="width: 10%; border-top: 2px solid #ff6f10;"></div>
                     <div class="flex-grow-1 border-top"></div>
@@ -79,7 +70,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="owl-carousel popular-slider" style="margin-top: -15px;">
-                        <!-- Slider Product -->
+                       
                         @foreach ($home_prod_featured as $list)
                             @include('front.components.productcard', ['list' => $list, 'slider' => '1'])
                         @endforeach
@@ -87,7 +78,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
+
     <!-- End Most Popular Area -->
 
     <!-- Start Product Area -->
@@ -102,9 +94,9 @@
                 </div>
             </div> --}}
 
-            <div class="container">
+            {{-- <div class="container">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
-                    <!-- Title -->
+                 
                     <h2 class="text-2xl text-black New Arrivals text-start fs-3" style="font-weight: 600">
                         Products
                     </h2>
@@ -130,12 +122,12 @@
                     </a>
                 </div>
 
-                <!-- Divider -->
+               
                 <div class="py-4 d-flex">
                     <div class="flex-shrink-0" style="width: 10%; border-top: 2px solid #ff6f10;"></div>
                     <div class="flex-grow-1 border-top"></div>
                 </div>
-            </div>
+            </div> --}}
 
 
 
@@ -154,6 +146,22 @@
                     </div>
                 </div>
             </div>
+            <a href="{{ route('newarrivals') }}" class="mt-4 text-decoration-none d-flex justify-content-center">
+                <div class="gap-2 d-flex align-items-center text-danger hover-underline">
+                    View All
+                    <div
+                        class="p-1 text-white bg-danger rounded-circle d-flex justify-content-center align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24"
+                            height="24">
+                            <path
+                                d="M12 2l.324 .005a10 10 0 1 1 -.648 0l.324 -.005zm.613 5.21a1 1 0 0 0 -1.32 1.497l2.291 2.293h-5.584l-.117 .007a1 1 0 0 0 .117 1.993h5.584l-2.291 2.293l-.083 .094a1 1 0 0 0 1.497 1.32l4 -4l.073 -.082l.064 -.089l.062 -.113l.044 -.11l.03 -.112l.017 -.126l.003 -.075l-.007 -.118l-.029 -.148l-.035 -.105l-.054 -.113l-.071 -.111a1.008 1.008 0 0 0 -.097 -.112l-4 -4z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+
+                
+            </a>
         </div>
     </div>
 
@@ -196,21 +204,21 @@
 
     <!-- Start Product Categories  -->
     <!-- <section class="shop-home-list section">
-                              <div class="container">
-                               <div class="row">
-                                <div class="col-12">
-                                <div class="shop-section-title">
-                                 <h1>Product categories</h1>
-                                </div>
-                                  <div class="row">
-                                   @foreach ($categories as $list)
+                                  <div class="container">
+                                   <div class="row">
+                                    <div class="col-12">
+                                    <div class="shop-section-title">
+                                     <h1>Product categories</h1>
+                                    </div>
+                                      <div class="row">
+                                       @foreach ($categories as $list)
     @include('front.components.productCatCard', ['list' => $list])
     @endforeach
+                                      </div>
+                                    </div>
+                                   </div>
                                   </div>
-                                </div>
-                               </div>
-                              </div>
-                             </section> -->
+                                 </section> -->
     <!-- End Shop Home List  -->
 
 

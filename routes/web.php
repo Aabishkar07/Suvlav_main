@@ -84,7 +84,8 @@ Route::post('/search', [FrontController::class, 'searchstore'])->name('search.hi
 
 Route::get('order/trackorder', [FrontController::class, 'trackorder'])->name('trackorder');
 Route::get('/featuredproduct', [FrontController::class, 'featuredproduct'])->name('featuredproduct');
-Route::get('/newarrivals', [FrontController::class, 'newarrivals'])->name('newarrivals');
+Route::get('/allproducts', [FrontController::class, 'newarrivals'])->name('newarrivals');
+// Route::get('/newarrivals', [FrontController::class, 'newarrivals'])->name('newarrivals');
 Route::post('/review/{slug}', [FrontController::class, 'store'])->name('review');
 
 // Route::get('/', function () {
