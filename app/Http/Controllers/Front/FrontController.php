@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Order as MailOrder;
 use App\Mail\otp;
 use App\Mail\registerUser;
 use App\Mail\welcome;
@@ -608,6 +609,10 @@ class FrontController extends Controller
 
     public function checkoutsmt(Request $request)
     {
+
+
+
+
         // dd(vars: $request->email);
 
         $cartItems = $this->cartdata;
@@ -620,7 +625,7 @@ class FrontController extends Controller
 
         $user_id = Session::get('memeber_id_ss') ?? 0;
         $guest_id = 0;
-        $cartItems="";
+        $cartItems = "";
         if ($user_id == 0) {
             $guest_id = $_COOKIE['guest_auth_token'];
             Cookie::queue('suvdata', $guest_id, 60 * 24 * 365); // 1 year
@@ -776,12 +781,42 @@ class FrontController extends Controller
                 ->update($memberData);
         }
 
-        
+        // mailData 
+        $orders = DB::table('orders as a')
+            ->join('order_details as b', 'b.order_id', '=', 'a.id')
+            ->where('a.id', $orderid)
+            ->get()->toArray();
+
+        $user_id = $orders[0]->user_id;
+
+        $userdata = DB::table('members')
+            ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
+            ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+            ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+            ->where('members.id', $user_id)
+            ->get()->toArray();
+
+        $shippings = DB::table('shippings')
+            ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
+            ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
+            ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+            ->where('member_id', $user_id)
+            ->get()->toArray();
+
+        $myuserdata = "";
+        if ($user_id != 0) {
+            $myuserdata = $userdata[0];
+        }
+        $maildata = [$orders, $myuserdata, $shippings[0]];
+
         if ($user_id != 0) {
             DB::table('carts')->where('user_id', '=', $user_id)->delete();
+            Mail::to("anupkasula5@gmail.com")->send(new MailOrder($maildata));
+
             return redirect()->route('member.myprofile')->with('success', 'Order has been Successfully Placed.');
         } else {
             DB::table('carts')->where('guest_id', '=', $guest_id)->delete();
+            Mail::to("anupkasula5@gmail.com")->send(new MailOrder($maildata));
             return redirect()->route('home.index')->with('success', 'Order has been Successfully Placed.');
         }
     }
