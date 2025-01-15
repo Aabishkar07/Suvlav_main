@@ -193,7 +193,7 @@
                         <i class="fa fa-first-order menu-icon  py-2 {{ request()->routeIs('admin.exchangeorreturn') ? 'text-white' : 'text-black' }}"
                             style="font-size: 18px"></i>
                         <span class="ps-2">
-                           Exchange / Return
+                           Exchange / Cancel
                         </span>
                     </span>
                 </a>
