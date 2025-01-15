@@ -267,7 +267,7 @@
 
 
                                                     <!-- Modal Header -->
-                                                    <h2 class="mb-4 text-2xl font-semibold">Inquiry For </h2>
+                                                    <h2 class="mb-4 text-2xl font-semibold">Cancel or  Exchange </h2>
 
                                                     <!-- Inquiry Form -->
                                                     <form id="inquiryForm" method="post"
