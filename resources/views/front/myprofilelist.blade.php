@@ -66,8 +66,8 @@
         }
 
         /* .btn {
-            background-color: #000 !important;
-        } */
+                                                                        background-color: #000 !important;
+                                                                    } */
 
         .changepw {
             margin: 0px auto;
@@ -156,6 +156,10 @@
 
                         <!-- Tab content -->
                         <div id="order_history" class="tabcontent">
+
+
+
+
                             <div class="row">
                                 <div class="mt-12 col-12 table-responsive">
                                     <!-- Shopping Summery -->
@@ -235,7 +239,7 @@
                                                     @endswitch
                                                 </td>
                                                 <td class="text-center">{{ $order->created_at }}</td>
-                                                <td class="">
+                                                <td class="flex items-center gap-x-2">
                                                     <a href="{{ route('profile.order', $order->id) }}">
 
                                                         <div style="background-color: green;width: 50px;color:white"
@@ -244,13 +248,125 @@
                                                             <i class="fa fa-eye"></i>
                                                         </div>
                                                     </a>
+                                                    @if ($order->status != 'Cancel' && $order->status != 'Exchange' && $order->status != 'Wanttoexchange')
+                                                        <div id="openModalBtn-{{ $order->id }}"
+                                                            class="p-1 text-white bg-red-500 rounded cursor-pointer">
+                                                            Cancel / Exchange
+                                                        </div>
+                                                    @endif
                                                 </td>
                                             </tr>
+
+                                            <!-- Modal Container -->
+                                            <div id="customModal-{{ $order->id }}"
+                                                class="fixed z-[999] inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
+                                                <!-- Modal Content -->
+                                                <div
+                                                    class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative max-h-[80vh] overflow-y-auto">
+                                                    <!-- Close Button -->
+
+
+                                                    <!-- Modal Header -->
+                                                    <h2 class="mb-4 text-2xl font-semibold">Inquiry For </h2>
+
+                                                    <!-- Inquiry Form -->
+                                                    <form id="inquiryForm" method="post"
+                                                        action="{{ route('member.statusupdate', $order->id) }}"
+                                                        class="space-y-4">
+                                                        <!-- Name -->
+                                                        @csrf
+
+
+
+
+                                                        <!-- Subject -->
+                                                        <div>
+                                                            <label class="block text-sm font-medium text-gray-700">Cancel /
+                                                                Exchange </label>
+
+                                                            <select id="status" name="status" required
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                                                <option value="" selected>Choose an option</option>
+                                                                <option value="Wanttoexchange">Want to exchange</option>
+                                                                <option value="Cancel">Cancel</option>
+
+                                                            </select>
+
+
+                                                            @error('status')
+                                                                <div class="text-sm text-red-400 invalid-feedback"
+                                                                    style="display: block;">
+                                                                    * {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+
+                                                        <!-- Message -->
+                                                        <div>
+                                                            <label
+                                                                class="block text-sm font-medium text-gray-700">Reason</label>
+                                                            <textarea id="reason" name="reason"
+                                                                class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                                placeholder="Your Message" rows="4" required>{{ old('reason') }}</textarea>
+                                                            @error('reason')
+                                                                <div class="text-sm text-red-400 invalid-feedback"
+                                                                    style="display: block;">
+                                                                    * {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+
+
+
+                                                        <!-- Modal Footer -->
+                                                        <button id="confirmBtn" type="submit"
+                                                            class="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600">
+                                                            Confirm
+                                                        </button>
+
+                                                        <button id="closeModalBtn-{{ $order->id }}"
+                                                            class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
+                                                            Close
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+
+                                            <script>
+                                                // Get elements dynamically for each modal
+                                                const openModalBtn{{ $order->id }} = document.getElementById('openModalBtn-{{ $order->id }}');
+                                                const closeModalBtn{{ $order->id }} = document.getElementById('closeModalBtn-{{ $order->id }}');
+                                                const modal{{ $order->id }} = document.getElementById('customModal-{{ $order->id }}');
+
+                                                // Open modal function
+                                                const openModal{{ $order->id }} = () => {
+                                                    modal{{ $order->id }}.classList.remove('hidden');
+                                                };
+
+                                                // Close modal function
+                                                const closeModal{{ $order->id }} = () => {
+                                                    modal{{ $order->id }}.classList.add('hidden');
+                                                };
+
+                                                // Event listeners
+                                                openModalBtn{{ $order->id }}.addEventListener('click', openModal{{ $order->id }});
+                                                closeModalBtn{{ $order->id }}.addEventListener('click', closeModal{{ $order->id }});
+
+                                                // Close modal when clicking outside the content
+                                                window.addEventListener('click', (event) => {
+                                                    if (event.target === modal{{ $order->id }}) {
+                                                        closeModal{{ $order->id }}();
+                                                    }
+                                                });
+                                            </script>
+
                                             <?php $sn++; } ?>
                                         </tbody>
                                     </table>
                                     <!--/ End Shopping Summery -->
                                 </div>
+
                             </div>
                         </div>
 
@@ -331,10 +447,10 @@
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                  <div class="form-group">
-                                                                   <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                                                                   </div>
-                                                               </div> -->
+                                                                                                                              <div class="form-group">
+                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
+                                                                                                                               </div>
+                                                                                                                           </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -605,10 +721,10 @@
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                   <div class="form-group">
-                                                                   <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                   </div>
-                                                                  </div> -->
+                                                                                                                               <div class="form-group">
+                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                               </div>
+                                                                                                                              </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">

@@ -66,6 +66,7 @@ Route::post('/memberchanagepw', [FrontController::class, 'memberchanagepw'])->na
 Route::post('/profileshippingsave', [FrontController::class, 'profileshippingsave'])->name('member.profileshipping');
 
 Route::post('/profileupdate', [FrontController::class, 'profileupdate'])->name('member.profileupdate');
+Route::post('/statusupdate/{order}', [FrontController::class, 'statusupdate'])->name('member.statusupdate');
 
 
 
@@ -128,7 +129,8 @@ Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'admin']), func
 
     Route::delete('deletereview//{review}', [ReviewController::class, 'frontdelete'])->name('admin.review.frontdelete');
 
-    Route::resource('order', OrderController::class);
+    Route::get('order/exchange-or-return', [OrderController::class, 'show'])->name('admin.exchangeorreturn');
+    Route::resource('order', controller: OrderController::class);
     Route::get('order/showdetails/{id}', [OrderController::class, 'showdetails'])->name('admin.order.showdetails');
     Route::resource('user', UserController::class);
     Route::resource('member', MemberController::class);

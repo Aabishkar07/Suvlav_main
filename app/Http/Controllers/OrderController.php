@@ -49,6 +49,16 @@ class OrderController extends Controller
     {
         //
     }
+    public function show()
+    {
+
+        $orders = DB::table('order_statuses as a')
+            ->join('orders as b', 'a.order_id', '=', 'b.id')
+            ->join('members as m', 'a.user_id', '=', 'm.id')
+            ->select("a.*", "b.*", "m.name", "a.status as order_status")
+            ->paginate(siteSettings('posts_per_page'));
+        return view('admin.order.exchange', compact('orders'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -129,5 +139,15 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function exchangeorreturn()
+    {
+        dd("aa");
+        $orders = DB::table('order_statuses as a')
+            ->join('orders as b', 'a.order_id', '=', 'b.id')
+            ->join('members as m', 'a.user_id', '=', 'm.id')
+            ->get()->toArray();
+        return view('admin.order.exchange', compact('orders', 'request'));
     }
 }
