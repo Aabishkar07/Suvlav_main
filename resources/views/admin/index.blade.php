@@ -11,13 +11,13 @@
 
     @endphp
 
-    <div class="row px-5">
+    <div class="px-5 row">
 
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 px-3 g-2 mb-4">
+        <div class="px-3 mb-4 row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2">
             <!-- Total Services -->
             <div class="col">
                 <a style="text-decoration: none" href="{{ route('product.index') }}">
-                <div class="card shadow-sm border-0 p-3 h-100 transition-shadow hover-shadow-lg">
+                <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
                     <div class="d-flex justify-content-between align-items-start">
                         <div class="d-flex flex-column">
                             <span>Total Products</span>
@@ -35,7 +35,7 @@
             <!-- Total Blogs -->
             <div class="col">
                 <a style="text-decoration: none" href="{{ route('order.index') }}">
-                <div class="card shadow-sm border-0 p-3 h-100 transition-shadow hover-shadow-lg">
+                <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
 
                     <div class="d-flex justify-content-between align-items-start">
                         <div class="d-flex flex-column">
@@ -57,7 +57,7 @@
             <div class="col">
                 <a style="text-decoration: none" href="{{ route('order.index') }}">
 
-                <div class="card shadow-sm border-0 p-3 h-100 transition-shadow hover-shadow-lg">
+                <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
                     <div class="d-flex justify-content-between align-items-start">
                         <div class="d-flex flex-column">
                             <span>Pending  Orders</span>
@@ -77,7 +77,7 @@
             <div class="col">
                 <a style="text-decoration: none" href="{{ route('member.index') }}">
 
-                <div class="card shadow-sm border-0 p-3 h-100 transition-shadow hover-shadow-lg">
+                <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
                     <div class="d-flex justify-content-between align-items-start">
                         <div class="d-flex flex-column">
                             <span>Total Users</span>
@@ -101,12 +101,13 @@
         <div class="col-md-7 grid-margin stretch-card ">
             <div class="card">
                 <div class="card-body" >
-                    <h4 class="card-title text-white" style="background-color: black">Recent Orders</h4>
+                    <h4 class="text-white card-title" style="background-color: black">Recent Orders</h4>
                     @if ($orders)
                         <table class="table mb-3 table-bordered table-hover">
                             <thead class="table-light">
                                 <tr>
                                     <th> OrderId </th>
+                                    <th> TrackingId </th>
                                     <th> Customer Name </th>
                                     <th> Order Date </th>
                                     <th> Status </th>
@@ -115,9 +116,10 @@
                             <tbody>
                                 @foreach ($orders as $key => $order)
                                     <tr>
-                                        <td>{{ $order->tracking_code ?? $order->id }}</td>
+                                        <td>{{  $order->id }}</td>
+                                        <td>{{ $order->tracking_code ?? "-" }}</td>
                                         <td>{{ $order->fullname }}</td>
-                                        <td>{{ $order->created_at->format('Y/m/d H:i') }}</td>
+                                        <td>{{ $order->created_at->format('Y/m/d') }}</td>
                                         <td>
                                             @switch($order->status)
                                                 @case('canceled')
@@ -141,7 +143,7 @@
                         <p class="mb-0 font-weight-light">No Reccent order found.</p>
                     @endif
                     <div class="col float-end">
-                        <a href="{{ route('order.index') }}" class="btn btn-inverse-success btn-sm bg-black text-white"> VIEW ALL </a>
+                        <a href="{{ route('order.index') }}" class="text-white bg-black btn btn-inverse-success btn-sm"> VIEW ALL </a>
                     </div>
 
                 </div>
@@ -152,7 +154,7 @@
         <div class="col-md-5 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title text-white" style="background-color: black">Recent Posts</h4>
+                    <h4 class="text-white card-title" style="background-color: black">Recent Posts</h4>
                     @if ($posts)
                         @foreach ($posts as $key => $post)
                             <div class="mt-3 mb-2 d-flex align-items-top">
@@ -173,7 +175,7 @@
                         <p class="mb-0 font-weight-light">No Reccent post found.</p>
                     @endif
                     <div class="col float-end">
-                        <a href="{{ route('post.index') }}" class="btn btn-inverse-success btn-sm bg-black text-white"> VIEW ALL </a>
+                        <a href="{{ route('post.index') }}" class="text-white bg-black btn btn-inverse-success btn-sm"> VIEW ALL </a>
                     </div>
 
                 </div>

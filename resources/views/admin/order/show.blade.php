@@ -92,6 +92,7 @@
                             <table class="table shopping-order">
                                 <tr>
                                     <th>Order ID : {{ $orders[0]->order_id }} </th>
+                                    <th>Tracking ID : {{ $orders[0]->tracking_code }} </th>
                                     <th>Order Date : {{ $orders[0]->created_at }}</th>
                                     <th>Order Status : {{ $orders[0]->status }}</th>
                                 </tr>
