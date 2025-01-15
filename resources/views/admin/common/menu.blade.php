@@ -185,6 +185,20 @@
                 </a>
             </li>
         @endcan
+        @can('View Order')
+            <li class="">
+                <a class="nav-link text-black   {{ request()->routeIs('admin.exchangeorreturn') ? 'bg-black text-white w-full ' : '' }}"
+                    href="{{ route('admin.exchangeorreturn') }}">
+                    <span class="menu-title">
+                        <i class="fa fa-first-order menu-icon  py-2 {{ request()->routeIs('admin.exchangeorreturn') ? 'text-white' : 'text-black' }}"
+                            style="font-size: 18px"></i>
+                        <span class="ps-2">
+                           Exchange / Return
+                        </span>
+                    </span>
+                </a>
+            </li>
+        @endcan
 
 
         @can('View AdminUser')

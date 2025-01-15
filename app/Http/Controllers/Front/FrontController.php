@@ -12,6 +12,7 @@ use App\Models\Blog;
 use App\Models\Faq;
 use App\Models\Member;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\Review;
@@ -531,6 +532,24 @@ class FrontController extends Controller
         DB::table('members')->where('id', $id)->update($memberData);
 
         return redirect('/myprofile?tab=2')->with(['message' => "Profile has been updated."]);
+    }
+    public function statusupdate(Request $request, $order)
+    {
+        // dd($request, $order);
+        $id = Session::get('memeber_id_ss');
+        OrderStatus::create([
+            'order_id' => $order,
+            'user_id' => $id,
+            'status' => $request->status ?? "",
+            'reason' => $request->reason ?? "",
+        ]);
+
+
+        DB::table('orders')->where('id', $order)->update([
+            'status' => $request->status ?? "",
+        ]);
+
+        return redirect()->back()->with(['message' => "Order status has been updated."]);
     }
 
     public function memberlogin(Request $request)
