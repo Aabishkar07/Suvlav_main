@@ -400,7 +400,7 @@
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="ti-reload"></i>
-                        <h4>Free Return</h4>
+                        <h4> Exchange</h4>
                         <p>Within 7 days </p>
                     </div>
                     <!-- End Single Service -->
