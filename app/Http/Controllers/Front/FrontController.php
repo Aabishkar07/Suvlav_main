@@ -1070,32 +1070,47 @@ class FrontController extends Controller
     public function memberchanagepw(Request $request)
     {
 
-        $userid = Session::get('memeber_id_ss');
 
-        if ($request->newpassword != $request->confirmpassword) {
-            echo '<span style="color:red">Confirm Password is mis-matched</span>';
-            die();
-        }
+        try {
+            $request->validate([
+                'old_password' => 'required',
+                'new_password' => 'required',
+                'confirm_password' => 'required|same:new_password',
+            ]);
 
-        $userdata = DB::table('members')
-            ->where('id', $userid)
-            ->get()->toArray();
+            $userid = Session::get('memeber_id_ss');
 
-        $oldpwdb = base64_decode($userdata[0]->passwrd);
-        $oldpw = $request->old_password;
+            
 
-        if ($oldpw == $oldpwdb) {
-            //$newpass = base64_encode($this->request->getVar('password'));
-            $newpass =  base64_encode($request->newpassword);
-            $memdata = [
-                'passwrd' => $newpass,
-            ];
+            $userdata = DB::table('members')
+                ->where('id', $userid)
+                ->get()->toArray();
 
-            DB::table('members')->where('id', $userid)->update($memdata);
+            $oldpwdb = base64_decode($userdata[0]->passwrd);
+            $oldpw = $request->old_password;
 
-            echo '<span style="color:green">Password has been changed.</span>';
-        } else {
-            echo '<span style="color:red">Old Passowrd Not Matched.</span>';
+            if ($oldpw == $oldpwdb) {
+                //$newpass = base64_encode($this->request->getVar('password'));
+                $newpass =  base64_encode($request->new_password);
+                $memdata = [
+                    'passwrd' => $newpass,
+                ];
+
+                DB::table('members')->where('id', $userid)->update($memdata);
+
+                // echo '<span style="color:green">Password has been changed.</span>';
+                return redirect('/myprofile?tab=4')->with('message', 'Password updated successfully.');
+            } else {
+                return redirect('/myprofile?tab=4')->with('message', 'Old Passowrd Not Matched.');
+                // echo '<span style="color:red">Old Passowrd Not Matched.</span>';
+            }
+
+            // Implement password update logic here..
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect('/myprofile?tab=4')
+                ->withErrors($e->errors())
+                ->withInput(); // Preserve user inputs
         }
     }
 

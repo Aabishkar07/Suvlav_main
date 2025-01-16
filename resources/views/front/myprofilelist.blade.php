@@ -66,8 +66,8 @@
         }
 
         /* .btn {
-                                                                            background-color: #000 !important;
-                                                                        } */
+                                                                                                                                                                    background-color: #000 !important;
+                                                                                                                                                                } */
 
         .changepw {
             margin: 0px auto;
@@ -441,6 +441,77 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Start login and register form -->
+
+                        <div id="changepw" class="tabcontent">
+                            <div style="background-color: orange" class="my-4 text-center text-white rounded card-header">
+                                <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">Change Password </h4>
+                            </div>
+
+
+                            <div class="container ">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="p-4 bg-white rounded shadow">
+                                            <form method="POST" action="{{ route('member.changepw') }}">
+                                                @csrf
+                                                <div class="mb-3">
+                                                    <div class="">
+                                                        <label for="oldPassword"
+                                                        class="form-label">Old Password</label>
+                                                        <input type="password" class="form-control" id="oldPassword"
+                                                            placeholder="Enter old password" name="old_password"
+                                                            value="{{ old('old_password') }}">
+                                                    </div>
+                                                    @error('old_password')
+                                                        <div class="text-danger">
+                                                            * {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <div class="">
+
+                                                        <label for="newPassword" class="form-label">New Password</label>
+                                                        <input type="password" class="form-control" id="newPassword"
+                                                            placeholder="Enter new password" name="new_password"
+                                                            value="{{ old('new_password') }}">
+                                                    </div>
+                                                    @error('new_password')
+                                                        <div class="text-danger">
+                                                            * {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <div class="">
+
+                                                        <label for="confirmPassword" class="form-label">Confirm
+                                                            Password</label>
+                                                        <input type="password" class="form-control" id="confirmPassword"
+                                                            placeholder="Enter confirm password" name="confirm_password"
+                                                            value="{{ old('confirm_password') }}">
+                                                    </div>
+                                                    @error('confirm_password')
+                                                        <div class="text-danger">
+                                                            * {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <button type="submit" class="btn btn-primary w-100">Update
+                                                    Password</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
 
                         <!-- Start  delivery Addresss form -->
                         <div id="deladdress" class="tabcontent">
@@ -457,10 +528,10 @@
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                  <div class="form-group">
-                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                                                                                                                                   </div>
-                                                                                                                               </div> -->
+                                                                                                                                                                                                                          <div class="form-group">
+                                                                                                                                                                                                                           <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
+                                                                                                                                                                                                                           </div>
+                                                                                                                                                                                                                       </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -731,10 +802,10 @@
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                   <div class="form-group">
-                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                                                                                   </div>
-                                                                                                                                  </div> -->
+                                                                                                                                                                                                                           <div class="form-group">
+                                                                                                                                                                                                                           <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                                                                                                                           </div>
+                                                                                                                                                                                                                          </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
