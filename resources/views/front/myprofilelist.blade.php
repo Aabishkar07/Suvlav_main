@@ -66,8 +66,8 @@
         }
 
         /* .btn {
-                                                                        background-color: #000 !important;
-                                                                    } */
+                                                                            background-color: #000 !important;
+                                                                        } */
 
         .changepw {
             margin: 0px auto;
@@ -142,7 +142,7 @@
                         @endif
                         <!--<p>Please register in order to checkout more quickly</p> -->
 
-                        <div class="tab">
+                        <div class="ptab tab d-none d-sm-flex flex-sm-row flex-column">
                             <button class="tablinks" onclick="clicktab(event, 'order_history')" id="defaultOpen">Order
                                 History</button>
                             <button class="tablinks" onclick="clicktab(event, 'Profile')" id="profileTab">Profile</button>
@@ -150,16 +150,26 @@
                                 Address</button>
                             <button class="tablinks" onclick="clicktab(event, 'changepw')" id="changepwTab">Change
                                 Password</button>
-                            <button class="tablinks" onclick="clicktab(event, 'mypoints')" id="changemypointsTab">
-                                My Points</button>
+                            <button class="tablinks" onclick="clicktab(event, 'mypoints')" id="changemypointsTab">My
+                                Points</button>
                         </div>
 
-                        <!-- Tab content -->
+                        <style>
+                            @media (max-width: 576px) {
+                                .ptab {
+                                    display: flex !important;
+                                    flex-direction: column;
+                                }
+
+                                .ptab button {
+                                    width: 100%;
+                                    margin-bottom: 10px;
+                                }
+                            }
+                        </style>
+
+
                         <div id="order_history" class="tabcontent">
-
-
-
-
                             <div class="row">
                                 <div class="mt-12 col-12 table-responsive">
                                     <!-- Shopping Summery -->
@@ -267,7 +277,7 @@
 
 
                                                     <!-- Modal Header -->
-                                                    <h2 class="mb-4 text-2xl font-semibold">Cancel or  Exchange </h2>
+                                                    <h2 class="mb-4 text-2xl font-semibold">Cancel or Exchange </h2>
 
                                                     <!-- Inquiry Form -->
                                                     <form id="inquiryForm" method="post"
@@ -447,10 +457,10 @@
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                              <div class="form-group">
-                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                                                                                                                               </div>
-                                                                                                                           </div> -->
+                                                                                                                                  <div class="form-group">
+                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
+                                                                                                                                   </div>
+                                                                                                                               </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -721,10 +731,10 @@
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                               <div class="form-group">
-                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                                                                               </div>
-                                                                                                                              </div> -->
+                                                                                                                                   <div class="form-group">
+                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                                   </div>
+                                                                                                                                  </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
