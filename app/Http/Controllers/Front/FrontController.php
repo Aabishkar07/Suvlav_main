@@ -60,7 +60,322 @@ class FrontController extends Controller
 
 
 
+public function history(){
 
+
+    $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+        if (Session::get('memeber_id_ss') == '') {
+            return redirect('/memberloginform');
+        } else {
+            $user_id = Session::get('memeber_id_ss');
+
+
+            $userdata = DB::table('members')
+                ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
+                ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+                ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+                ->where('members.id', $user_id)
+                ->get()->toArray();
+
+            // $del_address = DB::table('members')
+            //   ->where('id', $user_id)
+            // ->get()->toArray();
+
+            $orders = DB::table('orders as a')
+                ->where('user_id', $user_id)
+                ->orderBy('a.id', 'desc')
+                ->get()->toArray();
+
+
+            $states = DB::table('provinces')
+                ->get();
+
+            if (isset($userdata[0]->stateid)) {
+                $districts = DB::table('districts')
+                    ->where('province', $userdata[0]->stateid)
+                    ->get()->toArray();
+            } else {
+                $districts = '';
+            }
+
+
+
+            $shippings = DB::table('shippings')
+                ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
+                ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
+                ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+                ->where('member_id', $user_id)
+                ->get()->toArray();
+
+            if (isset($shippings[0]->province)) {
+                $district_del = DB::table('districts')
+                    ->where('province', $shippings[0]->province)
+                    ->get()->toArray();
+            } else {
+                $district_del = '';
+            }
+
+
+
+
+            return view('front.profile.history', compact('cartItems', 'orders', 'userdata', 'states', 'shippings', 'districts', 'district_del', 'categories'));
+        }
+   
+}
+
+public function details(){
+
+    $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+        if (Session::get('memeber_id_ss') == '') {
+            return redirect('/memberloginform');
+        } else {
+            $user_id = Session::get('memeber_id_ss');
+
+
+            $userdata = DB::table('members')
+                ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
+                ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+                ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+                ->where('members.id', $user_id)
+                ->get()->toArray();
+
+            // $del_address = DB::table('members')
+            //   ->where('id', $user_id)
+            // ->get()->toArray();
+
+            $orders = DB::table('orders as a')
+                ->where('user_id', $user_id)
+                ->orderBy('a.id', 'desc')
+                ->get()->toArray();
+
+
+            $states = DB::table('provinces')
+                ->get();
+
+            if (isset($userdata[0]->stateid)) {
+                $districts = DB::table('districts')
+                    ->where('province', $userdata[0]->stateid)
+                    ->get()->toArray();
+            } else {
+                $districts = '';
+            }
+
+
+
+            $shippings = DB::table('shippings')
+                ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
+                ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
+                ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+                ->where('member_id', $user_id)
+                ->get()->toArray();
+
+            if (isset($shippings[0]->province)) {
+                $district_del = DB::table('districts')
+                    ->where('province', $shippings[0]->province)
+                    ->get()->toArray();
+            } else {
+                $district_del = '';
+            }
+
+
+
+
+            return view('front.profile.profiledetails', compact('cartItems', 'orders', 'userdata', 'states', 'shippings', 'districts', 'district_del', 'categories'));
+        }
+}
+
+public function mypoints(){
+    $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+        if (Session::get('memeber_id_ss') == '') {
+            return redirect('/memberloginform');
+        } else {
+            $user_id = Session::get('memeber_id_ss');
+
+
+            $userdata = DB::table('members')
+                ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
+                ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+                ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+                ->where('members.id', $user_id)
+                ->get()->toArray();
+
+            // $del_address = DB::table('members')
+            //   ->where('id', $user_id)
+            // ->get()->toArray();
+
+            $orders = DB::table('orders as a')
+                ->where('user_id', $user_id)
+                ->orderBy('a.id', 'desc')
+                ->get()->toArray();
+
+
+            $states = DB::table('provinces')
+                ->get();
+
+            if (isset($userdata[0]->stateid)) {
+                $districts = DB::table('districts')
+                    ->where('province', $userdata[0]->stateid)
+                    ->get()->toArray();
+            } else {
+                $districts = '';
+            }
+
+
+
+            $shippings = DB::table('shippings')
+                ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
+                ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
+                ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+                ->where('member_id', $user_id)
+                ->get()->toArray();
+
+            if (isset($shippings[0]->province)) {
+                $district_del = DB::table('districts')
+                    ->where('province', $shippings[0]->province)
+                    ->get()->toArray();
+            } else {
+                $district_del = '';
+            }
+
+
+
+
+            return view('front.profile.mypoint', compact('cartItems', 'orders', 'userdata', 'states', 'shippings', 'districts', 'district_del', 'categories'));
+        }
+  
+}
+
+public function updatepassword(){
+    $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+        if (Session::get('memeber_id_ss') == '') {
+            return redirect('/memberloginform');
+        } else {
+            $user_id = Session::get('memeber_id_ss');
+
+
+            $userdata = DB::table('members')
+                ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
+                ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+                ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+                ->where('members.id', $user_id)
+                ->get()->toArray();
+
+            // $del_address = DB::table('members')
+            //   ->where('id', $user_id)
+            // ->get()->toArray();
+
+            $orders = DB::table('orders as a')
+                ->where('user_id', $user_id)
+                ->orderBy('a.id', 'desc')
+                ->get()->toArray();
+
+
+            $states = DB::table('provinces')
+                ->get();
+
+            if (isset($userdata[0]->stateid)) {
+                $districts = DB::table('districts')
+                    ->where('province', $userdata[0]->stateid)
+                    ->get()->toArray();
+            } else {
+                $districts = '';
+            }
+
+
+
+            $shippings = DB::table('shippings')
+                ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
+                ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
+                ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+                ->where('member_id', $user_id)
+                ->get()->toArray();
+
+            if (isset($shippings[0]->province)) {
+                $district_del = DB::table('districts')
+                    ->where('province', $shippings[0]->province)
+                    ->get()->toArray();
+            } else {
+                $district_del = '';
+            }
+
+
+
+
+            return view('front.profile.password', compact('cartItems', 'orders', 'userdata', 'states', 'shippings', 'districts', 'district_del', 'categories'));
+        }
+  
+}
+
+public function delivery(){
+    $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+        if (Session::get('memeber_id_ss') == '') {
+            return redirect('/memberloginform');
+        } else {
+            $user_id = Session::get('memeber_id_ss');
+
+
+            $userdata = DB::table('members')
+                ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
+                ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
+                ->select('members.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+                ->where('members.id', $user_id)
+                ->get()->toArray();
+
+            // $del_address = DB::table('members')
+            //   ->where('id', $user_id)
+            // ->get()->toArray();
+
+            $orders = DB::table('orders as a')
+                ->where('user_id', $user_id)
+                ->orderBy('a.id', 'desc')
+                ->get()->toArray();
+
+
+            $states = DB::table('provinces')
+                ->get();
+
+            if (isset($userdata[0]->stateid)) {
+                $districts = DB::table('districts')
+                    ->where('province', $userdata[0]->stateid)
+                    ->get()->toArray();
+            } else {
+                $districts = '';
+            }
+
+
+
+            $shippings = DB::table('shippings')
+                ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
+                ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
+                ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+                ->where('member_id', $user_id)
+                ->get()->toArray();
+
+            if (isset($shippings[0]->province)) {
+                $district_del = DB::table('districts')
+                    ->where('province', $shippings[0]->province)
+                    ->get()->toArray();
+            } else {
+                $district_del = '';
+            }
+
+
+
+
+            return view('front.profile.deliveryaddress', compact('cartItems', 'orders', 'userdata', 'states', 'shippings', 'districts', 'district_del', 'categories'));
+        }
+ 
+}
 
     public function newpassword(Request $request)
     {

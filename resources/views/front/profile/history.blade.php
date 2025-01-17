@@ -1,6 +1,6 @@
 @extends('layouts.frontendapp')
 @section('content')
-    <style>
+    {{-- <style>
         /* Style the tab */
         .tab {
             overflow: hidden;
@@ -34,7 +34,7 @@
         .tabcontent {
             display: none;
             padding: 6px 12px;
-            /* border: 1px solid #ccc; */
+            border: 1px solid #ccc;
             border-top: none;
         }
 
@@ -125,11 +125,11 @@
         .longtext {
             width: 58% !important;
         }
-    </style>
+    </style> --}}
 
     <!-- Start Checkout -->
     <section class="shop checkout section">
-        <div class="md:container md:mx-auto">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-12">
                     <div>
@@ -137,95 +137,16 @@
                             <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">My Profile </h4>
                         </div>
 
-                        @if (Session::has('message'))
-                            <p class="alert alert-info">{{ Session::get('message') }}</p>
-                        @endif
-                        <!--<p>Please register in order to checkout more quickly</p> -->
+                      
 
-                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
-                        <div class="border p-4 rounded shadow-lg bg-white md:hidden block">
-                            <a class="md:hidden block flex items-center border-b py-2" href="{{ route('history') }}">
-                                <i class="fas fa-history mr-2 text-blue-500"></i>
-                                <p class="text-sm font-medium">Order History</p>
-                            </a>
-                        
-                            <a class="md:hidden block flex items-center border-b py-2" href="{{ route('details') }}">
-                                <i class="fas fa-user mr-2 text-green-500"></i>
-                                <p class="text-sm font-medium">Profile</p>
-                            </a>
-                        
-                            <a class="md:hidden block flex items-center border-b py-2" href="{{ route('delivery') }}">
-                                <i class="fas fa-map-marker-alt mr-2 text-red-500"></i>
-                                <p class="text-sm font-medium">Delivery Address</p>
-                            </a>
-                        
-                            <a class="md:hidden block flex items-center border-b py-2" href="{{ route('updatepassword') }}">
-                                <i class="fas fa-lock mr-2 text-purple-500"></i>
-                                <p class="text-sm font-medium">Change Password</p>
-                            </a>
-                        
-                            <a class="md:hidden block flex items-center py-2" href="{{ route('mypoints') }}">
-                                <i class="fas fa-coins mr-2 text-yellow-500"></i>
-                                <p class="text-sm font-medium">My Points</p>
-                            </a>
-                        </div>
-                        
+                 <a href="{{ route('member.myprofile') }}" >Back </a>
 
 
-
-                        <div class="ptab tab d-none d-sm-flex flex-sm-row flex-column  max-md:hidden">
-                            <button class="tablinks  max-md:hidden" onclick="clicktab(event, 'order_history')" id="defaultOpen">Order
-                                Historys</button>
-
-                               
-                                {{-- <a class="md:hidden block"  href="{{ route('history') }}" >
-                                     <button >Order
-                                    History</button></a> --}}
-
-                            <button class="tablinks  max-md:hidden " onclick="clicktab(event, 'Profile')" id="profileTab">Profile</button>
-
-
-                            {{-- <a class="md:hidden block"  href="{{ route('details') }}" >
-                                <button >Profile</button></a> --}}
-                        
-
-                            <button class="tablinks  max-md:hidden " onclick="clicktab(event, 'deladdress')" id="deleveryTab">Delivery
-                                Address</button>
-                                {{-- <a class="md:hidden block"  href="{{ route('delivery') }}" >
-                                    <button >Delivery Address</button></a> --}}
-                            <button class="tablinks  max-md:hidden" onclick="clicktab(event, 'changepw')" id="changepwTab">Change
-                                Password</button>
-                                {{-- <a class="md:hidden block"  href="{{ route('updatepassword') }}" >
-                                    <button >Change Password</button></a> --}}
-                            <button class="tablinks  max-md:hidden" onclick="clicktab(event, 'mypoints')" id="changemypointsTab">My
-                                Points</button>
-                                {{-- <a class="md:hidden block"  href="{{ route('mypoints') }}" >
-                                    <button >My points</button></a> --}}
-                        </div>
-
-                        <style>
-                            @media (max-width: 576px) {
-                                .ptab {
-                                    display: flex !important;
-                                    flex-direction: column;
-                                }
-
-                                .ptab button {
-                                    width: 100%;
-                                    /* margin-bottom: 10px; */
-                                }
-                            }
-                        </style>
-
-
-                        <div id="order_history" class="tabcontent max-md:hidden">
-                            <div class="row max-md:hidden">
+                        <div id="order_history" class="tabcontent">
+                            <div class="row">
                                 <div class="mt-12 col-12 table-responsive">
                                     <!-- Shopping Summery -->
-                                    <div class="">
-                                 
-                                    <table class="table ">
+                                    <div class="table ">
                                         {{-- <thead>
                                             <tr style="background-color: orange" class="text-white main-hading">
                                                 <th> # </th>
@@ -253,7 +174,7 @@ $orderDetails = DB::table('orders as a')
     ->get();
 											    ?>
                                          
-                                         <div class="p-4 bg-white shadow-md rounded-md border border-black mb-5 mx-auto ">
+                                         <div class="p-4 bg-white shadow-md rounded-md border border-black mb-5 mx-auto">
                                             <div class="flex flex-wrap items-start gap-4">
                                                 <!-- Main Order Header -->
                                                 <div class="flex-1 w-full sm:w-auto">
@@ -526,255 +447,16 @@ $orderDetails = DB::table('orders as a')
                                             <?php $sn++; } ?>
                                         </tbody>
                                     </table>
-                                           
-                                </div>
                                     <!--/ End Shopping Summery -->
                                 </div>
 
                             </div>
                         </div>
 
-                        <!-- Start login and register form -->
-
-                        <div id="Profile" class="tabcontent">
-                            <div style="background-color: orange" class="my-4 text-center text-white rounded card-header">
-                                <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">Personal Profile </h4>
-                            </div>
+                 
 
 
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>Full Name</span> &nbsp; : &nbsp; {{ $userdata[0]->name }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>Email</span>&nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>Mobile No.</span>&nbsp; : &nbsp; {{ $userdata[0]->mobileno }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>Gender</span>&nbsp; : &nbsp; {{ $userdata[0]->gender }}
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>State</span>&nbsp; : &nbsp; {{ $userdata[0]->statename }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>District</span> &nbsp; : &nbsp; {{ $userdata[0]->district }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8 col-md-8 col-12">
-                                    <div class="form-group">
-                                        <span>Address.</span> &nbsp; : &nbsp; {{ $userdata[0]->address }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row fulllg">
-                                <div class="col-lg-12 col-md-12 col-12 popupdatebtm">
-                                    <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"
-                                        class="updatebtm">Update it </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Start login and register form -->
-
-                        <div id="changepw" class="tabcontent">
-                            <div style="background-color: orange" class="my-4 text-center text-white rounded card-header">
-                                <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">Change Password </h4>
-                            </div>
-
-
-                            <div class="container ">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-4 col-lg-4">
-                                        <div class="p-4 bg-white rounded shadow">
-                                            <form method="POST" action="{{ route('member.changepw') }}">
-                                                @csrf
-                                                <div class="mb-3">
-                                                    <div class="">
-                                                        <label for="oldPassword"
-                                                        class="form-label">Old Password</label>
-                                                        <input type="password" class="form-control" id="oldPassword"
-                                                            placeholder="Enter old password" name="old_password"
-                                                            value="{{ old('old_password') }}">
-                                                    </div>
-                                                    @error('old_password')
-                                                        <div class="text-danger">
-                                                            * {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <div class="">
-
-                                                        <label for="newPassword" class="form-label">New Password</label>
-                                                        <input type="password" class="form-control" id="newPassword"
-                                                            placeholder="Enter new password" name="new_password"
-                                                            value="{{ old('new_password') }}">
-                                                    </div>
-                                                    @error('new_password')
-                                                        <div class="text-danger">
-                                                            * {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <div class="">
-
-                                                        <label for="confirmPassword" class="form-label">Confirm
-                                                            Password</label>
-                                                        <input type="password" class="form-control" id="confirmPassword"
-                                                            placeholder="Enter confirm password" name="confirm_password"
-                                                            value="{{ old('confirm_password') }}">
-                                                    </div>
-                                                    @error('confirm_password')
-                                                        <div class="text-danger">
-                                                            * {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                                <button type="submit" class="btn btn-primary w-100">Update
-                                                    Password</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                        </div>
-
-                        <!-- Start  delivery Addresss form -->
-                        <div id="deladdress" class="tabcontent">
-
-                            <div style="background-color: orange" class="my-4 text-center text-white rounded card-header">
-                                <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">Delivery Address </h4>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>Full Name</span> &nbsp; : &nbsp; {{ @$shippings[0]->fullname }}
-                                    </div>
-                                </div>
-                                <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                          <div class="form-group">
-                                                                                                                                                                                                                           <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                                                                                                                                                                                                                           </div>
-                                                                                                                                                                                                                       </div> -->
-
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>Mobile No.</span> &nbsp; : &nbsp; {{ @$shippings[0]->mobile }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>State</span>&nbsp; : &nbsp; {{ @$shippings[0]->statename }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>District</span> &nbsp; : &nbsp; {{ @$shippings[0]->district }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>City</span> &nbsp; : &nbsp; {{ @$shippings[0]->city }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>Address.</span> &nbsp; : &nbsp; {{ @$shippings[0]->address }}
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="row">
-
-
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>Tole.</span> &nbsp; : &nbsp; {{ @$shippings[0]->tole }}
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>House No.</span> &nbsp; : &nbsp; {{ @$shippings[0]->houseno }}
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>Gaupalika</span> &nbsp; : &nbsp; {{ @$shippings[0]->gaupalika }}
-                                    </div>
-                                </div>
-
-
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>Nagarpalika</span> &nbsp; : &nbsp; {{ @$shippings[0]->nagarpalika }}
-                                    </div>
-                                </div>
-
-
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <span>Wardno</span> &nbsp; : &nbsp; {{ @$shippings[0]->wardno }}
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="row fulllg">
-                                <div class="col-lg-12 col-md-12 col-12 popupdatebtm">
-                                    <a data-toggle="modal" data-target="#deleveryAddresssModal" title="Quick View"
-                                        href="#" class="updatebtm">Update it </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--	 End login register fomr-->
-
-                        <div id="mypoints" class="tabcontent">
-                            <div style="background-color: orange" class="my-4 text-center text-white rounded card-header">
-                                <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">My Points </h4>
-                            </div>
-                            <label>Available Points</label>
-                            <div class="">{{ $userdata[0]->total_points ?? 0 }}</div>
-
-                        </div>
+              
 
                     </div>
 
