@@ -2,15 +2,15 @@
     $setting = getSetting();
 @endphp
 
-<footer class="lg:bg-[#222] fixed w-full z-50 bottom-0 border-top border-top-1">
+<footer class="lg:bg-[#222] fixed w-full max-md:mb-1 z-50 bottom-0 border-top border-top-1">
 
     <!-- End Footer Top -->
     <div class="copyright">
         <div class="container">
             <div class="">
-                <div class="row">
+                <div class="flex gap-x-1 items-center justify-between">
 
-                    <div class="col-lg-6 col-12">
+                    <div class="w-[65%] md:w-[70%]">
                         <div class="left">
                             {{-- <form action="{{ route('product.search') }}" method="GET" class="d-flex">
                                     <div class="input-group">
@@ -103,7 +103,7 @@
                                         value="{{ request()->query('query') }}" oninput="toggleSearchHistory()"
                                         onclick="toggleSearchHistory()">
                                     <button type="submit"
-                                        class="absolute px-3 py-1 text-white bg-blue-500 rounded-lg right-2 top-1">
+                                        class="absolute max-sm:text-xs max-sm:mt-0.5 px-3 py-1 text-white bg-blue-500 rounded-lg right-2 top-1">
                                         Search
                                     </button>
                                     {{-- <?php else: ?>
@@ -116,10 +116,6 @@
                                     <?php endif; ?> --}}
 
                                 </form>
-
-
-
-
 
                                 <!-- Search History and Clear Button -->
                                 <div class="absolute w-full mt-2 bottom-10">
@@ -176,10 +172,10 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-12">
+                    <div class="w-[30%] md:w-[20%]">
                         @if (Session::get('memeber_email_ss') != '')
                             <div class="flex items-center right">
-                                <p style="color: white;padding:10px;background-color: #222;width: 100%">My Points {{ $userdata[0]->total_points ?? 0 }}
+                                <p class="text-xs" style="color: white;padding:10px;background-color: #222;width: 100%">My Points {{ $userdata[0]->total_points ?? 0 }}
                                 </p>
                             </div>
                         @endif

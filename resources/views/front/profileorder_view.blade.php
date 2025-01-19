@@ -140,8 +140,8 @@
                                 @endphp
                                 @foreach ($orders as $order)
                                     <tr>
-                                        <td><img src="{{ asset($order->product_image) }}" alt="{{ $order->product_name }}"
-                                                class="img-fluid" width="100"></td>
+                                        <td><img src="{{ asset('public/' . $order->product_image) }}"
+                                                alt="{{ $order->product_name }}" class="img-fluid" width="100"></td>
                                         <td>{{ $order->product_name }}</td>
                                         <td>{{ moneyFormat($order->price) }}</td>
                                         <td class="">{{ $order->total_no_qnty }}</td>

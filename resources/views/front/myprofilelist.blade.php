@@ -66,8 +66,8 @@
         }
 
         /* .btn {
-                                                                                                                                                                    background-color: #000 !important;
-                                                                                                                                                                } */
+                                                                                                                                                                        background-color: #000 !important;
+                                                                                                                                                                    } */
 
         .changepw {
             margin: 0px auto;
@@ -142,65 +142,71 @@
                         @endif
                         <!--<p>Please register in order to checkout more quickly</p> -->
 
-                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+                            rel="stylesheet">
 
                         <div class="border p-4 rounded shadow-lg bg-white md:hidden block">
                             <a class="md:hidden block flex items-center border-b py-2" href="{{ route('history') }}">
                                 <i class="fas fa-history mr-2 text-blue-500"></i>
                                 <p class="text-sm font-medium">Order History</p>
                             </a>
-                        
+
                             <a class="md:hidden block flex items-center border-b py-2" href="{{ route('details') }}">
                                 <i class="fas fa-user mr-2 text-green-500"></i>
                                 <p class="text-sm font-medium">Profile</p>
                             </a>
-                        
+
                             <a class="md:hidden block flex items-center border-b py-2" href="{{ route('delivery') }}">
                                 <i class="fas fa-map-marker-alt mr-2 text-red-500"></i>
                                 <p class="text-sm font-medium">Delivery Address</p>
                             </a>
-                        
+
                             <a class="md:hidden block flex items-center border-b py-2" href="{{ route('updatepassword') }}">
                                 <i class="fas fa-lock mr-2 text-purple-500"></i>
                                 <p class="text-sm font-medium">Change Password</p>
                             </a>
-                        
+
                             <a class="md:hidden block flex items-center py-2" href="{{ route('mypoints') }}">
                                 <i class="fas fa-coins mr-2 text-yellow-500"></i>
                                 <p class="text-sm font-medium">My Points</p>
                             </a>
                         </div>
-                        
+
 
 
 
                         <div class="ptab tab d-none d-sm-flex flex-sm-row flex-column  max-md:hidden">
-                            <button class="tablinks  max-md:hidden" onclick="clicktab(event, 'order_history')" id="defaultOpen">Order
+                            <button class="tablinks  max-md:hidden" onclick="clicktab(event, 'order_history')"
+                                id="defaultOpen">Order
                                 Historys</button>
 
-                               
-                                {{-- <a class="md:hidden block"  href="{{ route('history') }}" >
+
+                            {{-- <a class="md:hidden block"  href="{{ route('history') }}" >
                                      <button >Order
                                     History</button></a> --}}
 
-                            <button class="tablinks  max-md:hidden " onclick="clicktab(event, 'Profile')" id="profileTab">Profile</button>
+                            <button class="tablinks  max-md:hidden " onclick="clicktab(event, 'Profile')"
+                                id="profileTab">Profile</button>
 
 
                             {{-- <a class="md:hidden block"  href="{{ route('details') }}" >
                                 <button >Profile</button></a> --}}
-                        
 
-                            <button class="tablinks  max-md:hidden " onclick="clicktab(event, 'deladdress')" id="deleveryTab">Delivery
+
+                            <button class="tablinks  max-md:hidden " onclick="clicktab(event, 'deladdress')"
+                                id="deleveryTab">Delivery
                                 Address</button>
-                                {{-- <a class="md:hidden block"  href="{{ route('delivery') }}" >
+                            {{-- <a class="md:hidden block"  href="{{ route('delivery') }}" >
                                     <button >Delivery Address</button></a> --}}
-                            <button class="tablinks  max-md:hidden" onclick="clicktab(event, 'changepw')" id="changepwTab">Change
+                            <button class="tablinks  max-md:hidden" onclick="clicktab(event, 'changepw')"
+                                id="changepwTab">Change
                                 Password</button>
-                                {{-- <a class="md:hidden block"  href="{{ route('updatepassword') }}" >
+                            {{-- <a class="md:hidden block"  href="{{ route('updatepassword') }}" >
                                     <button >Change Password</button></a> --}}
-                            <button class="tablinks  max-md:hidden" onclick="clicktab(event, 'mypoints')" id="changemypointsTab">My
+                            <button class="tablinks  max-md:hidden" onclick="clicktab(event, 'mypoints')"
+                                id="changemypointsTab">My
                                 Points</button>
-                                {{-- <a class="md:hidden block"  href="{{ route('mypoints') }}" >
+                            {{-- <a class="md:hidden block"  href="{{ route('mypoints') }}" >
                                     <button >My points</button></a> --}}
                         </div>
 
@@ -224,9 +230,9 @@
                                 <div class="mt-12 col-12 table-responsive">
                                     <!-- Shopping Summery -->
                                     <div class="">
-                                 
-                                    <table class="table ">
-                                        {{-- <thead>
+
+                                        <table class="table ">
+                                            {{-- <thead>
                                             <tr style="background-color: orange" class="text-white main-hading">
                                                 <th> # </th>
                                                 <th> Tracking Code </th>
@@ -239,8 +245,8 @@
                                                 <th> Action </th>
                                             </tr>
                                         </thead> --}}
-                                        <tbody>
-                                            <?php 
+                                            <tbody>
+                                                <?php 
 												$sn =1;
 											 	foreach($orders as $order) {
 													$cdate = explode(' ',$order->created_at);
@@ -252,100 +258,107 @@ $orderDetails = DB::table('orders as a')
     ->where('a.id', $orderId)
     ->get();
 											    ?>
-                                         
-                                         <div class="p-4 bg-white shadow-md rounded-md border border-black mb-5 mx-auto ">
-                                            <div class="flex flex-wrap items-start gap-4">
-                                                <!-- Main Order Header -->
-                                                <div class="flex-1 w-full sm:w-auto">
-                                                    <h3 class="font-semibold text-gray-800">Order #<?php echo $order->id; ?></h3>
-                                                    <h3 class="font-semibold text-gray-800">Tracking Order #<?php echo $order->tracking_code; ?></h3>
-                                                    <p class="text-xs text-gray-500">Order Date: <?php echo $cdate[0]; ?></p>
-                                                </div>
-                                            
-                                                <div class="flex-1 w-full sm:w-auto items-end justify-end">
-                                                    <div class="flex">
-                                                        <p><strong>Status: </strong></p>
-                                                        <span class="badge text-xs bg-{{ strtolower($orders[0]->status) == 'completed' ? 'success' : 'warning' }}">
-                                                            {{ $orders[0]->status }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            
-                                                <div class="flex items-center gap-x-2 w-full sm:w-auto mt-4 sm:mt-0">
-                                                    <a href="{{ route('profile.order', $order->id) }}">
-                                                        <div style="background-color: green;width: 50px;color:white" class="rounded">
-                                                            <i class="fa fa-eye flex justify-center py-1"></i>
+
+                                                <div
+                                                    class="p-4 bg-white shadow-md rounded-md border border-black mb-5 mx-auto ">
+                                                    <div class="flex flex-wrap items-start gap-4">
+                                                        <!-- Main Order Header -->
+                                                        <div class="flex-1 w-full sm:w-auto">
+                                                            <h3 class="font-semibold text-gray-800">Order
+                                                                #<?php echo $order->id; ?></h3>
+                                                            <h3 class="font-semibold text-gray-800">Tracking Order
+                                                                #<?php echo $order->tracking_code; ?></h3>
+                                                            <p class="text-xs text-gray-500">Order Date: <?php echo $cdate[0]; ?>
+                                                            </p>
                                                         </div>
-                                                    </a>
-                                                    @if ($order->status != 'Cancel' && $order->status != 'Exchange' && $order->status != 'Wanttoexchange')
-                                                        <div id="openModalBtn-{{ $order->id }}" class="p-1 text-white bg-red-500 rounded cursor-pointer">
-                                                            Cancel / Exchange
+
+                                                        <div class="flex-1 w-full sm:w-auto items-end justify-end">
+                                                            <div class="flex">
+                                                                <p><strong>Status: </strong></p>
+                                                                <span
+                                                                    class="badge text-xs bg-{{ strtolower($orders[0]->status) == 'completed' ? 'success' : 'warning' }}">
+                                                                    {{ $orders[0]->status }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div
+                                                            class="flex items-center gap-x-2 w-full sm:w-auto mt-4 sm:mt-0">
+                                                            <a href="{{ route('profile.order', $order->id) }}">
+                                                                <div style="background-color: green;width: 50px;color:white"
+                                                                    class="rounded">
+                                                                    <i class="fa fa-eye flex justify-center items-center px-3 py-1"></i>
+                                                                </div>
+                                                            </a>
+                                                            @if ($order->status != 'Cancel' && $order->status != 'Exchange' && $order->status != 'Wanttoexchange')
+                                                                <div id="openModalBtn-{{ $order->id }}"
+                                                                    class="p-1 text-white bg-red-500 rounded cursor-pointer">
+                                                                    Cancel / Exchange
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-- Order Details -->
+                                                    <?php foreach ($orderDetails as $detail) { ?>
+                                                    <div class="flex items-start gap-4 mt-4 border-t pt-4">
+                                                        <!-- Product Image -->
+                                                        <img src="{{ asset('public/' . $detail->product_image) }}"
+                                                            alt="Product" class="w-20 h-20 object-cover rounded" />
+
+                                                        <!-- Product Details -->
+                                                        <div class="flex-1">
+                                                            <!-- Product Title -->
+                                                            <p class="text-sm text-gray-700 font-medium mb-1">
+                                                                <?php echo $detail->product_name; ?>
+                                                            </p>
+
+                                                            <!-- Additional Details -->
+                                                            <p class="text-xs text-gray-500">
+                                                                {{-- <span class="font-semibold">Color Family:</span> <?php echo $detail->color_family ?? 'Not Specified'; ?> --}}
+                                                            </p>
+
+                                                            <!-- Price and Quantity -->
+                                                            <div class="flex items-center justify-between mt-2">
+
+                                                                <p class="font-semibold text-gray-800">Rs.
+                                                                    <?php echo $detail->price; ?></p>
+                                                                <p class="text-sm text-gray-500">Qty: <?php echo $detail->total_items; ?>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php } ?>
+
+
+                                                    <!-- Total Price -->
+                                                    <div
+                                                        class="flex items-center justify-between border-t pt-3 mt-3 text-gray-800 text-sm font-semibold">
+                                                        <p>Total (<?php echo count($orderDetails); ?> Item(s)):</p>
+                                                        <p>Rs. {{ moneyFormat((float) $order->total_amt) }}</p>
+
+
+                                                    </div>
+
+
+                                                    @if ($order->use_point)
+                                                        <div>
+                                                            <p class="text-right"><strong>Point Use :</strong>
+                                                                <strong>{{ moneyFormat((float) $order->use_point) }}</strong>
+                                                            </p>
+
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-right"><strong>To Be Paid :</strong>
+                                                                <strong>{{ moneyFormat((float) $order->total_amt - (float) $order->use_point) }}</strong>
+                                                            </p>
+
                                                         </div>
                                                     @endif
                                                 </div>
-                                            </div>
-                                            
-                                    
-                                            <!-- Order Details -->
-                                            <?php foreach ($orderDetails as $detail) { ?>
-                                                <div class="flex items-start gap-4 mt-4 border-t pt-4">
-                                                    <!-- Product Image -->
-                                                    <img
-                                                        src="{{asset($detail->product_image) }}"
-                                                        alt="Product"
-                                                        class="w-20 h-20 object-cover rounded"
-                                                    />
-                                    
-                                                    <!-- Product Details -->
-                                                    <div class="flex-1">
-                                                        <!-- Product Title -->
-                                                        <p class="text-sm text-gray-700 font-medium mb-1">
-                                                            <?php echo $detail->product_name; ?>
-                                                        </p>
-                                    
-                                                        <!-- Additional Details -->
-                                                        <p class="text-xs text-gray-500">
-                                                            {{-- <span class="font-semibold">Color Family:</span> <?php echo $detail->color_family ?? 'Not Specified'; ?> --}}
-                                                        </p>
-                                    
-                                                        <!-- Price and Quantity -->
-                                                        <div class="flex items-center justify-between mt-2">
-                                                           
-                                                            <p class="font-semibold text-gray-800">Rs. <?php echo $detail->price; ?></p>
-                                                            <p class="text-sm text-gray-500">Qty: <?php echo $detail->total_items; ?></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php } ?>
-                                    
-                                       
-                                            <!-- Total Price -->
-                                            <div class="flex items-center justify-between border-t pt-3 mt-3 text-gray-800 text-sm font-semibold">
-                                                <p>Total (<?php echo count($orderDetails); ?> Item(s)):</p>
-                                                <p>Rs. {{ moneyFormat((float)$order->total_amt) }}</p>
 
-
-                                            </div>
-
-                                         
-                                            @if ($order->use_point)
-                                            <div>
-                                                <p  class="text-right"><strong>Point Use :</strong>
-                                                    <strong>{{ moneyFormat((float)$order->use_point) }}</strong>
-                                                </p>
-                                              
-                                            </div>
-                                            <div>
-                                                <p  class="text-right"><strong>To Be Paid :</strong>
-                                                    <strong>{{ moneyFormat((float)$order->total_amt - (float)$order->use_point) }}</strong>
-                                                </p>
-                                               
-                                            </div>
-                                            
-                                        @endif
-                                        </div>
-                                          
-                                         {{-- <tr class="text-center">
+                                                {{-- <tr class="text-center">
                                                 <td><?php echo $sn; ?></td>
                                                 <td class="id">{{ $order->tracking_code }}</td>
                                                 <td class="id">{{ $order->id }}</td>
@@ -419,115 +432,117 @@ $orderDetails = DB::table('orders as a')
                                                 </td>
                                             </tr> --}}
 
-                                            <!-- Modal Container -->
-                                            <div id="customModal-{{ $order->id }}"
-                                                class="fixed z-[999] inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
-                                                <!-- Modal Content -->
-                                                <div
-                                                    class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative max-h-[80vh] overflow-y-auto">
-                                                    <!-- Close Button -->
+                                                <!-- Modal Container -->
+                                                <div id="customModal-{{ $order->id }}"
+                                                    class="fixed z-[999] inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
+                                                    <!-- Modal Content -->
+                                                    <div
+                                                        class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative max-h-[80vh] overflow-y-auto">
+                                                        <!-- Close Button -->
 
 
-                                                    <!-- Modal Header -->
-                                                    <h2 class="mb-4 text-2xl font-semibold">Cancel or Exchange </h2>
+                                                        <!-- Modal Header -->
+                                                        <h2 class="mb-4 text-2xl font-semibold">Cancel or Exchange </h2>
 
-                                                    <!-- Inquiry Form -->
-                                                    <form id="inquiryForm" method="post"
-                                                        action="{{ route('member.statusupdate', $order->id) }}"
-                                                        class="space-y-4">
-                                                        <!-- Name -->
-                                                        @csrf
-
-
-
-
-                                                        <!-- Subject -->
-                                                        <div>
-                                                            <label class="block text-sm font-medium text-gray-700">Cancel /
-                                                                Exchange </label>
-
-                                                            <select id="status" name="status" required
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                                                <option value="" selected>Choose an option</option>
-                                                                <option value="Wanttoexchange">Want to exchange</option>
-                                                                <option value="Cancel">Cancel</option>
-
-                                                            </select>
-
-
-                                                            @error('status')
-                                                                <div class="text-sm text-red-400 invalid-feedback"
-                                                                    style="display: block;">
-                                                                    * {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-
-                                                        <!-- Message -->
-                                                        <div>
-                                                            <label
-                                                                class="block text-sm font-medium text-gray-700">Reason</label>
-                                                            <textarea id="reason" name="reason"
-                                                                class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                                                placeholder="Your Message" rows="4" required>{{ old('reason') }}</textarea>
-                                                            @error('reason')
-                                                                <div class="text-sm text-red-400 invalid-feedback"
-                                                                    style="display: block;">
-                                                                    * {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
+                                                        <!-- Inquiry Form -->
+                                                        <form id="inquiryForm" method="post"
+                                                            action="{{ route('member.statusupdate', $order->id) }}"
+                                                            class="space-y-4">
+                                                            <!-- Name -->
+                                                            @csrf
 
 
 
-                                                        <!-- Modal Footer -->
-                                                        <button id="confirmBtn" type="submit"
-                                                            class="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600">
-                                                            Confirm
-                                                        </button>
 
-                                                        <button id="closeModalBtn-{{ $order->id }}"
-                                                            class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
-                                                            Close
-                                                        </button>
-                                                    </form>
+                                                            <!-- Subject -->
+                                                            <div>
+                                                                <label
+                                                                    class="block text-sm font-medium text-gray-700">Cancel /
+                                                                    Exchange </label>
+
+                                                                <select id="status" name="status" required
+                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                                                    <option value="" selected>Choose an option
+                                                                    </option>
+                                                                    <option value="Wanttoexchange">Want to exchange</option>
+                                                                    <option value="Cancel">Cancel</option>
+
+                                                                </select>
+
+
+                                                                @error('status')
+                                                                    <div class="text-sm text-red-400 invalid-feedback"
+                                                                        style="display: block;">
+                                                                        * {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+
+                                                            <!-- Message -->
+                                                            <div>
+                                                                <label
+                                                                    class="block text-sm font-medium text-gray-700">Reason</label>
+                                                                <textarea id="reason" name="reason"
+                                                                    class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                                    placeholder="Your Message" rows="4" required>{{ old('reason') }}</textarea>
+                                                                @error('reason')
+                                                                    <div class="text-sm text-red-400 invalid-feedback"
+                                                                        style="display: block;">
+                                                                        * {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+
+
+
+                                                            <!-- Modal Footer -->
+                                                            <button id="confirmBtn" type="submit"
+                                                                class="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600">
+                                                                Confirm
+                                                            </button>
+
+                                                            <button id="closeModalBtn-{{ $order->id }}"
+                                                                class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
+                                                                Close
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </div>
-                                            </div>
 
 
-                                            <script>
-                                                // Get elements dynamically for each modal
-                                                const openModalBtn{{ $order->id }} = document.getElementById('openModalBtn-{{ $order->id }}');
-                                                const closeModalBtn{{ $order->id }} = document.getElementById('closeModalBtn-{{ $order->id }}');
-                                                const modal{{ $order->id }} = document.getElementById('customModal-{{ $order->id }}');
+                                                <script>
+                                                    // Get elements dynamically for each modal
+                                                    const openModalBtn{{ $order->id }} = document.getElementById('openModalBtn-{{ $order->id }}');
+                                                    const closeModalBtn{{ $order->id }} = document.getElementById('closeModalBtn-{{ $order->id }}');
+                                                    const modal{{ $order->id }} = document.getElementById('customModal-{{ $order->id }}');
 
-                                                // Open modal function
-                                                const openModal{{ $order->id }} = () => {
-                                                    modal{{ $order->id }}.classList.remove('hidden');
-                                                };
+                                                    // Open modal function
+                                                    const openModal{{ $order->id }} = () => {
+                                                        modal{{ $order->id }}.classList.remove('hidden');
+                                                    };
 
-                                                // Close modal function
-                                                const closeModal{{ $order->id }} = () => {
-                                                    modal{{ $order->id }}.classList.add('hidden');
-                                                };
+                                                    // Close modal function
+                                                    const closeModal{{ $order->id }} = () => {
+                                                        modal{{ $order->id }}.classList.add('hidden');
+                                                    };
 
-                                                // Event listeners
-                                                openModalBtn{{ $order->id }}.addEventListener('click', openModal{{ $order->id }});
-                                                closeModalBtn{{ $order->id }}.addEventListener('click', closeModal{{ $order->id }});
+                                                    // Event listeners
+                                                    openModalBtn{{ $order->id }}.addEventListener('click', openModal{{ $order->id }});
+                                                    closeModalBtn{{ $order->id }}.addEventListener('click', closeModal{{ $order->id }});
 
-                                                // Close modal when clicking outside the content
-                                                window.addEventListener('click', (event) => {
-                                                    if (event.target === modal{{ $order->id }}) {
-                                                        closeModal{{ $order->id }}();
-                                                    }
-                                                });
-                                            </script>
+                                                    // Close modal when clicking outside the content
+                                                    window.addEventListener('click', (event) => {
+                                                        if (event.target === modal{{ $order->id }}) {
+                                                            closeModal{{ $order->id }}();
+                                                        }
+                                                    });
+                                                </script>
 
-                                            <?php $sn++; } ?>
-                                        </tbody>
-                                    </table>
-                                           
-                                </div>
+                                                <?php $sn++; } ?>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
                                     <!--/ End Shopping Summery -->
                                 </div>
 
@@ -611,8 +626,7 @@ $orderDetails = DB::table('orders as a')
                                                 @csrf
                                                 <div class="mb-3">
                                                     <div class="">
-                                                        <label for="oldPassword"
-                                                        class="form-label">Old Password</label>
+                                                        <label for="oldPassword" class="form-label">Old Password</label>
                                                         <input type="password" class="form-control" id="oldPassword"
                                                             placeholder="Enter old password" name="old_password"
                                                             value="{{ old('old_password') }}">
@@ -682,10 +696,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                          <div class="form-group">
-                                                                                                                                                                                                                           <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                                                                                                                                                                                                                           </div>
-                                                                                                                                                                                                                       </div> -->
+                                                                                                                                                                                                                              <div class="form-group">
+                                                                                                                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
+                                                                                                                                                                                                                               </div>
+                                                                                                                                                                                                                           </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -956,10 +970,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                           <div class="form-group">
-                                                                                                                                                                                                                           <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                                                                                                                                                                           </div>
-                                                                                                                                                                                                                          </div> -->
+                                                                                                                                                                                                                               <div class="form-group">
+                                                                                                                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                                                                                                                               </div>
+                                                                                                                                                                                                                              </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
