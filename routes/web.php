@@ -89,6 +89,16 @@ Route::get('/allproducts', [FrontController::class, 'newarrivals'])->name('newar
 // Route::get('/newarrivals', [FrontController::class, 'newarrivals'])->name('newarrivals');
 Route::post('/review/{slug}', [FrontController::class, 'store'])->name('review');
 
+
+
+
+Route::get('/history', [FrontController::class, 'history'])->name('history');
+Route::get('/details', [FrontController::class, 'details'])->name('details');
+Route::get('/delivery', [FrontController::class, 'delivery'])->name('delivery');
+Route::get('/updatepassword', [FrontController::class, 'updatepassword'])->name('updatepassword');
+Route::get('/mypoints', [FrontController::class, 'mypoints'])->name('mypoints');
+
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
