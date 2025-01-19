@@ -66,8 +66,8 @@
         }
 
         /* .btn {
-                                                                                                                                                                        background-color: #000 !important;
-                                                                                                                                                                    } */
+                                                                                                                                                                            background-color: #000 !important;
+                                                                                                                                                                        } */
 
         .changepw {
             margin: 0px auto;
@@ -133,8 +133,10 @@
             <div class="row">
                 <div class="col-lg-12 col-12">
                     <div>
-                        <div style="background-color: green" class="my-4 text-center text-white rounded card-header">
-                            <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">My Profile </h4>
+                        <div style="background-color: blue" class="my-4 text-center text-white rounded card-header">
+                            <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">Namaskar{{ $userdata[0]->gender == "male" ? " Sir" : ($userdata[0]->gender == "female" ? " Maam" : "") }}
+
+                            </h4>
                         </div>
 
                         @if (Session::has('message'))
@@ -303,7 +305,8 @@ $orderDetails = DB::table('orders as a')
                                                             <a href="{{ route('profile.order', $order->id) }}">
                                                                 <div style="background-color: green;width: 50px;color:white"
                                                                     class="rounded">
-                                                                    <i class="fa fa-eye flex justify-center items-center px-3 py-1"></i>
+                                                                    <i
+                                                                        class="fa fa-eye flex justify-center items-center px-3 py-1"></i>
                                                                 </div>
                                                             </a>
                                                             @if ($order->status != 'Cancel' && $order->status != 'Exchange' && $order->status != 'Wanttoexchange')
@@ -712,10 +715,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                              <div class="form-group">
-                                                                                                                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                                                                                                                                                                                                                               </div>
-                                                                                                                                                                                                                           </div> -->
+                                                                                                                                                                                                                                  <div class="form-group">
+                                                                                                                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
+                                                                                                                                                                                                                                   </div>
+                                                                                                                                                                                                                               </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -986,10 +989,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                               <div class="form-group">
-                                                                                                                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                                                                                                                                                                               </div>
-                                                                                                                                                                                                                              </div> -->
+                                                                                                                                                                                                                                   <div class="form-group">
+                                                                                                                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                                                                                                                                   </div>
+                                                                                                                                                                                                                                  </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
