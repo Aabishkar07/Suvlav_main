@@ -60,10 +60,11 @@ class FrontController extends Controller
 
 
 
-public function history(){
+    public function history()
+    {
 
 
-    $cartItems = $this->cartdata;
+        $cartItems = $this->cartdata;
         $categories = $this->categories;
 
         if (Session::get('memeber_id_ss') == '') {
@@ -122,12 +123,12 @@ public function history(){
 
             return view('front.profile.history', compact('cartItems', 'orders', 'userdata', 'states', 'shippings', 'districts', 'district_del', 'categories'));
         }
-   
-}
+    }
 
-public function details(){
+    public function details()
+    {
 
-    $cartItems = $this->cartdata;
+        $cartItems = $this->cartdata;
         $categories = $this->categories;
 
         if (Session::get('memeber_id_ss') == '') {
@@ -186,10 +187,11 @@ public function details(){
 
             return view('front.profile.profiledetails', compact('cartItems', 'orders', 'userdata', 'states', 'shippings', 'districts', 'district_del', 'categories'));
         }
-}
+    }
 
-public function mypoints(){
-    $cartItems = $this->cartdata;
+    public function mypoints()
+    {
+        $cartItems = $this->cartdata;
         $categories = $this->categories;
 
         if (Session::get('memeber_id_ss') == '') {
@@ -248,11 +250,11 @@ public function mypoints(){
 
             return view('front.profile.mypoint', compact('cartItems', 'orders', 'userdata', 'states', 'shippings', 'districts', 'district_del', 'categories'));
         }
-  
-}
+    }
 
-public function updatepassword(){
-    $cartItems = $this->cartdata;
+    public function updatepassword()
+    {
+        $cartItems = $this->cartdata;
         $categories = $this->categories;
 
         if (Session::get('memeber_id_ss') == '') {
@@ -311,11 +313,11 @@ public function updatepassword(){
 
             return view('front.profile.password', compact('cartItems', 'orders', 'userdata', 'states', 'shippings', 'districts', 'district_del', 'categories'));
         }
-  
-}
+    }
 
-public function delivery(){
-    $cartItems = $this->cartdata;
+    public function delivery()
+    {
+        $cartItems = $this->cartdata;
         $categories = $this->categories;
 
         if (Session::get('memeber_id_ss') == '') {
@@ -374,8 +376,7 @@ public function delivery(){
 
             return view('front.profile.deliveryaddress', compact('cartItems', 'orders', 'userdata', 'states', 'shippings', 'districts', 'district_del', 'categories'));
         }
- 
-}
+    }
 
     public function newpassword(Request $request)
     {
@@ -764,6 +765,7 @@ public function delivery(){
             'fname'          => 'required|min:3|max:50',
             'email'         => 'required|email|min:6|max:50',
             'password'      => 'required|min:6|max:50',
+            'gender'      => 'required',
         ];
 
         $exist = DB::table('members')
@@ -781,13 +783,14 @@ public function delivery(){
             $hashedpw = base64_encode($request->password);
 
             $name = $request->fname;
+            // dd($request);
             $code = $this->check($name);
             $memberData = [
                 'name' => $request->fname,
                 'email' =>  $request->email,
                 'mobileno' => $request->mobileno,
                 'passwrd' => $hashedpw,
-                'gender' => '',
+                'gender' => $request->gender,
                 'status' => 1,
                 'affilate_code' => $code,
                 'created_at' => @date('Y-m-d H:i')
@@ -1395,7 +1398,7 @@ public function delivery(){
 
             $userid = Session::get('memeber_id_ss');
 
-            
+
 
             $userdata = DB::table('members')
                 ->where('id', $userid)
