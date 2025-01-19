@@ -1,6 +1,6 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
-<header class='flex shadow-md sm:px-10 px-6 py-3 bg-white font-[sans-serif] min-h-[70px]'>
+<header class='sm:flex shadow-md sm:px-8 px-2 py-3 max-sm:py-1 bg-white font-[sans-serif] min-h-[70px]'>
     <div class="flex w-full max-w-screen-2xl mx-auto">
         <div class='flex flex-wrap items-center justify-between relative lg:gap-y-4 gap-y-4 gap-x-4 w-full'>
 
