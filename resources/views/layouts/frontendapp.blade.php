@@ -104,7 +104,7 @@
     <script src="{{ asset('front_assets/js/finalcountdown.min.js') }}"></script>
     <!-- <script src="{{ asset('front_assets/js/nicesellect.js') }}"></script> -->
     <script src="{{ asset('front_assets/js/flex-slider.js') }}"></script>
-    <script src="{{ asset('front_assets/js/scrollup.js') }}"></script>
+    {{-- <script src="{{ asset('front_assets/js/scrollup.js') }}"></script> --}}
     <script src="{{ asset('front_assets/js/onepage-nav.min.js') }}"></script>
     <script src="{{ asset('front_assets/js/easing.js') }}"></script>
     <script src="{{ asset('front_assets/js/active.js') }}"></script>
