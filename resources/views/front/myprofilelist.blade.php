@@ -172,6 +172,22 @@
                                 <i class="fas fa-coins mr-2 text-yellow-500"></i>
                                 <p class="text-sm font-medium">My Points</p>
                             </a>
+
+                            {{-- <a href="{{ route('wishlist') }}">
+                                <i class="ti-heart"> </i>
+                               </a> --}}
+                            <a class="md:hidden block flex items-center py-2 border border-b" href="{{ route('wishlist') }}">
+                                {{-- <i class="fas fa-coins mr-2 text-yellow-500"></i> --}}
+                                <i class="ti-heart text-red-500 mr-2"> </i>
+                                <p class="text-sm font-medium">Wishlist</p>
+                            </a>
+
+                            {{-- <a class="max-md:hidden" href="{{ url('/memberlogout') }}">Logout</a> --}}
+
+                            <a class="md:hidden block flex items-center py-2" href="{{ url('/memberlogout') }}">
+                                <i class="ti-power-off mr-2 text-green-500"></i>
+                                <p class="text-sm font-medium">Logout</p>
+                            </a>
                         </div>
 
 

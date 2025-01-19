@@ -154,12 +154,12 @@
                         <i class="ri-user-line"></i> Profile
                     </a>
 
-                    <a>
+                    <a class="max-md:hidden">
                         <i class="ti-power-off"></i>
                         <?php if(Session::get('memeber_email_ss') == '') { ?>
-                        <a href="{{ url('/memberloginform') }}" style="display: inline;" class="login-btn">Logins</a>
+                        <a href="{{ url('/memberloginform') }}"  class="login-btn max-md:hidden">Logins</a>
                         <?php } else { ?>
-                        <a href="{{ url('/memberlogout') }}">Logout</a>
+                        <a class="max-md:hidden" href="{{ url('/memberlogout') }}">Logout</a>
                         <?php } ?>
                     </a>
                 </div>
@@ -210,7 +210,7 @@
                         </div>
                     </div>
                 </div>
-<div class="">
+<div class="max-md:hidden">
    <a href="{{ route('wishlist') }}">
     <i class="ti-heart"> </i>
    </a>
