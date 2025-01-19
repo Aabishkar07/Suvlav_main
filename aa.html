@@ -1,238 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Order Details</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Multilevel Dropdown with JS</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f3f4f6;
-        color: #333;
-      }
-
-      .container {
-        width: 90%;
-        max-width: 900px;
-        margin: 20px auto;
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-      }
-
-      .section {
-        border-bottom: 1px solid #e0e0e0;
-      }
-
-      .section:last-child {
-        border-bottom: none;
-      }
-
-      .section-header {
-        background: #838385;
-        color: #ffffff;
-        padding: 15px;
-        font-size: 1.2em;
-        font-weight: bold;
-      }
-
-      .section-content {
-        padding: 20px;
-      }
-
-      .row {
-        display: flex;
-        /* justify-content: space-between; */
-        gap: 10px;
-        margin-bottom: 15px;
-      }
-      .myrow {
-        display: flex;
-        /* justify-content: space-between; */
-        gap: 30px;
-        margin-bottom: 15px;
-      }
-
-      .row label {
-        font-weight: bold;
-        color: #555;
-      }
-
-      .row span {
-        color: #333;
-      }
-
-      .table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-      }
-
-      .table th,
-      .table td {
-        border: 1px solid #e0e0e0;
-        padding: 12px;
-        text-align: left;
-      }
-
-      .table th {
-        background: #838385;
-        color: #ffffff;
-      }
-
-      .table td {
-        background: #f9fafb;
-      }
-
-      .text-right {
-        text-align: right;
-      }
-
-      .highlight {
-        background: #fef3c7;
-        font-weight: bold;
-      }
-
-      .section-content img {
-        border-radius: 4px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      @media (max-width: 600px) {
-        .row {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .row label {
-          margin-bottom: 5px;
-        }
-      }
+        .hidden { display: none; }
+        .transition-all { transition: all 0.3s ease-in-out; }
     </style>
-  </head>
-  <body>
-    <div class="container">
-      <!-- Customer Details -->
-      <div class="section">
-        <div class="section-header">Customer Detail</div>
-        <div class="section-content myrow">
-          <div class="">
-            <div class="row">
-              <label>Full Name:</label>
-              <span>ak Kasula</span>
-            </div>
-            <div class="row">
-              <label>Email:</label>
-              <span>anupkasula5@gmail.com</span>
-            </div>
-            <div class="row">
-              <label>Mobile No.:</label>
-              <span>9898998989</span>
-            </div>
-          </div>
-          <div class="">
-           
-            <div class="row">
-              <label>State:</label>
-              <span>Koshi</span>
-            </div>
-            <div class="row">
-              <label>District:</label>
-              <span>Panchthar</span>
-            </div>
-            <div class="row">
-                <label>Gender:</label>
-                <span>-</span>
-              </div>
-          </div>
-        </div>
-      </div>
+</head>
+<body class="p-10 bg-gray-100">
 
-      <!-- Order Details -->
-      <div class="section">
-        <div class="section-header">Order Detail</div>
-        <div class="section-content">
-          <div class="row">
-            <label>Order ID:</label>
-            <span>50</span>
-          </div>
-          <div class="row">
-            <label>Order Date:</label>
-            <span>2025-01-13 05:27:00</span>
-          </div>
-          <div class="row">
-            <label>Order Status:</label>
-            <span>Pending</span>
-          </div>
-
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Unit Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><img src="#" alt="Kurti" width="50" height="50" /></td>
-                <td>Kurti</td>
-                <td>Rs. 1,999</td>
-                <td>1</td>
-                <td>Rs. 1,999</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr class="highlight">
-                <td colspan="4" class="text-right">
-                  <strong>Total Amount:</strong>
-                </td>
-                <td>Rs. 1,999</td>
-              </tr>
-            </tfoot>
-          </table>
+    <div class="relative inline-block">
+        <button
+            id="category-btn"
+            class="px-6 py-3 text-white bg-blue-500 rounded hover:bg-blue-600"
+        >
+            Category
+        </button>
+        <div
+            id="main-category-menu"
+            class="absolute left-0 hidden w-48 mt-2 transition-all bg-white rounded shadow-lg opacity-0"
+        >
+            <div class="relative group">
+                <button
+                    id="main-category-1-btn"
+                    class="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                >
+                    Main Category 1
+                </button>
+                <div
+                    id="main-category-1-submenu"
+                    class="absolute top-0 hidden w-48 mt-0 transition-all bg-white rounded shadow-lg opacity-0 left-full"
+                >
+                    <div class="relative group">
+                        <button
+                            id="subcategory-1-btn"
+                            class="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                        >
+                            Sub Category 1
+                        </button>
+                        <div
+                            id="subcategory-1-products"
+                            class="absolute top-0 hidden w-48 mt-0 transition-all bg-white rounded shadow-lg opacity-0 left-full"
+                        >
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Product 1</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Product 2</a>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <button
+                            id="subcategory-2-btn"
+                            class="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                        >
+                            Sub Category 2
+                        </button>
+                        <div
+                            id="subcategory-2-products"
+                            class="absolute top-0 hidden w-48 mt-0 transition-all bg-white rounded shadow-lg opacity-0 left-full"
+                        >
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Product 3</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Product 4</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative group">
+                <button
+                    id="main-category-2-btn"
+                    class="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                >
+                    Main Category 2
+                </button>
+                <div
+                    id="main-category-2-products"
+                    class="absolute top-0 hidden w-48 mt-0 transition-all bg-white rounded shadow-lg opacity-0 left-full"
+                >
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Product 5</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Product 6</a>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <!-- Delivery Address -->
-      <div class="section">
-        <div class="section-header">Delivery Address</div>
-        <div class="section-content">
-          <div class="row">
-            <label>Full Name:</label>
-            <span>ak Kasula</span>
-          </div>
-          <div class="row">
-            <label>Mobile No.:</label>
-            <span>9898998989</span>
-          </div>
-          <div class="row">
-            <label>State:</label>
-            <span>Koshi</span>
-          </div>
-          <div class="row">
-            <label>District:</label>
-            <span>Panchthar</span>
-          </div>
-          <div class="row">
-            <label>City:</label>
-            <span>-</span>
-          </div>
-          <div class="row">
-            <label>Address:</label>
-            <span>-</span>
-          </div>
-          <div class="row">
-            <label>House No.:</label>
-            <span>Gaupalika</span>
-          </div>
-        </div>
-      </div>
     </div>
-  </body>
+
+    <script>
+        // Select buttons and menus
+        const categoryBtn = document.getElementById('category-btn');
+        const mainCategoryMenu = document.getElementById('main-category-menu');
+        const mainCategory1Btn = document.getElementById('main-category-1-btn');
+        const mainCategory1Submenu = document.getElementById('main-category-1-submenu');
+        const subcategory1Btn = document.getElementById('subcategory-1-btn');
+        const subcategory1Products = document.getElementById('subcategory-1-products');
+        const subcategory2Btn = document.getElementById('subcategory-2-btn');
+        const subcategory2Products = document.getElementById('subcategory-2-products');
+        const mainCategory2Btn = document.getElementById('main-category-2-btn');
+        const mainCategory2Products = document.getElementById('main-category-2-products');
+
+        // Show main menu on hover over category button
+        categoryBtn.addEventListener('mouseenter', () => {
+            mainCategoryMenu.classList.remove('hidden');
+            setTimeout(() => {
+                mainCategoryMenu.classList.remove('opacity-0');
+            }, 10);
+        });
+
+        categoryBtn.addEventListener('mouseleave', () => {
+            setTimeout(() => {
+                if (!mainCategoryMenu.matches(':hover')) {
+                    mainCategoryMenu.classList.add('opacity-0');
+                    setTimeout(() => {
+                        mainCategoryMenu.classList.add('hidden');
+                    }, 300);
+                }
+            }, 100);
+        });
+
+        // Show/hide submenus for main categories and subcategories
+        function toggleSubmenuOnHover(elementBtn, submenu) {
+            elementBtn.addEventListener('mouseenter', () => {
+                submenu.classList.remove('hidden');
+                setTimeout(() => {
+                    submenu.classList.remove('opacity-0');
+                }, 10);
+            });
+
+            elementBtn.addEventListener('mouseleave', () => {
+                setTimeout(() => {
+                    if (!submenu.matches(':hover') && !elementBtn.matches(':hover')) {
+                        submenu.classList.add('opacity-0');
+                        setTimeout(() => {
+                            submenu.classList.add('hidden');
+                        }, 300);
+                    }
+                }, 100);
+            });
+        }
+
+        // Apply submenu behavior
+        toggleSubmenuOnHover(mainCategory1Btn, mainCategory1Submenu);
+        toggleSubmenuOnHover(subcategory1Btn, subcategory1Products);
+        toggleSubmenuOnHover(subcategory2Btn, subcategory2Products);
+        toggleSubmenuOnHover(mainCategory2Btn, mainCategory2Products);
+
+        // Hide all submenus if mouse leaves entire category menu area
+        mainCategoryMenu.addEventListener('mouseleave', () => {
+            const hasOpenSubmenu = document.querySelector('.transition-all:not(.hidden)');
+            if (!hasOpenSubmenu) {
+                mainCategoryMenu.classList.add('opacity-0');
+                setTimeout(() => {
+                    mainCategoryMenu.classList.add('hidden');
+                }, 300);
+            }
+        });
+    </script>
+
+</body>
 </html>
