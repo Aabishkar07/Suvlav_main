@@ -103,7 +103,7 @@ class AuthenticatedSessionController extends Controller
             $request->session()->put('memeber_name_ss', $new_user->name);
             $request->session()->put('memeber_email_ss', $new_user->email);
             $request->session()->put('memeber_id_ss', $new_user->id);
-            Mail::to('anupkasula012@gmail.com')->send(new registerUser($new_user));
+            // Mail::to('anupkasula012@gmail.com')->send(new registerUser($new_user));
 
             \Auth::guard('member')->login($new_user);
             return redirect("/");
@@ -177,7 +177,7 @@ class AuthenticatedSessionController extends Controller
                 $request->session()->put('memeber_name_ss', $new_user->name);
                 $request->session()->put('memeber_email_ss', $new_user->email);
                 $request->session()->put('memeber_id_ss', $new_user->id);
-                Mail::to('anupkasula012@gmail.com')->send(new registerUser($new_user));
+                // Mail::to('anupkasula012@gmail.com')->send(new registerUser($new_user));
 
                 \Auth::guard('member')->login($new_user);
                 return redirect("/");
