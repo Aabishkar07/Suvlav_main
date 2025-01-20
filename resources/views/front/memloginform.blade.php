@@ -276,9 +276,10 @@
                 font-size: 24px;
             }
         }
+    }
     </style>
 
-    <section class=" m-2  md:p-[2px] ">
+    <section class=" m-2  md:p-[2px] overflow-x-hidden ">
         <div class="">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-8">
