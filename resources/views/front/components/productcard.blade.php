@@ -13,7 +13,7 @@
 <div class="border rounded shadow single-product ">
 
     <div class="justify-between p-1 bg-white d-flex">
-        <a class="font-bold text-[16px]" href="{{ url('product/' . $list->slug) }}">{{ $list->title }}</a>
+        <a class="font-bold text-black text-[16px]" style="color: black" href="{{ url('product/' . $list->slug) }}">{{ $list->title }}</a>
         @php
             $regular_price = $list->regular_price;
             $sale_price = $list->sale_price;

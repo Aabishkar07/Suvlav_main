@@ -182,7 +182,7 @@
 
         <div class="mt-5 d-flex justify-content-center">
 
-            <a href="{{ route('allblogs') }}" class="btn btn-primary btn-lg px-4 text-white">View All</a>
+            <a href="{{ route('allblogs') }}" class=" buttoncolor  px-4 py-2 text-white">View All</a>
         </div>
 
     </div>

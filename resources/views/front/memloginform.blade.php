@@ -103,6 +103,89 @@
             margin: 50px;
         } */
 
+    .form-wrapper {
+        background: #ffffff;
+        padding: 30px 40px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    h2 {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #333333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        color: #555555;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    #submitbtm {
+        width: 100%;
+        height: 45px;
+        background-color: #125ee0;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+
+    #submitbtm:hover {
+        background-color: white;
+		color: #125ee0;
+        border: 1px solid #125ee0;
+    }
+
+    .forgot-password {
+        text-align: right;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .forgot-password a {
+        color: #125ee0;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .forgot-password a:hover {
+        text-decoration: underline;
+    }
+
+    .signup {
+        text-align: center;
+        font-size: 16px;
+        margin-top: 15px;
+    }
+
+    .signup a {
+        color: #125ee0;
+        font-weight: 600;
+        text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
         .form-wrapper {
             background: #ffffff;
             padding: 30px 40px;

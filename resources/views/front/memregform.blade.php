@@ -148,9 +148,9 @@
         #submitbtm {
             width: 100%;
             height: 45px;
-            background-color: #000000;
+            background-color: #125ee0;
             color: #ffffff;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             border: none;
             border-radius: 5px;
@@ -160,7 +160,8 @@
 
         #submitbtm:hover {
             background-color: #ffffff;
-            color: #000;
+            border: 1px solid #125ee0;
+            color: #125ee0;
         }
 
         .signup {
