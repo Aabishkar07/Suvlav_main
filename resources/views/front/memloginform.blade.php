@@ -140,7 +140,7 @@
     #submitbtm {
         width: 100%;
         height: 45px;
-        background-color: black;
+        background-color: #125ee0;
         color: #ffffff;
         font-size: 18px;
         font-weight: bold;
@@ -152,7 +152,8 @@
 
     #submitbtm:hover {
         background-color: white;
-		color: #000;
+		color: #125ee0;
+        border: 1px solid #125ee0;
     }
 
     .forgot-password {
