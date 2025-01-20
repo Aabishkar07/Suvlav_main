@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -90,6 +91,14 @@ Route::get('/allproducts', [FrontController::class, 'newarrivals'])->name('newar
 Route::post('/review/{slug}', [FrontController::class, 'store'])->name('review');
 
 
+
+// login with google
+Route::get('auth/google', [AuthenticatedSessionController::class, 'redirectToGmail'])->name('google.redirect');;
+Route::get('auth/google/call-back', [AuthenticatedSessionController::class, 'handleGmailCallback'])->name('google.callback');
+
+// facebook
+Route::get('auth/facebook', [AuthenticatedSessionController::class, 'redirect'])->name('facebook-auth');
+Route::get('login/facebook/callback', [AuthenticatedSessionController::class, 'callbackFacebook']);
 
 
 Route::get('/history', [FrontController::class, 'history'])->name('history');

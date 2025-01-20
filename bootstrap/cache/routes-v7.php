@@ -13,7 +13,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::OLNynd5GfQujHO5J',
+            '_route' => 'generated::HeiMtzZ1YPMaGxHI',
           ),
           1 => NULL,
           2 => 
@@ -53,7 +53,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::pfmhv3hDUk4f0rN2',
+            '_route' => 'generated::r0UGvvISoY41lt1x',
           ),
           1 => NULL,
           2 => 
@@ -73,7 +73,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::Jaaua0DYs7qW22im',
+            '_route' => 'generated::r905V25ZwB3AkAUe',
           ),
           1 => NULL,
           2 => 
@@ -208,7 +208,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::77yYB3937CcD4tMy',
+            '_route' => 'generated::ndV2zSgbKrwjgc1a',
           ),
           1 => NULL,
           2 => 
@@ -784,6 +784,86 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/auth/google' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'google.redirect',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/auth/google/call-back' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'google.callback',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/auth/facebook' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'facebook-auth',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/login/facebook/callback' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'generated::CyBcLQHoO6pMubtj',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/history' => 
       array (
         0 => 
@@ -959,7 +1039,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::3w885bkQJM3gj0y6',
+            '_route' => 'generated::eou8XdZ0mqziqkhg',
           ),
           1 => NULL,
           2 => 
@@ -995,7 +1075,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::uF4daJMMbRv4F4XO',
+            '_route' => 'generated::zKM89XudNoOCv2HP',
           ),
           1 => NULL,
           2 => 
@@ -1125,7 +1205,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::78LQxwBujmgckIBu',
+            '_route' => 'generated::OYXH0xSUXAs8eMOQ',
           ),
           1 => NULL,
           2 => 
@@ -2270,7 +2350,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::VKnRXcR2VaPOC5Re',
+            '_route' => 'generated::1z3SvvqfMDuVRfin',
           ),
           1 => NULL,
           2 => 
@@ -2297,7 +2377,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::BMGhFgK0yh2SQjby',
+            '_route' => 'generated::qK3fzfwkyA4ujxlb',
           ),
           1 => 
           array (
@@ -4074,7 +4154,7 @@ app('router')->setCompiledRoutes(
   ),
   'attributes' => 
   array (
-    'generated::OLNynd5GfQujHO5J' => 
+    'generated::HeiMtzZ1YPMaGxHI' => 
     array (
       'methods' => 
       array (
@@ -4102,8 +4182,8 @@ app('router')->setCompiledRoutes(
                     return response(\\Illuminate\\Support\\Facades\\View::file(\'E:\\\\New Suvlav\\\\Suvlav_main\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Configuration\'.\'/../resources/health-up.blade.php\', [
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
-                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"00000000000008570000000000000000";}}',
-        'as' => 'generated::OLNynd5GfQujHO5J',
+                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"000000000000036a0000000000000000";}}',
+        'as' => 'generated::HeiMtzZ1YPMaGxHI',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4156,7 +4236,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::BMGhFgK0yh2SQjby' => 
+    'generated::qK3fzfwkyA4ujxlb' => 
     array (
       'methods' => 
       array (
@@ -4177,7 +4257,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::BMGhFgK0yh2SQjby',
+        'as' => 'generated::qK3fzfwkyA4ujxlb',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4193,7 +4273,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::pfmhv3hDUk4f0rN2' => 
+    'generated::r0UGvvISoY41lt1x' => 
     array (
       'methods' => 
       array (
@@ -4214,7 +4294,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::pfmhv3hDUk4f0rN2',
+        'as' => 'generated::r0UGvvISoY41lt1x',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4230,7 +4310,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::Jaaua0DYs7qW22im' => 
+    'generated::r905V25ZwB3AkAUe' => 
     array (
       'methods' => 
       array (
@@ -4250,7 +4330,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::Jaaua0DYs7qW22im',
+        'as' => 'generated::r905V25ZwB3AkAUe',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4484,7 +4564,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::77yYB3937CcD4tMy' => 
+    'generated::ndV2zSgbKrwjgc1a' => 
     array (
       'methods' => 
       array (
@@ -4505,7 +4585,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::77yYB3937CcD4tMy',
+        'as' => 'generated::ndV2zSgbKrwjgc1a',
       ),
       'fallback' => false,
       'defaults' => 
@@ -5802,6 +5882,154 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'google.redirect' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'auth/google',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController@redirectToGmail',
+        'controller' => 'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController@redirectToGmail',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+        'as' => 'google.redirect',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'google.callback' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'auth/google/call-back',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController@handleGmailCallback',
+        'controller' => 'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController@handleGmailCallback',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+        'as' => 'google.callback',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'facebook-auth' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'auth/facebook',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController@redirect',
+        'controller' => 'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController@redirect',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+        'as' => 'facebook-auth',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'generated::CyBcLQHoO6pMubtj' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'login/facebook/callback',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController@callbackFacebook',
+        'controller' => 'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController@callbackFacebook',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+        'as' => 'generated::CyBcLQHoO6pMubtj',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'history' => 
     array (
       'methods' => 
@@ -6137,7 +6365,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::3w885bkQJM3gj0y6' => 
+    'generated::eou8XdZ0mqziqkhg' => 
     array (
       'methods' => 
       array (
@@ -6158,7 +6386,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::3w885bkQJM3gj0y6',
+        'as' => 'generated::eou8XdZ0mqziqkhg',
       ),
       'fallback' => false,
       'defaults' => 
@@ -6212,7 +6440,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::uF4daJMMbRv4F4XO' => 
+    'generated::zKM89XudNoOCv2HP' => 
     array (
       'methods' => 
       array (
@@ -6233,7 +6461,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::uF4daJMMbRv4F4XO',
+        'as' => 'generated::zKM89XudNoOCv2HP',
       ),
       'fallback' => false,
       'defaults' => 
@@ -6553,7 +6781,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::78LQxwBujmgckIBu' => 
+    'generated::OYXH0xSUXAs8eMOQ' => 
     array (
       'methods' => 
       array (
@@ -6574,7 +6802,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::78LQxwBujmgckIBu',
+        'as' => 'generated::OYXH0xSUXAs8eMOQ',
       ),
       'fallback' => false,
       'defaults' => 
@@ -11658,7 +11886,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::VKnRXcR2VaPOC5Re' => 
+    'generated::1z3SvvqfMDuVRfin' => 
     array (
       'methods' => 
       array (
@@ -11680,13 +11908,13 @@ app('router')->setCompiledRoutes(
     \\Illuminate\\Support\\Facades\\Artisan::call(\'config:clear\');
     \\Illuminate\\Support\\Facades\\Artisan::call(\'view:clear\');
     return \'Application all kind of cache has been cleared\';
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000008fa0000000000000000";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000004020000000000000000";}}',
         'namespace' => NULL,
         'prefix' => '',
         'where' => 
         array (
         ),
-        'as' => 'generated::VKnRXcR2VaPOC5Re',
+        'as' => 'generated::1z3SvvqfMDuVRfin',
       ),
       'fallback' => false,
       'defaults' => 
