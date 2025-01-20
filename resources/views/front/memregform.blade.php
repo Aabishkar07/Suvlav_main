@@ -250,7 +250,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" id="submitbtm">Register</button>
+                            <button type="submit" id="submitbtm" style="background-color: #125ee0">Register</button>
 
 
                             <div class="w-full my-4 sm:flex gap-x-2">
