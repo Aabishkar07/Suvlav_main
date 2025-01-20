@@ -305,7 +305,7 @@
                             <div class="forgot-password">
                                 <a href="{{ url('/forgotpwform') }}">Forgot your password?</a>
                             </div>
-                            <button type="submit" id="submitbtm">Login</button>
+                            <button type="submit" id="submitbtm" style="background-color: #125ee0"> Login</button>
 
 
                         </form>
