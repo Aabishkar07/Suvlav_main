@@ -4,8 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Member extends Model
+
+
+class Member extends Authenticatable
 {
     use HasFactory;
 
@@ -21,6 +24,8 @@ class Member extends Model
         'address',
         'status',
         'otp',
+        'googleauth_id',
+        'fbauth_id',
         'total_points'
 
     ];
