@@ -330,10 +330,11 @@
 
 
                         </form>
-                        <div class="w-full my-4 sm:flex gap-x-2">
+                        <div class="w-full my-3">
+                        {{-- <div class="w-full my-4 sm:flex gap-x-2"> --}}
 
                             <a href="{{ route('google.redirect') }}"
-                                class="flex items-center px-6 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-300 rounded-lg shadow-md max-sm:mb-2 sm:w-1/2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                                class="flex items-center w-full px-6 py-2 text-sm font-medium text-center text-gray-800 bg-white border border-gray-300 rounded-lg shadow-md justify-content-center max-sm:mb-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                                 <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-0.5 0 48 48" version="1.1">
 
@@ -359,7 +360,7 @@
                                 <span>Continue with Google</span>
                             </a>
 
-                            <a href="{{ route('facebook-auth') }}"
+                            {{-- <a href="{{ route('facebook-auth') }}"
                                 class="flex items-center px-6 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-300 rounded-lg shadow-md sm:w-1/2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                                 <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48" version="1.1">
@@ -375,7 +376,7 @@
                                 </svg>
 
                                 <span>Continue with Facebook</span>
-                            </a>
+                            </a> --}}
                         </div>
                         <div class="signup">
                             Don't have an account?
