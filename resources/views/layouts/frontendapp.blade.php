@@ -57,7 +57,7 @@
 
 <body class="js">
 
-    <div class="md:bg-white top-0 fixed w-full" style="z-index: 99999;">
+    <div class="fixed top-0 w-full md:bg-white" style="z-index: 99999;">
 
 
         <!-- Header -->
