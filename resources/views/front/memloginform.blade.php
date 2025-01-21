@@ -91,6 +91,27 @@
 
 @extends('layouts.frontendapp')
 @section('content')
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '1664186290844936',
+                xfbml: true,
+                version: 'v21.0'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     <style>
         /* General Styles */
         body {
@@ -99,93 +120,10 @@
         }
 
         /* .checkout-section {
-            padding: 40px 0;
-            margin: 50px;
-        } */
+                padding: 40px 0;
+                margin: 50px;
+            } */
 
-    .form-wrapper {
-        background: #ffffff;
-        padding: 30px 40px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-    }
-
-    h2 {
-        font-size: 28px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        text-align: center;
-        color: #333333;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-group label {
-        font-weight: 600;
-        color: #555555;
-        margin-bottom: 8px;
-        display: block;
-    }
-
-    .form-group input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #dddddd;
-        border-radius: 5px;
-        font-size: 16px;
-    }
-
-    #submitbtm {
-        width: 100%;
-        height: 45px;
-        background-color: #125ee0;
-        color: #ffffff;
-        font-size: 18px;
-        font-weight: bold;
-        border: none;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-        cursor: pointer;
-    }
-
-    #submitbtm:hover {
-        background-color: white;
-		color: #125ee0;
-        border: 1px solid #125ee0;
-    }
-
-    .forgot-password {
-        text-align: right;
-        font-size: 14px;
-        margin-bottom: 10px;
-    }
-
-    .forgot-password a {
-        color: #125ee0;
-        text-decoration: none;
-        font-weight: 500;
-    }
-
-    .forgot-password a:hover {
-        text-decoration: underline;
-    }
-
-    .signup {
-        text-align: center;
-        font-size: 16px;
-        margin-top: 15px;
-    }
-
-    .signup a {
-        color: #125ee0;
-        font-weight: 600;
-        text-decoration: underline;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
         .form-wrapper {
             background: #ffffff;
             padding: 30px 40px;
@@ -223,7 +161,7 @@
         #submitbtm {
             width: 100%;
             height: 45px;
-            background-color: black;
+            background-color: #125ee0;
             color: #ffffff;
             font-size: 18px;
             font-weight: bold;
@@ -235,7 +173,8 @@
 
         #submitbtm:hover {
             background-color: white;
-            color: #000;
+            color: #125ee0;
+            border: 1px solid #125ee0;
         }
 
         .forgot-password {
@@ -269,16 +208,99 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .form-wrapper {
-                padding: 20px 15px;
+                background: #ffffff;
+                padding: 30px 40px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
             }
 
             h2 {
-                font-size: 24px;
+                font-size: 28px;
+                font-weight: 600;
+                margin-bottom: 20px;
+                text-align: center;
+                color: #333333;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-group label {
+                font-weight: 600;
+                color: #555555;
+                margin-bottom: 8px;
+                display: block;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #dddddd;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+            #submitbtm {
+                width: 100%;
+                height: 45px;
+                background-color: black;
+                color: #ffffff;
+                font-size: 18px;
+                font-weight: bold;
+                border: none;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+                cursor: pointer;
+            }
+
+            #submitbtm:hover {
+                background-color: white;
+                color: #000;
+            }
+
+            .forgot-password {
+                text-align: right;
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .forgot-password a {
+                color: #125ee0;
+                text-decoration: none;
+                font-weight: 500;
+            }
+
+            .forgot-password a:hover {
+                text-decoration: underline;
+            }
+
+            .signup {
+                text-align: center;
+                font-size: 16px;
+                margin-top: 15px;
+            }
+
+            .signup a {
+                color: #125ee0;
+                font-weight: 600;
+                text-decoration: underline;
+            }
+
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                .form-wrapper {
+                    padding: 20px 15px;
+                }
+
+                h2 {
+                    font-size: 24px;
+                }
             }
         }
     </style>
 
-    <section class=" m-2  md:p-[2px] ">
+    <section class=" m-2  md:p-[2px] overflow-x-hidden ">
         <div class="">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-8">
@@ -310,13 +332,12 @@
                         </form>
                         <div class="w-full my-4 sm:flex gap-x-2">
 
-                            <a  href="{{ route('google.redirect') }}"
+                            <a href="{{ route('google.redirect') }}"
                                 class="flex items-center px-6 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-300 rounded-lg shadow-md max-sm:mb-2 sm:w-1/2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                                 <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-0.5 0 48 48" version="1.1">
 
-                                    <g id="Icons" stroke="none" stroke-width="1" fill="none"
-                                        fill-rule="evenodd">
+                                    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <g id="Color-" transform="translate(-401.000000, -860.000000)">
                                             <g id="Google" transform="translate(401.000000, 860.000000)">
                                                 <path
@@ -342,10 +363,8 @@
                                 class="flex items-center px-6 py-2 text-sm font-medium text-gray-800 bg-white border border-gray-300 rounded-lg shadow-md sm:w-1/2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                                 <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48" version="1.1">
-                                    <g id="Icons" stroke="none" stroke-width="1" fill="none"
-                                        fill-rule="evenodd">
-                                        <g id="Color-" transform="translate(-200.000000, -160.000000)"
-                                            fill="#4460A0">
+                                    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="Color-" transform="translate(-200.000000, -160.000000)" fill="#4460A0">
                                             <path
                                                 d="M225.638355,208 L202.649232,208 C201.185673,208 200,206.813592 200,205.350603 L200,162.649211 C200,161.18585 201.185859,160 202.649232,160 L245.350955,160 C246.813955,160 248,161.18585 248,162.649211 L248,205.350603 C248,206.813778 246.813769,208 245.350955,208 L233.119305,208 L233.119305,189.411755 L239.358521,189.411755 L240.292755,182.167586 L233.119305,182.167586 L233.119305,177.542641 C233.119305,175.445287 233.701712,174.01601 236.70929,174.01601 L240.545311,174.014333 L240.545311,167.535091 C239.881886,167.446808 237.604784,167.24957 234.955552,167.24957 C229.424834,167.24957 225.638355,170.625526 225.638355,176.825209 L225.638355,182.167586 L219.383122,182.167586 L219.383122,189.411755 L225.638355,189.411755 L225.638355,208 L225.638355,208 Z"
                                                 id="Facebook">
