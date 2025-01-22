@@ -234,7 +234,7 @@
                                                         $size_classes = ' class = "" ';
                                                     }
                                                 @endphp
-                                                <li style="margin-top:4px" class="js_size cssize"><a {!! $size_classes !!} href="javascript:void(0)"
+                                                <li style="margin-top:7px" class="js_size cssize"><a {!! $size_classes !!} href="javascript:void(0)"
                                                         title="{{ $prod_size->display_name }}">{{ $prod_size->display_name }}</a>
                                                 </li>
                                                 
