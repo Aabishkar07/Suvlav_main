@@ -176,10 +176,10 @@
                                                 $percent = (($regular_price - $sale_price) / $regular_price) * 100;
 
                                                 echo '<div class="discount" style="display: flex; gap: 15px; align-items: center;font-size: 20px;">' .
-                                                    '<span class="discount" style="color: #F7941D;">' .
+                                                    '<span class="discount" style="color: black;">' .
                                                     moneyFormat($product->sale_price) .
                                                     '</span>' .
-                                                    '<s>' .
+                                                    '<s style="color: #dc3545;">' .
                                                     moneyFormat($product->regular_price) .
                                                     '</s>' .
                                                     '<div class="px-2 py-1 text-xs text-white rounded bg-success">' .
