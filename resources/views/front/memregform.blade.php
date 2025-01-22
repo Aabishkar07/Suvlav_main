@@ -271,7 +271,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" id="submitbtm" style="background-color: #125ee0">Register</button>
+                            <button type="submit" id="" style="background-color: #125ee0;width:100%;color:white;padding: 10px 10px;">Register</button>
 
 
                             <div class="w-full my-4 ">

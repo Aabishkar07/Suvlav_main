@@ -2,19 +2,19 @@
 @section('content')
 
 
-{{-- <div class="md:flex  justify-center items-center px-20  max-md:px-10 max-sm:px-5">
+{{-- <div class="items-center justify-center px-20 md:flex max-md:px-10 max-sm:px-5">
     <div class="w-[80%] flex-1">
-        <form action="{{ route('changepasswords') }}" method="post" class="w-full flex-col justify-center  flex gap-y-7">
+        <form action="{{ route('changepasswords') }}" method="post" class="flex flex-col justify-center w-full gap-y-7">
             @csrf
         
        
-        <div class="text-black text-4xl font-medium">New Password</div>
+        <div class="text-4xl font-medium text-black">New Password</div>
 
-        <input type="password" name="newpassword" required class="border outline-none w-full py-3 px-3 border-black"  placeholder="Enter  New Password">
-        <input type="password" name="confirmpassword" required class="border outline-none w-full py-3 px-3 border-black"  placeholder="Enter Confirm Password">
+        <input type="password" name="newpassword" required class="w-full px-3 py-3 border border-black outline-none"  placeholder="Enter  New Password">
+        <input type="password" name="confirmpassword" required class="w-full px-3 py-3 border border-black outline-none"  placeholder="Enter Confirm Password">
         <input type="hidden" value="{{request('token')}}" name="token">
 
-      <div class="">  <button class="text-white bg-black py-2 px-5 rounded-md">Change</button></div>
+      <div class="">  <button class="px-5 py-2 text-white bg-black rounded-md">Change</button></div>
     </form>
     </div>
  
@@ -125,12 +125,12 @@
     }
 </style>
 
-<section class="checkout-section">
+<section class="py-14">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
                 <div class="form-wrapper">
-                    <h2>Change passowrd
+                    <h2>Change password
                     </h2>
                     @if($errors->any())
                         <div class="alert alert-danger">
