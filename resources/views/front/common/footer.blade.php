@@ -56,7 +56,8 @@
                                 <div class="mb-3 col-md-6 text-md-start mb-md-0">
                                     <p class="mb-0 call">
                                         Got Question? Call us 24/7
-                                        <span><a href="tel:123456789" class="text-primary">{{ $setting['site_phone'] }}</a></span>
+                                        <span><a href="tel:{{ $setting['site_phone'] }}"
+                                                class="text-primary">{{ $setting['site_phone'] }}</a></span>
                                     </p>
                                 </div>
                             </div>
@@ -94,9 +95,12 @@
                         </div>
                         <!-- End Single Widget -->
                         <ul>
-                            <li><a href="{{ $setting['facebook_link'] }}" target="_blank"><i class="ti-facebook"></i></a></li>
-                            <li><a href="{{ $setting['youtube_link'] }}" target="_blank"><i class="ti-youtube"></i></a></li>
-                            <li><a href="{{ $setting['instagram_link'] }}" target="_blank"><i class="ti-instagram"></i></a></li>
+                            <li><a href="{{ $setting['facebook_link'] }}" target="_blank"><i
+                                        class="ti-facebook"></i></a></li>
+                            <li><a href="{{ $setting['youtube_link'] }}" target="_blank"><i class="ti-youtube"></i></a>
+                            </li>
+                            <li><a href="{{ $setting['instagram_link'] }}" target="_blank"><i
+                                        class="ti-instagram"></i></a></li>
                         </ul>
                     </div>
                     <!-- End Single Widget -->
@@ -112,7 +116,8 @@
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <div class="left">
-                            <p>Copyright © {{ date('Y') }} <a href="" target="_blank">Suvlav</a> - All Rights Reserved.</p>
+                            <p>Copyright © {{ date('Y') }} <a href="" target="_blank">Suvlav</a> - All
+                                Rights Reserved.</p>
                         </div>
                     </div>
                 </div>
