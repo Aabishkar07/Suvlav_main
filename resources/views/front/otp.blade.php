@@ -80,10 +80,10 @@
 				background-color: #f8f9fa;
 			}
 		
-			.checkout-section {
+			/* .checkout-section {
 				padding: 40px 0;
 				margin: 220px;
-			}
+			} */
 		
 			.form-wrapper {
 				background: #ffffff;
@@ -178,7 +178,7 @@
 			}
 		</style>
 		
-		<section class="checkout-section">
+		<section class="py-14">
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-lg-6 col-md-8">

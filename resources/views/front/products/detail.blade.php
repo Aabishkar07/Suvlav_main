@@ -105,19 +105,19 @@
 
     <!-- Breadcrumbs -->
     <!-- <div class="breadcrumbs">
-                                                                                                                                                                          <div class="container">
-                                                                                                                                                                           <div class="row">
-                                                                                                                                                                            <div class="col-12">
-                                                                                                                                                                             <div class="bread-inner">
-                                                                                                                                                                              <ul class="bread-list">
-                                                                                                                                                                               <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-                                                                                                                                                                               <li class="active"><a href="blog-single.html">Products</a></li>
-                                                                                                                                                                              </ul>
-                                                                                                                                                                             </div>
-                                                                                                                                                                            </div>
-                                                                                                                                                                           </div>
-                                                                                                                                                                          </div>
-                                                                                                                                                                         </div> -->
+                                                                                                                                                                              <div class="container">
+                                                                                                                                                                               <div class="row">
+                                                                                                                                                                                <div class="col-12">
+                                                                                                                                                                                 <div class="bread-inner">
+                                                                                                                                                                                  <ul class="bread-list">
+                                                                                                                                                                                   <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                                                                                                                                                                                   <li class="active"><a href="blog-single.html">Products</a></li>
+                                                                                                                                                                                  </ul>
+                                                                                                                                                                                 </div>
+                                                                                                                                                                                </div>
+                                                                                                                                                                               </div>
+                                                                                                                                                                              </div>
+                                                                                                                                                                             </div> -->
     <!-- End Breadcrumbs -->
 
     {{-- @if ($message = Session::get('success'))
@@ -158,7 +158,7 @@
                                 <!-- Description -->
                                 <div class="short">
                                     <h4>{{ $product->title }}</h4>
-                                    <div class="rating-main">
+                                    {{-- <div class="rating-main">
                                         <ul class="rating">
                                             <li><i class="fa fa-star"></i></li>
                                             <li><i class="fa fa-star"></i></li>
@@ -167,7 +167,7 @@
                                             <li class="dark"><i class="fa fa-star-o"></i></li>
                                         </ul>
                                         <a href="#" class="total-review">(102) Review</a>
-                                    </div>
+                                    </div> --}}
                                     <p class="price">
                                         @php
                                             if ($product->sale_price != '') {
@@ -249,7 +249,7 @@
                                         <!-- Input Order -->
                                         <div class="input-group">
                                             <div class="button minus" onclick="decrementQuantity()">
-                                                <button type="button" class="btn btn-primary btn-number" data-type="minus"
+                                                <button type="button" class="py-2.5 px-2 btn-primary btn-number" data-type="minus"
                                                     data-field="quant[1]">
                                                     <i class="ti-minus"></i>
                                                 </button>
@@ -257,7 +257,7 @@
                                             <input type="number" id="quantity" name="quant[1]" class="input-number"
                                                 data-min="1" max="{{ $product->availablestock }}" value="1">
                                             <div onclick="incrementQuantity()" class="button plus">
-                                                <button type="button" class="btn btn-primary btn-number" data-type="plus"
+                                                <button type="button" class="py-2.5 px-2 btn-primary btn-number" data-type="plus"
                                                     data-field="quant[1]">
                                                     <i class="ti-plus"></i>
                                                 </button>
@@ -265,309 +265,324 @@
                                         </div>
                                         <!--/ End Input Order -->
                                     </div>
-                                    {{-- @dd($product->stock_status) --}}
-                                    <div class="mt-3 add-to-cart">
+                                </div>
+                                {{-- @dd($product->stock_status) --}}
+                                <div class="mt-3 add-to-cart">
+                                    <div class="flex gap-x-2">
+
+                                    <div class="">
+
                                         @if ($product->stock_status !== '0')
-                                            <input type="hidden" id="cart_color" value="{{ $productDefaultColor }}">
-                                            <input type="hidden" id="cart_size" value="{{ $productDefaultSize }}">
-                                            <input type="hidden" name="cart_url" value="{{ route('cart.addtocart') }}">
-
-                                            {{-- add to cart --}}
-                                            <button type="button" class="btn addtocart" id="addToCartButton"
-                                                data-product-id="{{ $product->id }}"
-                                                data-csrf-token="{{ csrf_token() }}"
-                                                data-url="{{ route('cart.addtocart') }}">
-                                                Add to Cart
-                                            </button>
-
-                                            {{-- addtocart script --}}
-                                            <script>
-                                                document.getElementById('addToCartButton').addEventListener('click', function() {
-                                                    let quantity = 1;
-                                                    let cartColor = '';
-                                                    let cartSize = '';
-                                                    let isCartProcessing = false; // Initialize the variable
-
-                                                    const elementQuantity = document.getElementById('quantity');
-                                                    if (elementQuantity) {
-                                                        quantity = parseInt(elementQuantity.value, 10); // Ensure quantity is an integer
-                                                    }
-
-                                                    const elementSize = document.getElementById('cart_size');
-                                                    if (elementSize) {
-                                                        cartSize = elementSize.value;
-                                                    }
-
-                                                    const elementColor = document.getElementById('cart_color');
-                                                    if (elementColor) {
-                                                        cartColor = elementColor.value;
-                                                    }
-
-                                                    // Check if quantity is valid
-                                                    if (quantity <= 0) {
-                                                        toastr.error(
-                                                            "Your quantity is " + quantity + ". Please increase the Quantity.",
-                                                            "Error"
-                                                        );
-                                                        return; // Exit the function if quantity is invalid
-                                                    }
-
-                                                    const productId = this.getAttribute('data-product-id');
-                                                    const csrfToken = this.getAttribute('data-csrf-token');
-                                                    const url = this.getAttribute('data-url');
-
-                                                    const payload = JSON.stringify({
-                                                        product_id: productId,
-                                                        quantity: quantity,
-                                                        cartSize: cartSize,
-                                                        cartColor: cartColor,
-                                                        type: 'single'
-                                                    });
-
-                                                    const xhr = new XMLHttpRequest();
-                                                    xhr.open('POST', url, true); // Use asynchronous requests for better performance
-                                                    xhr.setRequestHeader('Content-Type', 'application/json');
-                                                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
-
-                                                    xhr.onreadystatechange = function() {
-                                                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                                                            const response = JSON.parse(xhr.responseText);
-                                                            console.log("test", response)
-                                                            if (response.status === "success") {
-                                                                toastr.success(response.msg, "Success");
-                                                                document.getElementById("js_cartInfo").innerHTML = response.content;
-                                                                isCartProcessing = false;
-                                                            } else {
-                                                                toastr.error(response.message, "Error");
-                                                            }
+                                            <div class="flex gap-x-2">
+    
+                                                <input type="hidden" id="cart_color" value="{{ $productDefaultColor }}">
+                                                <input type="hidden" id="cart_size" value="{{ $productDefaultSize }}">
+                                                <input type="hidden" name="cart_url" value="{{ route('cart.addtocart') }}">
+    
+                                                {{-- add to cart --}}
+                                                <button type="button"
+                                                    class="px-3 md:px-4 rounded-full py-2.5 max-sm:text-sm max-sm:py-1 max-sm:px-0 hover:bg-blue-500 text-white bg-blue-600"
+                                                    id="addToCartButton" data-product-id="{{ $product->id }}"
+                                                    data-csrf-token="{{ csrf_token() }}"
+                                                    data-url="{{ route('cart.addtocart') }}">
+                                                    Add to Cart
+                                                </button>
+    
+                                                {{-- addtocart script --}}
+                                                <script>
+                                                    document.getElementById('addToCartButton').addEventListener('click', function() {
+                                                        let quantity = 1;
+                                                        let cartColor = '';
+                                                        let cartSize = '';
+                                                        let isCartProcessing = false; // Initialize the variable
+    
+                                                        const elementQuantity = document.getElementById('quantity');
+                                                        if (elementQuantity) {
+                                                            quantity = parseInt(elementQuantity.value, 10); // Ensure quantity is an integer
                                                         }
-                                                    };
-
-                                                    xhr.send(payload);
-                                                });
-                                            </script>
-
-                                            {{-- Buy Now --}}
-                                            <button type="button" class="btn buynow" id="buyNowButton"
-                                                data-product-id="{{ $product->id }}"
-                                                data-csrf-token="{{ csrf_token() }}"
-                                                data-url="{{ route('cart.addtocart') }}">
-                                                Buy Now
-                                            </button>
-
-                                            {{-- buynow script --}}
-                                            <script>
-                                                document.getElementById('buyNowButton').addEventListener('click', function() {
-                                                    let quantity = 1;
-                                                    let cartColor = '';
-                                                    let cartSize = '';
-                                                    let isCartProcessing = false; // Initialize the variable
-
-                                                    const elementQuantity = document.getElementById('quantity');
-                                                    if (elementQuantity) {
-                                                        quantity = parseInt(elementQuantity.value, 10); // Ensure quantity is an integer
-                                                    }
-
-                                                    const elementSize = document.getElementById('cart_size');
-                                                    if (elementSize) {
-                                                        cartSize = elementSize.value;
-                                                    }
-
-                                                    const elementColor = document.getElementById('cart_color');
-                                                    if (elementColor) {
-                                                        cartColor = elementColor.value;
-                                                    }
-
-                                                    // Check if quantity is valid
-                                                    if (quantity <= 0) {
-                                                        toastr.error(
-                                                            "Your quantity is " + quantity + ". Please increase the Quantity.",
-                                                            "Error"
-                                                        );
-                                                        return; // Exit the function if quantity is invalid
-                                                    }
-
-                                                    const productId = this.getAttribute('data-product-id');
-                                                    const csrfToken = this.getAttribute('data-csrf-token');
-                                                    const url = this.getAttribute('data-url');
-
-                                                    const payload = JSON.stringify({
-                                                        product_id: productId,
-                                                        quantity: quantity,
-                                                        cartSize: cartSize,
-                                                        cartColor: cartColor,
-                                                        type: 'single'
-                                                    });
-
-                                                    const xhr = new XMLHttpRequest();
-                                                    xhr.open('POST', url, true); // Use asynchronous requests for better performance
-                                                    xhr.setRequestHeader('Content-Type', 'application/json');
-                                                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
-
-                                                    xhr.onreadystatechange = function() {
-                                                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                                                            const response = JSON.parse(xhr.responseText);
-                                                            console.log("test", response)
-                                                            if (response.status === "success") {
-                                                                toastr.success(response.msg, "Success");
-                                                                document.getElementById("js_cartInfo").innerHTML = response.content;
-                                                                window.location.href = "https://suvlav.com/checkout";
-                                                                isCartProcessing = false;
-                                                            } else {
-                                                                toastr.error(response.message, "Error");
-                                                            }
+    
+                                                        const elementSize = document.getElementById('cart_size');
+                                                        if (elementSize) {
+                                                            cartSize = elementSize.value;
                                                         }
-                                                    };
-
-                                                    xhr.send(payload);
-                                                });
-                                            </script>
-
-
-
-
-                                            <style>
-                                                .addtocart {
-                                                    background-color: #316FF6 !important;
-                                                    border: 1px solid #316FF6;
-                                                    color: white !important;
-                                                    border-radius: 40px !important;
-                                                }
-
-                                                .addtocart:hover {
-                                                    background-color: #ffffff !important;
-                                                    color: #316FF6 !important;
-
-                                                }
-                                            </style>
-
-                                            {{-- <button type="button" class="btn buynow"
+    
+                                                        const elementColor = document.getElementById('cart_color');
+                                                        if (elementColor) {
+                                                            cartColor = elementColor.value;
+                                                        }
+    
+                                                        // Check if quantity is valid
+                                                        if (quantity <= 0) {
+                                                            toastr.error(
+                                                                "Your quantity is " + quantity + ". Please increase the Quantity.",
+                                                                "Error"
+                                                            );
+                                                            return; // Exit the function if quantity is invalid
+                                                        }
+    
+                                                        const productId = this.getAttribute('data-product-id');
+                                                        const csrfToken = this.getAttribute('data-csrf-token');
+                                                        const url = this.getAttribute('data-url');
+    
+                                                        const payload = JSON.stringify({
+                                                            product_id: productId,
+                                                            quantity: quantity,
+                                                            cartSize: cartSize,
+                                                            cartColor: cartColor,
+                                                            type: 'single'
+                                                        });
+    
+                                                        const xhr = new XMLHttpRequest();
+                                                        xhr.open('POST', url, true); // Use asynchronous requests for better performance
+                                                        xhr.setRequestHeader('Content-Type', 'application/json');
+                                                        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+    
+                                                        xhr.onreadystatechange = function() {
+                                                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                                                const response = JSON.parse(xhr.responseText);
+                                                                console.log("test", response)
+                                                                if (response.status === "success") {
+                                                                    toastr.success(response.msg, "Success");
+                                                                    document.getElementById("js_cartInfo").innerHTML = response.content;
+                                                                    isCartProcessing = false;
+                                                                } else {
+                                                                    toastr.error(response.message, "Error");
+                                                                }
+                                                            }
+                                                        };
+    
+                                                        xhr.send(payload);
+                                                    });
+                                                </script>
+    
+                                                {{-- Buy Now --}}
+                                                <button type="button"
+                                                    class="px-3 md:px-4 rounded-full py-2.5 max-sm:text-sm max-sm:py-1 max-sm:px-0 hover:bg-blue-500 text-white bg-blue-600"
+                                                    id="buyNowButton" data-product-id="{{ $product->id }}"
+                                                    data-csrf-token="{{ csrf_token() }}"
+                                                    data-url="{{ route('cart.addtocart') }}">
+                                                    Buy Now
+                                                </button>
+    
+                                                {{-- buynow script --}}
+                                                <script>
+                                                    document.getElementById('buyNowButton').addEventListener('click', function() {
+                                                        let quantity = 1;
+                                                        let cartColor = '';
+                                                        let cartSize = '';
+                                                        let isCartProcessing = false; // Initialize the variable
+    
+                                                        const elementQuantity = document.getElementById('quantity');
+                                                        if (elementQuantity) {
+                                                            quantity = parseInt(elementQuantity.value, 10); // Ensure quantity is an integer
+                                                        }
+    
+                                                        const elementSize = document.getElementById('cart_size');
+                                                        if (elementSize) {
+                                                            cartSize = elementSize.value;
+                                                        }
+    
+                                                        const elementColor = document.getElementById('cart_color');
+                                                        if (elementColor) {
+                                                            cartColor = elementColor.value;
+                                                        }
+    
+                                                        // Check if quantity is valid
+                                                        if (quantity <= 0) {
+                                                            toastr.error(
+                                                                "Your quantity is " + quantity + ". Please increase the Quantity.",
+                                                                "Error"
+                                                            );
+                                                            return; // Exit the function if quantity is invalid
+                                                        }
+    
+                                                        const productId = this.getAttribute('data-product-id');
+                                                        const csrfToken = this.getAttribute('data-csrf-token');
+                                                        const url = this.getAttribute('data-url');
+    
+                                                        const payload = JSON.stringify({
+                                                            product_id: productId,
+                                                            quantity: quantity,
+                                                            cartSize: cartSize,
+                                                            cartColor: cartColor,
+                                                            type: 'single'
+                                                        });
+    
+                                                        const xhr = new XMLHttpRequest();
+                                                        xhr.open('POST', url, true); // Use asynchronous requests for better performance
+                                                        xhr.setRequestHeader('Content-Type', 'application/json');
+                                                        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+    
+                                                        xhr.onreadystatechange = function() {
+                                                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                                                const response = JSON.parse(xhr.responseText);
+                                                                console.log("test", response)
+                                                                if (response.status === "success") {
+                                                                    toastr.success(response.msg, "Success");
+                                                                    document.getElementById("js_cartInfo").innerHTML = response.content;
+                                                                    window.location.href = "https://suvlav.com/checkout";
+                                                                    isCartProcessing = false;
+                                                                } else {
+                                                                    toastr.error(response.message, "Error");
+                                                                }
+                                                            }
+                                                        };
+    
+                                                        xhr.send(payload);
+                                                    });
+                                                </script>
+    
+    
+    
+    
+                                                <style>
+                                                    .addtocart {
+                                                        background-color: #316FF6 !important;
+                                                        border: 1px solid #316FF6;
+                                                        color: white !important;
+                                                        border-radius: 40px !important;
+                                                    }
+    
+                                                    .addtocart:hover {
+                                                        background-color: #ffffff !important;
+                                                        color: #316FF6 !important;
+    
+                                                    }
+                                                </style>
+    
+                                                {{-- <button type="button" class="btn buynow"
                                                 onclick="mybuynow(this, {{ $product->id }}, '{{ csrf_token() }}', '{{ route('cart.addtocart') }}', 'buy');">
                                                 Buy Now</button> --}}
-
-                                            <style>
-                                                .buynow {
-                                                    background-color: #ffffff !important;
-                                                    border: 1px solid #316FF6;
-                                                    color: #316FF6 !important;
-                                                    border-radius: 40px !important;
-                                                }
-                                            </style>
-                                        @endif
-
-                                        {{-- <a href="#" class="btn min"><i class="ti-heart"></i></a> --}}
-                                        {{-- <a href="#" class="btn min"><i class="fa fa-compress"></i></a> --}}
-
-                                        <!-- Button to Trigger Modal -->
-                                        <!--<button id="openModal" class="custom-btn btn min">Share </button>-->
-
-
-                                        <button id="openModal" type="button" class="btn custom-btn btn-secondary share"
-                                            @if (!$member) data-toggle="tooltip" @endif
-                                            data-placement="top" title="Please Login To Share">
-                                            Share
-                                        </button>
-
-
-                                        <style>
-                                            .share {
-                                                background-color: #316FF6 !important;
-                                                border: 1px solid #316FF6;
-                                                color: white !important;
-                                                border-radius: 40px !important;
-                                            }
-                                        </style>
-
-                                        <script>
-                                            $(function() {
-                                                $('[data-toggle="tooltip"]').tooltip()
-                                            })
-                                        </script>
-
-                                        {{-- (@if (!$member)
-                                            Please Login to share ..
-                                        @endif) --}}
-                                        <!-- Modal -->
-                                        @if ($member)
-                                            <div id="customModal" class="custom-modal">
-                                                <div class="custom-modal-content">
-                                                    <div class="custom-modal-header">
-                                                        <h5 class="custom-modal-title">{{ $product->title }}</h5>
-                                                        <button class="close-btn" id="closeModal">&times;</button>
-                                                    </div>
-                                                    <div class="custom-modal-body">
-                                                        <p>Copy the current page URL below:</p>
-                                                        <div style="">
-                                                            <input type="text" style="width:100%" id="urlField"
-                                                                class="custom-input"
-                                                                value="{{ url()->current() . '?suvcode=' . $member->affilate_code }}"
-                                                                readonly>
-                                                            <button id="copyButton" class="mt-2 custom-btn">Copy</button>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="custom-modal-footer">
-                                                        <button class="custom-btn secondary-btn "
-                                                            id="closeFooterModal">Close</button>
-                                                        {{-- <button class="custom-btn primary-btn">Save changes</button> --}}
-                                                    </div>
-                                                </div>
+    
+                                                <style>
+                                                    .buynow {
+                                                        background-color: #ffffff !important;
+                                                        border: 1px solid #316FF6;
+                                                        color: #316FF6 !important;
+                                                        border-radius: 40px !important;
+                                                    }
+                                                </style>
                                             </div>
                                         @endif
-
-
-
-                                        <!-- Custom Script -->
-                                        <script>
-                                            // Get elements
-                                            const openModalBtn = document.getElementById('openModal');
-                                            const closeModalBtn = document.getElementById('closeModal');
-                                            const closeFooterModalBtn = document.getElementById('closeFooterModal');
-                                            const customModal = document.getElementById('customModal');
-
-                                            // Open modal
-                                            openModalBtn.addEventListener('click', () => {
-                                                customModal.style.display = 'flex';
-                                            });
-
-                                            // Close modal
-                                            closeModalBtn.addEventListener('click', () => {
-                                                customModal.style.display = 'none';
-                                            });
-
-                                            closeFooterModalBtn.addEventListener('click', () => {
-                                                customModal.style.display = 'none';
-                                            });
-
-                                            // Close modal when clicking outside of it
-                                            window.addEventListener('click', (e) => {
-                                                if (e.target === customModal) {
-                                                    customModal.style.display = 'none';
-                                                }
-                                            });
-
-                                            // Copy URL to clipboard
-                                            copyButton.addEventListener('click', () => {
-                                                urlField.select();
-                                                urlField.setSelectionRange(0, 99999); // For mobile devices
-                                                navigator.clipboard.writeText(urlField.value).then(() => {
-                                                    alert('URL copied to clipboard!');
-                                                });
-                                            });
-                                        </script>
-
-
-
                                     </div>
-                                    @if (count($prod_categories) > 0)
-                                        <p class="cat">Category :
-                                            @foreach ($prod_categories as $cat)
-                                                <a href="/category/{{ $cat->slug }}">{{ $cat->title }}</a>
-                                            @endforeach
-                                        </p>
+
+                                    {{-- <a href="#" class="btn min"><i class="ti-heart"></i></a> --}}
+                                    {{-- <a href="#" class="btn min"><i class="fa fa-compress"></i></a> --}}
+
+                                    <!-- Button to Trigger Modal -->
+                                    <!--<button id="openModal" class="custom-btn btn min">Share </button>-->
+
+
+                                    <button id="openModal" type="button"
+                                        class=" px-3 md:px-4 rounded-full py-2.5 max-sm:text-sm max-sm:py-1 max-sm:px-0 hover:bg-blue-500 text-white bg-blue-600"
+                                        @if (!$member) data-toggle="tooltip" @endif data-placement="top"
+                                        title="Please Login To Share">
+                                        Share
+                                    </button>
+
+
+                                    <style>
+                                        .share {
+                                            background-color: #316FF6 !important;
+                                            border: 1px solid #316FF6;
+                                            color: white !important;
+                                            border-radius: 40px !important;
+                                        }
+                                    </style>
+
+                                    <script>
+                                        $(function() {
+                                            $('[data-toggle="tooltip"]').tooltip()
+                                        })
+                                    </script>
+                                    </div>
+
+                                    {{-- (@if (!$member)
+                                        Please Login to share ..
+                                    @endif) --}}
+                                    <!-- Modal -->
+                                    @if ($member)
+                                        <div id="customModal" class="custom-modal">
+                                            <div class="custom-modal-content">
+                                                <div class="custom-modal-header">
+                                                    <h5 class="custom-modal-title">{{ $product->title }}</h5>
+                                                    <button class="close-btn" id="closeModal">&times;</button>
+                                                </div>
+                                                <div class="custom-modal-body">
+                                                    <p>Copy the current page URL below:</p>
+                                                    <div style="">
+                                                        <input type="text" style="width:100%" id="urlField"
+                                                            class="custom-input"
+                                                            value="{{ url()->current() . '?suvcode=' . $member->affilate_code }}"
+                                                            readonly>
+                                                        <button id="copyButton" class="mt-2 custom-btn">Copy</button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="custom-modal-footer">
+                                                    <button class="custom-btn secondary-btn "
+                                                        id="closeFooterModal">Close</button>
+                                                    {{-- <button class="custom-btn primary-btn">Save changes</button> --}}
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endif
-                                    <p class="availability">Availability : {!! $product->stock_status === '1' ? 'In Stock' : 'Out of Stock' !!}</p>
+
+
+
+                                    <!-- Custom Script -->
+                                    <script>
+                                        // Get elements
+                                        const openModalBtn = document.getElementById('openModal');
+                                        const closeModalBtn = document.getElementById('closeModal');
+                                        const closeFooterModalBtn = document.getElementById('closeFooterModal');
+                                        const customModal = document.getElementById('customModal');
+
+                                        // Open modal
+                                        openModalBtn.addEventListener('click', () => {
+                                            customModal.style.display = 'flex';
+                                        });
+
+                                        // Close modal
+                                        closeModalBtn.addEventListener('click', () => {
+                                            customModal.style.display = 'none';
+                                        });
+
+                                        closeFooterModalBtn.addEventListener('click', () => {
+                                            customModal.style.display = 'none';
+                                        });
+
+                                        // Close modal when clicking outside of it
+                                        window.addEventListener('click', (e) => {
+                                            if (e.target === customModal) {
+                                                customModal.style.display = 'none';
+                                            }
+                                        });
+
+                                        // Copy URL to clipboard
+                                        copyButton.addEventListener('click', () => {
+                                            urlField.select();
+                                            urlField.setSelectionRange(0, 99999); // For mobile devices
+                                            navigator.clipboard.writeText(urlField.value).then(() => {
+                                                alert('URL copied to clipboard!');
+                                            });
+                                        });
+                                    </script>
+
+
+
                                 </div>
+                                @if (count($prod_categories) > 0)
+                                    <p class="cat">Category :
+                                        @foreach ($prod_categories as $cat)
+                                            <a href="/category/{{ $cat->slug }}">{{ $cat->title }}</a>
+                                        @endforeach
+                                    </p>
+                                @endif
+                                <p class="availability">Availability : {!! $product->stock_status === '1' ? 'In Stock' : 'Out of Stock' !!}</p>
+
+
+
                                 <!--/ End Product Buy -->
                             </div>
                         </div>
@@ -579,7 +594,7 @@
                                     <h4>Description </h4>
                                     <!-- Tab Nav -->
                                     <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                                                                                                                                                                  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a></li> -->
+                                                                                                                                                                                      <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a></li> -->
                                     <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews</a></li> -->
                                     <!-- </ul> -->
                                     <!--/ End Tab Nav -->
@@ -598,108 +613,108 @@
                                     <!--/ End Description Tab -->
                                     <!-- Reviews Tab -->
                                     <!-- <div class="tab-pane fade" id="reviews" role="tabpanel">
-                                                                                                                                                                                  <div class="tab-single review-panel">
-                                                                                                                                                                                   <div class="row">
-                                                                                                                                                                                    <div class="col-12">
-                                                                                                                                                                                     <div class="ratting-main">
-                                                                                                                                                                                      <div class="avg-ratting">
-                                                                                                                                                                                       <h4>4.5 <span>(Overall)</span></h4>
-                                                                                                                                                                                       <span>Based on 1 Comments</span>
-                                                                                                                                                                                      </div>
-                                                                                                                                                                                     
-                                                                                                                                                                                      <div class="single-rating">
-                                                                                                                                                                                       <div class="rating-author">
-                                                                                                                                                                                        <img src="{{ asset('front_assets/images/comments1.jpg') }}" alt="#">
-                                                                                                                                                                                       </div>
-                                                                                                                                                                                       <div class="rating-des">
-                                                                                                                                                                                        <h6>Naimur Rahman</h6>
-                                                                                                                                                                                        <div class="ratings">
-                                                                                                                                                                                         <ul class="rating">
-                                                                                                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                          <li><i class="fa fa-star-half-o"></i></li>
-                                                                                                                                                                                          <li><i class="fa fa-star-o"></i></li>
-                                                                                                                                                                                         </ul>
-                                                                                                                                                                                         <div class="rate-count">(<span>3.5</span>)</div>
+                                                                                                                                                                                      <div class="tab-single review-panel">
+                                                                                                                                                                                       <div class="row">
+                                                                                                                                                                                        <div class="col-12">
+                                                                                                                                                                                         <div class="ratting-main">
+                                                                                                                                                                                          <div class="avg-ratting">
+                                                                                                                                                                                           <h4>4.5 <span>(Overall)</span></h4>
+                                                                                                                                                                                           <span>Based on 1 Comments</span>
+                                                                                                                                                                                          </div>
+                                                                                                                                                                                         
+                                                                                                                                                                                          <div class="single-rating">
+                                                                                                                                                                                           <div class="rating-author">
+                                                                                                                                                                                            <img src="{{ asset('front_assets/images/comments1.jpg') }}" alt="#">
+                                                                                                                                                                                           </div>
+                                                                                                                                                                                           <div class="rating-des">
+                                                                                                                                                                                            <h6>Naimur Rahman</h6>
+                                                                                                                                                                                            <div class="ratings">
+                                                                                                                                                                                             <ul class="rating">
+                                                                                                                                                                                              <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                              <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                              <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                              <li><i class="fa fa-star-half-o"></i></li>
+                                                                                                                                                                                              <li><i class="fa fa-star-o"></i></li>
+                                                                                                                                                                                             </ul>
+                                                                                                                                                                                             <div class="rate-count">(<span>3.5</span>)</div>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                            <p>Duis tincidunt mauris ac aliquet congue. Donec vestibulum consequat cursus. Aliquam pellentesque nulla dolor, in imperdiet.</p>
+                                                                                                                                                                                           </div>
+                                                                                                                                                                                          </div>
+                                                                                                                                                                                        
+                                                                                                                                                                                          <div class="single-rating">
+                                                                                                                                                                                           <div class="rating-author">
+                                                                                                                                                                                            <img src="{{ asset('front_assets/images/comments1.jpg') }}" alt="#">
+                                                                                                                                                                                           </div>
+                                                                                                                                                                                           <div class="rating-des">
+                                                                                                                                                                                            <h6>Advin Geri</h6>
+                                                                                                                                                                                            <div class="ratings">
+                                                                                                                                                                                             <ul class="rating">
+                                                                                                                                                                                              <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                              <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                              <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                              <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                              <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                             </ul>
+                                                                                                                                                                                             <div class="rate-count">(<span>5.0</span>)</div>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                            <p>Duis tincidunt mauris ac aliquet congue. Donec vestibulum consequat cursus. Aliquam pellentesque nulla dolor, in imperdiet.</p>
+                                                                                                                                                                                           </div>
+                                                                                                                                                                                          </div>
+                                                                                                                                                                                          
+                                                                                                                                                                                         </div>
+                                                                                                                                                                                        
+                                                                                                                                                                                         <div class="comment-review">
+                                                                                                                                                                                          <div class="add-review">
+                                                                                                                                                                                           <h5>Add A Review</h5>
+                                                                                                                                                                                           <p>Your email address will not be published. Required fields are marked</p>
+                                                                                                                                                                                          </div>
+                                                                                                                                                                                          <h4>Your Rating</h4>
+                                                                                                                                                                                          <div class="review-inner">
+                                                                                                                                                                                           <div class="ratings">
+                                                                                                                                                                                            <ul class="rating">
+                                                                                                                                                                                             <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                             <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                             <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                             <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                             <li><i class="fa fa-star"></i></li>
+                                                                                                                                                                                            </ul>
+                                                                                                                                                                                           </div>
+                                                                                                                                                                                          </div>
+                                                                                                                                                                                         </div>
+                                                                                                                                                                                        
+                                                                                                                                                                                         <form class="form" method="post" action="mail/mail.php">
+                                                                                                                                                                                          <div class="row">
+                                                                                                                                                                                           <div class="col-lg-6 col-12">
+                                                                                                                                                                                            <div class="form-group">
+                                                                                                                                                                                             <label>Your Name<span>*</span></label>
+                                                                                                                                                                                             <input type="text" name="name" required="required" placeholder="">
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                           </div>
+                                                                                                                                                                                           <div class="col-lg-6 col-12">
+                                                                                                                                                                                            <div class="form-group">
+                                                                                                                                                                                             <label>Your Email<span>*</span></label>
+                                                                                                                                                                                             <input type="email" name="email" required="required" placeholder="">
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                           </div>
+                                                                                                                                                                                           <div class="col-lg-12 col-12">
+                                                                                                                                                                                            <div class="form-group">
+                                                                                                                                                                                             <label>Write a review<span>*</span></label>
+                                                                                                                                                                                             <textarea name="message" rows="6" placeholder=""></textarea>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                           </div>
+                                                                                                                                                                                           <div class="col-lg-12 col-12">
+                                                                                                                                                                                            <div class="form-group button5">
+                                                                                                                                                                                             <button type="submit" class="btn">Submit</button>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                           </div>
+                                                                                                                                                                                          </div>
+                                                                                                                                                                                         </form>
+                                                                                                                                                                                         
                                                                                                                                                                                         </div>
-                                                                                                                                                                                        <p>Duis tincidunt mauris ac aliquet congue. Donec vestibulum consequat cursus. Aliquam pellentesque nulla dolor, in imperdiet.</p>
                                                                                                                                                                                        </div>
                                                                                                                                                                                       </div>
-                                                                                                                                                                                    
-                                                                                                                                                                                      <div class="single-rating">
-                                                                                                                                                                                       <div class="rating-author">
-                                                                                                                                                                                        <img src="{{ asset('front_assets/images/comments1.jpg') }}" alt="#">
-                                                                                                                                                                                       </div>
-                                                                                                                                                                                       <div class="rating-des">
-                                                                                                                                                                                        <h6>Advin Geri</h6>
-                                                                                                                                                                                        <div class="ratings">
-                                                                                                                                                                                         <ul class="rating">
-                                                                                                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                          <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                         </ul>
-                                                                                                                                                                                         <div class="rate-count">(<span>5.0</span>)</div>
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                        <p>Duis tincidunt mauris ac aliquet congue. Donec vestibulum consequat cursus. Aliquam pellentesque nulla dolor, in imperdiet.</p>
-                                                                                                                                                                                       </div>
-                                                                                                                                                                                      </div>
-                                                                                                                                                                                      
-                                                                                                                                                                                     </div>
-                                                                                                                                                                                    
-                                                                                                                                                                                     <div class="comment-review">
-                                                                                                                                                                                      <div class="add-review">
-                                                                                                                                                                                       <h5>Add A Review</h5>
-                                                                                                                                                                                       <p>Your email address will not be published. Required fields are marked</p>
-                                                                                                                                                                                      </div>
-                                                                                                                                                                                      <h4>Your Rating</h4>
-                                                                                                                                                                                      <div class="review-inner">
-                                                                                                                                                                                       <div class="ratings">
-                                                                                                                                                                                        <ul class="rating">
-                                                                                                                                                                                         <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                         <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                         <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                         <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                         <li><i class="fa fa-star"></i></li>
-                                                                                                                                                                                        </ul>
-                                                                                                                                                                                       </div>
-                                                                                                                                                                                      </div>
-                                                                                                                                                                                     </div>
-                                                                                                                                                                                    
-                                                                                                                                                                                     <form class="form" method="post" action="mail/mail.php">
-                                                                                                                                                                                      <div class="row">
-                                                                                                                                                                                       <div class="col-lg-6 col-12">
-                                                                                                                                                                                        <div class="form-group">
-                                                                                                                                                                                         <label>Your Name<span>*</span></label>
-                                                                                                                                                                                         <input type="text" name="name" required="required" placeholder="">
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                       </div>
-                                                                                                                                                                                       <div class="col-lg-6 col-12">
-                                                                                                                                                                                        <div class="form-group">
-                                                                                                                                                                                         <label>Your Email<span>*</span></label>
-                                                                                                                                                                                         <input type="email" name="email" required="required" placeholder="">
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                       </div>
-                                                                                                                                                                                       <div class="col-lg-12 col-12">
-                                                                                                                                                                                        <div class="form-group">
-                                                                                                                                                                                         <label>Write a review<span>*</span></label>
-                                                                                                                                                                                         <textarea name="message" rows="6" placeholder=""></textarea>
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                       </div>
-                                                                                                                                                                                       <div class="col-lg-12 col-12">
-                                                                                                                                                                                        <div class="form-group button5">
-                                                                                                                                                                                         <button type="submit" class="btn">Submit</button>
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                       </div>
-                                                                                                                                                                                      </div>
-                                                                                                                                                                                     </form>
-                                                                                                                                                                                     
-                                                                                                                                                                                    </div>
-                                                                                                                                                                                   </div>
-                                                                                                                                                                                  </div>
-                                                                                                                                                                                 </div> -->
+                                                                                                                                                                                     </div> -->
                                     <!--/ End Reviews Tab -->
                                 </div>
                             </div>
