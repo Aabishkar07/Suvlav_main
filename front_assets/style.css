@@ -2461,7 +2461,9 @@ Version:1.0
 .shop.single .product-des .size ul li a {
 	display: block;
 	height: 30px;
-	width: 36px;
+	padding-right: 5px;
+	padding-left: 5px;
+	/* width: 36px; */
 	border: 1px solid #eee;
 	text-align: center;
 	line-height: 30px;

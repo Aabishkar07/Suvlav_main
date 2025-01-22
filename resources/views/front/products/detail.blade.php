@@ -234,9 +234,10 @@
                                                         $size_classes = ' class = "" ';
                                                     }
                                                 @endphp
-                                                <li class="js_size"><a {!! $size_classes !!} href="javascript:void(0)"
+                                                <li class="js_size cssize"><a {!! $size_classes !!} href="javascript:void(0)"
                                                         title="{{ $prod_size->display_name }}">{{ $prod_size->display_name }}</a>
                                                 </li>
+                                                
                                             @endforeach
                                         </ul>
                                     </div>
