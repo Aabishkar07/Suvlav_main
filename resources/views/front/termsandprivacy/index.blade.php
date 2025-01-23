@@ -2,7 +2,7 @@
 
 
 @section('content')
-<div class="mx-auto container px-10 bg-white my-5  ">
+<div class="mx-auto container px-10 bg-white my-12 mt-28  ">
         <h4 class="text-xl sm:fw-md font-bold mb-4">{{ $pages->title }}</h4>
 
         <p class="mb-4">
