@@ -236,6 +236,22 @@
         @endcan
 
 
+
+        {{-- @can('View ShopUsers') --}}
+        <li class="">
+            <a class="nav-link text-black   {{ request()->routeIs('contact') ? 'bg-black text-white w-full ' : '' }}"
+                href="{{ route('contact') }}">
+                <span class="menu-title">
+                    <i class="fa fa-user menu-icon  py-2 {{ request()->routeIs('contact') ? 'text-white' : 'text-black' }} "
+                        style="font-size: 18px"></i>
+                    <span class="ps-2">
+                        Contact Us
+                    </span>
+                </span>
+            </a>
+        </li>
+    {{-- @endcan --}}
+
         @can('View Settings')
             <li class="nav-item ">
                 <a class="nav-link" data-bs-toggle="collapse" href="#settings" aria-expanded="false"

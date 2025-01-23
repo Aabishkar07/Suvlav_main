@@ -98,7 +98,7 @@
 
         
         <!-- Order card start -->
-        <div class="col-md-7 grid-margin stretch-card ">
+        <div class="col-md-12 grid-margin stretch-card ">
             <div class="card">
                 <div class="card-body" >
                     <h4 class="text-white card-title" style="background-color: black">Recent Orders</h4>
@@ -151,7 +151,7 @@
         </div>
 
         <!-- Recent Posts start here  -->
-        <div class="col-md-5 grid-margin stretch-card">
+        {{-- <div class="col-md-5 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="text-white card-title" style="background-color: black">Recent Posts</h4>
@@ -180,7 +180,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 
