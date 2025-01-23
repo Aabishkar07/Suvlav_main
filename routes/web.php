@@ -20,6 +20,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ReportController;
@@ -129,6 +130,8 @@ require __DIR__ . '/auth.php';
 
 Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'admin']), function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
+    Route::delete('/contact/{contact:id}', [ContactController::class, 'delete'])->name('contactdelete');
 
     //Route::get('dashboard',[HomeController::class, 'index']);
     Route::resource('product', ProductController::class);

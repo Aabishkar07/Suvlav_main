@@ -9,6 +9,7 @@ use App\Mail\registerUser;
 use App\Mail\welcome;
 use App\Models\AffiliatePoint;
 use App\Models\Blog;
+use App\Models\Contact;
 use App\Models\Faq;
 use App\Models\Member;
 use App\Models\Order;
@@ -1466,6 +1467,19 @@ class FrontController extends Controller
     public function contactmail(Request $request)
     {
 
+     
+
+      
+        $user = Contact::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'phone_no' => $request->phone_no,
+            'message' => $request->message,
+        ]);
+
+
+
         $to = "bijay107@gmail.com";
         $fname = $request->name;
         $subject = $request->subject;
@@ -1478,9 +1492,9 @@ class FrontController extends Controller
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-        // More headers
+      
         $headers .= 'From: <' . $femail . '>' . "\r\n";
-        // $headers .= 'Cc: myboss@example.com' . "\r\n";
+      
 
         $ok = @mail($to, $subject, $msgf, $headers);
         if ($ok) {
