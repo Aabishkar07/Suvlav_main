@@ -1,57 +1,63 @@
 @extends('layouts.frontendapp')
 
 @section('content')
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-<section class="faq-section py-5">
-  <div class="container">
-    <div class="row justify-content-center mb-4">
-      <div class="col-lg-8 col-xl-7 text-center">
-        <h2 class="fw-bold">Frequently Asked Questions</h2>
-        <p class="text-muted">Find answers to commonly asked questions below.</p>
-      </div>
-    </div>
-
-  
-
-    <div class="row">
-      @foreach($pages as $faq)
-      <div class="col-md-6">
-        <div class="accordion mt-3" id="accordion{{ $faq['id'] }}">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="heading{{ $faq['id'] }}">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $faq['id'] }}" aria-expanded="false" aria-controls="collapse{{ $faq['id'] }}">
-                {{ $faq['title'] }}
-              </button>
-            </h2>
-            <div id="collapse{{ $faq['id'] }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $faq['id'] }}" data-bs-parent="#accordion{{ $faq['id'] }}">
-              <div class="accordion-body">
-                {!! $faq['description'] !!}
-              </div>
-            </div>
-          </div>
+<section class="faq-section py-10 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Get quick answers to our most common inquiries</p>
         </div>
-      </div>
-      @endforeach
+
+        <div class="max-w-3xl mx-auto space-y-4">
+            @foreach($pages as $faq)
+            <div class="accordion-item bg-white rounded-lg shadow-md overflow-hidden">
+                <button 
+                    class="accordion-header w-full flex justify-between items-center p-3 rounded-md  text-left text-lg font-semibold text-gray-800 hover:bg-gray-50 focus:outline-none transition duration-300"
+                    type="button" 
+                    data-collapse-toggle="collapse{{ $faq['id'] }}"
+                    aria-expanded="false"
+                >
+                    <span>{{ $faq['title'] }}</span>
+                    <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        class="h-6 w-6 text-gray-500 accordion-icon transition-transform duration-300"
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor"
+                    >
+                        <path 
+                            stroke-linecap="round" 
+                            stroke-linejoin="round" 
+                            stroke-width="2" 
+                            d="M9 5l7 7-7 7" 
+                        />
+                    </svg>
+                </button>
+                <div 
+                    id="collapse{{ $faq['id'] }}" 
+                    class="accordion-content hidden p-3 bg-gray-50 rounded-md text-gray-700 border-t border-gray-200"
+                >
+                    {!! $faq['description'] !!}
+                </div>
+            </div>
+            @endforeach
+        </div>
     </div>
-
-
-
-  </div>
 </section>
-@endsection
 
-<style>
-  .faq-section {
-    background-color: #f9f9f9;
-  }
-  .accordion-button:focus {
-    box-shadow: none;
-  }
-  .accordion-item {
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-  }
-</style>
+<script>
+    document.querySelectorAll('[data-collapse-toggle]').forEach(button => {
+        button.addEventListener('click', () => {
+            const content = document.getElementById(button.getAttribute('data-collapse-toggle'));
+            const icon = button.querySelector('.accordion-icon');
+            
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-90');
+            
+            button.setAttribute('aria-expanded', 
+                button.getAttribute('aria-expanded') === 'false' ? 'true' : 'false'
+            );
+        });
+    });
+</script>
+@endsection
