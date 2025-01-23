@@ -16,7 +16,7 @@
         $start = isset($request->page) && !empty($request->page) ? ($request->page - 1) * $post_per_page + 1 : 1;
 
     @endphp
-    <div class="px-5 col-lg-12 grid-margin stretch-card" id="printableArea">
+    <div class="px-5 col-lg-12 grid-margin stretch-card" >
         <div class="card">
             <div class="card-body">
 
@@ -83,6 +83,10 @@
                 </div>
 
                 <!-- Tab content -->
+              
+              <div id="printableArea" class="">
+
+         
                 <p> &nbsp; </p>
                 <h4 class="card-title">Order Detail </h4>
                 <div id="order_history" class="tabcontent">
@@ -94,7 +98,14 @@
                                     <th>Order ID : {{ $orders[0]->order_id }} </th>
                                     <th>Tracking ID : {{ $orders[0]->tracking_code }} </th>
                                     <th>Order Date : {{ $orders[0]->created_at }}</th>
-                                    <th>Order Status : {{ $orders[0]->status }}</th>
+                                    <th class="no-print">Order Status : {{ $orders[0]->status }}</th>
+                                    <style>
+                                        @media print {
+                                            .no-print {
+                                                display: none;
+                                            }
+                                        }
+                                    </style>
                                 </tr>
                             </table>
                             <br>
@@ -256,6 +267,7 @@
 
 
                 </div>
+            </div>
 
                 <div>
                     <p> &nbsp; </p>
