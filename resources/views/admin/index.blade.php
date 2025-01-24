@@ -107,7 +107,7 @@
                             <thead class="table-light">
                                 <tr>
                                     <th> OrderId </th>
-                                    <th> TrackingId </th>
+                                    {{-- <th> TrackingId </th> --}}
                                     <th> Customer Name </th>
                                     <th> Order Date </th>
                                     <th> Status </th>
@@ -117,7 +117,7 @@
                                 @foreach ($orders as $key => $order)
                                     <tr>
                                         <td>{{  $order->id }}</td>
-                                        <td>{{ $order->tracking_code ?? "-" }}</td>
+                                        {{-- <td>{{ $order->tracking_code ?? "-" }}</td> --}}
                                         <td>{{ $order->fullname }}</td>
                                         <td>{{ $order->created_at->format('Y/m/d') }}</td>
                                         <td>
