@@ -21,4 +21,15 @@ class MemberController extends Controller
         $members = $search->latest()->paginate(siteSettings('posts_per_page'));        
         return view('admin.member.index',compact('members','request'));
     }
+
+
+
+    public function destroy(Member $member)
+    {        
+
+       
+        $member->delete();
+        return redirect()->back()->with('success', 'Member Deleted');
+    }
+
 }

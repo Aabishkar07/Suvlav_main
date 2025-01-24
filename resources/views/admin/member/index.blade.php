@@ -70,13 +70,13 @@ $start = (isset($request->page) && !empty($request->page))? (($request->page -1 
                             <td>{{ $member->gender }}</td>
 
               <td>
-               <!-- <a href="{{ route('member.edit', $member->id)}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> </a>
-                <form action="{{route('member.destroy', $member->id)}}" method="member" class="delete_confirm">
+               {{-- <a href="{{ route('member.edit', $member->id)}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> </a> --}}
+                <form action="{{route('member.destroy', $member->id)}}" method="Post" class="delete_confirm">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <input type="hidden" name="_method" value="DELETE">
                 <button class="btn btn-danger sfw btn-sm"><i class="fa fa-trash-o"></i> </button>
-              </form> -->
-              ----
+              </form>
+            
               </td>
                   @else
                   <td colspan="2">  </td>
