@@ -142,7 +142,7 @@
                         <tr>
                             <th> # </th>
                             <th> OrderId </th>
-                            <th> Tracking Id </th>
+                            {{-- <th> Tracking Id </th> --}}
                             <th> Customer Name </th>
                             <th> Mobile </th>
                             <th> Amount </th>
@@ -160,7 +160,7 @@
                                 <tr>
                                     <td>{{ $GLOBALS['counter']++ }}</td>
                                     <td>{{ $order->id }}</td>
-                                    <td>{{ $order->tracking_code }}</td>
+                                    {{-- <td>{{ $order->tracking_code }}</td> --}}
                                     <td>{{ $order->fullname }}</td>
 
                                     <td>{{ $order->mobile }}</td>

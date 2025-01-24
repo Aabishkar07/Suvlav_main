@@ -47,7 +47,7 @@ $start = (isset($request->page) && !empty($request->page))? (($request->page -1 
                     <table class="table table-bordered table-hover">
                       <thead class="table-light">
                         <tr>
-                          <th> # </th>
+                          <th> SN </th>
                           <th> Name </th>
                           <th> Email </th>
                           <th> Phone </th>
