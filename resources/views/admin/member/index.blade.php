@@ -2,113 +2,120 @@
 
 @section('content')
 
-@php
-// Configure this page 
-$pageName = 'Members';
-$showChildFormat = 'yes';
-$post_per_page = siteSettings('posts_per_page'); 
+    @php
+        // Configure this page
+        $pageName = 'Members';
+        $showChildFormat = 'yes';
+        $post_per_page = siteSettings('posts_per_page');
 
-$breadcrumbs = [
-    ['title' => 'Dashboard', 'link' => '#', 'isActive' => ''],
-    ['title' => 'members', 'link' => '#', 'isActive' => 'active'],
-];
+        $breadcrumbs = [
+            ['title' => 'Dashboard', 'link' => '#', 'isActive' => ''],
+            ['title' => 'members', 'link' => '#', 'isActive' => 'active'],
+        ];
 
+        $start = isset($request->page) && !empty($request->page) ? ($request->page - 1) * $post_per_page + 1 : 1;
 
-$start = (isset($request->page) && !empty($request->page))? (($request->page -1 ) * $post_per_page )+ 1 : 1
-
-@endphp
+    @endphp
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             {{ $message }}
-        </div>     
-    @endif 
+        </div>
+    @endif
 
-    <div class="col-lg-12 grid-margin stretch-card px-5">
-                <div class="card">
-                  <div class="card-body">
-              
+    <div class="px-5 col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
                 <div class="row margin-bottom-30">
                     <form method="get" class="forms-sample deceased-search">
-                    <input type="hidden" name="search" value="search">
-                    <div class="form-group row">
-                        <div class="col-sm-6">  <a href="{{ route('member.create') }}" class="btn btn-info sfw btn-sm"><i class="fa fa-plus"></i> Add New </a> </div>
-                        <div class="col-sm-3">
-                          <input type="text" name= "title" class="form-control" id="searchName" value="{{ $request->title }}" placeholder="Search...">
+                        <input type="hidden" name="search" value="search">
+                        <div class="form-group row">
+                            <div class="col-sm-6"> <a href="{{ route('member.create') }}" class="btn btn-info sfw btn-sm"><i
+                                        class="fa fa-plus"></i> Add New </a> </div>
+                            <div class="col-sm-3">
+                                <input type="text" name= "title" class="form-control" id="searchName"
+                                    value="{{ $request->title }}" placeholder="Search...">
                             </div>
                             <div class="col-sm-3">
-                          <button class="btn btn-info sfw btn-sm btn_search" type="submit"><i class="fa fa-search"></i> Search</button>
-                          <a href="{{route('member.index')}}" class="btn btn-info sfw btn-sm" ><i class="fa fa-mail-reply"></i> Reset </a>
+                                <button class="btn btn-info sfw btn-sm btn_search" type="submit"><i
+                                        class="fa fa-search"></i> Search</button>
+                                <a href="{{ route('member.index') }}" class="btn btn-info sfw btn-sm"><i
+                                        class="fa fa-mail-reply"></i> Reset </a>
+                            </div>
                         </div>
-                      </div>
 
                     </form>
                 </div>
-                    <table class="table table-bordered table-hover">
-                      <thead class="table-light">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
                         <tr>
-                          <th> SN </th>
-                          <th> Name </th>
-                          <th> Email </th>
-                          <th> Phone </th>
-                          <th> Address </th>
-                          <th> Gender </th>
-                          <th> Action </th>
+                            <th> SN </th>
+                            <th> Name </th>
+                            <th> Email </th>
+                            <th> Phone </th>
+                            <th> Address </th>
+                            <th> Gender </th>
+                            <th> Action </th>
                         </tr>
-                      </thead>
-                      <tbody>
-                      <?php $GLOBALS['counter'] = $start;?>
-               
-                      @php
-                         $start = $members->count();
-                      @endphp
+                    </thead>
+                    <tbody>
+                        <?php $GLOBALS['counter'] = $start; ?>
 
-                      @if(count($members) > 0)
+                        @php
+                            $total = $members->total(); // Total records across all pages
+                            // Calculate the starting number for the current page
+                            $start = $total - ($members->currentPage() - 1) * $members->perPage();
+                        @endphp
 
-                      @foreach ($members as $key => $member)
-                        <tr>
-                          <td>{{ $start --}}</td> 
-                          <td>{{ $member->name }}</td>
-                            <td>{{ $member->email }}</td>  
-                            <td> {{ $member->mobileno }}</td>
-                            <td> {{ $member->address }}</td>   
-                            @if($member->membertype != 'admin')                       
-                            <td>{{ $member->gender }}</td>
+                        @if (count($members) > 0)
+                            @foreach ($members as $key => $member)
+                                <tr>
+                                    <td>{{ $start-- }}</td>
+                                    <td>{{ $member->name }}</td>
+                                    <td>{{ $member->email }}</td>
+                                    <td> {{ $member->mobileno }}</td>
+                                    <td> {{ $member->address }}</td>
+                                    @if ($member->membertype != 'admin')
+                                        <td>{{ $member->gender }}</td>
 
-              <td>
-               {{-- <a href="{{ route('member.edit', $member->id)}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> </a> --}}
-                <form action="{{route('member.destroy', $member->id)}}" method="Post" class="delete_confirm">
-                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <input type="hidden" name="_method" value="DELETE">
-                <button class="btn btn-danger sfw btn-sm"><i class="fa fa-trash-o"></i> </button>
-              </form>
-            
-              </td>
-                  @else
-                  <td colspan="2">  </td>
-                  @endif
-                        </tr>
-                      
+                                        <td>
+                                            {{-- <a href="{{ route('member.edit', $member->id)}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> </a> --}}
+                                            <form action="{{ route('member.destroy', $member->id) }}" method="Post"
+                                                class="delete_confirm">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button class="btn btn-danger sfw btn-sm"><i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </form>
 
-                        @endforeach
-
+                                        </td>
+                                    @else
+                                        <td colspan="2"> </td>
+                                    @endif
+                                </tr>
+                            @endforeach
                         @else
-                        <tr><td colspan="6"><p class="text-danger">No record found!</p></td></tr>
+                            <tr>
+                                <td colspan="6">
+                                    <p class="text-danger">No record found!</p>
+                                </td>
+                            </tr>
                         @endif
-                      </tbody>
-                    </table>
+                    </tbody>
+                </table>
 
-                    <div class="row margin-top-30">
-                      <div class="card">
-                          <div class="card-body">
-                          {{ $members->appends(request()->query())->links() }}
-                          </div>
-                      </div>
+                <div class="row margin-top-30">
+                    <div class="card">
+                        <div class="card-body">
+                            {{ $members->appends(request()->query())->links() }}
+                        </div>
                     </div>
-                  
+                </div>
+
             </div>
-            </div>
-            </div>
+        </div>
+    </div>
 
 
 @endsection
