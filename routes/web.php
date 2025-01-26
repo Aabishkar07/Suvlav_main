@@ -132,6 +132,8 @@ Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'admin']), func
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
     Route::delete('/contact/{contact:id}', [ContactController::class, 'delete'])->name('contactdelete');
+// Define the route to get contact details by id
+Route::get('/contact/{id}', [ContactController::class, 'viewcontact'])->name('viewcontact');
 
     //Route::get('dashboard',[HomeController::class, 'index']);
     Route::resource('product', ProductController::class);

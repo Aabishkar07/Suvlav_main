@@ -28,4 +28,17 @@ class ContactController extends Controller
         $contact->delete();
         return redirect()->back()->with('success','Contact deleted Successfully');
     }
+
+    public function viewcontact($id)
+    {
+        
+        $contact = Contact::find($id);
+    
+
+        if ($contact) {
+            return response()->json($contact);
+        } else {
+            return response()->json(['error' => 'Contact not found'], 404);
+        }
+    }
 }

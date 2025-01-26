@@ -45,7 +45,7 @@ $start = (isset($request->page) && !empty($request->page))? (($request->page -1 
                         </div>
                       </div>
 
-                    </form>
+                    </form> 
                 </div>
                     <table class="table table-bordered table-hover">
                       <thead class="table-light">
