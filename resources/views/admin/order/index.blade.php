@@ -140,7 +140,7 @@
                 <table class="table table-bordered table-hover">
                     <thead class="table-light">
                         <tr>
-                            <th> # </th>
+                            <th> SN </th>
                             <th> OrderId </th>
                             {{-- <th> Tracking Id </th> --}}
                             <th> Customer Name </th>
@@ -154,11 +154,19 @@
                     </thead>
                     <tbody>
 
+                        @php
+                        $total = $orders->total(); // Total records across all pages
+                        // Calculate the starting number for the current page
+                        $start = $total - ($orders->currentPage() - 1) * $orders->perPage();
+                    @endphp
+
                         <?php $GLOBALS['counter'] = $start; ?>
                         @if (count($orders) > 0)
                             @foreach ($orders as $key => $order)
                                 <tr>
-                                    <td>{{ $GLOBALS['counter']++ }}</td>
+                                    {{-- <td>{{ $GLOBALS['counter']++ }}</td> --}}
+                                    <td>{{ $start --}}</td>
+
                                     <td>{{ $order->id }}</td>
                                     {{-- <td>{{ $order->tracking_code }}</td> --}}
                                     <td>{{ $order->fullname }}</td>
