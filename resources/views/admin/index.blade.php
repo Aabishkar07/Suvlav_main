@@ -17,90 +17,115 @@
             <!-- Total Services -->
             <div class="col">
                 <a style="text-decoration: none" href="{{ route('product.index') }}">
-                <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div class="d-flex flex-column">
-                            <span>Total Products</span>
-                            <span class="h5 fw-bold">{{ $totalproducts }}</span>
+                    <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex flex-column">
+                                <span>Total Products</span>
+                                <span class="h5 fw-bold">{{ $totalproducts }}</span>
+                            </div>
+                            <svg class="w-25 h-25 text-dark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.3L19 7h-1M8 7h-.7M13 5v4m-2-2h4" />
+                            </svg>
                         </div>
-                        <svg class="w-25 h-25 text-dark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.3L19 7h-1M8 7h-.7M13 5v4m-2-2h4" />
-                        </svg>
                     </div>
-                </div>
                 </a>
             </div>
-        
+            <div class="col">
+                <a style="text-decoration: none" href="{{ route('order.index') }}">
+                    <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex flex-column">
+                                <span>Total Delivered Order Value</span>
+                                <span class="h5 fw-bold">{{ $ordervalue }}</span>
+                            </div>
+                            <svg class="w-25 h-25 text-dark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.3L19 7h-1M8 7h-.7M13 5v4m-2-2h4" />
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
             <!-- Total Blogs -->
             <div class="col">
                 <a style="text-decoration: none" href="{{ route('order.index') }}">
-                <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
+                    <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
 
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div class="d-flex flex-column">
-                            <span>Total Order</span>
-                            <span class="h5 fw-bold">{{ $totalorder }}</span>
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex flex-column">
+                                <span>Total Order</span>
+                                <span class="h5 fw-bold">{{ $totalorder }}</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon w-25 h-25 text-dark" viewBox="0 0 24 24"
+                                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M8 21h8a5 5 0 0 0 5 -5v-3a3 3 0 0 0 -3 -3h-1v-2a5 5 0 0 0 -5 -5h-4a5 5 0 0 0 -5 5v8a5 5 0 0 0 5 5z" />
+                                <path
+                                    d="M7 7m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h3a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-3a1.5 1.5 0 0 1 -1.5 -1.5z" />
+                                <path
+                                    d="M7 14m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h7a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-7a1.5 1.5 0 0 1 -1.5 -1.5z" />
+                            </svg>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon w-25 h-25 text-dark" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M8 21h8a5 5 0 0 0 5 -5v-3a3 3 0 0 0 -3 -3h-1v-2a5 5 0 0 0 -5 -5h-4a5 5 0 0 0 -5 5v8a5 5 0 0 0 5 5z" />
-                            <path d="M7 7m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h3a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-3a1.5 1.5 0 0 1 -1.5 -1.5z" />
-                            <path d="M7 14m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h7a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-7a1.5 1.5 0 0 1 -1.5 -1.5z" />
-                        </svg>
                     </div>
-                </div>
                 </a>
             </div>
-        
+
             <!-- Total Contacts -->
             <div class="col">
                 <a style="text-decoration: none" href="{{ route('order.index') }}">
 
-                <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div class="d-flex flex-column">
-                            <span>Pending  Orders</span>
-                            <span class="h5 fw-bold">{{ $pendingorders }}</span>
+                    <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex flex-column">
+                                <span>Pending Orders</span>
+                                <span class="h5 fw-bold">{{ $pendingorders }}</span>
+                            </div>
+                            <svg class="w-25 h-25 text-dark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.3-2a6 6 0 0 0 0-6A4 4 0 0 1 20 8a4 4 0 0 1-6.7 3Zm2.2 9a4 4 0 0 0 .5-2v-1a6 6 0 0 0-1.5-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.5Z"
+                                    clip-rule="evenodd" />
+                            </svg>
                         </div>
-                        <svg class="w-25 h-25 text-dark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd"
-                                d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.3-2a6 6 0 0 0 0-6A4 4 0 0 1 20 8a4 4 0 0 1-6.7 3Zm2.2 9a4 4 0 0 0 .5-2v-1a6 6 0 0 0-1.5-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.5Z"
-                                clip-rule="evenodd" />
-                        </svg>
                     </div>
-                </div>
                 </a>
             </div>
-        
+
             <!-- Additional Card -->
             <div class="col">
                 <a style="text-decoration: none" href="{{ route('member.index') }}">
 
-                <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div class="d-flex flex-column">
-                            <span>Total Users</span>
-                            <span class="h5 fw-bold">{{ $totalmembers }}</span>
+                    <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex flex-column">
+                                <span>Total Users</span>
+                                <span class="h5 fw-bold">{{ $totalmembers }}</span>
+                            </div>
+                            <svg class="w-25 h-25 text-dark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.3-2a6 6 0 0 0 0-6A4 4 0 0 1 20 8a4 4 0 0 1-6.7 3Zm2.2 9a4 4 0 0 0 .5-2v-1a6 6 0 0 0-1.5-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.5Z"
+                                    clip-rule="evenodd" />
+                            </svg>
                         </div>
-                        <svg class="w-25 h-25 text-dark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd"
-                                d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.3-2a6 6 0 0 0 0-6A4 4 0 0 1 20 8a4 4 0 0 1-6.7 3Zm2.2 9a4 4 0 0 0 .5-2v-1a6 6 0 0 0-1.5-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.5Z"
-                                clip-rule="evenodd" />
-                        </svg>
                     </div>
-                </div>
                 </a>
             </div>
         </div>
-        
-        
 
-        
+
+
+
         <!-- Order card start -->
         <div class="col-md-12 grid-margin stretch-card ">
             <div class="card">
-                <div class="card-body" >
+                <div class="card-body">
                     <h4 class="text-white card-title" style="background-color: black">Recent Orders</h4>
                     @if ($orders)
                         <table class="table mb-3 table-bordered table-hover">
@@ -116,7 +141,7 @@
                             <tbody>
                                 @foreach ($orders as $key => $order)
                                     <tr>
-                                        <td>{{  $order->id }}</td>
+                                        <td>{{ $order->id }}</td>
                                         {{-- <td>{{ $order->tracking_code ?? "-" }}</td> --}}
                                         <td>{{ $order->fullname }}</td>
                                         <td>{{ $order->created_at->format('Y/m/d') }}</td>
@@ -143,7 +168,8 @@
                         <p class="mb-0 font-weight-light">No Reccent order found.</p>
                     @endif
                     <div class="col float-end">
-                        <a href="{{ route('order.index') }}" class="text-white bg-black btn btn-inverse-success btn-sm"> VIEW ALL </a>
+                        <a href="{{ route('order.index') }}" class="text-white bg-black btn btn-inverse-success btn-sm">
+                            VIEW ALL </a>
                     </div>
 
                 </div>
