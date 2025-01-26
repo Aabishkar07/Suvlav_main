@@ -114,7 +114,9 @@ $start = (isset($request->page) && !empty($request->page))? (($request->page -1 
                       <p class="mb-2"><strong>Email:</strong> <span id="modalEmail">No data available</span></p>
                       <p class="mb-2"><strong>Subject:</strong> <span id="modalSubject">No data available</span></p>
                       <p class="mb-2"><strong>Phone:</strong> <span id="modalPhone">No data available</span></p>
-                      <p class="mb-2"><strong>Message:</strong> <span id="modalMessage">No data available</span></p>
+                      <p class="mb-2"><strong>Message:</strong> <p style="width: 400px; word-wrap: break-word; white-space: normal; padding: 1; margin: 0;" id="modalMessage">No data available</p></p>
+                  
+                    
                   </div>
               </div>
           </div>
