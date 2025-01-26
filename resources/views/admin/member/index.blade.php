@@ -58,11 +58,17 @@ $start = (isset($request->page) && !empty($request->page))? (($request->page -1 
                       </thead>
                       <tbody>
                       <?php $GLOBALS['counter'] = $start;?>
+               
+                      @php
+                         $start = $members->count();
+                      @endphp
+
                       @if(count($members) > 0)
+
                       @foreach ($members as $key => $member)
                         <tr>
-                            <td>{{ ( $GLOBALS['counter']++ )  }}</td> 
-                            <td>{{ $member->name }}</td>
+                          <td>{{ $start --}}</td> 
+                          <td>{{ $member->name }}</td>
                             <td>{{ $member->email }}</td>  
                             <td> {{ $member->mobileno }}</td>
                             <td> {{ $member->address }}</td>   

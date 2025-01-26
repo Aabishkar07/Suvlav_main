@@ -10,6 +10,8 @@ class MemberController extends Controller
     public function index(Request $request)
     {        
         $members = new Member;
+        
+      
         $search = $members->query();
         if($request->search == 'search'){
             if($request->title) {
