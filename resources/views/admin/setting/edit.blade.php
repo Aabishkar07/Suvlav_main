@@ -108,7 +108,7 @@ if($settings){
             </div>
             
                     <div class="form-group row">
-              <label for="addressInput" class="col-sm-3 col-form-label">Referral Points</label>
+              <label for="addressInput" class="col-sm-3 col-form-label">Review Points</label>
               <div class="col-sm-9">
                 <input 
                   type="text" 
