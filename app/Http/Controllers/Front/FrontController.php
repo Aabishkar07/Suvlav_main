@@ -419,6 +419,15 @@ class FrontController extends Controller
     public function index(Request $request)
     {
 
+        $check_share = $request->websuvcode;
+        // session()->forget('websuvcode');
+
+
+        if ($check_share) {
+            session(['websuvcode' => $check_share]);
+        }
+
+
         // Home Banner                 
         $results['home_banners'] = DB::table('banners')
             ->where(['status' => 1])
@@ -963,6 +972,7 @@ class FrontController extends Controller
 
         $user_id = Session::get('memeber_id_ss') ?? 0;
         $guest_id = 0;
+        $member = "";
         $cartItems = "";
         if ($user_id == 0) {
             $guest_id = $_COOKIE['guest_auth_token'];
@@ -978,6 +988,8 @@ class FrontController extends Controller
         }
 
         // dd(session('suvcode'));
+        $webcode = session('websuvcode');
+        // dd($webcode);
         $code = session('suvcode');
         $session_product_id = session('suvproduct');
         // dd($session_product_id);
@@ -1048,22 +1060,33 @@ class FrontController extends Controller
 
         foreach ($cartItems as $cc) {
 
-            if ($session_product_id) {
-                if ($cc->product_id == $session_product_id) {
-                    $product = Product::where("id", $cc->product_id)->first();
-                    if ($code) {
-                        $checkmember = Member::where("affilate_code", $code)->first();
-                        if ($checkmember) {
-                            if ($session_product_id) {
-                                if ($checkmember->id != $user_id) {
-                                    $value +=  $product->points ?? 0;
+            if ($webcode) {
+                $checkmember = Member::where("affilate_code", $webcode)->first();
+                if ($checkmember) {
+                    if ($checkmember->id != $user_id) {
+                        $value +=  20;
+                    }
+                }
+            } else {
+                if ($session_product_id) {
+                  
+                    if ($cc->product_id == $session_product_id) {
+                        $product = Product::where("id", $cc->product_id)->first();
+                        if ($code) {
+                            $checkmember = Member::where("affilate_code", $code)->first();
+                            if ($checkmember) {
+                                if ($session_product_id) {
+                                    if ($checkmember->id != $user_id) {
+                                        
+                                        $value +=  $product->points ?? 0;
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-
+            // dd("sa",$value);
             $cart_orders = [
                 'order_id' => $orderid,
                 'product_id' => $cc->product_id,
@@ -1078,15 +1101,18 @@ class FrontController extends Controller
             DB::table('order_details')->insert($cart_orders);
         }
         if ($checkmember) {
-            $affilate = AffiliatePoint::create([
-                'user_id' => $checkmember->id,
-                'order_id' => $orderid,
-                'points' => $value,
-                'status' => "PENDING",
-            ]);
+            if ($value != 0) {
+                $affilate = AffiliatePoint::create([
+                    'user_id' => $checkmember->id,
+                    'order_id' => $orderid,
+                    'points' => $value,
+                    'status' => "PENDING",
+                ]);
+            }
         }
         session()->forget('suvcode');
         session()->forget('suvproduct');
+        session()->forget('websuvcode');
 
         $exist = DB::table('shippings')
             ->where(['member_id' => $user_id])
@@ -1467,9 +1493,9 @@ class FrontController extends Controller
     public function contactmail(Request $request)
     {
 
-     
 
-      
+
+
         $user = Contact::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -1492,9 +1518,9 @@ class FrontController extends Controller
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-      
+
         $headers .= 'From: <' . $femail . '>' . "\r\n";
-      
+
 
         $ok = @mail($to, $subject, $msgf, $headers);
         if ($ok) {

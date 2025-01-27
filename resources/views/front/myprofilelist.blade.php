@@ -66,8 +66,8 @@
         }
 
         /* .btn {
-                                                                                                                                                                            background-color: #000 !important;
-                                                                                                                                                                        } */
+                                                                                                                                                                                background-color: #000 !important;
+                                                                                                                                                                            } */
 
         .changepw {
             margin: 0px auto;
@@ -133,10 +133,22 @@
             <div class="row">
                 <div class="col-lg-12 col-12">
                     <div>
-                        <div style="background-color: blue" class="my-4 text-center text-white rounded card-header">
-                            <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">Namaskar{{ $userdata[0]->gender == "male" ? " Sir" : ($userdata[0]->gender == "female" ? " Maam" : "") }}
+                        <div class="flex justify-between my-3 gap-x-3">
 
-                            </h4>
+                            <div style="background-color: blue" class="w-[60%] md:w-[75%] px-4 py-2 text-center text-white rounded card-header">
+                                <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">
+                                    Namaskar{{ $userdata[0]->gender == 'male' ? ' Sir' : ($userdata[0]->gender == 'female' ? ' Maam' : '') }}
+
+                                </h4>
+                            </div>
+                            <div class="w-[40%] md:w-[25%]">
+                                <div class="px-4 py-2 text-center text-white bg-green-700 rounded" style="">
+                                    <a target="_blank"
+                                        href="{{ 'http://127.0.0.1:8000/?websuvcode=' . $userdata[0]->affilate_code }}">Share
+                                        Website</a>
+
+                                </div>
+                            </div>
                         </div>
 
                         @if (Session::has('message'))
@@ -147,45 +159,46 @@
                         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
                             rel="stylesheet">
 
-                        <div class="border p-4 rounded shadow-lg bg-white md:hidden block">
-                            <a class="md:hidden block flex items-center border-b py-2" href="{{ route('history') }}">
-                                <i class="fas fa-history mr-2 text-blue-500"></i>
+                        <div class="block p-4 bg-white border rounded shadow-lg md:hidden">
+                            <a class="flex items-center block py-2 border-b md:hidden" href="{{ route('history') }}">
+                                <i class="mr-2 text-blue-500 fas fa-history"></i>
                                 <p class="text-sm font-medium">Order History</p>
                             </a>
 
-                            <a class="md:hidden block flex items-center border-b py-2" href="{{ route('details') }}">
-                                <i class="fas fa-user mr-2 text-green-500"></i>
+                            <a class="flex items-center block py-2 border-b md:hidden" href="{{ route('details') }}">
+                                <i class="mr-2 text-green-500 fas fa-user"></i>
                                 <p class="text-sm font-medium">Profile</p>
                             </a>
 
-                            <a class="md:hidden block flex items-center border-b py-2" href="{{ route('delivery') }}">
-                                <i class="fas fa-map-marker-alt mr-2 text-red-500"></i>
+                            <a class="flex items-center block py-2 border-b md:hidden" href="{{ route('delivery') }}">
+                                <i class="mr-2 text-red-500 fas fa-map-marker-alt"></i>
                                 <p class="text-sm font-medium">Delivery Address</p>
                             </a>
 
-                            <a class="md:hidden block flex items-center border-b py-2" href="{{ route('updatepassword') }}">
-                                <i class="fas fa-lock mr-2 text-purple-500"></i>
+                            <a class="flex items-center block py-2 border-b md:hidden" href="{{ route('updatepassword') }}">
+                                <i class="mr-2 text-purple-500 fas fa-lock"></i>
                                 <p class="text-sm font-medium">Change Password</p>
                             </a>
 
-                            <a class="md:hidden block flex items-center py-2" href="{{ route('mypoints') }}">
-                                <i class="fas fa-coins mr-2 text-yellow-500"></i>
+                            <a class="flex items-center block py-2 md:hidden" href="{{ route('mypoints') }}">
+                                <i class="mr-2 text-yellow-500 fas fa-coins"></i>
                                 <p class="text-sm font-medium">My Points</p>
                             </a>
 
                             {{-- <a href="{{ route('wishlist') }}">
                                 <i class="ti-heart"> </i>
                                </a> --}}
-                            <a class="md:hidden block flex items-center py-2 border border-b" href="{{ route('wishlist') }}">
-                                {{-- <i class="fas fa-coins mr-2 text-yellow-500"></i> --}}
-                                <i class="ti-heart text-red-500 mr-2"> </i>
+                            <a class="flex items-center block py-2 border border-b md:hidden"
+                                href="{{ route('wishlist') }}">
+                                {{-- <i class="mr-2 text-yellow-500 fas fa-coins"></i> --}}
+                                <i class="mr-2 text-red-500 ti-heart"> </i>
                                 <p class="text-sm font-medium">Wishlist</p>
                             </a>
 
                             {{-- <a class="max-md:hidden" href="{{ url('/memberlogout') }}">Logout</a> --}}
 
-                            <a class="md:hidden block flex items-center py-2" href="{{ url('/memberlogout') }}">
-                                <i class="ti-power-off mr-2 text-green-500"></i>
+                            <a class="flex items-center block py-2 md:hidden" href="{{ url('/memberlogout') }}">
+                                <i class="mr-2 text-green-500 ti-power-off"></i>
                                 <p class="text-sm font-medium">Logout</p>
                             </a>
                         </div>
@@ -193,38 +206,38 @@
 
 
 
-                        <div class="ptab tab d-none d-sm-flex flex-sm-row flex-column  max-md:hidden">
-                            <button class="tablinks  max-md:hidden" onclick="clicktab(event, 'order_history')"
+                        <div class="ptab tab d-none d-sm-flex flex-sm-row flex-column max-md:hidden">
+                            <button class="tablinks max-md:hidden" onclick="clicktab(event, 'order_history')"
                                 id="defaultOpen">Order
                                 Historys</button>
 
 
-                            {{-- <a class="md:hidden block"  href="{{ route('history') }}" >
+                            {{-- <a class="block md:hidden"  href="{{ route('history') }}" >
                                      <button >Order
                                     History</button></a> --}}
 
-                            <button class="tablinks  max-md:hidden " onclick="clicktab(event, 'Profile')"
+                            <button class="tablinks max-md:hidden " onclick="clicktab(event, 'Profile')"
                                 id="profileTab">Profile</button>
 
 
-                            {{-- <a class="md:hidden block"  href="{{ route('details') }}" >
+                            {{-- <a class="block md:hidden"  href="{{ route('details') }}" >
                                 <button >Profile</button></a> --}}
 
 
-                            <button class="tablinks  max-md:hidden " onclick="clicktab(event, 'deladdress')"
+                            <button class="tablinks max-md:hidden " onclick="clicktab(event, 'deladdress')"
                                 id="deleveryTab">Delivery
                                 Address</button>
-                            {{-- <a class="md:hidden block"  href="{{ route('delivery') }}" >
+                            {{-- <a class="block md:hidden"  href="{{ route('delivery') }}" >
                                     <button >Delivery Address</button></a> --}}
-                            <button class="tablinks  max-md:hidden" onclick="clicktab(event, 'changepw')"
+                            <button class="tablinks max-md:hidden" onclick="clicktab(event, 'changepw')"
                                 id="changepwTab">Change
                                 Password</button>
-                            {{-- <a class="md:hidden block"  href="{{ route('updatepassword') }}" >
+                            {{-- <a class="block md:hidden"  href="{{ route('updatepassword') }}" >
                                     <button >Change Password</button></a> --}}
-                            <button class="tablinks  max-md:hidden" onclick="clicktab(event, 'mypoints')"
+                            <button class="tablinks max-md:hidden" onclick="clicktab(event, 'mypoints')"
                                 id="changemypointsTab">My
                                 Points</button>
-                            {{-- <a class="md:hidden block"  href="{{ route('mypoints') }}" >
+                            {{-- <a class="block md:hidden"  href="{{ route('mypoints') }}" >
                                     <button >My points</button></a> --}}
                         </div>
 
@@ -278,7 +291,7 @@ $orderDetails = DB::table('orders as a')
 											    ?>
 
                                                 <div
-                                                    class="p-4 bg-white shadow-md rounded-md border border-black mb-5 mx-auto ">
+                                                    class="p-4 mx-auto mb-5 bg-white border border-black rounded-md shadow-md ">
                                                     <div class="flex flex-wrap items-start gap-4">
                                                         <!-- Main Order Header -->
                                                         <div class="flex-1 w-full sm:w-auto">
@@ -290,23 +303,24 @@ $orderDetails = DB::table('orders as a')
                                                             </p>
                                                         </div>
 
-                                                        <div class="flex-1 w-full sm:w-auto items-end justify-end">
+                                                        <div class="items-end justify-end flex-1 w-full sm:w-auto">
                                                             <div class="flex">
                                                                 <p><strong>Status: </strong></p>
+                                                                
                                                                 <span
-                                                                    class="badge text-xs bg-{{ strtolower($orders[0]->status) == 'completed' ? 'success' : 'warning' }}">
-                                                                    {{ $orders[0]->status }}
+                                                                    class="badge text-xs bg-{{ strtolower($order->status) == 'completed' ? 'success' : 'warning' }}">
+                                                                    {{ $order->status }}
                                                                 </span>
                                                             </div>
                                                         </div>
 
                                                         <div
-                                                            class="flex items-center gap-x-2 w-full sm:w-auto mt-4 sm:mt-0">
+                                                            class="flex items-center w-full mt-4 gap-x-2 sm:w-auto sm:mt-0">
                                                             <a href="{{ route('profile.order', $order->id) }}">
                                                                 <div style="background-color: green;width: 50px;color:white"
                                                                     class="rounded">
                                                                     <i
-                                                                        class="fa fa-eye flex justify-center items-center px-3 py-1"></i>
+                                                                        class="flex items-center justify-center px-3 py-1 fa fa-eye"></i>
                                                                 </div>
                                                             </a>
                                                             @if ($order->status != 'Cancel' && $order->status != 'Exchange' && $order->status != 'Wanttoexchange')
@@ -321,15 +335,15 @@ $orderDetails = DB::table('orders as a')
 
                                                     <!-- Order Details -->
                                                     <?php foreach ($orderDetails as $detail) { ?>
-                                                    <div class="flex items-start gap-4 mt-4 border-t pt-4">
+                                                    <div class="flex items-start gap-4 pt-4 mt-4 border-t">
                                                         <!-- Product Image -->
                                                         <img src="{{ asset('public/' . $detail->product_image) }}"
-                                                            alt="Product" class="w-20 h-20 object-cover rounded" />
+                                                            alt="Product" class="object-cover w-20 h-20 rounded" />
 
                                                         <!-- Product Details -->
                                                         <div class="flex-1">
                                                             <!-- Product Title -->
-                                                            <p class="text-sm text-gray-700 font-medium mb-1">
+                                                            <p class="mb-1 text-sm font-medium text-gray-700">
                                                                 <?php echo $detail->product_name; ?>
                                                             </p>
 
@@ -353,7 +367,7 @@ $orderDetails = DB::table('orders as a')
 
                                                     <!-- Total Price -->
                                                     <div
-                                                        class="flex items-center justify-between border-t pt-3 mt-3 text-gray-800 text-sm font-semibold">
+                                                        class="flex items-center justify-between pt-3 mt-3 text-sm font-semibold text-gray-800 border-t">
                                                         <p>Total (<?php echo count($orderDetails); ?> Item(s)):</p>
                                                         <p>Rs. {{ moneyFormat((float) $order->total_amt) }}</p>
 
@@ -476,14 +490,16 @@ $orderDetails = DB::table('orders as a')
                                                             <!-- Subject -->
                                                             <div>
                                                                 <label
-                                                                    class="block text-sm font-medium text-gray-700">Cancel /
+                                                                    class="block text-sm font-medium text-gray-700">Cancel
+                                                                    /
                                                                     Exchange </label>
 
                                                                 <select id="status" name="status" required
                                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                                                     <option value="" selected>Choose an option
                                                                     </option>
-                                                                    <option value="Wanttoexchange">Want to exchange</option>
+                                                                    <option value="Wanttoexchange">Want to exchange
+                                                                    </option>
                                                                     <option value="Cancel">Cancel</option>
 
                                                                 </select>
@@ -715,10 +731,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                                  <div class="form-group">
-                                                                                                                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                                                                                                                                                                                                                                   </div>
-                                                                                                                                                                                                                               </div> -->
+                                                                                                                                                                                                                                      <div class="form-group">
+                                                                                                                                                                                                                                       <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
+                                                                                                                                                                                                                                       </div>
+                                                                                                                                                                                                                                   </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -989,10 +1005,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                                   <div class="form-group">
-                                                                                                                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                                                                                                                                                                                   </div>
-                                                                                                                                                                                                                                  </div> -->
+                                                                                                                                                                                                                                       <div class="form-group">
+                                                                                                                                                                                                                                       <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                                                                                                                                       </div>
+                                                                                                                                                                                                                                      </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
