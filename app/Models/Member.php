@@ -22,6 +22,7 @@ class Member extends Authenticatable
         'state',
         'district_id',
         'address',
+        'share_status',
         'status',
         'otp',
         'googleauth_id',

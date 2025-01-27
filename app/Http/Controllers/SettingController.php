@@ -29,6 +29,7 @@ class SettingController extends Controller
             'instagram_link'=>'required',
             'youtube_link'=>'required',
              'referral_points'=>'required',
+             'web_point'=>'required',
           ]);
         
         $data = $request->except('_token');
