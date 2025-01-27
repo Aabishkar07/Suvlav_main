@@ -730,100 +730,126 @@
 
         <div class="w-full mx-auto mt-4 max-w-screen-2xl md:px-20" id="thissection">
 
+
+
+
+
             @if ($hasOrdered)
                 @if (Session::get('memeber_id_ss'))
-                    <div class="flex justify-center rounded-lg bg-gray-50 item-center" id="review" role="tabpanel"
-                        aria-labelledby="review-tab">
-                        <div class="flex flex-col items-start p-4 rounded-lg md:flex-row md:items-center ">
-                            <div class="flex items-center mb-4 md:mb-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-yellow-400"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                                <div>
-                                    <div class="text-2xl font-bold text-blue-500">{{ $averagerating }} </div>
-                                    <div class="text-sm text-zinc-500 ">Average User Rating</div>
-                                </div>
-                            </div>
-
-                            <form method="POST" action="{{ route('review', ['slug' => $product->slug]) }}">
-
-                                @csrf
-
-                                <div class="flex-1 md:ml-8">
-                                    <h2 class="text-xl font-semibold text-zinc-900 ">Write a Review</h2>
-                                    <div class="mb-1 text-zinc-600">Rate us</div>
 
 
-                                    <div class="flex items-center space-x-2" id="rating">
-                                        <span class="cursor-pointer" data-rating="1">
-                                            <svg class="w-6 h-6 fill-current " xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 2l2.25 6.722h7.161l-5.722 4.899 2.197 6.5-6.433-4.791-6.433 4.791 2.197-6.5-5.722-4.899h7.161z" />
-                                            </svg>
-                                        </span>
-                                        <span class="cursor-pointer" data-rating="2"><svg class="w-6 h-6 fill-current"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 2l2.25 6.722h7.161l-5.722 4.899 2.197 6.5-6.433-4.791-6.433 4.791 2.197-6.5-5.722-4.899h7.161z" />
-                                            </svg></span>
-                                        <span class="cursor-pointer" data-rating="3"><svg class="w-6 h-6 fill-current"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 2l2.25 6.722h7.161l-5.722 4.899 2.197 6.5-6.433-4.791-6.433 4.791 2.197-6.5-5.722-4.899h7.161z" />
-                                            </svg></span>
-                                        <span class="cursor-pointer" data-rating="4"><svg class="w-6 h-6 fill-current"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 2l2.25 6.722h7.161l-5.722 4.899 2.197 6.5-6.433-4.791-6.433 4.791 2.197-6.5-5.722-4.899h7.161z" />
-                                            </svg></span>
-                                        <span class="cursor-pointer" data-rating="5"><svg class="w-6 h-6 fill-current"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 2l2.25 6.722h7.161l-5.722 4.899 2.197 6.5-6.433-4.791-6.433 4.791 2.197-6.5-5.722-4.899h7.161z" />
-                                            </svg></span>
-                                    </div>
-                                    <p id="selected-rating" class="mt-2 text-center"></p>
-                                    <input id="selected-rating-value" type="hidden" value="" name="rating" />
-                                    <script>
-                                        const stars = document.querySelectorAll('#rating span');
-                                        const selectedRating = document.getElementById('selected-rating');
-                                        const selectedRatingValue = document.getElementById('selected-rating-value');
+@if ($hasreviewed)
+<div class="flex justify-center rounded-lg bg-gray-50 item-center" id="review" role="tabpanel"
+    aria-labelledby="review-tab">
+    <div class="flex flex-col items-start p-4 rounded-lg md:flex-row md:items-center ">
+        <div class="flex items-center  md:mb-0">
+          
+            <div>
+                <div class="text-2xl font-bold text-blue-500">You have already Reviewed !!</div>
+              
+            </div>
+        </div>
 
-                                        stars.forEach((star) => {
-                                            star.addEventListener('click', () => {
-                                                const rating = star.getAttribute('data-rating');
-                                                selectedRatingValue.value = rating;
-                                                stars.forEach((s) => {
-                                                    if (s.getAttribute('data-rating') <= rating) {
-                                                        s.classList.add('text-yellow-500');
-                                                    } else {
-                                                        s.classList.remove('text-yellow-500');
-                                                    }
-                                                });
-                                            });
-                                        });
-                                    </script>
+    
+    </div>
 
 
+</div>
+@else
+    
+<div class="flex justify-center rounded-lg bg-gray-50 item-center" id="review" role="tabpanel"
+    aria-labelledby="review-tab">
+    <div class="flex flex-col items-start p-4 rounded-lg md:flex-row md:items-center ">
+        <div class="flex items-center mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-yellow-400"
+                viewBox="0 0 20 20" fill="currentColor">
+                <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            <div>
+                <div class="text-2xl font-bold text-blue-500">{{ $averagerating }} </div>
+                <div class="text-sm text-zinc-500 ">Average User Rating</div>
+            </div>
+        </div>
 
-                                    <textarea name="feedback" placeholder="Your Review" class="w-full p-2 mb-4 border rounded-md border-zinc-300"></textarea>
+        <form method="POST" action="{{ route('review', ['slug' => $product->slug]) }}">
 
-                                    <button type="submit"
-                                        class="w-full p-2 text-white rounded-lg md:w-auto bg-zinc-900 hover:bg-zinc-700">
-                                        Post Review &rarr;
-                                    </button>
+            @csrf
 
-
-
-                                </div>
-                            </form>
-                        </div>
+            <div class="flex-1 md:ml-8">
+                <h2 class="text-xl font-semibold text-zinc-900 ">Write a Review</h2>
+                <div class="mb-1 text-zinc-600">Rate us</div>
 
 
-                    </div>
+                <div class="flex items-center space-x-2" id="rating">
+                    <span class="cursor-pointer" data-rating="1">
+                        <svg class="w-6 h-6 fill-current " xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M12 2l2.25 6.722h7.161l-5.722 4.899 2.197 6.5-6.433-4.791-6.433 4.791 2.197-6.5-5.722-4.899h7.161z" />
+                        </svg>
+                    </span>
+                    <span class="cursor-pointer" data-rating="2"><svg class="w-6 h-6 fill-current"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2l2.25 6.722h7.161l-5.722 4.899 2.197 6.5-6.433-4.791-6.433 4.791 2.197-6.5-5.722-4.899h7.161z" />
+                        </svg></span>
+                    <span class="cursor-pointer" data-rating="3"><svg class="w-6 h-6 fill-current"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2l2.25 6.722h7.161l-5.722 4.899 2.197 6.5-6.433-4.791-6.433 4.791 2.197-6.5-5.722-4.899h7.161z" />
+                        </svg></span>
+                    <span class="cursor-pointer" data-rating="4"><svg class="w-6 h-6 fill-current"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2l2.25 6.722h7.161l-5.722 4.899 2.197 6.5-6.433-4.791-6.433 4.791 2.197-6.5-5.722-4.899h7.161z" />
+                        </svg></span>
+                    <span class="cursor-pointer" data-rating="5"><svg class="w-6 h-6 fill-current"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2l2.25 6.722h7.161l-5.722 4.899 2.197 6.5-6.433-4.791-6.433 4.791 2.197-6.5-5.722-4.899h7.161z" />
+                        </svg></span>
+                </div>
+                <p id="selected-rating" class="mt-2 text-center"></p>
+                <input id="selected-rating-value" type="hidden" value="" name="rating" />
+                <script>
+                    const stars = document.querySelectorAll('#rating span');
+                    const selectedRating = document.getElementById('selected-rating');
+                    const selectedRatingValue = document.getElementById('selected-rating-value');
+
+                    stars.forEach((star) => {
+                        star.addEventListener('click', () => {
+                            const rating = star.getAttribute('data-rating');
+                            selectedRatingValue.value = rating;
+                            stars.forEach((s) => {
+                                if (s.getAttribute('data-rating') <= rating) {
+                                    s.classList.add('text-yellow-500');
+                                } else {
+                                    s.classList.remove('text-yellow-500');
+                                }
+                            });
+                        });
+                    });
+                </script>
+
+
+
+                <textarea name="feedback" placeholder="Your Review" class="w-full p-2 mb-4 border rounded-md border-zinc-300"></textarea>
+
+                <button type="submit"
+                    class="w-full p-2 text-white rounded-lg md:w-auto bg-zinc-900 hover:bg-zinc-700">
+                    Post Review &rarr;
+                </button>
+
+
+
+            </div>
+        </form>
+    </div>
+
+
+</div>
+@endif
                 @else
                     <div class="flex items-center justify-center p-4 bg-gray-100 rounded-md">
                         <p class="mr-2 text-sm text-gray-600">Login to write a review</p>
@@ -856,12 +882,12 @@
 
 
 
-    <section class="relative h-full py-5 bg-white shadow-md">
+    <section class="relative h-full bg-white shadow-md">
         <div class="w-full px-4 mx-auto max-w-7xl md:px-5 lg-6">
             <div class="w-full">
-                <h2 class="mb-8 text-xl font-bold text-center text-black font-manrope">Our customer reviews
-                </h2>
-                <div
+                {{-- <h2 class="mb-8 text-xl font-bold text-center text-black font-manrope">Our customer reviews
+                </h2> --}}
+                {{-- <div
                     class="grid grid-cols-1 border-b border-gray-100 xl:grid-cols-2 gap-11 pb-11 max-xl:max-w-2xl max-xl:mx-auto">
                     <div class="flex flex-col w-full box gap-y-4 ">
 
@@ -927,11 +953,17 @@
                         </div>
                         <p class="text-xl font-medium leading-8 text-center text-gray-900">{{ $reviewcount }} Reviews</p>
                     </div>
-                </div>
+                </div> --}}
+
+<style>
+.shop.single{
+    padding: 5px !important;
+}
+    </style>
 
 
                 @foreach ($allfeedback as $key => $feedback)
-                    <div class="w-full pt-6 pb-8 border-b border-gray-100 max-xl:max-w-2xl max-xl:mx-auto">
+                    <div class="w-full pb-8 border-b border-gray-100 max-xl:max-w-2xl max-xl:mx-auto">
                         <div class="flex items-center gap-2 mb-3">
 
 
@@ -969,9 +1001,7 @@
                                         </div>
 
 
-                                        <!-- Optional: Add feedback date or other information -->
-                                        {{-- <p class="text-xs text-gray-500">Reviewed on
-                                            {{ $feedback->created_at->format('F d, Y') }}</p> --}}
+                                      
                                     </div>
                                 </div>
 

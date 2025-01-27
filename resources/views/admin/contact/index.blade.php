@@ -71,7 +71,105 @@ $start = (isset($request->page) && !empty($request->page))? (($request->page -1 
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <input type="hidden" name="_method" value="DELETE">
                 <button class="btn btn-danger sfw btn-sm"><i class="fa fa-trash-o"></i> </button>
+
+                
+                <button type="button" class="btn text-white btn-sm" style="background-color:#0000FF" 
+                data-toggle="modal" 
+                data-target="#exampleModal" 
+                data-id="{{ $page->id }}"
+                data-name="{{ $page->name ?? 'No data available' }}"
+                data-email="{{ $page->email ?? 'No data available' }}"
+                data-subject="{{ $page->subject ?? 'No data available' }}"
+                data-phone="{{ $page->phone_no ?? 'No data available' }}"
+                data-message="{{ $page->message ?? 'No data available' }}">
+            View
+        </button>
+        
               </form>
+
+
+         
+     
+
+
+            
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header text-white" style="background-color:#0000FF">
+              <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body px-4 py-3">
+              <div class="card border-0">
+                  <div class="card-body">
+                      <p class="mb-2"><strong>Name:</strong> <span id="modalName">No data available</span></p>
+                      <p class="mb-2"><strong>Email:</strong> <span id="modalEmail">No data available</span></p>
+                      <p class="mb-2"><strong>Subject:</strong> <span id="modalSubject">No data available</span></p>
+                      <p class="mb-2"><strong>Phone:</strong> <span id="modalPhone">No data available</span></p>
+                      <p class="mb-2"><strong>Message:</strong> <p style="width: 400px; word-wrap: break-word; white-space: normal; padding: 1; margin: 0;" id="modalMessage">No data available</p></p>
+                  
+                    
+                  </div>
+              </div>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+              <button type="button" class="btn text-white btn-sm" style="background-color:#0000FF" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+<script>
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); 
+    var email = button.data('email');
+    var subject = button.data('subject');
+    var phone = button.data('phone');
+    var message = button.data('message');
+    var name = button.data('name');
+
+    var modal = $(this);
+    modal.find('#modalName').text(name);
+    modal.find('#modalEmail').text(email);
+    modal.find('#modalSubject').text(subject);
+    modal.find('#modalPhone').text(phone);
+    modal.find('#modalMessage').text(message);
+});
+
+
+  </script>
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+            
+
+
+            
+  
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+            
+
+
+      
+              
               </td>
               {{-- @endcan --}}
                         </tr>

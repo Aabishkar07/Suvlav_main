@@ -613,6 +613,8 @@ class FrontController extends Controller
     {
 
 
+
+
         $product = Product::where('slug', $slug)->firstOrFail();
 
 
@@ -621,11 +623,38 @@ class FrontController extends Controller
 
 
 
+        $settings = \App\Models\Setting::all()->toArray();
+        if ($settings) {
+            foreach ($settings as $setting) {
+                $setting_data[$setting['key']] = $setting['value'];
+            }
+        }
+
+        $referral_points = $setting_data['referral_points'] ?? null;
+
+
+        $points = Member::find($user_id);
+
+        $points->update([
+            'total_points' => ($points->total_points ?? 0) + $referral_points,
+
+        ]);
+
+
+        AffiliatePoint::create([
+            'user_id' => $user_id,
+            'points' => $referral_points,
+            'status' => 'COMPLETED',
+            'point_status' => 'Review',
+        ]);
+
+
         Review::create([
             'product_id' => $product->id,
             'review_detail' => $request->input('feedback'),
             'rating' => $request->input('rating'),
             'user_id' => $user_id,
+
         ]);
 
         return redirect()->back()->with('success', 'Review submitted successfully!');
@@ -1004,7 +1033,7 @@ class FrontController extends Controller
         $totalprice = 0;
         $totalqnty = 0;
 
-        $referral_points = Setting::where('key', "referral_points")->first()->value ?? 0;
+        $webpoint = Setting::where('key', "web_point")->first()->value ?? 0;
 
 
 
@@ -1064,12 +1093,12 @@ class FrontController extends Controller
                 $checkmember = Member::where("affilate_code", $webcode)->first();
                 if ($checkmember) {
                     if ($checkmember->id != $user_id) {
-                        $value +=  20;
+                        $value +=  $webpoint;
                     }
                 }
             } else {
                 if ($session_product_id) {
-                  
+
                     if ($cc->product_id == $session_product_id) {
                         $product = Product::where("id", $cc->product_id)->first();
                         if ($code) {
@@ -1077,7 +1106,7 @@ class FrontController extends Controller
                             if ($checkmember) {
                                 if ($session_product_id) {
                                     if ($checkmember->id != $user_id) {
-                                        
+
                                         $value +=  $product->points ?? 0;
                                     }
                                 }
@@ -1601,6 +1630,7 @@ class FrontController extends Controller
         $userdata = DB::table('members')
             ->where('members.id', $id)
             ->first();
+
 
         if ($id) {
             $cartItems = $this->cartdata;

@@ -66,8 +66,8 @@
         }
 
         /* .btn {
-                                                                                                                                                                                background-color: #000 !important;
-                                                                                                                                                                            } */
+                                                                                                                                                                                                background-color: #000 !important;
+                                                                                                                                                                                            } */
 
         .changepw {
             margin: 0px auto;
@@ -135,20 +135,23 @@
                     <div>
                         <div class="flex justify-between my-3 gap-x-3">
 
-                            <div style="background-color: blue" class="w-[60%] md:w-[75%] px-4 py-2 text-center text-white rounded card-header">
+                            <div style="background-color: blue"
+                                class="w-[60%] md:w-[75%] px-4 py-2 text-center text-white rounded card-header">
                                 <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">
                                     Namaskar{{ $userdata[0]->gender == 'male' ? ' Sir' : ($userdata[0]->gender == 'female' ? ' Maam' : '') }}
 
                                 </h4>
                             </div>
-                            <div class="w-[40%] md:w-[25%]">
-                                <div class="px-4 py-2 text-center text-white bg-green-700 rounded" style="">
+                            @if ($userdata[0]->share_status == 'verified')
+                                <div class="w-[40%] md:w-[25%]">
                                     <a target="_blank"
-                                        href="{{ 'http://127.0.0.1:8000/?websuvcode=' . $userdata[0]->affilate_code }}">Share
-                                        Website</a>
-
+                                        href="{{ 'https://suvlav.com?websuvcode=' . $userdata[0]->affilate_code }}">
+                                        <div class="px-4 py-2 text-center text-white bg-green-700 rounded" style="">
+                                            Share Website
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
+                            @endif
                         </div>
 
                         @if (Session::has('message'))
@@ -306,7 +309,7 @@ $orderDetails = DB::table('orders as a')
                                                         <div class="items-end justify-end flex-1 w-full sm:w-auto">
                                                             <div class="flex">
                                                                 <p><strong>Status: </strong></p>
-                                                                
+
                                                                 <span
                                                                     class="badge text-xs bg-{{ strtolower($order->status) == 'completed' ? 'success' : 'warning' }}">
                                                                     {{ $order->status }}
@@ -731,10 +734,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                                      <div class="form-group">
-                                                                                                                                                                                                                                       <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                                                                                                                                                                                                                                       </div>
-                                                                                                                                                                                                                                   </div> -->
+                                                                                                                                                                                                                                                      <div class="form-group">
+                                                                                                                                                                                                                                                       <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
+                                                                                                                                                                                                                                                       </div>
+                                                                                                                                                                                                                                                   </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -1005,10 +1008,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                                       <div class="form-group">
-                                                                                                                                                                                                                                       <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                                                                                                                                                                                       </div>
-                                                                                                                                                                                                                                      </div> -->
+                                                                                                                                                                                                                                                       <div class="form-group">
+                                                                                                                                                                                                                                                       <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                                                                                                                                                       </div>
+                                                                                                                                                                                                                                                      </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">

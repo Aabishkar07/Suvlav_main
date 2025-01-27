@@ -132,6 +132,8 @@ Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'admin']), func
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
     Route::delete('/contact/{contact:id}', [ContactController::class, 'delete'])->name('contactdelete');
+    // Define the route to get contact details by id
+    Route::get('/contact/{id}', [ContactController::class, 'viewcontact'])->name('viewcontact');
 
     //Route::get('dashboard',[HomeController::class, 'index']);
     Route::resource('product', ProductController::class);
@@ -155,6 +157,7 @@ Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'admin']), func
     Route::resource('order', controller: OrderController::class);
     Route::get('order/showdetails/{id}', [OrderController::class, 'showdetails'])->name('admin.order.showdetails');
     Route::resource('user', UserController::class);
+    Route::put('member/change/{member}', [MemberController::class, 'sharestatus'])->name('admin.sharestatus.update');
     Route::resource('member', MemberController::class);
     Route::resource('banner', BannerController::class);
     Route::get('/settings', [SettingController::class, 'edit'])->name('admin.setting.edit');
