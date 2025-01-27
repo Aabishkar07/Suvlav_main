@@ -181,6 +181,17 @@
                         </div>
                     </div>
 
+
+@php
+
+    $userid= Session::get('memeber_email_ss');
+ $userdata= DB::table('members')->where('email',$userid)->get();
+
+
+        @endphp
+
+
+
                     <div class="w-[30%] md:w-[20%]">
                         @if (Session::get('memeber_email_ss') != '')
                             <div class="flex items-center right">

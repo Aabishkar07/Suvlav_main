@@ -363,11 +363,17 @@ class ProductController extends Controller
       ->exists()
       ;
 
+      $hasreviewed = Review::where('user_id', '=', $member->id)->exists();
+
  
  
     } else {
       $hasOrdered = false;
+      $hasreviewed = false;
+
     }
+
+
 
     $reviews = Review::where('product_id', $product->id)->get();
     $allfeedback = Review::where('product_id', $product->id)->get();
@@ -379,7 +385,7 @@ class ProductController extends Controller
       $averagerating = $reviews->avg('rating');
     }
 
-    return view('front.products.detail', compact('product', 'member', 'prod_categories', 'prod_sizes', 'prod_colors', 'cartItems', 'categories', 'averagerating', 'reviewcount', 'reviews', 'allfeedback' ,'hasOrdered'));
+    return view('front.products.detail', compact('product', 'member', 'prod_categories', 'prod_sizes', 'prod_colors', 'cartItems', 'categories', 'averagerating', 'reviewcount', 'reviews', 'allfeedback' ,'hasOrdered','hasreviewed'));
   }
 
   public function togleActive(Product $product)

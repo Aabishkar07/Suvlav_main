@@ -604,6 +604,8 @@ class FrontController extends Controller
     {
 
 
+
+
         $product = Product::where('slug', $slug)->firstOrFail();
 
 
@@ -612,11 +614,38 @@ class FrontController extends Controller
 
 
 
+        $settings = \App\Models\Setting::all()->toArray();
+        if ($settings) {
+            foreach ($settings as $setting) {
+                $setting_data[$setting['key']] = $setting['value'];
+            }
+        }
+
+        $referral_points = $setting_data['referral_points'] ?? null;
+
+
+        $points = Member::find($user_id);
+
+        $points->update([
+            'total_points' => ($points->total_points ?? 0) + $referral_points,
+
+        ]);
+
+
+        AffiliatePoint::create([
+            'user_id' => $user_id,
+            'points' => $referral_points,
+            'status' => 'COMPLETED',
+            'point_status' => 'Review',
+        ]);
+
+
         Review::create([
             'product_id' => $product->id,
             'review_detail' => $request->input('feedback'),
             'rating' => $request->input('rating'),
             'user_id' => $user_id,
+
         ]);
 
         return redirect()->back()->with('success', 'Review submitted successfully!');
@@ -1467,9 +1496,9 @@ class FrontController extends Controller
     public function contactmail(Request $request)
     {
 
-     
 
-      
+
+
         $user = Contact::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -1492,9 +1521,9 @@ class FrontController extends Controller
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-      
+
         $headers .= 'From: <' . $femail . '>' . "\r\n";
-      
+
 
         $ok = @mail($to, $subject, $msgf, $headers);
         if ($ok) {
@@ -1575,6 +1604,7 @@ class FrontController extends Controller
         $userdata = DB::table('members')
             ->where('members.id', $id)
             ->first();
+
 
         if ($id) {
             $cartItems = $this->cartdata;

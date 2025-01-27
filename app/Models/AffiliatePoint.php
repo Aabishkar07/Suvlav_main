@@ -12,5 +12,6 @@ class AffiliatePoint extends Model
         'order_id',
         'points',
         'status',
+        'point_status',
     ];
 }
