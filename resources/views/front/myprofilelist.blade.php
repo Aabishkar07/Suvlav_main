@@ -66,8 +66,8 @@
         }
 
         /* .btn {
-                                                                                                                                                                                                background-color: #000 !important;
-                                                                                                                                                                                            } */
+                                                                                                                                                                                                        background-color: #000 !important;
+                                                                                                                                                                                                    } */
 
         .changepw {
             margin: 0px auto;
@@ -143,14 +143,88 @@
                                 </h4>
                             </div>
                             @if ($userdata[0]->share_status == 'verified')
-                                <div class="w-[40%] md:w-[25%]">
-                                    <a target="_blank"
-                                        href="{{ 'https://suvlav.com?websuvcode=' . $userdata[0]->affilate_code }}">
-                                        <div class="px-4 py-2 text-center text-white bg-green-700 rounded" style="">
+                                <div class="w-2/5 cursor-pointer md:w-1/4" id="openModal" onclick="openModal()">
+                                    <div>
+                                        <div class="px-4 py-2 text-center text-white bg-green-700 rounded">
                                             Share Website
                                         </div>
-                                    </a>
+                                    </div>
                                 </div>
+
+                                <div id="customModal"
+                                    class="fixed z-[999] top-0 left-0 items-center justify-center hidden w-full h-full bg-black bg-opacity-50">
+                                    <div class="w-11/12 max-w-md p-4 bg-white rounded-lg shadow-lg">
+                                        <div class="flex items-center justify-between pb-2 mb-4 border-b">
+                                            <h5 class="text-lg font-semibold">Share the Website</h5>
+                                            <button class="text-gray-500 hover:text-gray-700"
+                                                id="closeModal">&times;</button>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="mb-2 text-gray-700">Copy the current page URL below to share:</p>
+                                            <div>
+                                                <input type="text" class="w-full px-2 py-1 border rounded" id="urlField"
+                                                    value="{{ 'https://suvlav.com?websuvcode=' . $userdata[0]->affilate_code }}"
+                                                    readonly>
+                                                <button id="copyButton"
+                                                    class="px-4 py-2 mt-2 text-white bg-blue-600 rounded hover:bg-blue-700">
+                                                    Copy
+                                                </button>
+                                            </div>
+
+                                            <div class="pt-2">
+                                                <label class="font-medium text-md">Or share with</label>
+                                                @include('front.popicon')
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-end">
+                                            <button class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                                                id="closeFooterModal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    // Get elements
+                                    const customModal = document.getElementById('customModal');
+                                    const closeModalBtn = document.getElementById('closeModal');
+                                    const closeFooterModalBtn = document.getElementById('closeFooterModal');
+                                    const copyButton = document.getElementById('copyButton'); // Define copyButton
+                                    const urlField = document.getElementById('urlField'); // Define urlField
+
+                                    // Open modal
+                                    function openModal() {
+                                        customModal.classList.remove('hidden');
+                                        customModal.classList.add('flex');
+                                    }
+
+                                    // Close modal
+                                    closeModalBtn.addEventListener('click', () => {
+                                        customModal.classList.remove('flex');
+                                        customModal.classList.add('hidden');
+                                    });
+
+                                    closeFooterModalBtn.addEventListener('click', () => {
+                                        customModal.classList.remove('flex');
+                                        customModal.classList.add('hidden');
+                                    });
+
+                                    // Close modal when clicking outside of it
+                                    window.addEventListener('click', (e) => {
+                                        if (e.target === customModal) {
+                                            customModal.classList.remove('flex');
+                                            customModal.classList.add('hidden');
+                                        }
+                                    });
+
+                                    // Copy URL to clipboard
+                                    copyButton.addEventListener('click', () => {
+                                        urlField.select();
+                                        urlField.setSelectionRange(0, 99999); // For mobile devices
+                                        navigator.clipboard.writeText(urlField.value).then(() => {
+                                            alert('URL copied to clipboard!');
+                                        });
+                                    });
+                                </script>
                             @endif
                         </div>
 
@@ -734,10 +808,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                                                      <div class="form-group">
-                                                                                                                                                                                                                                                       <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                                                                                                                                                                                                                                                       </div>
-                                                                                                                                                                                                                                                   </div> -->
+                                                                                                                                                                                                                                                              <div class="form-group">
+                                                                                                                                                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
+                                                                                                                                                                                                                                                               </div>
+                                                                                                                                                                                                                                                           </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -1008,10 +1082,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                                                       <div class="form-group">
-                                                                                                                                                                                                                                                       <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                                                                                                                                                                                                       </div>
-                                                                                                                                                                                                                                                      </div> -->
+                                                                                                                                                                                                                                                               <div class="form-group">
+                                                                                                                                                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                                                                                                                                                               </div>
+                                                                                                                                                                                                                                                              </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">

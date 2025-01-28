@@ -11,6 +11,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SuvLav E-commerce, Shopping site</title>
 
+    <meta name="title" content="{{ 'SuvLav' }}" />
+    <meta name="description" content={{ 'SuvLav E-commerce, Shopping site' }} />
+
+    <meta property="twitter:url" content="{{ 'https://suvlav.com' }}" />
+    <meta property="twitter:title" content="{{ 'SuvLav' }}" />
+    <meta property="twitter:description" content="{{ 'SuvLav E-commerce, Shopping site' }}" />
+    <meta property="twitter:image" content="{{ 'https://suvlav.com/public/front_assets/images/swastik.png' }}">
+
+
+    <meta name="og:title" content="{{ 'SuvLav' }}" />
+    <meta name="og:description" content="{{ 'SuvLav E-commerce, Shopping site' }}" />
+    <meta property="og:image" content="https://suvlav.com/public/front_assets/images/swastik.png" />
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VS4PBD50JP"></script>
     <script>
