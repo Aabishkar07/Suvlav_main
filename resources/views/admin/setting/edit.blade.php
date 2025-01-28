@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label for="addressInput" class="col-sm-3 col-form-label">Website Share Points</label>
                         <div class="col-sm-9">
                             <input type="text" name="web_point"
@@ -139,7 +139,7 @@
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
 
 
 
