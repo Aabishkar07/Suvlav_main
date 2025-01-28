@@ -742,7 +742,7 @@
 <div class="flex justify-center rounded-lg bg-gray-50 item-center" id="review" role="tabpanel"
     aria-labelledby="review-tab">
     <div class="flex flex-col items-start p-4 rounded-lg md:flex-row md:items-center ">
-        <div class="flex items-center  md:mb-0">
+        <div class="flex items-center md:mb-0">
           
             <div>
                 <div class="text-2xl font-bold text-blue-500">You have already Reviewed !!</div>

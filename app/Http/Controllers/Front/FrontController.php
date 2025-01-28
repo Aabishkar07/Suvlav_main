@@ -1090,7 +1090,7 @@ class FrontController extends Controller
         foreach ($cartItems as $cc) {
 
             if ($webcode) {
-                $checkmember = Member::where("affilate_code", $webcode)->first();
+                $checkmember = Member::where("affilate_code", $webcode)->where("share_status", "verified")->first();
                 if ($checkmember) {
                     if ($checkmember->id != $user_id) {
                         $value +=  $webpoint;
