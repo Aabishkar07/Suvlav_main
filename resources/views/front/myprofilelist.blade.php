@@ -66,8 +66,8 @@
         }
 
         /* .btn {
-                                                                                                                                                                                                        background-color: #000 !important;
-                                                                                                                                                                                                    } */
+                                                                                                                                                                                                            background-color: #000 !important;
+                                                                                                                                                                                                        } */
 
         .changepw {
             margin: 0px auto;
@@ -133,99 +133,15 @@
             <div class="row">
                 <div class="col-lg-12 col-12">
                     <div>
-                        <div class="flex justify-between my-3 gap-x-3">
+                        <div class="justify-between my-3 gap-x-3">
 
-                            <div style="background-color: blue"
-                                class="w-[60%] md:w-[75%] px-4 py-2 text-center text-white rounded card-header">
+                            <div style="background-color: blue" class="px-4 py-2 text-center text-white rounded card-header">
                                 <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">
                                     Namaskar{{ $userdata[0]->gender == 'male' ? ' Sir' : ($userdata[0]->gender == 'female' ? ' Maam' : '') }}
 
                                 </h4>
                             </div>
-                            @if ($userdata[0]->share_status == 'verified')
-                                <div class="w-2/5 cursor-pointer md:w-1/4" id="openModal" onclick="openModal()">
-                                    <div>
-                                        <div class="px-4 py-2 text-center text-white bg-green-700 rounded">
-                                            Share Website
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div id="customModal"
-                                    class="fixed z-[999] top-0 left-0 items-center justify-center hidden w-full h-full bg-black bg-opacity-50">
-                                    <div class="w-11/12 max-w-md p-4 bg-white rounded-lg shadow-lg">
-                                        <div class="flex items-center justify-between pb-2 mb-4 border-b">
-                                            <h5 class="text-lg font-semibold">Share the Website</h5>
-                                            <button class="text-gray-500 hover:text-gray-700"
-                                                id="closeModal">&times;</button>
-                                        </div>
-                                        <div class="mb-4">
-                                            <p class="mb-2 text-gray-700">Copy the current page URL below to share:</p>
-                                            <div>
-                                                <input type="text" class="w-full px-2 py-1 border rounded" id="urlField"
-                                                    value="{{ 'https://suvlav.com?websuvcode=' . $userdata[0]->affilate_code }}"
-                                                    readonly>
-                                                <button id="copyButton"
-                                                    class="px-4 py-2 mt-2 text-white bg-blue-600 rounded hover:bg-blue-700">
-                                                    Copy
-                                                </button>
-                                            </div>
-
-                                            <div class="pt-2">
-                                                <label class="font-medium text-md">Or share with</label>
-                                                @include('front.popicon')
-                                            </div>
-                                        </div>
-                                        <div class="flex justify-end">
-                                            <button class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-                                                id="closeFooterModal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <script>
-                                    // Get elements
-                                    const customModal = document.getElementById('customModal');
-                                    const closeModalBtn = document.getElementById('closeModal');
-                                    const closeFooterModalBtn = document.getElementById('closeFooterModal');
-                                    const copyButton = document.getElementById('copyButton'); // Define copyButton
-                                    const urlField = document.getElementById('urlField'); // Define urlField
-
-                                    // Open modal
-                                    function openModal() {
-                                        customModal.classList.remove('hidden');
-                                        customModal.classList.add('flex');
-                                    }
-
-                                    // Close modal
-                                    closeModalBtn.addEventListener('click', () => {
-                                        customModal.classList.remove('flex');
-                                        customModal.classList.add('hidden');
-                                    });
-
-                                    closeFooterModalBtn.addEventListener('click', () => {
-                                        customModal.classList.remove('flex');
-                                        customModal.classList.add('hidden');
-                                    });
-
-                                    // Close modal when clicking outside of it
-                                    window.addEventListener('click', (e) => {
-                                        if (e.target === customModal) {
-                                            customModal.classList.remove('flex');
-                                            customModal.classList.add('hidden');
-                                        }
-                                    });
-
-                                    // Copy URL to clipboard
-                                    copyButton.addEventListener('click', () => {
-                                        urlField.select();
-                                        urlField.setSelectionRange(0, 99999); // For mobile devices
-                                        navigator.clipboard.writeText(urlField.value).then(() => {
-                                            alert('URL copied to clipboard!');
-                                        });
-                                    });
-                                </script>
-                            @endif
                         </div>
 
                         @if (Session::has('message'))
@@ -316,6 +232,93 @@
                                 Points</button>
                             {{-- <a class="block md:hidden"  href="{{ route('mypoints') }}" >
                                     <button >My points</button></a> --}}
+
+                        </div>
+                        <div class="flex justify-end my-2 ">
+                            @if ($userdata[0]->share_status == 'verified')
+                                <div class="w-48 cursor-pointer" id="openModal" onclick="openModal()">
+                                    <div>
+                                        <div class="px-4 py-2 text-center text-white bg-green-700 rounded">
+                                            Share Website
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="customModal"
+                                    class="fixed z-[999] top-0 left-0 items-center justify-center hidden w-full h-full bg-black bg-opacity-50">
+                                    <div class="w-11/12 max-w-md p-4 bg-white rounded-lg shadow-lg">
+                                        <div class="flex items-center justify-between pb-2 mb-4 border-b">
+                                            <h5 class="text-lg font-semibold">Share the Website</h5>
+                                            <button class="text-gray-500 hover:text-gray-700"
+                                                id="closeModal">&times;</button>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="mb-2 text-gray-700">Copy the current page URL below to share:</p>
+                                            <div>
+                                                <input type="text" class="w-full px-2 py-1 border rounded" id="urlField"
+                                                    value="{{ 'https://suvlav.com?websuvcode=' . $userdata[0]->affilate_code }}"
+                                                    readonly>
+                                                <button id="copyButton"
+                                                    class="px-4 py-2 mt-2 text-white bg-blue-600 rounded hover:bg-blue-700">
+                                                    Copy
+                                                </button>
+                                            </div>
+
+                                            <div class="pt-2">
+                                                <label class="font-medium text-md">Or share with</label>
+                                                @include('front.popicon')
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-end">
+                                            <button class="px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700"
+                                                id="closeFooterModal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    // Get elements
+                                    const customModal = document.getElementById('customModal');
+                                    const closeModalBtn = document.getElementById('closeModal');
+                                    const closeFooterModalBtn = document.getElementById('closeFooterModal');
+                                    const copyButton = document.getElementById('copyButton'); // Define copyButton
+                                    const urlField = document.getElementById('urlField'); // Define urlField
+
+                                    // Open modal
+                                    function openModal() {
+                                        customModal.classList.remove('hidden');
+                                        customModal.classList.add('flex');
+                                    }
+
+                                    // Close modal
+                                    closeModalBtn.addEventListener('click', () => {
+                                        customModal.classList.remove('flex');
+                                        customModal.classList.add('hidden');
+                                    });
+
+                                    closeFooterModalBtn.addEventListener('click', () => {
+                                        customModal.classList.remove('flex');
+                                        customModal.classList.add('hidden');
+                                    });
+
+                                    // Close modal when clicking outside of it
+                                    window.addEventListener('click', (e) => {
+                                        if (e.target === customModal) {
+                                            customModal.classList.remove('flex');
+                                            customModal.classList.add('hidden');
+                                        }
+                                    });
+
+                                    // Copy URL to clipboard
+                                    copyButton.addEventListener('click', () => {
+                                        urlField.select();
+                                        urlField.setSelectionRange(0, 99999); // For mobile devices
+                                        navigator.clipboard.writeText(urlField.value).then(() => {
+                                            alert('URL copied to clipboard!');
+                                        });
+                                    });
+                                </script>
+                            @endif
                         </div>
 
                         <style>
@@ -335,7 +338,7 @@
 
                         <div id="order_history" class="tabcontent max-md:hidden">
                             <div class="row max-md:hidden">
-                                <div class="mt-12 col-12 table-responsive">
+                                <div class="mt-2 col-12 table-responsive">
                                     <!-- Shopping Summery -->
                                     <div class="">
 
@@ -664,7 +667,7 @@ $orderDetails = DB::table('orders as a')
                         <!-- Start login and register form -->
 
                         <div id="Profile" class="tabcontent">
-                            <div style="background-color: orange" class="my-4 text-center text-white rounded card-header">
+                            <div style="background-color: orange" class="mt-2 text-center text-white rounded card-header">
                                 <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">Personal Profile </h4>
                             </div>
 
@@ -725,7 +728,7 @@ $orderDetails = DB::table('orders as a')
                         <!-- Start login and register form -->
 
                         <div id="changepw" class="tabcontent">
-                            <div style="background-color: orange" class="my-4 text-center text-white rounded card-header">
+                            <div style="background-color: orange" class="my-2 text-center text-white rounded card-header">
                                 <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">Change Password </h4>
                             </div>
 
@@ -796,7 +799,7 @@ $orderDetails = DB::table('orders as a')
                         <!-- Start  delivery Addresss form -->
                         <div id="deladdress" class="tabcontent">
 
-                            <div style="background-color: orange" class="my-4 text-center text-white rounded card-header">
+                            <div style="background-color: orange" class="my-2 text-center text-white rounded card-header">
                                 <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">Delivery Address </h4>
                             </div>
 
@@ -808,10 +811,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                                                              <div class="form-group">
-                                                                                                                                                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                                                                                                                                                                                                                                                               </div>
-                                                                                                                                                                                                                                                           </div> -->
+                                                                                                                                                                                                                                                                  <div class="form-group">
+                                                                                                                                                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
+                                                                                                                                                                                                                                                                   </div>
+                                                                                                                                                                                                                                                               </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -894,7 +897,7 @@ $orderDetails = DB::table('orders as a')
                         <!--	 End login register fomr-->
 
                         <div id="mypoints" class="tabcontent">
-                            <div style="background-color: orange" class="my-4 text-center text-white rounded card-header">
+                            <div style="background-color: orange" class="my-2 text-center text-white rounded card-header">
                                 <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">My Points </h4>
                             </div>
                             <label>Available Points</label>
@@ -1082,10 +1085,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                                                               <div class="form-group">
-                                                                                                                                                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                                                                                                                                                                                                               </div>
-                                                                                                                                                                                                                                                              </div> -->
+                                                                                                                                                                                                                                                                   <div class="form-group">
+                                                                                                                                                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                                                                                                                                                                   </div>
+                                                                                                                                                                                                                                                                  </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
