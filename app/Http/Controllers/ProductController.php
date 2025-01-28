@@ -114,6 +114,7 @@ class ProductController extends Controller
     $product->title = $request->input('title');
     $product->slug = $slug;
     $product->short_desc = $request->input('short_desc');
+    $product->web_points = $request->input('web_points');
     $product->content = $request->input('content');
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');
@@ -226,6 +227,8 @@ class ProductController extends Controller
 
     $product->title = $request->input('title');
     $product->short_desc = $request->input('short_desc');
+    $product->web_points = $request->input('web_points');
+
     $product->content = $request->input('content');
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');

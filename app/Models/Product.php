@@ -12,7 +12,7 @@ class Product extends Model
     use HasFactory;
     use Sluggable;
 
-    protected $fillable = ['title', 'availablestock', 'short_desc', 'content', 'slug', 'image', 'images', 'regular_price', 'sale_price', 'prod_code', 'prod_featured', 'prod_new_arrival', 'status', 'points'];
+    protected $fillable = ['title', 'availablestock', 'web_points', 'short_desc', 'content', 'slug', 'image', 'images', 'regular_price', 'sale_price', 'prod_code', 'prod_featured', 'prod_new_arrival', 'status', 'points'];
 
     public function reviews()
     {

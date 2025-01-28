@@ -1033,7 +1033,6 @@ class FrontController extends Controller
         $totalprice = 0;
         $totalqnty = 0;
 
-        $webpoint = Setting::where('key', "web_point")->first()->value ?? 0;
 
 
 
@@ -1090,10 +1089,12 @@ class FrontController extends Controller
         foreach ($cartItems as $cc) {
 
             if ($webcode) {
+                $product = Product::where("id", $cc->product_id)->first();
+                $webpoint = $product->web_points;
                 $checkmember = Member::where("affilate_code", $webcode)->where("share_status", "verified")->first();
                 if ($checkmember) {
                     if ($checkmember->id != $user_id) {
-                        $value +=  $webpoint;
+                        $value +=  $webpoint * $cc->quantity;
                     }
                 }
             } else {
@@ -1106,8 +1107,7 @@ class FrontController extends Controller
                             if ($checkmember) {
                                 if ($session_product_id) {
                                     if ($checkmember->id != $user_id) {
-
-                                        $value +=  $product->points ?? 0;
+                                        $value +=  $product->points ?? 0 * $cc->quantity;
                                     }
                                 }
                             }

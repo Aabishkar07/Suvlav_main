@@ -17,7 +17,7 @@
 
     <form action="{{ route('product.store') }}" method="POST" class="forms-sample" enctype="multipart/form-data">
         @csrf
-    <div class="col-lg-12 grid-margin stretch-card px-5">
+    <div class="px-5 col-lg-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
 
@@ -102,10 +102,23 @@
                         <div class="col-sm-9">
                             <div class="input-group">
 
-                                <input type="text" name="points" class="form-control" id="sale_priceInput"
+                                <input type="number" name="points" class="form-control" id="sale_priceInput"
                                     placeholder="Product Points" aria-label="Sale Price" aria-describedby="basic-addon1">
                             </div>
                             @error('points')
+                                <span class="text-danger ">* {{ $message }} </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row ">
+                        <label for="sale_priceInput" class="col-sm-3 col-form-label"> Points for website share</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+
+                                <input type="number" name="web_points" class="form-control" id="web_points"
+                                    placeholder="Product Points for website share" aria-label="Sale Price" aria-describedby="basic-addon1">
+                            </div>
+                            @error('web_points')
                                 <span class="text-danger ">* {{ $message }} </span>
                             @enderror
                         </div>
