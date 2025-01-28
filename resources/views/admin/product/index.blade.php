@@ -23,7 +23,7 @@
         </div>
     @endif
 
-    <div class="col-lg-12 grid-margin stretch-card px-5">
+    <div class="px-5 col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <div class="row">
