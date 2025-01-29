@@ -1026,9 +1026,6 @@ class FrontController extends Controller
 
 
 
-
-
-
         $item_count = 0;
         $totalprice = 0;
         $totalqnty = 0;
@@ -1129,6 +1126,7 @@ class FrontController extends Controller
 
             DB::table('order_details')->insert($cart_orders);
         }
+      
         if ($checkmember) {
             if ($value != 0) {
                 $affilate = AffiliatePoint::create([
@@ -1141,7 +1139,7 @@ class FrontController extends Controller
         }
         session()->forget('suvcode');
         session()->forget('suvproduct');
-        session()->forget('websuvcode');
+        // session()->forget('websuvcode');
 
         $exist = DB::table('shippings')
             ->where(['member_id' => $user_id])

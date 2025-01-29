@@ -234,7 +234,7 @@
                                     <button >My points</button></a> --}}
 
                         </div>
-                        <div class="flex justify-end my-2 ">
+                        <div class="flex justify-end my-2">
                             @if ($userdata[0]->share_status == 'verified')
                                 <div class="w-48 cursor-pointer" id="openModal" onclick="openModal()">
                                     <div>
