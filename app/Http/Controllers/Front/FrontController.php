@@ -432,19 +432,19 @@ class FrontController extends Controller
         $results['home_banners'] = DB::table('banners')
             ->where(['status' => 1])
             ->orderBy('id', 'asc')
-            ->get();
+            ->inRandomOrder()->get();
 
         // New Products
         $results['home_prod_new_arrivals'] = DB::table('products')
             ->where(['status' => 1])
             // ->where(['prod_new_arrival' => '1'])
-            ->limit(24)
+            ->limit(24)->inRandomOrder()
             ->get();
 
         // Featured Products
         $results['home_prod_featured'] = DB::table('products')
             ->where(['status' => 1])
-            ->where(['prod_featured' => '1'])
+            ->where(['prod_featured' => '1'])->inRandomOrder()
             // ->limit(7)
             ->get();
 
