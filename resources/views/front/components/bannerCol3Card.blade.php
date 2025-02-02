@@ -105,7 +105,7 @@
                     <div class="card border-0 shadow-sm relative single-banner">
                      
                         <div class="relative h-[470px]">
-                            <img src="{{ asset('public/' . $product->image) }}" class="card-img-top img-fluid h-100 w-full object-cover" alt="Banner">
+                            <img src="{{ asset('public/' . $product->image) }}" class="card-img-top img-fluid h-100 w-full object-contain" alt="Banner">
                         
                        
                             <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
