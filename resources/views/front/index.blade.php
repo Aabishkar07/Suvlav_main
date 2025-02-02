@@ -15,12 +15,15 @@
 
 
 
-    <section class="hero-slider">
+    {{-- <section class="hero-slider">
         @foreach ($home_banners as $list)
             @include('front.components.bannerCol3Card', ['list' => $list, 'display_option' => '1'])
         @endforeach
-    </section>
+    </section> --}}
 
+
+            @include('front.components.bannerCol3Card')
+   
 
 
 
