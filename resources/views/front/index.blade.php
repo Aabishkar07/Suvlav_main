@@ -137,7 +137,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="product-info" style="margin-top: -50px;">
+                    <div class="product-info" style="margin-top: -75px;">
                         <div class="row">
                             @foreach ($home_prod_new_arrivals as $list)
                                 @include('front.components.productcard', [
