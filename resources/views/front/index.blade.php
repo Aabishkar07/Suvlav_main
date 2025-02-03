@@ -88,7 +88,7 @@
     <!-- Start Product Area -->
     <div class="product-area section">
 
-        <div class="container">
+        <div class="max-w-screen-2xl mx-auto">
             {{-- <div class="row">
                 <div class="col-12">
                     <div class="section-title">
@@ -163,7 +163,6 @@
                     </div>
                 </div>
 
-                
             </a>
         </div>
     </div>
