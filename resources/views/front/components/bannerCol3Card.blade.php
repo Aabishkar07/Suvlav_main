@@ -84,7 +84,7 @@
 <script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script>
 
 
-<div style="margin-top:100px">
+<div style="margin-top:71px">
 
 </div>
 <!-- Include Owl Carousel CSS -->
@@ -99,7 +99,7 @@
 
     
   
-<div class=" my-5 md:max-w-screen-2xl md:mx-auto">
+<div class="md:max-w-screen-2xl md:mx-auto">
     <div id="bannerCarousel" class="owl-carousel owl-theme">
         @foreach ($home_banners as $key => $product)
             <div class="item">
