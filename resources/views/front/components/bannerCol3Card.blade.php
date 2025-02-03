@@ -110,7 +110,7 @@
                             <img src="{{ asset('public/' . $product->image) }}" class="card-img-top img-fluid h-100 w-full object-contain" alt="Banner">
                         
                        
-                            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
                                 <div class="text-center text-white p-4">
                                     {!! $product->top_heading ? '<p class="text-sm font-semibold text-white">' . $product->top_heading . '</p>' : '' !!}
                                     {!! $product->main_heading ? '<h3 class="text-xl font-bold">' . $product->main_heading . '</h3>' : '' !!}
