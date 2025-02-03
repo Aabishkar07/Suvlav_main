@@ -848,7 +848,7 @@ class FrontController extends Controller
                 Mail::to($request->email)->send(new welcome('Thank You'));
 
 
-                Mail::to('aaviscar09@gmail.com')->send(new registerUser($member));
+                Mail::to('suvlav25@gmail.com')->send(new registerUser($member));
 
 
 
@@ -1202,14 +1202,14 @@ class FrontController extends Controller
 
         if ($user_id != 0) {
             DB::table('carts')->where('user_id', '=', $user_id)->delete();
-            // Mail::to("anupkasula5@gmail.com")->send(new MailOrder($maildata));
-            // Mail::to($request->email)->send(new MailOrder($maildata));
+            Mail::to("suvlav25@gmail.com")->send(new MailOrder($maildata));
+            Mail::to($request->email)->send(new MailOrder($maildata));
 
             return redirect()->route('member.myprofile')->with('success', 'Order has been Successfully Placed.');
         } else {
             DB::table('carts')->where('guest_id', '=', $guest_id)->delete();
-            // Mail::to("anupkasula5@gmail.com")->send(new MailOrder($maildata));
-            // Mail::to($request->email)->send(new MailOrder($maildata));
+            Mail::to("suvlav25@gmail.com")->send(new MailOrder($maildata));
+            Mail::to($request->email)->send(new MailOrder($maildata));
             return redirect()->route('home.index')->with('success', 'Order has been Successfully Placed.');
         }
     }
