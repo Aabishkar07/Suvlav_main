@@ -96,7 +96,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script>
 
-<div class="container my-5">
+
+    
+  
+<div class=" my-5 md:max-w-screen-2xl md:mx-auto">
     <div id="bannerCarousel" class="owl-carousel owl-theme">
         @foreach ($home_banners as $key => $product)
             <div class="item">
