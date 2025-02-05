@@ -40,10 +40,10 @@ $start = (isset($request->page) && !empty($request->page))? (($request->page -1 
                           <th> Subject </th>
                           <th> Phone </th>
 
-                          <th> Message </th>
+                          {{-- <th> Message </th> --}}
 
 
-                          <th> Remove </th>
+                          <th> Action </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -58,34 +58,39 @@ $start = (isset($request->page) && !empty($request->page))? (($request->page -1 
                             <td>{!!$page->subject  !!}</td>  
                             <td>{!!$page->phone_no  !!}</td>  
 
-                            <td style="width: 600px; word-wrap: break-word; white-space: normal; padding: 1; margin: 0;">
+                            {{-- <td style="width: 600px; word-wrap: break-word; white-space: normal; padding: 1; margin: 0;">
                               {!! nl2br($page->message) !!}
-                          </td>
+                          </td> --}}
                           
                   
 
 
                             {{-- @can('Delete Faqs') --}}
               <td>
-                <form action="{{route('contactdelete', $page->id)}}" method="POST" class="delete_confirm">
+                {{-- <form action="{{route('contactdelete', $page->id)}}" method="POST" class="delete_confirm">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <input type="hidden" name="_method" value="DELETE">
                 <button class="btn btn-danger sfw btn-sm"><i class="fa fa-trash-o"></i> </button>
 
-                
-                <button type="button" class="btn text-white btn-sm" style="background-color:#0000FF" 
-                data-toggle="modal" 
-                data-target="#exampleModal" 
-                data-id="{{ $page->id }}"
-                data-name="{{ $page->name ?? 'No data available' }}"
-                data-email="{{ $page->email ?? 'No data available' }}"
-                data-subject="{{ $page->subject ?? 'No data available' }}"
-                data-phone="{{ $page->phone_no ?? 'No data available' }}"
-                data-message="{{ $page->message ?? 'No data available' }}">
-            View
-        </button>
-        
-              </form>
+               </form> --}}
+
+               <button type="button" class="btn  btn-sm" style="" 
+               data-toggle="modal" 
+               data-target="#exampleModal" 
+               data-id="{{ $page->id }}"
+               data-name="{{ $page->name ?? 'No data available' }}"
+               data-email="{{ $page->email ?? 'No data available' }}"
+               data-subject="{{ $page->subject ?? 'No data available' }}"
+               data-phone="{{ $page->phone_no ?? 'No data available' }}"
+               data-message="{{ $page->message ?? 'No data available' }}">
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" stroke-width="2">
+                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"></path>
+              </svg>
+       </button>
+
+     
+              </td>
 
 
          
