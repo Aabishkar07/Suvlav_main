@@ -112,7 +112,7 @@
                             <th> Image </th>
                             <th> Name </th>
                             <th> Price </th>
-                            <th> Product Code </th>
+                            <th> Cost Price </th>
                             <th> Stock</th>
                             <th> Status </th>
                             {{-- <th> Active </th> --}}
@@ -137,24 +137,26 @@
                                     <td>@php $showProductPrice = showProductPrice($product->regular_price, $product->sale_price); @endphp
                                         {!! $showProductPrice !!}
                                     </td>
-                                    <td>{{ $product->prod_code }}</td>
+                                    {{-- <td>{{ $product->prod_code }}</td> --}}
+                                    <td>{{ $product->cp }}</td>
+
                                     <td>{!! $product->stock_status === '1' ? 'In Stock' : 'Out of Stock' !!}</td>
                                     {{-- <td>{!! $product->status === '1' ? '<i class="fa fa-check"></i>' : '<i class="fa fa-times"></i>' !!}</td> --}}
 
-                                    <td class="px-5 py-5 text-sm bg-white ">
+                                    <td class=" text-sm bg-white " style="width: 10px">
 
                                         <form method="POST" action="{{ route('togleActive', $product->id) }}">
                                             @csrf
-                                            <label class="inline-flex items-center cursor-pointer">
+                                            <label class="inline-flex d-flex items-center cursor-pointer">
                                                 <div class="form-check d-flex form-switch">
-                                                    <div class="px-5">
+                                                    <div class="px-4">
                                                         <input class=" form-check-input bigger-toggle" type="checkbox"
                                                             role="switch" id="flexSwitchCheckChecked"
                                                             onchange="this.form.submit()"
                                                             {{ $product->status == '1' ? 'checked' : '' }}>
                                                     </div>
                                                 </div>
-                                                <div>
+                                                <div class="pt-3">
                                                     @if ($product->status == '1')
                                                         <div class="px-4 py-1 text-white rounded bg-success">
                                                             Active

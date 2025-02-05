@@ -118,6 +118,25 @@
                     </div>
 
 
+                    
+                    <div class="form-group row">
+                        <label for="sale_priceInput" class="col-sm-3 col-form-label">Cost Price</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">{{ $currencyName }}</span>
+                                </div>
+                                <input type="text" name="cp" value="{{ $product->cp }}"
+                                    class="form-control" id="sale_priceInput" placeholder="Sale Price"
+                                    aria-label="Cost Price" aria-describedby="basic-addon1">
+                            </div>
+                            @error('cp')
+                                <span class="text-danger ">* {{ $message }} </span>
+                            @enderror
+                        </div>
+                    </div>
+
+
 
                     <div class="form-group row">
                         <label for="sale_priceInput" class="col-sm-3 col-form-label">Product Points </label>

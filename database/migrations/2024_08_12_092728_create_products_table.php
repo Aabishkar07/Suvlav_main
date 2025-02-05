@@ -31,6 +31,8 @@ return new class extends Migration
             $table->enum('prod_featured', ['0','1'])->nullable();
             $table->enum('prod_new_arrival', ['0','1'])->nullable();
             $table->enum('status', ['1','0'])->nullable();
+            $table->string('cp')->nullable();
+
             $table->timestamps();
         });
     }

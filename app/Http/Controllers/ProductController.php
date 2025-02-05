@@ -118,6 +118,8 @@ class ProductController extends Controller
     $product->content = $request->input('content');
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');
+    $product->cp = $request->input('cp');
+
     $product->points = $request->input('points');
 
     $product->prod_code = $prod_code;
@@ -232,6 +234,8 @@ class ProductController extends Controller
     $product->content = $request->input('content');
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');
+    $product->cp = $request->input('cp');
+
     $product->points = $request->input('points');
     $product->availablestock = $request->input('availablestock');
 
