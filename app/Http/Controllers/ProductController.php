@@ -166,6 +166,35 @@ class ProductController extends Controller
   /**
    * Update the specified resource in storage.
    */
+
+
+
+
+
+  //  public function loadMoreProducts(Request $request)
+  //  {
+  //      $page = $request->get('page', 1);
+  //      $perPage = 5; // Number of products to load per page
+   
+  //      $products = Product::orderBy('created_at', 'desc')
+  //          ->skip(($page - 1) * $perPage)
+  //          ->take($perPage)
+  //          ->get();
+   
+  //      $view = '';
+  //      foreach ($products as $product) {
+  //          $view .= view('front.components.productcard', [
+  //              'list' => $product,
+  //              'slider' => '0',
+  //          ])->render();
+  //      }
+   
+  //      return response()->json(['html' => $view]);
+  //  }
+   
+
+
+
   public function update(Request $request, Product $product)
   {
     $request->validate([
