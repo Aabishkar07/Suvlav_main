@@ -1040,6 +1040,7 @@ class FrontController extends Controller
         }
 
         $value = 0;
+        $status = "";
         $checkmember = "";
 
         $trackingid = rand(10000, 99999);
@@ -1092,6 +1093,7 @@ class FrontController extends Controller
                 if ($checkmember) {
                     if ($checkmember->id != $user_id) {
                         $value +=  $webpoint * $cc->quantity;
+                        $status = 'WebsiteShare';
                     }
                 }
             } else {
@@ -1126,7 +1128,7 @@ class FrontController extends Controller
 
             DB::table('order_details')->insert($cart_orders);
         }
-      
+
         if ($checkmember) {
             if ($value != 0) {
                 $affilate = AffiliatePoint::create([
@@ -1134,6 +1136,7 @@ class FrontController extends Controller
                     'order_id' => $orderid,
                     'points' => $value,
                     'status' => "PENDING",
+                    'point_status' => $status
                 ]);
             }
         }
