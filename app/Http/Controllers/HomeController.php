@@ -20,10 +20,12 @@ class HomeController extends Controller
         $totalproducts = Product::count();
         $pendingorders = Order::where('status', 'Pending')->count();
         $ordervalue = Order::where('status', 'Delevered')->sum("total_amt");
+        $costprice=Product::sum("cp");
+    
         // dd($ordervalue);
         $totalmembers = Member::count();
         $totalorder = Order::count();
-        return view('admin.index', compact('posts', 'orders','ordervalue', 'totalorder', 'totalproducts', 'pendingorders', 'totalmembers'));
+        return view('admin.index', compact('posts', 'orders','ordervalue', 'totalorder', 'totalproducts', 'pendingorders', 'totalmembers','costprice'));
         $posts = Post::orderBy('id', 'desc')->take(2)->get();
         $orders = Order::orderBy('id', 'desc')->take(5)->get();
         return view('admin.index', compact('posts', 'orders'));
