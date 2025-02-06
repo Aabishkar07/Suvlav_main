@@ -835,33 +835,33 @@ $orderDetails = DB::table('orders as a')
                                         <span>District</span> &nbsp; : &nbsp; {{ @$shippings[0]->district }}
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-12">
+                                {{-- <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
                                         <span>City</span> &nbsp; : &nbsp; {{ @$shippings[0]->city }}
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
                                         <span>Address.</span> &nbsp; : &nbsp; {{ @$shippings[0]->address }}
                                     </div>
                                 </div>
-
-
-                            </div>
-                            <div class="row">
-
-
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
                                         <span>Tole.</span> &nbsp; : &nbsp; {{ @$shippings[0]->tole }}
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4 col-md-4 col-12">
+                            </div>
+                            <div class="row">
+
+
+                              
+
+                                {{-- <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
                                         <span>House No.</span> &nbsp; : &nbsp; {{ @$shippings[0]->houseno }}
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -1133,20 +1133,18 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4 col-md-4 col-12">
+                                {{-- <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
                                         <span>City</span> &nbsp; <input type="text" name="city_del"
                                             value="{{ @$shippings[0]->city }}">
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
                                         <span>Address.</span> &nbsp; <input type="text" name="address_del"
                                             value="{{ @$shippings[0]->address }}">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
                                         <span>Tole.</span> &nbsp;<input type="text" name="tole_del"
@@ -1154,12 +1152,15 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4 col-md-4 col-12">
+                            </div>
+                            <div class="row">
+                              
+                                {{-- <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
                                         <span>House No.</span> &nbsp;<input type="text" name="house_del"
                                             value="{{ @$shippings[0]->houseno }}">
                                     </div>
-                                </div>
+                                </div> --}}
 
 
                                 <div class="col-lg-4 col-md-4 col-12">
