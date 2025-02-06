@@ -42,6 +42,7 @@ Route::post('/removeitem', [CartController::class, 'removeCartItem'])->name('car
 Route::get('/checkout', [FrontController::class, 'checkout'])->name('cart.checkout');
 Route::get('/getdistricts', [FrontController::class, 'getDistrictsByState']);
 Route::post('/checkoutsmt', [FrontController::class, 'checkoutsmt'])->name('cart.checkoutsmt');
+Route::get('/load-more-products', [ProductController::class, 'loadMoreProducts'])->name('load.more.products');
 
 Route::get('/profileorder', [FrontController::class, 'profileorder'])->name('profile.ordered');
 

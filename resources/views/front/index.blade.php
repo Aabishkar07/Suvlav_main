@@ -135,7 +135,7 @@
 
 
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-12">
                     <div class="product-info" style="margin-top: -75px;">
                         <div class="row">
@@ -148,7 +148,27 @@
                         </div>
                     </div>
                 </div>
+            </div> --}}
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="product-info" style="margin-top: -75px;">
+                        <div class="row" id="product-list">
+                            @foreach ($home_prod_new_arrivals as $list)
+                                @include('front.components.productcard', [
+                                    'list' => $list,
+                                    'slider' => '0',
+                                ])
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
             </div>
+{{--         
+            <div id="loader" class="text-center my-4" style="display: none;">
+                <span>Loading...</span>
+            </div> --}}
+            
             <a href="{{ route('newarrivals') }}" class="mt-4 text-decoration-none d-flex justify-content-center">
                 <div class="gap-2 d-flex align-items-center text-danger hover-underline">
                     View All
@@ -166,7 +186,45 @@
             </a>
         </div>
     </div>
-
+    {{-- <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let page = 1;
+            let isLoading = false; 
+        
+            window.addEventListener('scroll', function () {
+                if (isLoading) return; // Prevent multiple requests
+        
+                // Detect if user has scrolled to the bottom
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+                    isLoading = true;
+                    document.getElementById('loader').style.display = 'block';
+        
+                    fetch(`{{ route('load.more.products') }}?page=${page + 1}`, {
+                        method: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.html.trim()) {
+                            document.getElementById('product-list').insertAdjacentHTML('beforeend', data.html);
+                            page++;
+                        } else {
+                            // No more products
+                            window.removeEventListener('scroll', arguments.callee);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error))
+                    .finally(() => {
+                        isLoading = false;
+                        document.getElementById('loader').style.display = 'none';
+                    });
+                }
+            });
+        });
+        </script> --}}
+        
 
 
     <div class="mt-5 product-area section">
@@ -225,7 +283,7 @@
 
 
     <!-- Start Shop Services Area -->
-    <section class="shop-services section home">
+    {{-- <section class="shop-services section home">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-12">
@@ -266,7 +324,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- End Shop Services Area -->
 
     <!-- Modal -->

@@ -77,7 +77,7 @@
 
 <body class="js">
 
-    <div class="fixed top-0 w-full md:bg-white" style="z-index: 99999;">
+    <div class="fixed top-0 w-full md:bg-white" style="z-index: 9999;">
 
 
         <!-- Header -->
@@ -89,8 +89,7 @@
 
             <!-- End Topbar -->
             @include('front.common.header')
-            <!-- Header Inner -->
-            <!--/ End Header Inner -->
+          
         </header>
     </div>
     <!--/ End Header -->

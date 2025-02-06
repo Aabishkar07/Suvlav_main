@@ -179,7 +179,7 @@
                                                     '<span class="discount" style="color: black;">' .
                                                     moneyFormat($product->sale_price) .
                                                     '</span>' .
-                                                    '<s style="color: #dc3545;">' .
+                                                    '<s style="color: #dc3545; font-size: 13px">' .
                                                     moneyFormat($product->regular_price) .
                                                     '</s>' .
                                                     '<div class="px-2 py-1 text-xs text-white rounded bg-success">' .
