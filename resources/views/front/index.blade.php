@@ -3,34 +3,11 @@
     <!-- Main Banner  -->
 
 
-
-    @if (Session::has('success'))
-        <script>
-            Toast.fire({
-                icon: "success",
-                title: "{{ Session::get('popsuccess') }}"
-            })
-        </script>
-    @endif
-
-
-
     {{-- <section class="hero-slider">
         @foreach ($home_banners as $list)
             @include('front.components.bannerCol3Card', ['list' => $list, 'display_option' => '1'])
         @endforeach
     </section> --}}
-
-
-            @include('front.components.bannerCol3Card')
-   
-
-
-
-    <!--/ End Main Banner  -->
-
-
-
     <!-- Start Most Popular -->
 
     {{-- <div class="product-area most-popular section ">
@@ -85,11 +62,7 @@
 
     <!-- End Most Popular Area -->
 
-    <!-- Start Product Area -->
-    <div class="product-area section">
-
-        <div class="max-w-screen-2xl mx-auto">
-            {{-- <div class="row">
+    {{-- <div class="row">
                 <div class="col-12">
                     <div class="section-title">
                         <h2>New Arrivals</h2>
@@ -97,7 +70,7 @@
                 </div>
             </div> --}}
 
-            {{-- <div class="container">
+    {{-- <div class="container">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
                  
                     <h2 class="text-2xl text-black New Arrivals text-start fs-3" style="font-weight: 600">
@@ -135,7 +108,7 @@
 
 
 
-            {{-- <div class="row">
+    {{-- <div class="row">
                 <div class="col-12">
                     <div class="product-info" style="margin-top: -75px;">
                         <div class="row">
@@ -149,6 +122,29 @@
                     </div>
                 </div>
             </div> --}}
+
+    @if (Session::has('success'))
+        <script>
+            Toast.fire({
+                icon: "success",
+                title: "{{ Session::get('popsuccess') }}"
+            })
+        </script>
+    @endif
+
+
+
+
+
+
+    @include('front.components.bannerCol3Card')
+
+
+
+    <div class="product-area section overflow-hidden md:container md:mx-auto">
+
+        <div class="">
+
 
             <div class="row">
                 <div class="col-12">
@@ -164,16 +160,12 @@
                     </div>
                 </div>
             </div>
-{{--         
-            <div id="loader" class="text-center my-4" style="display: none;">
-                <span>Loading...</span>
-            </div> --}}
-            
+
+
             <a href="{{ route('newarrivals') }}" class="mt-4 text-decoration-none d-flex justify-content-center">
                 <div class="gap-2 d-flex align-items-center text-danger hover-underline">
                     View All
-                    <div
-                        class="p-1 text-white bg-danger rounded-circle d-flex justify-content-center align-items-center">
+                    <div class="p-1 text-white bg-danger rounded-circle d-flex justify-content-center align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24"
                             height="24">
                             <path
@@ -186,45 +178,7 @@
             </a>
         </div>
     </div>
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let page = 1;
-            let isLoading = false; 
-        
-            window.addEventListener('scroll', function () {
-                if (isLoading) return; // Prevent multiple requests
-        
-                // Detect if user has scrolled to the bottom
-                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-                    isLoading = true;
-                    document.getElementById('loader').style.display = 'block';
-        
-                    fetch(`{{ route('load.more.products') }}?page=${page + 1}`, {
-                        method: 'GET',
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest',
-                        },
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.html.trim()) {
-                            document.getElementById('product-list').insertAdjacentHTML('beforeend', data.html);
-                            page++;
-                        } else {
-                            // No more products
-                            window.removeEventListener('scroll', arguments.callee);
-                        }
-                    })
-                    .catch(error => console.error('Error:', error))
-                    .finally(() => {
-                        isLoading = false;
-                        document.getElementById('loader').style.display = 'none';
-                    });
-                }
-            });
-        });
-        </script> --}}
-        
+
 
 
     <div class="mt-5 product-area section">
@@ -234,18 +188,12 @@
                     <div class="section-title">
                         <h2>Latest Blogs</h2>
                     </div>
-                    <!-- <div class="section-title">-->
-                    <!--    <h2></h2>-->
-                    <!--</div>-->
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="product-info" style="margin-top: -15px;">
                         <div class="row">
-                            {{-- @foreach ($home_prod_new_arrivals as $list)
-							@include('front.components.productcard', ['list' => $list, 'slider' => '0'])
-							@endforeach									 --}}
 
                             @include('front.blog.index')
 
@@ -262,27 +210,13 @@
 
 
 
-    <!-- Start Product Categories  -->
-    <!-- <section class="shop-home-list section">
-                                  <div class="container">
-                                   <div class="row">
-                                    <div class="col-12">
-                                    <div class="shop-section-title">
-                                     <h1>Product categories</h1>
-                                    </div>
-                                      <div class="row">
-                                       @foreach ($categories as $list)
-    @include('front.components.productCatCard', ['list' => $list])
-    @endforeach
-                                      </div>
-                                    </div>
-                                   </div>
-                                  </div>
-                                 </section> -->
-    <!-- End Shop Home List  -->
+{{-- 
+    @foreach ($categories as $list)
+        @include('front.components.productCatCard', ['list' => $list])
+    @endforeach --}}
 
 
-    <!-- Start Shop Services Area -->
+
     <section class="shop-services section home">
         <div class="container">
             <div class="row">
@@ -325,7 +259,7 @@
             </div>
         </div>
     </section>
-    <!-- End Shop Services Area -->
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
