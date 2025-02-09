@@ -134,7 +134,7 @@
                                         <tr>
 
                                             <td class="image" data-title="No"><img
-                                                    src="{{ asset($order->product_image) }}">
+                                                    src="{{ asset('/public' . $order->product_image) }}">
                                             </td>
                                             <td class="product-des" data-title="Description">{{ $order->product_name }}
                                             </td>
