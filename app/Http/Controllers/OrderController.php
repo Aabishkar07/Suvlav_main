@@ -76,10 +76,14 @@ class OrderController extends Controller
 
         $orderid = $pid;
 
+      
+
         $orders = DB::table('orders as a')
             ->join('order_details as b', 'b.order_id', '=', 'a.id')
             ->where('a.id', $orderid)
             ->get()->toArray();
+
+          
 
         $user_id = $orders[0]->user_id;
 

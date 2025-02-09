@@ -438,7 +438,7 @@ class FrontController extends Controller
         $results['home_prod_new_arrivals'] = DB::table('products')
             ->where(['status' => 1])
             // ->where(['prod_new_arrival' => '1'])
-            ->limit(24)->inRandomOrder()
+            ->inRandomOrder()
             ->get();
 
         // Featured Products

@@ -149,10 +149,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="product-info" style="margin-top: -75px;">
-                        <div class="row" id="product-list">
+                        <div class="row " id="product-list">
                             @foreach ($home_prod_new_arrivals as $list)
+                            
                                 @include('front.components.productcard', [
                                     'list' => $list,
+                                    'index' => $loop->index,
                                     'slider' => '0',
                                 ])
                             @endforeach
@@ -162,7 +164,10 @@
             </div>
 
 
-            <a href="{{ route('newarrivals') }}" class="mt-4 text-decoration-none d-flex justify-content-center">
+            <div class="text-center mt-4">
+                <button id="load-more" class="text-white p-2 rounded-md text-xs bg-blue-500">Load More</button>
+            </div>
+            {{-- <a href="{{ route('newarrivals') }}" class="mt-4 text-decoration-none d-flex justify-content-center">
                 <div class="gap-2 d-flex align-items-center text-danger hover-underline">
                     View All
                     <div class="p-1 text-white bg-danger rounded-circle d-flex justify-content-center align-items-center">
@@ -175,9 +180,40 @@
                     </div>
                 </div>
 
-            </a>
+            </a> --}}
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var products = $(".product-card");
+            var itemsToShow = 4; // Show only 4 items initially
+            var itemsIncrement = 4; // Load 4 more on button click
+            var totalItems = products.length;
+    
+            // Show initial items
+            function showMoreItems() {
+                // Fade in the next set of items with a smooth effect
+                products.slice(0, itemsToShow).fadeIn(500); // 500ms for fade-in
+    
+                // If all products are visible, hide the "Load More" button
+                if (itemsToShow >= totalItems) {
+                    $('#load-more').fadeOut(500); // Smooth fade-out of the button
+                }
+            }
+    
+            showMoreItems(); // Initially show 4 items
+    
+            // Handle "Load More" button click
+            $('#load-more').click(function () {
+                itemsToShow += itemsIncrement;
+                showMoreItems();
+            });
+        });
+    </script>
+    
+
 
 
 
