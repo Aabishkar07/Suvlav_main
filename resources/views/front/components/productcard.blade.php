@@ -10,7 +10,7 @@
 @endphp
 {!! $slider == '0' ? '<div class="col-xl-3 col-lg-4 col-md-4 col-12">' : '' !!}
 
-<div class="border rounded shadow single-product ">
+<div class="border rounded shadow single-product product-card" style="{{ $index >= 4 ? 'display: none;' : '' }}">
 
     <div class="justify-between p-1 bg-white d-flex">
         <a class="font-bold text-black text-[16px]" style="color: black" href="{{ url('product/' . $list->slug) }}">{{ $list->title }}</a>
