@@ -116,7 +116,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <div class="left">
-                            <p>Copyright © {{ date('Y') }} <a href="" target="_blank">Suvlav</a> - All
+                            <p class="text-black">Copyright © {{ date('Y') }} <span class="text-black">Suvlav </span> - All
                                 Rights Reserved.</p>
                         </div>
                     </div>
