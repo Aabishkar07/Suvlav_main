@@ -141,17 +141,13 @@
 
 
 
-    <div class="product-area section overflow-hidden md:container md:mx-auto">
-
+    <div class="product-area section overflow-hidden md:container md:mx-auto" id="product-section">
         <div class="">
-
-
             <div class="row">
                 <div class="col-12">
                     <div class="product-info" style="margin-top: -75px;">
-                        <div class="row " id="product-list">
+                        <div class="row" id="product-list">
                             @foreach ($home_prod_new_arrivals as $list)
-                            
                                 @include('front.components.productcard', [
                                     'list' => $list,
                                     'index' => $loop->index,
@@ -162,53 +158,61 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="text-center mt-4">
-                <button id="load-more" class="text-white p-2 rounded-md text-xs bg-blue-500">Load More</button>
-            </div>
-            {{-- <a href="{{ route('newarrivals') }}" class="mt-4 text-decoration-none d-flex justify-content-center">
-                <div class="gap-2 d-flex align-items-center text-danger hover-underline">
-                    View All
-                    <div class="p-1 text-white bg-danger rounded-circle d-flex justify-content-center align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24"
-                            height="24">
-                            <path
-                                d="M12 2l.324 .005a10 10 0 1 1 -.648 0l.324 -.005zm.613 5.21a1 1 0 0 0 -1.32 1.497l2.291 2.293h-5.584l-.117 .007a1 1 0 0 0 .117 1.993h5.584l-2.291 2.293l-.083 .094a1 1 0 0 0 1.497 1.32l4 -4l.073 -.082l.064 -.089l.062 -.113l.044 -.11l.03 -.112l.017 -.126l.003 -.075l-.007 -.118l-.029 -.148l-.035 -.105l-.054 -.113l-.071 -.111a1.008 1.008 0 0 0 -.097 -.112l-4 -4z">
-                            </path>
-                        </svg>
-                    </div>
-                </div>
-
-            </a> --}}
         </div>
     </div>
-
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
             var products = $(".product-card");
-            var itemsToShow = 4; // Show only 4 items initially
-            var itemsIncrement = 4; // Load 4 more on button click
+            var itemsToShow = 4; 
+            var itemsIncrement = 4; 
             var totalItems = products.length;
+            var loading = false;
     
-            // Show initial items
-            function showMoreItems() {
-                // Fade in the next set of items with a smooth effect
-                products.slice(0, itemsToShow).fadeIn(500); // 500ms for fade-in
-    
-                // If all products are visible, hide the "Load More" button
-                if (itemsToShow >= totalItems) {
-                    $('#load-more').fadeOut(500); // Smooth fade-out of the button
-                }
+            function isMobile() {
+                return $(window).width() <= 768;
             }
     
-            showMoreItems(); // Initially show 4 items
+           
+            if (isMobile()) {
+                itemsToShow = 1; 
+                itemsIncrement = 1;
+            }
     
-            // Handle "Load More" button click
-            $('#load-more').click(function () {
-                itemsToShow += itemsIncrement;
-                showMoreItems();
+            products.hide();
+    
+            products.slice(0, itemsToShow).each(function (i) {
+                var delayTime = isMobile() ? i * 800 : i * 200; 
+                $(this).delay(delayTime).fadeIn(isMobile() ? 1000 : 400); 
+            });
+    
+            $(window).on("scroll", function () {
+                var sectionTop = $("#product-section").offset().top;
+                var sectionHeight = $("#product-section").outerHeight();
+                var viewportHeight = $(window).height();
+                var scrollPos = $(window).scrollTop() + viewportHeight;
+    
+                var triggerPoint = isMobile() ? sectionTop + sectionHeight * 0.2 : sectionTop + sectionHeight * 0.5;
+    
+                if (!loading && scrollPos >= triggerPoint) {
+                    loading = true;
+    
+                    setTimeout(function () {
+                        var newItems = products.slice(itemsToShow, itemsToShow + itemsIncrement);
+                        newItems.each(function (i) {
+                            var delayTime = isMobile() ? i * 800 : i * 200; 
+                            $(this).delay(delayTime).fadeIn(isMobile() ? 1000 : 400); 
+                        });
+    
+                        itemsToShow += itemsIncrement;
+                        loading = false;
+    
+                        if (itemsToShow >= totalItems) {
+                            $(window).off("scroll"); 
+                        }
+                    }, isMobile() ? 1200 : 500);
+                }
             });
         });
     </script>
