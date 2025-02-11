@@ -64,6 +64,17 @@ class ReportController extends Controller
     public function searchhistory()
     {
         $searchhistorys = DB::table('search_histories')->paginate(siteSettings('posts_per_page'));
-        return view('admin.reports.searchhistory', compact("searchhistorys"));
+
+
+       
+        $uniqueCount = DB::table('search_histories')
+        ->select('search_item', DB::raw('count(*) as count'))  // Count occurrences of each search_item
+        ->groupBy('search_item')  // Group by search_item to get counts
+        ->get();
+    
+
+    
+
+        return view('admin.reports.searchhistory', compact("searchhistorys" ,'uniqueCount'));
     }
 }
