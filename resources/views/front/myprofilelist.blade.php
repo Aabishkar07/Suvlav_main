@@ -441,7 +441,7 @@ $orderDetails = DB::table('orders as a')
 
                                                                 <p class="font-semibold text-gray-800">Rs.
                                                                     <?php echo $detail->price; ?></p>
-                                                                <p class="text-sm text-gray-500">Qty: <?php echo $detail->total_items; ?>
+                                                                <p class="text-sm text-gray-500">Qty: <?php echo $detail->quantity; ?>
                                                                 </p>
                                                             </div>
                                                         </div>
