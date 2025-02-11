@@ -27,6 +27,9 @@
         </div>
         {{-- @dd($customers) --}}
 
+        
+
+
         <table class="table">
             <thead>
                 <tr>
@@ -37,7 +40,7 @@
 
                     <th scope="col">Email</th>
                     <th scope="col">District</th>
-                  
+
                     <th scope="col">Search Date</th>
                 </tr>
             </thead>
@@ -75,4 +78,29 @@
             </div>
         @endif
     </div>
+
+
+
+
+    @if ($uniqueCount)
+        
+   
+    <div class="mx-4 my-4">
+        <div class="row">
+    
+            @foreach ($uniqueCount as $Key => $Value)
+                <div class="col-md-2 mb-2"> <!-- Adjusting column width for better spacing -->
+                    <div class="card shadow-sm h-100"> <!-- Adding card with shadow for visual enhancement -->
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-primary">{{ $Value->search_item }}</h5> <!-- Displaying the search item name with some color -->
+                            <p class="card-text">Count: <strong>{{ $Value->count }}</strong></p> <!-- Displaying the count with emphasis -->
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+    
+        </div>
+    </div>
+    @endif
+
 @endsection
