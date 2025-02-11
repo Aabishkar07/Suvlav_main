@@ -99,7 +99,13 @@
                         </div>
 
                         <div class="flex items-center justify-center text-center">
-                            <a href="{{ route('allblogs') }}" class="text-center">Blogs</a>
+                            <a href="{{ route('allblogs') }}" class="text-center flex gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" stroke-width="1.25">
+                                    <path d="M8 21h8a5 5 0 0 0 5 -5v-3a3 3 0 0 0 -3 -3h-1v-2a5 5 0 0 0 -5 -5h-4a5 5 0 0 0 -5 5v8a5 5 0 0 0 5 5z"></path>
+                                    <path d="M7 7m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h3a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-3a1.5 1.5 0 0 1 -1.5 -1.5z"></path>
+                                    <path d="M7 14m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h7a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-7a1.5 1.5 0 0 1 -1.5 -1.5z"></path>
+                                  </svg>
+                                Blogs</a>
                         </div>
 
                     </div>
@@ -113,7 +119,7 @@
                 <div class="">
                     <div class="flex md:gap-x-1 items-center justify-between">
 
-                        <div class="w-[55%] md:w-[90%]">
+                        <div class="w-[55%] md:w-[85%]">
                             <div class="left">
 
 
@@ -188,7 +194,14 @@
 
 
                         <div class="flex items-center justify-center text-center text-xs">
-                            <a href="{{ route('allblogs') }}" class="text-center">Blogs</a>
+                            <a href="{{ route('allblogs') }}" class="text-center flex">
+                                
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" stroke-width="1.25">
+                                    <path d="M8 21h8a5 5 0 0 0 5 -5v-3a3 3 0 0 0 -3 -3h-1v-2a5 5 0 0 0 -5 -5h-4a5 5 0 0 0 -5 5v8a5 5 0 0 0 5 5z"></path>
+                                    <path d="M7 7m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h3a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-3a1.5 1.5 0 0 1 -1.5 -1.5z"></path>
+                                    <path d="M7 14m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h7a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-7a1.5 1.5 0 0 1 -1.5 -1.5z"></path>
+                                  </svg>
+                                Blogs</a>
                         </div>
                         
                         @php
