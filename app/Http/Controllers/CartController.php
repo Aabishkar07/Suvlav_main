@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Exchange;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -83,7 +84,7 @@ class CartController extends Controller
 
     /*** Add to Cart */
 
-    
+
     public function AddToCart(Request $request)
     {
 
@@ -216,6 +217,37 @@ class CartController extends Controller
         echo json_encode($response_data);
         exit;
     }
+
+    public function exchnageproduct(Request $request)
+    {
+        // dd("hello world", $request);
+        $response_data = [];
+
+        $user_id = (Session::get(key: 'memeber_id_ss') != '') ? Session::get('memeber_id_ss') : 0;
+        $product = Product::where('id', $request->product_id)->firstOrFail();
+
+        $prod_attr = [
+            'color' => $request->cartColor,
+            'size' => $request->cartSize
+        ];
+
+        $data = [
+            'new_product_id' => $product->id,
+            'product_name' => $product->title,
+            'price' => $product->sale_price ? $product->sale_price : $product->regular_price,
+            'user_id' => $user_id,
+            'item_id' =>  $request->item_id,
+            'attribute' => json_encode($prod_attr),
+            'status' => "pending",
+        ];
+        $order_details = DB::table('order_details')
+            ->where("item_id", $request->item_id)
+            ->update(['status' => "wanttoexchange"]);
+        Exchange::create($data);
+        dd($data);
+    }
+
+
 
     public function cartDropDown()
     {

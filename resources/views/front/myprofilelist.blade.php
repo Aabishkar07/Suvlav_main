@@ -66,8 +66,8 @@
         }
 
         /* .btn {
-                                                                                                                                                                                                            background-color: #000 !important;
-                                                                                                                                                                                                        } */
+                                                                                                                                                                                                                                                        background-color: #000 !important;
+                                                                                                                                                                                                                                                    } */
 
         .changepw {
             margin: 0px auto;
@@ -406,7 +406,7 @@ $orderDetails = DB::table('orders as a')
                                                             @if ($order->status != 'Cancel' && $order->status != 'Exchange' && $order->status != 'Wanttoexchange')
                                                                 <div id="openModalBtn-{{ $order->id }}"
                                                                     class="p-1 text-white bg-red-500 rounded cursor-pointer">
-                                                                    Cancel / Exchange
+                                                                    Cancel 
                                                                 </div>
                                                             @endif
                                                         </div>
@@ -416,7 +416,7 @@ $orderDetails = DB::table('orders as a')
                                                     <!-- Order Details -->
                                                     <?php foreach ($orderDetails as $detail) { ?>
                                                     <div class="flex items-start gap-4 pt-4 mt-4 border-t">
-                                                        <!-- Product Image -->
+                                                    <!-- Product Image -->
                                                         <img src="{{ asset('public/' . $detail->product_image) }}"
                                                             alt="Product" class="object-cover w-20 h-20 rounded" />
 
@@ -439,6 +439,30 @@ $orderDetails = DB::table('orders as a')
                                                                     <?php echo $detail->price; ?></p>
                                                                 <p class="text-sm text-gray-500">Qty: <?php echo $detail->total_items; ?>
                                                                 </p>
+
+
+                                                                @if ($detail->status == 'exchanged')
+                                                                    <div
+                                                                        class="p-1 text-white bg-blue-500 rounded cursor-pointer">
+                                                                        Exchanged
+                                                                    </div>
+                                                                @else
+                                                                    @if ($detail->status == 'wanttoexchange')
+                                                                        <div
+                                                                            class="p-1 text-white bg-yellow-600 rounded cursor-pointer">
+                                                                            Exchange on pending
+                                                                        </div>
+                                                                    @else
+                                                                        <a
+                                                                            href="{{ route('exchange', ['details' => $detail->item_id]) }}">
+                                                                            <div
+                                                                                class="p-1 text-white bg-red-500 rounded cursor-pointer">
+                                                                                Want To Exchange
+                                                                            </div>
+                                                                        </a>
+                                                                    @endif
+                                                                @endif
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -555,7 +579,7 @@ $orderDetails = DB::table('orders as a')
 
 
                                                         <!-- Modal Header -->
-                                                        <h2 class="mb-4 text-2xl font-semibold">Cancel or Exchange </h2>
+                                                        <h2 class="mb-4 text-2xl font-semibold">Cancel  </h2>
 
                                                         <!-- Inquiry Form -->
                                                         <form id="inquiryForm" method="post"
@@ -571,16 +595,15 @@ $orderDetails = DB::table('orders as a')
                                                             <div>
                                                                 <label
                                                                     class="block text-sm font-medium text-gray-700">Cancel
-                                                                    /
-                                                                    Exchange </label>
+                                                                   </label>
 
                                                                 <select id="status" name="status" required
                                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                                                    <option value="" selected>Choose an option
+                                                                    {{-- <option value="" selected>Choose an option
                                                                     </option>
                                                                     <option value="Wanttoexchange">Want to exchange
-                                                                    </option>
-                                                                    <option value="Cancel">Cancel</option>
+                                                                    </option> --}}
+                                                                    <option value="Cancel" selected>Cancel</option>
 
                                                                 </select>
 
@@ -811,10 +834,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                                                                  <div class="form-group">
-                                                                                                                                                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                                                                                                                                                                                                                                                                   </div>
-                                                                                                                                                                                                                                                               </div> -->
+                                                                                                                                                                                                                                                                                                              <div class="form-group">
+                                                                                                                                                                                                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
+                                                                                                                                                                                                                                                                                                               </div>
+                                                                                                                                                                                                                                                                                                           </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -1085,10 +1108,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                                                                   <div class="form-group">
-                                                                                                                                                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                                                                                                                                                                                                                   </div>
-                                                                                                                                                                                                                                                                  </div> -->
+                                                                                                                                                                                                                                                                                                               <div class="form-group">
+                                                                                                                                                                                                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                                                                                                                                                                                                               </div>
+                                                                                                                                                                                                                                                                                                              </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
