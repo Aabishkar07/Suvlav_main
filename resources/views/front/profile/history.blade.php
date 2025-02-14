@@ -233,7 +233,7 @@ $orderDetails = DB::table('orders as a')
                                                         <div class="flex items-center justify-between mt-2">
                                                            
                                                             <p class="font-semibold text-gray-800">Rs. <?php echo $detail->price; ?></p>
-                                                            <p class="text-sm text-gray-500">Qty: <?php echo $detail->total_items; ?></p>
+                                                            <p class="text-sm text-gray-500">Qty: <?php echo $detail->quantity; ?></p>
                                                         </div>
                                                     </div>
                                                 </div>
