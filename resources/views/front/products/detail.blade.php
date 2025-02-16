@@ -584,6 +584,10 @@
                                 @endif
                                 <p class="availability">Availability : {!! $product->stock_status === '1' ? 'In Stock' : 'Out of Stock' !!}</p>
 
+                                @if ($product->delivery)
+                                    
+                                <p class="availability">Delivery : {!! $product->delivery!!}</p>
+                                @endif
 
 
                                 <!--/ End Product Buy -->
