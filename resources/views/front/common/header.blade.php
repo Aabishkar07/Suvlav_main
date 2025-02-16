@@ -206,7 +206,7 @@
                                 <span>Total</span>
                                 <span class="total-amount">{{ moneyFormat($total_amt) }}</span>
                             </div>
-                            <a href="{{ url('/checkout') }}" class="text-white px-5  py-2  animate" style="background-color: blue">Checkout</a>
+                            <a href="{{ url('/checkout') }}" class="text-white px-5  py-2  animate bg-blue-500">Checkout</a>
                         </div>
                     </div>
                 </div>

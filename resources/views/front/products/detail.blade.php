@@ -586,7 +586,7 @@
 
                                 @if ($product->delivery)
                                     
-                                <p class="availability">Delivery : {!! $product->delivery!!}</p>
+                                <p class="availability font-bold">Delivery : <span class="bg-green-500 py-1 px-3 rounded-md text-sm text-white">{!! $product->delivery!!}</span></p>
                                 @endif
 
 
