@@ -370,6 +370,7 @@ $orderDetails = DB::table('orders as a')
     ->join('order_details as b', 'b.order_id', '=', 'a.id')
     ->where('a.id', $orderId)
     ->get();
+   
 											    ?>
 
      

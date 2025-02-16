@@ -137,9 +137,9 @@
                             <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">My Profile </h4>
                         </div>
 
-                      
 
-                 <a href="{{ route('member.myprofile') }}" >Back </a>
+
+                        <a href="{{ route('member.myprofile') }}">Back </a>
 
 
                         <div id="order_history" class="tabcontent">
@@ -173,100 +173,103 @@ $orderDetails = DB::table('orders as a')
     ->where('a.id', $orderId)
     ->get();
 											    ?>
-                                         
-                                         <div class="p-4 bg-white shadow-md rounded-md border border-black mb-5 mx-auto">
-                                            <div class="flex flex-wrap items-start gap-4">
-                                                <!-- Main Order Header -->
-                                                <div class="flex-1 w-full sm:w-auto">
-                                                    <h3 class="font-semibold text-gray-800">Order #<?php echo $order->id; ?></h3>
-                                                    <h3 class="font-semibold text-gray-800">Tracking Order #<?php echo $order->tracking_code; ?></h3>
-                                                    <p class="text-xs text-gray-500">Order Date: <?php echo $cdate[0]; ?></p>
-                                                </div>
-                                            
-                                                <div class="flex-1 w-full sm:w-auto items-end justify-end">
-                                                    <div class="flex">
-                                                        <p><strong>Status: </strong></p>
-                                                        <span class="badge text-xs bg-{{ strtolower($orders[0]->status) == 'completed' ? 'success' : 'warning' }}">
-                                                            {{ $orders[0]->status }}
-                                                        </span>
+
+                                            <div class="p-4 bg-white shadow-md rounded-md border border-black mb-5 mx-auto">
+                                                <div class="flex flex-wrap items-start gap-4">
+                                                    <!-- Main Order Header -->
+                                                    <div class="flex-1 w-full sm:w-auto">
+                                                        <h3 class="font-semibold text-gray-800">Order #<?php echo $order->id; ?>
+                                                        </h3>
+                                                        <h3 class="font-semibold text-gray-800">Tracking Order
+                                                            #<?php echo $order->tracking_code; ?></h3>
+                                                        <p class="text-xs text-gray-500">Order Date: <?php echo $cdate[0]; ?></p>
+                                                    </div>
+
+                                                    <div class="flex-1 w-full sm:w-auto items-end justify-end">
+                                                        <div class="flex">
+                                                            <p><strong>Status: </strong></p>
+                                                            <span
+                                                                class="badge text-xs bg-{{ strtolower($order->status) == 'completed' ? 'success' : 'warning' }}">
+                                                                {{ $order->status }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="flex items-center gap-x-2 w-full sm:w-auto mt-4 sm:mt-0">
+                                                        <a href="{{ route('profile.order', $order->id) }}">
+                                                            <div style="background-color: green;width: 50px;color:white"
+                                                                class="rounded">
+                                                                <i class="fa fa-eye flex justify-center py-1"></i>
+                                                            </div>
+                                                        </a>
+                                                        @if ($order->status != 'Cancel' && $order->status != 'Exchange' && $order->status != 'Wanttoexchange')
+                                                            <div id="openModalBtn-{{ $order->id }}"
+                                                                class="p-1 text-white bg-red-500 rounded cursor-pointer">
+                                                                Cancel / Exchange
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
-                                            
-                                                <div class="flex items-center gap-x-2 w-full sm:w-auto mt-4 sm:mt-0">
-                                                    <a href="{{ route('profile.order', $order->id) }}">
-                                                        <div style="background-color: green;width: 50px;color:white" class="rounded">
-                                                            <i class="fa fa-eye flex justify-center py-1"></i>
-                                                        </div>
-                                                    </a>
-                                                    @if ($order->status != 'Cancel' && $order->status != 'Exchange' && $order->status != 'Wanttoexchange')
-                                                        <div id="openModalBtn-{{ $order->id }}" class="p-1 text-white bg-red-500 rounded cursor-pointer">
-                                                            Cancel / Exchange
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            
-                                    
-                                            <!-- Order Details -->
-                                            <?php foreach ($orderDetails as $detail) { ?>
+
+
+                                                <!-- Order Details -->
+                                                <?php foreach ($orderDetails as $detail) { ?>
                                                 <div class="flex items-start gap-4 mt-4 border-t pt-4">
                                                     <!-- Product Image -->
-                                                    <img
-                                                        src="{{asset($detail->product_image) }}"
-                                                        alt="Product"
-                                                        class="w-20 h-20 object-cover rounded"
-                                                    />
-                                    
+                                                    <img src="{{ asset($detail->product_image) }}" alt="Product"
+                                                        class="w-20 h-20 object-cover rounded" />
+
                                                     <!-- Product Details -->
                                                     <div class="flex-1">
                                                         <!-- Product Title -->
                                                         <p class="text-sm text-gray-700 font-medium mb-1">
                                                             <?php echo $detail->product_name; ?>
                                                         </p>
-                                    
+
                                                         <!-- Additional Details -->
                                                         <p class="text-xs text-gray-500">
                                                             {{-- <span class="font-semibold">Color Family:</span> <?php echo $detail->color_family ?? 'Not Specified'; ?> --}}
                                                         </p>
-                                    
+
                                                         <!-- Price and Quantity -->
                                                         <div class="flex items-center justify-between mt-2">
-                                                           
-                                                            <p class="font-semibold text-gray-800">Rs. <?php echo $detail->price; ?></p>
-                                                            <p class="text-sm text-gray-500">Qty: <?php echo $detail->total_items; ?></p>
+
+                                                            <p class="font-semibold text-gray-800">Rs. <?php echo $detail->price; ?>
+                                                            </p>
+                                                            <p class="text-sm text-gray-500">Qty: <?php echo $detail->quantity; ?></p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php } ?>
-                                    
-                                       
-                                            <!-- Total Price -->
-                                            <div class="flex items-center justify-between border-t pt-3 mt-3 text-gray-800 text-sm font-semibold">
-                                                <p>Total (<?php echo count($orderDetails); ?> Item(s)):</p>
-                                                <p>Rs. {{ moneyFormat((float)$order->total_amt) }}</p>
+                                                <?php } ?>
 
 
+                                                <!-- Total Price -->
+                                                <div
+                                                    class="flex items-center justify-between border-t pt-3 mt-3 text-gray-800 text-sm font-semibold">
+                                                    <p>Total (<?php echo count($orderDetails); ?> Item(s)):</p>
+                                                    <p>Rs. {{ moneyFormat((float) $order->total_amt) }}</p>
+
+
+                                                </div>
+
+
+                                                @if ($order->use_point)
+                                                    <div>
+                                                        <p class="text-right"><strong>Point Use :</strong>
+                                                            <strong>{{ moneyFormat((float) $order->use_point) }}</strong>
+                                                        </p>
+
+                                                    </div>
+                                                    <div>
+                                                        <p class="text-right"><strong>To Be Paid :</strong>
+                                                            <strong>{{ moneyFormat((float) $order->total_amt - (float) $order->use_point) }}</strong>
+                                                        </p>
+
+                                                    </div>
+                                                @endif
                                             </div>
 
-                                         
-                                            @if ($order->use_point)
-                                            <div>
-                                                <p  class="text-right"><strong>Point Use :</strong>
-                                                    <strong>{{ moneyFormat((float)$order->use_point) }}</strong>
-                                                </p>
-                                              
-                                            </div>
-                                            <div>
-                                                <p  class="text-right"><strong>To Be Paid :</strong>
-                                                    <strong>{{ moneyFormat((float)$order->total_amt - (float)$order->use_point) }}</strong>
-                                                </p>
-                                               
-                                            </div>
-                                            
-                                        @endif
-                                        </div>
-                                          
-                                         {{-- <tr class="text-center">
+                                            {{-- <tr class="text-center">
                                                 <td><?php echo $sn; ?></td>
                                                 <td class="id">{{ $order->tracking_code }}</td>
                                                 <td class="id">{{ $order->id }}</td>
@@ -370,8 +373,16 @@ $orderDetails = DB::table('orders as a')
                                                             <select id="status" name="status" required
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                                                 <option value="" selected>Choose an option</option>
-                                                                <option value="Wanttoexchange">Want to exchange</option>
-                                                                <option value="Cancel">Cancel</option>
+                                                                @if ($order->status == 'Delevered')
+                                                                    <option value="Wanttoexchange">Want to exchange
+                                                                    </option>
+                                                                @endif
+
+
+
+                                                                @if ($order->status != 'Delevered')
+                                                                    <option value="Cancel">Cancels</option>
+                                                                @endif
 
                                                             </select>
 
@@ -446,24 +457,24 @@ $orderDetails = DB::table('orders as a')
 
                                             <?php $sn++; } ?>
                                         </tbody>
-                                    </table>
-                                    <!--/ End Shopping Summery -->
+                                        </table>
+                                        <!--/ End Shopping Summery -->
+                                    </div>
+
                                 </div>
-
                             </div>
+
+
+
+
+
+
                         </div>
-
-                 
-
-
-              
 
                     </div>
 
                 </div>
-
             </div>
-        </div>
     </section>
     <!--/ End Checkout -->
 
@@ -516,8 +527,8 @@ $orderDetails = DB::table('orders as a')
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            class="ti-close" aria-hidden="true"></span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close"
+                            aria-hidden="true"></span></button>
                 </div>
                 <div class="modal-body">
                     <h5> Personal Profile</h2>
@@ -638,10 +649,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                           <div class="form-group">
-                                                                                                                                                                                                                           <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                                                                                                                                                                           </div>
-                                                                                                                                                                                                                          </div> -->
+                                                                                                                                                                                                                               <div class="form-group">
+                                                                                                                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                                                                                                                               </div>
+                                                                                                                                                                                                                              </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
