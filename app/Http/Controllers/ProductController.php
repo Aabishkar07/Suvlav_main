@@ -112,6 +112,7 @@ class ProductController extends Controller
     }
 
     $product->title = $request->input('title');
+    $product->delivery = $request->input('delivery');
     $product->slug = $slug;
     $product->short_desc = $request->input('short_desc');
     $product->web_points = $request->input('web_points');
@@ -239,6 +240,7 @@ class ProductController extends Controller
 
 
     $product->title = $request->input('title');
+    $product->delivery = $request->input('delivery');
     $product->short_desc = $request->input('short_desc');
     $product->web_points = $request->input('web_points');
 

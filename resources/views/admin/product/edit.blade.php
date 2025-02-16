@@ -53,6 +53,17 @@
                     </div>
 
                     <div class="form-group row">
+                        <label for="titleInput" class="col-sm-3 col-form-label">Delivery Option</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="delivery" class="form-control" value="{{ $product->delivery }}"
+                                id="titleInput" placeholder="Name">
+                            @error('delivery')
+                                <span class="text-danger ">* {{ $message }} </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="short_descInput" class="col-sm-3 col-form-label">Short Description</label>
                         <div class="col-sm-9">
                             <textarea class="form-control" name="short_desc" id="short_descInput" rows="4">{!! $product->short_desc !!}</textarea>
