@@ -202,11 +202,11 @@
                             @endforeach
                         </ul>
                         <div class="bottom">
-                            <div class="total">
+                            <div class="total mb-3">
                                 <span>Total</span>
                                 <span class="total-amount">{{ moneyFormat($total_amt) }}</span>
                             </div>
-                            <a href="{{ url('/checkout') }}" class="btn animate">Checkout</a>
+                            <a href="{{ url('/checkout') }}" class="text-white px-5  py-2  animate" style="background-color: blue">Checkout</a>
                         </div>
                     </div>
                 </div>
