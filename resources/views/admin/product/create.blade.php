@@ -32,6 +32,18 @@
                         </div>
                     </div>
 
+
+                    <div class="form-group row">
+                        <label for="titleInput" class="col-sm-3 col-form-label">Delivery options</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="delivery" class="form-control" value="" id="titleInput"
+                                placeholder="Delivery options">
+                            @error('delivery')
+                                <span class="text-danger">* {{ $message }} </span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label for="short_descInput" class="col-sm-3 col-form-label">Short Description</label>
                         <div class="col-sm-9">
