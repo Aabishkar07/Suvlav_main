@@ -4,14 +4,14 @@
 
     @php
         // Configure this page
-        $pageName = 'Exchange ';
+        $pageName = ' Cancel';
         $showChildFormat = 'yes';
         $post_per_page = siteSettings('posts_per_page');
         $site_currency = siteSettings('site_currency');
 
         $breadcrumbs = [
             ['title' => 'Dashboard', 'link' => '#', 'isActive' => ''],
-            ['title' => 'Exchange ', 'link' => '#', 'isActive' => ''],
+            ['title' => 'Cancel', 'link' => '#', 'isActive' => ''],
             // ['title' => 'Orders', 'link' => '#', 'isActive' => 'active'],
         ];
 
@@ -51,7 +51,7 @@
                         <tr>
                             <th> # </th>
                             <th> OrderId </th>
-                            <th> Product Name </th>
+                            <th> Tracking Id </th>
                             <th> Customer Name </th>
                             <th> Mobile </th>
                             <th> Amount </th>
@@ -62,26 +62,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @dd($orders) --}}
 
                         <?php $GLOBALS['counter'] = $start; ?>
                         @if (count($orders) > 0)
                             @foreach ($orders as $key => $order)
-                                {{-- @dd($order); --}}
                                 <tr>
                                     <td>{{ $GLOBALS['counter']++ }}</td>
-                                    <td>{{ $order->myorder_id }}</td>
-                                    <td>{{ $order->old_product_name }}</td>
-                                    <td>{{ $order->name }}</td>
+                                    <td>{{ $order->id }}</td>
+                                    <td>{{ $order->tracking_code }}</td>
+                                    <td>{{ $order->fullname }}</td>
 
                                     <td>{{ $order->mobile }}</td>
                                     <td>
                                         <div class="">
                                             <div class="">
-
-                                                Rs. {{ $order->old_price }}
+                                                <label>
+                                                    Total :
+                                                </label>
+                                                Rs. {{ $order->total_amt }}
                                             </div>
-
+                                            @if ($order->use_point)
+                                                <div class="mt-2">
+                                                    <label>Point Use : </label>
+                                                    Rs. {{ $order->use_point }}
+                                                </div>
+                                                <hr />
+                                                <div class="">
+                                                    To Be Receive : <span style="font-weight: bold" class="text-danger">Rs.
+                                                        {{ $order->total_amt - $order->use_point }}
+                                                    </span>
+                                                </div>
+                                            @endif
                                         </div>
                                     </td>
 
@@ -107,7 +118,7 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">Change Status of
-                                                            Order Id : {{ $order->myorder_id }}</h5>
+                                                            Order Id : {{ $order->id }}</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -116,7 +127,8 @@
                                                     <div class="modal-body">
 
 
-                                                        <form action="{{ route('exchangestatus', $order->item_id) }}"
+
+                                                        <form action="{{ route('order.update', $order->id) }}"
                                                             method="POST" enctype="multipart/form-data"
                                                             class="forms-sample">
                                                             @csrf
@@ -130,13 +142,27 @@
                                                                             <div class="col-sm-9">
                                                                                 <select class="form-select" name="status"
                                                                                     id="statusInput">
-
+                                                                                    <option value="Pending"
+                                                                                        @if ($order->status == 'Pending') {{ 'selected' }} @endif>
+                                                                                        Pending
+                                                                                    </option>
+                                                                                    <option value="Ongoing"
+                                                                                        @if ($order->status == 'Ongoing') {{ 'selected' }} @endif>
+                                                                                        Ongoing
+                                                                                    </option>
+                                                                                    <option value="Delevered"
+                                                                                        @if ($order->status == 'Delevered') {{ 'selected' }} @endif>
+                                                                                        Delevered</option>
+                                                                                    <option value="Cancel"
+                                                                                        @if ($order->status == 'Cancel') {{ 'selected' }} @endif>
+                                                                                        Canceled
+                                                                                    </option>
                                                                                     <option value="Wanttoexchange"
                                                                                         @if ($order->status == 'Wanttoexchange') {{ 'selected' }} @endif>
                                                                                         Want-to-exchange
                                                                                     </option>
-                                                                                    <option value="exchanged"
-                                                                                        @if ($order->status == 'exchanged') {{ 'selected' }} @endif>
+                                                                                    <option value="Exchange"
+                                                                                        @if ($order->status == 'Exchange') {{ 'selected' }} @endif>
                                                                                         Exchange
                                                                                     </option>
                                                                                 </select>
@@ -163,8 +189,28 @@
                                         </br>
                                         <div class="pt-1">
 
-                                            <label class="badge badge-info">{{ strtoupper($order->order_status) }}</label>
+                                            @switch($order->order_status)
+                                                @case('Pending')
+                                                    <label class="badge bg-warning">{{ strtoupper($order->order_status) }}</label>
+                                                @break
 
+                                                @case('Ongoing')
+                                                    <label class="badge badge-info">{{ strtoupper($order->order_status) }}</label>
+                                                @break
+
+                                                @case('Cancel')
+                                                    <label
+                                                        class="badge badge-danger">{{ strtoupper($order->order_status) }}</label>
+                                                @break
+
+                                                @case('Delevered')
+                                                    <label
+                                                        class="badge badge-success">{{ strtoupper($order->order_status) }}</label>
+                                                @break
+
+                                                @default
+                                                    <label class="badge badge-info">{{ strtoupper($order->order_status) }}</label>
+                                            @endswitch
                                         </div>
 
                                     </td>
@@ -178,7 +224,6 @@
                                         {{-- <a href="{{ route('order.edit', $order->id) }}" class="btn btn-success btn-sm"><i
                                                 class="fa fa-edit"></i> </a> --}}
                                     </td>
-                                    {{-- @dd($order) --}}
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModal2{{ $key }}" tabindex="-1"
@@ -187,7 +232,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">
-                                                        Order Id : {{ $order->myorder_id }}</h5>
+                                                        Order Id : {{ $order->id }}</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -199,76 +244,11 @@
                                                         <div class="">
                                                             <div class="">
                                                                 <div class="form-group row">
-                                                                    {{-- <label for="statusInput"
-                                                                        style="font-weight: bold;font-size:20px;color:green;text-decoration: underline"
+                                                                    <label for="statusInput" style="font-weight: bold;font-size:20px;color:green;text-decoration: underline"
                                                                         class="col-form-label">Reason to
-                                                                        {{ $order->order_status }}</label> --}}
-                                                                    <div class="">
-
-                                                                        <div class="py-2 font-weight-bold">Wants to
-                                                                            Exchange
-
-                                                                            <span
-                                                                                class="text-primary">{{ $order->old_product_name }}</span>
-                                                                            with
-                                                                            <span
-                                                                                class="text-success">{{ $order->product_name }}</span>?
-                                                                        </div>
-                                                                        @php
-                                                                            $oldprice =
-                                                                                $order->old_quantity *
-                                                                                $order->old_price;
-                                                                        @endphp
-                                                                        <div class="p-3 border rounded bg-light">
-                                                                            <p><strong>{{ $order->old_product_name }}
-                                                                                    Product
-                                                                                    Price:</strong>
-                                                                                Rs. {{ $oldprice }} <span
-                                                                                    style="font-weight: bold;">(Qty-{{ $order->old_quantity }})</span>
-                                                                            </p>
-
-                                                                            <p><strong>Exchange Product Price:
-                                                                                    ({{ $order->product_name }})
-                                                                                </strong>
-
-                                                                                Rs. {{ $order->price }}
-                                                                                @php
-                                                                                    $attributes = json_decode(
-                                                                                        $order->attribute,
-                                                                                        true,
-                                                                                    ); // Decode as an associative array
-                                                                                @endphp
-
-                                                                                @if (!empty($attributes))
-                                                                                    <ul>
-                                                                                        @foreach ($attributes as $key => $value)
-                                                                                            <li><strong>{{ ucfirst($key) }}:</strong>
-                                                                                                {{ $value }}</li>
-                                                                                        @endforeach
-                                                                                    </ul>
-                                                                                @else
-                                                                                    <p>No attributes available.</p>
-                                                                                @endif
-                                                                            </p>
-                                                                            <hr>
-                                                                            <p class="font-weight-bold">
-                                                                                @if ($oldprice > $order->price)
-                                                                                    Customer will receive a refund:
-                                                                                @elseif ($oldprice == $order->price)
-                                                                                    No additional payment required.
-                                                                                @else
-                                                                                    Customer need to pay the Amount:
-                                                                                @endif
-
-                                                                                <span
-                                                                                    class="{{ $oldprice > $order->price ? 'text-danger' : 'text-success' }}">
-                                                                                    Rs.
-                                                                                    {{ abs($oldprice - $order->price) }}
-                                                                                </span>
-                                                                            </p>
-                                                                        </div>
-
-                                                                        {{-- {{ $order->reason }} --}}
+                                                                        {{ $order->order_status }}</label>
+                                                                    <div class="col-sm-9">
+                                                                        {{ $order->reason }}
 
                                                                     </div>
                                                                 </div>

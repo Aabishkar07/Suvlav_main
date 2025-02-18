@@ -31,9 +31,10 @@ use Illuminate\Support\Facades\Artisan;
 // Frontend Routing
 
 Route::get('/', [FrontController::class, 'index'])->name("home.index");
-Route::get('/product/{slug}', [ProductController::class, 'detail']);
+Route::get('/product/{slug}', [ProductController::class, 'detail'])->name("productdetails");
 Route::get('/contactus', [FrontController::class, 'contactus']);
 Route::post('/contactmail', [FrontController::class, 'contactmail']);
+Route::post('/exchnageproduct', [CartController::class, 'exchnageproduct'])->name('cart.exchnageproduct');
 Route::post('/addtocart', [CartController::class, 'addToCart'])->name('cart.addtocart');
 Route::post('/buynow', [CartController::class, 'buynow'])->name('cart.buynow');
 Route::get('/view-cart', [CartController::class, 'index'])->name('view.cart');
@@ -88,6 +89,8 @@ Route::post('/search', [FrontController::class, 'searchstore'])->name('search.hi
 Route::get('order/trackorder', [FrontController::class, 'trackorder'])->name('trackorder');
 Route::get('/featuredproduct', [FrontController::class, 'featuredproduct'])->name('featuredproduct');
 Route::get('/allproducts', [FrontController::class, 'newarrivals'])->name('newarrivals');
+Route::get('/exchange/allproducts', [FrontController::class, 'exchange'])->name('exchange');
+Route::put('/exchange/changestatus/{item_id}', [FrontController::class, 'exchangestatus'])->name('exchangestatus');
 // Route::get('/newarrivals', [FrontController::class, 'newarrivals'])->name('newarrivals');
 Route::post('/review/{slug}', [FrontController::class, 'store'])->name('review');
 
@@ -153,7 +156,8 @@ Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'admin']), func
 
     Route::delete('deletereview//{review}', [ReviewController::class, 'frontdelete'])->name('admin.review.frontdelete');
 
-    Route::get('order/exchange-or-return', [OrderController::class, 'show'])->name('admin.exchangeorreturn');
+    Route::get('order/exchange', [OrderController::class, 'exchange'])->name('admin.exchange');
+    Route::get('order/cancel', [OrderController::class, 'show'])->name('admin.exchangeorreturn');
     Route::resource('order', controller: OrderController::class);
     Route::get('order/showdetails/{id}', [OrderController::class, 'showdetails'])->name('admin.order.showdetails');
     Route::resource('user', UserController::class);

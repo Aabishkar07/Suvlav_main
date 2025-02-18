@@ -193,7 +193,21 @@
                         <i class="fa fa-first-order menu-icon  py-2 {{ request()->routeIs('admin.exchangeorreturn') ? 'text-white' : 'text-black' }}"
                             style="font-size: 18px"></i>
                         <span class="ps-2">
-                           Exchange / Cancel
+                            Cancel
+                        </span>
+                    </span>
+                </a>
+            </li>
+        @endcan
+        @can('View Order')
+            <li class="">
+                <a class="nav-link text-black   {{ request()->routeIs('admin.exchange') ? 'bg-black text-white w-full ' : '' }}"
+                    href="{{ route('admin.exchange') }}">
+                    <span class="menu-title">
+                        <i class="fa fa-first-order menu-icon  py-2 {{ request()->routeIs('admin.exchange') ? 'text-white' : 'text-black' }}"
+                            style="font-size: 18px"></i>
+                        <span class="ps-2">
+                            Exchange
                         </span>
                     </span>
                 </a>
@@ -250,7 +264,7 @@
                 </span>
             </a>
         </li>
-    {{-- @endcan --}}
+        {{-- @endcan --}}
 
         @can('View Settings')
             <li class="nav-item ">

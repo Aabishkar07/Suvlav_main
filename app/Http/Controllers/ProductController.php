@@ -305,6 +305,10 @@ class ProductController extends Controller
 
   public function detail(Request $request, $slug)
   {
+    $details = "";
+    if ($request->details) {
+      $details = DB::table('order_details')->where("item_id", $request->details)->first();
+    }
     $product = Product::where('slug', $slug)->firstOrFail();
 
     $code = $request->suvcode;
@@ -383,7 +387,7 @@ class ProductController extends Controller
         ->where('order_details.product_id', $product->id)
         ->exists();
 
-    
+
       $hasreviewed = Review::where('user_id', '=', $member->id)->where('product_id', '=', $product->id)->exists();
     } else {
       $hasOrdered = false;
@@ -402,7 +406,7 @@ class ProductController extends Controller
       $averagerating = $reviews->avg('rating');
     }
 
-    return view('front.products.detail', compact('product', 'member', 'prod_categories', 'prod_sizes', 'prod_colors', 'cartItems', 'categories', 'averagerating', 'reviewcount', 'reviews', 'allfeedback', 'hasOrdered', 'hasreviewed'));
+    return view('front.products.detail', compact('product', 'details', 'member', 'prod_categories', 'prod_sizes', 'prod_colors', 'cartItems', 'categories', 'averagerating', 'reviewcount', 'reviews', 'allfeedback', 'hasOrdered', 'hasreviewed'));
   }
 
   public function togleActive(Product $product)

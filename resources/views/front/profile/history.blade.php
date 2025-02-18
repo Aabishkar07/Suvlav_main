@@ -144,332 +144,102 @@
 
                         <div id="order_history" class="tabcontent">
                             <div class="row">
-                                <div class="mt-12 col-12 table-responsive">
-                                    <!-- Shopping Summery -->
-                                    <div class="table ">
-                                        {{-- <thead>
-                                            <tr style="background-color: orange" class="text-white main-hading">
-                                                <th> # </th>
-                                                <th> Tracking Code </th>
-                                                <th> OrderId </th>
-
-                                                <th> Total Items </th>
-                                                <th> Amount </th>
-                                                <th> Status </th>
-                                                <th> Order Date </th>
-                                                <th> Action </th>
-                                            </tr>
-                                        </thead> --}}
-                                        <tbody>
-                                            <?php 
-												$sn =1;
-											 	foreach($orders as $order) {
-													$cdate = explode(' ',$order->created_at);
+                                <div class="mt-2 col-12 table-responsive">
+                                    <div>
+                                        <table class="table">
+                                            <tbody>
+                                                <?php 
+                                                $sn =1;
+                                                foreach($orders as $order) {
+                                                    $cdate = explode(' ',$order->created_at);
                                                     $orderId = $order->id;
-
-// Fetch order details for the current order
-$orderDetails = DB::table('orders as a')
-    ->join('order_details as b', 'b.order_id', '=', 'a.id')
-    ->where('a.id', $orderId)
-    ->get();
-											    ?>
-
-                                            <div class="p-4 bg-white shadow-md rounded-md border border-black mb-5 mx-auto">
-                                                <div class="flex flex-wrap items-start gap-4">
-                                                    <!-- Main Order Header -->
-                                                    <div class="flex-1 w-full sm:w-auto">
-                                                        <h3 class="font-semibold text-gray-800">Order #<?php echo $order->id; ?>
-                                                        </h3>
-                                                        <h3 class="font-semibold text-gray-800">Tracking Order
-                                                            #<?php echo $order->tracking_code; ?></h3>
-                                                        <p class="text-xs text-gray-500">Order Date: <?php echo $cdate[0]; ?></p>
-                                                    </div>
-
-                                                    <div class="flex-1 w-full sm:w-auto items-end justify-end">
-                                                        <div class="flex">
-                                                            <p><strong>Status: </strong></p>
-                                                            <span
-                                                                class="badge text-xs bg-{{ strtolower($order->status) == 'completed' ? 'success' : 'warning' }}">
-                                                                {{ $order->status }}
-                                                            </span>
+                                                    $orderDetails = DB::table('orders as a')
+                                                        ->join('order_details as b', 'b.order_id', '=', 'a.id')
+                                                        ->where('a.id', $orderId)
+                                                        ->get();
+                                                ?>
+                                                <div class="p-4 mx-auto mb-5 bg-white border border-black rounded-md shadow-md">
+                                                    <div class="flex flex-wrap items-start gap-4">
+                                                        <div class="flex-1 w-full sm:w-auto">
+                                                            <h3 class="font-semibold text-gray-800">Order #<?php echo $order->id; ?></h3>
+                                                            <h3 class="font-semibold text-gray-800">Tracking Order #<?php echo $order->tracking_code; ?></h3>
+                                                            <p class="text-xs text-gray-500">Order Date: <?php echo $cdate[0]; ?></p>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="flex items-center gap-x-2 w-full sm:w-auto mt-4 sm:mt-0">
-                                                        <a href="{{ route('profile.order', $order->id) }}">
-                                                            <div style="background-color: green;width: 50px;color:white"
-                                                                class="rounded">
-                                                                <i class="fa fa-eye flex justify-center py-1"></i>
-                                                            </div>
-                                                        </a>
-                                                        @if ($order->status != 'Cancel' && $order->status != 'Exchange' && $order->status != 'Wanttoexchange')
-                                                            <div id="openModalBtn-{{ $order->id }}"
-                                                                class="p-1 text-white bg-red-500 rounded cursor-pointer">
-                                                                Cancel / Exchange
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-
-
-                                                <!-- Order Details -->
-                                                <?php foreach ($orderDetails as $detail) { ?>
-                                                <div class="flex items-start gap-4 mt-4 border-t pt-4">
-                                                    <!-- Product Image -->
-                                                    <img src="{{ asset($detail->product_image) }}" alt="Product"
-                                                        class="w-20 h-20 object-cover rounded" />
-
-                                                    <!-- Product Details -->
-                                                    <div class="flex-1">
-                                                        <!-- Product Title -->
-                                                        <p class="text-sm text-gray-700 font-medium mb-1">
-                                                            <?php echo $detail->product_name; ?>
-                                                        </p>
-
-                                                        <!-- Additional Details -->
-                                                        <p class="text-xs text-gray-500">
-                                                            {{-- <span class="font-semibold">Color Family:</span> <?php echo $detail->color_family ?? 'Not Specified'; ?> --}}
-                                                        </p>
-
-                                                        <!-- Price and Quantity -->
-                                                        <div class="flex items-center justify-between mt-2">
-
-                                                            <p class="font-semibold text-gray-800">Rs. <?php echo $detail->price; ?>
-                                                            </p>
-                                                            <p class="text-sm text-gray-500">Qty: <?php echo $detail->quantity; ?></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <?php } ?>
-
-
-                                                <!-- Total Price -->
-                                                <div
-                                                    class="flex items-center justify-between border-t pt-3 mt-3 text-gray-800 text-sm font-semibold">
-                                                    <p>Total (<?php echo count($orderDetails); ?> Item(s)):</p>
-                                                    <p>Rs. {{ moneyFormat((float) $order->total_amt) }}</p>
-
-
-                                                </div>
-
-
-                                                @if ($order->use_point)
-                                                    <div>
-                                                        <p class="text-right"><strong>Point Use :</strong>
-                                                            <strong>{{ moneyFormat((float) $order->use_point) }}</strong>
-                                                        </p>
-
-                                                    </div>
-                                                    <div>
-                                                        <p class="text-right"><strong>To Be Paid :</strong>
-                                                            <strong>{{ moneyFormat((float) $order->total_amt - (float) $order->use_point) }}</strong>
-                                                        </p>
-
-                                                    </div>
-                                                @endif
-                                            </div>
-
-                                            {{-- <tr class="text-center">
-                                                <td><?php echo $sn; ?></td>
-                                                <td class="id">{{ $order->tracking_code }}</td>
-                                                <td class="id">{{ $order->id }}</td>
-                                                <td class="text-center qty">{{ $order->total_items }}</td>
-                                                <td>
-                                                    <div class="">
-                                                        <div class="">
-                                                            <label>
-                                                                Total :
-                                                            </label>
-                                                            Rs. {{ $order->total_amt }}
-                                                        </div>
-                                                        @if ($order->use_point)
-                                                            <div class="mt-2">
-                                                                <label>Point Use : </label>
-                                                                Rs. {{ $order->use_point }}
-                                                            </div>
-                                                            <hr />
-                                                            <div class="">
-                                                                To Be Paid : <span style="font-weight: bold"
-                                                                    class="text-danger">Rs.
-                                                                    {{ $order->total_amt - $order->use_point }}
+                                                        <div class="items-end justify-end flex-1 w-full sm:w-auto">
+                                                            <div class="flex">
+                                                                <p><strong>Status: </strong></p>
+                                                                <span class="badge text-xs bg-{{ strtolower($order->status) == 'completed' ? 'success' : 'warning' }}">
+                                                                    {{ $order->status }}
                                                                 </span>
                                                             </div>
-                                                        @endif
-                                                    </div>
-                                                </td>
-
-
-
-                                                <td class="text-center"> @switch($order->status)
-                                                        @case('Pending')
-                                                            <label class="badge bg-warning">{{ strtoupper($order->status) }}</label>
-                                                        @break
-
-                                                        @case('Ongoing')
-                                                            <label class="badge badge-info">{{ strtoupper($order->status) }}</label>
-                                                        @break
-
-                                                        @case('Cancel')
-                                                            <label
-                                                                class="badge badge-danger">{{ strtoupper($order->status) }}</label>
-                                                        @break
-
-                                                        @case('Delevered')
-                                                            <label
-                                                                class="badge badge-success">{{ strtoupper($order->status) }}</label>
-                                                        @break
-
-                                                        @default
-                                                            <label
-                                                                class="badge badge-info">{{ strtoupper($order->status) }}</label>
-                                                    @endswitch
-                                                </td>
-                                                <td class="text-center">{{ $order->created_at }}</td>
-                                                <td class="flex items-center gap-x-2">
-                                                    <a href="{{ route('profile.order', $order->id) }}">
-
-                                                        <div style="background-color: green;width: 50px;color:white"
-                                                            class="rounded">
-
-                                                            <i class="fa fa-eye"></i>
                                                         </div>
-                                                    </a>
-                                                    @if ($order->status != 'Cancel' && $order->status != 'Exchange' && $order->status != 'Wanttoexchange')
-                                                        <div id="openModalBtn-{{ $order->id }}"
-                                                            class="p-1 text-white bg-red-500 rounded cursor-pointer">
-                                                            Cancel / Exchange
+                                                        <div class="flex items-center w-full mt-4 gap-x-2 sm:w-auto sm:mt-0">
+                                                            <a href="{{ route('profile.order', $order->id) }}">
+                                                                <div style="background-color: green;width: 50px;color:white" class="rounded">
+                                                                    <i class="flex items-center justify-center px-3 py-1 fa fa-eye"></i>
+                                                                </div>
+                                                            </a>
+                                                            @if ($order->status != 'Cancel' && $order->status != 'Exchange' && $order->status != 'Wanttoexchange')
+                                                                <div id="openModalBtn-{{ $order->id }}" class="p-1 text-white bg-red-500 rounded cursor-pointer">
+                                                                    Cancel
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <?php foreach ($orderDetails as $detail) { ?>
+                                                    <div class="flex items-start gap-4 pt-4 mt-4 border-t">
+                                                        <img src="{{ asset('public/' . $detail->product_image) }}" alt="Product" class="object-cover w-20 h-20 rounded" />
+                                                        <div class="flex-1">
+                                                            <p class="mb-1 text-sm font-medium text-gray-700">
+                                                                <?php echo $detail->product_name; ?>
+                                                            </p>
+                                                            <div class="items-center justify-between mt-2 ">
+                                                                <p class="font-semibold text-gray-800">Rs. <?php echo $detail->price; ?></p>
+                                                                <p class="text-sm text-gray-500">Qty: <?php echo $detail->quantity; ?></p>
+                                                                @if ($detail->status == 'exchanged')
+                                                                    <div class="p-1 mt-2 text-white bg-blue-500 rounded cursor-pointer">
+                                                                        Exchanged
+                                                                    </div>
+                                                                @elseif ($detail->status == 'wanttoexchange')
+                                                                    <div class="p-1 text-white bg-yellow-600 rounded cursor-pointer">
+                                                                        Exchange on pending
+                                                                    </div>
+                                                                @elseif ($order->status == 'Delevered')
+                                                                    <a href="{{ route('exchange', ['details' => $detail->item_id]) }}">
+                                                                        <div class="p-1 text-white bg-red-500 rounded cursor-pointer">
+                                                                            Want To Exchange
+                                                                        </div>
+                                                                    </a>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php } ?>
+                                                    <div class="flex items-center justify-between pt-3 mt-3 text-sm font-semibold text-gray-800 border-t">
+                                                        <p>Total (<?php echo count($orderDetails); ?> Item(s)):</p>
+                                                        <p>Rs. {{ moneyFormat((float) $order->total_amt) }}</p>
+                                                    </div>
+                                                    @if ($order->use_point)
+                                                        <div>
+                                                            <p class="text-right"><strong>Point Use :</strong>
+                                                                <strong>{{ moneyFormat((float) $order->use_point) }}</strong>
+                                                            </p>
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-right"><strong>To Be Paid :</strong>
+                                                                <strong>{{ moneyFormat((float) $order->total_amt - (float) $order->use_point) }}</strong>
+                                                            </p>
                                                         </div>
                                                     @endif
-                                                </td>
-                                            </tr> --}}
-
-                                            <!-- Modal Container -->
-                                            <div id="customModal-{{ $order->id }}"
-                                                class="fixed z-[999] inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
-                                                <!-- Modal Content -->
-                                                <div
-                                                    class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative max-h-[80vh] overflow-y-auto">
-                                                    <!-- Close Button -->
-
-
-                                                    <!-- Modal Header -->
-                                                    <h2 class="mb-4 text-2xl font-semibold">Cancel or Exchange </h2>
-
-                                                    <!-- Inquiry Form -->
-                                                    <form id="inquiryForm" method="post"
-                                                        action="{{ route('member.statusupdate', $order->id) }}"
-                                                        class="space-y-4">
-                                                        <!-- Name -->
-                                                        @csrf
-
-
-
-
-                                                        <!-- Subject -->
-                                                        <div>
-                                                            <label class="block text-sm font-medium text-gray-700">Cancel /
-                                                                Exchange </label>
-
-                                                            <select id="status" name="status" required
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                                                <option value="" selected>Choose an option</option>
-                                                                @if ($order->status == 'Delevered')
-                                                                    <option value="Wanttoexchange">Want to exchange
-                                                                    </option>
-                                                                @endif
-
-
-
-                                                                @if ($order->status != 'Delevered')
-                                                                    <option value="Cancel">Cancels</option>
-                                                                @endif
-
-                                                            </select>
-
-
-                                                            @error('status')
-                                                                <div class="text-sm text-red-400 invalid-feedback"
-                                                                    style="display: block;">
-                                                                    * {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-
-                                                        <!-- Message -->
-                                                        <div>
-                                                            <label
-                                                                class="block text-sm font-medium text-gray-700">Reason</label>
-                                                            <textarea id="reason" name="reason"
-                                                                class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                                                placeholder="Your Message" rows="4" required>{{ old('reason') }}</textarea>
-                                                            @error('reason')
-                                                                <div class="text-sm text-red-400 invalid-feedback"
-                                                                    style="display: block;">
-                                                                    * {{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div>
-
-
-
-                                                        <!-- Modal Footer -->
-                                                        <button id="confirmBtn" type="submit"
-                                                            class="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600">
-                                                            Confirm
-                                                        </button>
-
-                                                        <button id="closeModalBtn-{{ $order->id }}"
-                                                            class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
-                                                            Close
-                                                        </button>
-                                                    </form>
                                                 </div>
-                                            </div>
-
-
-                                            <script>
-                                                // Get elements dynamically for each modal
-                                                const openModalBtn{{ $order->id }} = document.getElementById('openModalBtn-{{ $order->id }}');
-                                                const closeModalBtn{{ $order->id }} = document.getElementById('closeModalBtn-{{ $order->id }}');
-                                                const modal{{ $order->id }} = document.getElementById('customModal-{{ $order->id }}');
-
-                                                // Open modal function
-                                                const openModal{{ $order->id }} = () => {
-                                                    modal{{ $order->id }}.classList.remove('hidden');
-                                                };
-
-                                                // Close modal function
-                                                const closeModal{{ $order->id }} = () => {
-                                                    modal{{ $order->id }}.classList.add('hidden');
-                                                };
-
-                                                // Event listeners
-                                                openModalBtn{{ $order->id }}.addEventListener('click', openModal{{ $order->id }});
-                                                closeModalBtn{{ $order->id }}.addEventListener('click', closeModal{{ $order->id }});
-
-                                                // Close modal when clicking outside the content
-                                                window.addEventListener('click', (event) => {
-                                                    if (event.target === modal{{ $order->id }}) {
-                                                        closeModal{{ $order->id }}();
-                                                    }
-                                                });
-                                            </script>
-
-                                            <?php $sn++; } ?>
-                                        </tbody>
+                                                <?php $sn++; } ?>
+                                            </tbody>
                                         </table>
-                                        <!--/ End Shopping Summery -->
                                     </div>
-
                                 </div>
                             </div>
-
-
-
-
-
-
                         </div>
+                        
 
                     </div>
 
@@ -649,10 +419,10 @@ $orderDetails = DB::table('orders as a')
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                               <div class="form-group">
-                                                                                                                                                                                                                               <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                                                                                                                                                                               </div>
-                                                                                                                                                                                                                              </div> -->
+                                                                                                                                                                                                                                   <div class="form-group">
+                                                                                                                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                                                                                                                                   </div>
+                                                                                                                                                                                                                                  </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">

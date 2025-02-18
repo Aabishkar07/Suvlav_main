@@ -253,6 +253,19 @@ class FrontController extends Controller
         }
     }
 
+    public function exchangestatus(Request $request, $item_id)
+{
+    $request->validate([
+        'status' => 'required',
+    ]);
+
+    DB::table('order_details')
+        ->where('item_id', $item_id)
+        ->update(['status' => $request->status]); // Use associative array for update
+
+    return redirect()->back()->with('success', 'Order status updated successfully');
+}
+
     public function updatepassword()
     {
         $cartItems = $this->cartdata;
@@ -679,6 +692,24 @@ class FrontController extends Controller
         return view('front.products.viewall', $results, compact('title', 'cartItems', 'categories'));
     }
 
+    public function exchange()
+    {
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+
+        $results['home_prod_featured'] = DB::table('products')
+            ->where(['status' => 1])
+            // ->where(['prod_new_arrival' => '1'])
+            ->get();
+
+
+
+
+        $title = "Products";
+
+        return view('front.products.exchangeproduct', $results, compact('title', 'cartItems', 'categories'));
+    }
+
     public function checkout()
     {
         //$key = "bijay@123";
@@ -981,11 +1012,22 @@ class FrontController extends Controller
 
         return view('front.ajax_load_district', compact('districts'));
     }
+    public function checkitemid()
+    {
+
+        $item_id = rand(100000, 999999);
+        $check = $cartItems = DB::table('order_details')
+            ->where('item_id', $item_id)
+            ->first();
+        if ($check) {
+            $this->checkitemid();
+        }
+        return $item_id;
+    }
 
 
     public function checkoutsmt(Request $request)
     {
-
 
 
 
@@ -1114,9 +1156,12 @@ class FrontController extends Controller
                     }
                 }
             }
+            $item_id = $this->checkitemid();
+
             // dd("sa",$value);
             $cart_orders = [
                 'order_id' => $orderid,
+                'item_id' => $item_id,
                 'product_id' => $cc->product_id,
                 'product_name' => $cc->product_title,
                 'product_image' => $cc->product_image,
