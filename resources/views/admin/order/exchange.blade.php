@@ -232,15 +232,32 @@
                                                                                 </strong>
 
                                                                                 Rs. {{ $order->price }}
+                                                                                @php
+                                                                                    $attributes = json_decode(
+                                                                                        $order->attribute,
+                                                                                        true,
+                                                                                    ); // Decode as an associative array
+                                                                                @endphp
+
+                                                                                @if (!empty($attributes))
+                                                                                    <ul>
+                                                                                        @foreach ($attributes as $key => $value)
+                                                                                            <li><strong>{{ ucfirst($key) }}:</strong>
+                                                                                                {{ $value }}</li>
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                @else
+                                                                                    <p>No attributes available.</p>
+                                                                                @endif
                                                                             </p>
                                                                             <hr>
                                                                             <p class="font-weight-bold">
                                                                                 @if ($oldprice > $order->price)
-                                                                                    You will receive a refund:
+                                                                                    Customer will receive a refund:
                                                                                 @elseif ($oldprice == $order->price)
                                                                                     No additional payment required.
                                                                                 @else
-                                                                                    You need to pay the difference:
+                                                                                    Customer need to pay the Amount:
                                                                                 @endif
 
                                                                                 <span

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AffiliatePoint;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Models\Post;
@@ -20,10 +21,25 @@ class HomeController extends Controller
         $totalproducts = Product::count();
         $pendingorders = Order::where('status', 'Pending')->count();
         $ordervalue = Order::where('status', 'Delevered')->sum("total_amt");
+        $costprice=Product::sum("cp");
+        $websiteshare=AffiliatePoint::where('point_status' , 'WebsiteShare')->where('status' , 'COMPLETED')->sum("points");
+
+
+        $reviewshare=AffiliatePoint::where('point_status' , 'Review')->where('status' , 'COMPLETED')->sum("points");
+
+
+        $productshare=AffiliatePoint::where('point_status' , null)->where('status' , 'COMPLETED')->sum("points");
+  
+
+        // dd($websiteshare);
+        // $reviewshare=AffiliatePoint::sum("cp");
+        // $productshare=AffiliatePoint::sum("cp");
+
+    
         // dd($ordervalue);
         $totalmembers = Member::count();
         $totalorder = Order::count();
-        return view('admin.index', compact('posts', 'orders','ordervalue', 'totalorder', 'totalproducts', 'pendingorders', 'totalmembers'));
+        return view('admin.index', compact('posts', 'orders','ordervalue', 'totalorder', 'totalproducts', 'pendingorders', 'totalmembers','costprice','websiteshare','reviewshare','productshare'));
         $posts = Post::orderBy('id', 'desc')->take(2)->get();
         $orders = Order::orderBy('id', 'desc')->take(5)->get();
         return view('admin.index', compact('posts', 'orders'));

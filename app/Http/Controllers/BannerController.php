@@ -55,11 +55,11 @@ class BannerController extends Controller
           if($request->image){            
             $imageName = 'banner'. '_'. time().'.'.$request->image->extension(); 
             $image = Image::read($request->image);
-            if($request->input('display_option') == '1'){
-                $image->resize(1900, 700);
-            } else {
-                $image->resize(600, 370);   
-            }             
+            // if($request->input('display_option') == '1'){
+            //     $image->resize(1900, 700);
+            // } else {
+            //     $image->resize(600, 370);   
+            // }             
             $image->save(public_path($destinationPath . $imageName));
             $banner->image = $destinationPath . $imageName;
           }
@@ -111,11 +111,11 @@ class BannerController extends Controller
           if($request->image){            
             $imageName = 'banner'. '_'. time().'.'.$request->image->extension(); 
             $image = Image::read($request->image);
-            if($request->input('display_option') == '1'){
-                $image->resize(1900, 700);
-            } else {
-                $image->resize(600, 370);   
-            }             
+            // if($request->input('display_option') == '1'){
+            //     $image->resize(1900, 700);
+            // } else {
+            //     $image->resize(600, 370);   
+            // }             
             $image->save(public_path($destinationPath . $imageName));
             $banner->image = $destinationPath . $imageName;
           } 

@@ -64,12 +64,20 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QXQR27LSBV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-QXQR27LSBV');
+</script>
 </head>
 
 <body class="js">
 
-    <div class="fixed top-0 w-full md:bg-white" style="z-index: 99999;">
+    <div class="fixed top-0 w-full md:bg-white" style="z-index: 9999;">
 
 
         <!-- Header -->
@@ -81,13 +89,12 @@
 
             <!-- End Topbar -->
             @include('front.common.header')
-            <!-- Header Inner -->
-            <!--/ End Header Inner -->
+          
         </header>
     </div>
     <!--/ End Header -->
 
-    <div class="mt-16 max-sm:mt-12 herosection">
+    <div class="mt-5 max-sm:mt-12 herosection">
 
         @yield('content')
     </div>

@@ -117,6 +117,79 @@
                     </div>
                 </a>
             </div>
+
+            <div class="col">
+                <a style="text-decoration: none" href="{{ route('member.index') }}">
+
+                    <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex flex-column">
+                                <span>Total Cost Price</span>
+                                <span class="h5 fw-bold">{{ $costprice }}</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="25" height="25" stroke-width="2">
+                                <path d="M16.7 8a3 3 0 0 0 -2.7 -2h-4a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-4a3 3 0 0 1 -2.7 -2"></path>
+                                <path d="M12 3v3m0 12v3"></path>
+                              </svg>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a style="text-decoration: none" href="{{ route('member.index') }}">
+
+                    <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex flex-column">
+                                <span>Total Points (Webiste Sharing)</span>
+                                <span class="h5 fw-bold">{{ $websiteshare }}</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
+                                <path d="M12 18l-2 -4l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5l-3.616 10.015"></path>
+                                <path d="M16 22l5 -5"></path>
+                                <path d="M21 21.5v-4.5h-4.5"></path>
+                              </svg>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a style="text-decoration: none" href="{{ route('member.index') }}">
+
+                    <div class="p-3 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex flex-column">
+                                <span>Total Points (Review)</span>
+                                <span class="h5 fw-bold">{{ $reviewshare }}</span>
+                            </div>
+                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
+                                <path d="M12 18l-2 -4l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5l-3.616 10.015"></path>
+                                <path d="M16 22l5 -5"></path>
+                                <path d="M21 21.5v-4.5h-4.5"></path>
+                              </svg>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a style="text-decoration: none" href="{{ route('member.index') }}">
+
+                    <div class="p-3 pb-5 transition-shadow border-0 shadow-sm card h-100 hover-shadow-lg">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex flex-column">
+                                <span>Total Points (Product Share)</span>
+                                <span class="h5 fw-bold">{{ $productshare }}</span>
+                            </div>
+                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
+                                <path d="M12 18l-2 -4l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5l-3.616 10.015"></path>
+                                <path d="M16 22l5 -5"></path>
+                                <path d="M21 21.5v-4.5h-4.5"></path>
+                              </svg>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
 
 

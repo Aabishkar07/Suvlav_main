@@ -1,6 +1,6 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
-<header class='sm:flex shadow-md sm:px-8 px-2 py-3 bg-white font-[sans-serif] min-h-[70px]'>
+<header class='sm:flex shadow-md sm:px-8 px-2 py-1 bg-white font-[sans-serif] min-h-[20px]'>
     <div class="flex w-full max-w-screen-2xl mx-auto">
         <div class='flex flex-wrap items-center justify-between relative lg:gap-y-4 gap-y-4 gap-x-4 w-full'>
 
@@ -202,11 +202,11 @@
                             @endforeach
                         </ul>
                         <div class="bottom">
-                            <div class="total">
+                            <div class="total mb-3">
                                 <span>Total</span>
                                 <span class="total-amount">{{ moneyFormat($total_amt) }}</span>
                             </div>
-                            <a href="{{ url('/checkout') }}" class="btn animate">Checkout</a>
+                            <a href="{{ url('/checkout') }}" class="text-white px-5  py-2  animate bg-blue-500">Checkout</a>
                         </div>
                     </div>
                 </div>

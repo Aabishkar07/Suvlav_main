@@ -112,12 +112,15 @@ class ProductController extends Controller
     }
 
     $product->title = $request->input('title');
+    $product->delivery = $request->input('delivery');
     $product->slug = $slug;
     $product->short_desc = $request->input('short_desc');
     $product->web_points = $request->input('web_points');
     $product->content = $request->input('content');
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');
+    $product->cp = $request->input('cp');
+
     $product->points = $request->input('points');
 
     $product->prod_code = $prod_code;
@@ -164,6 +167,17 @@ class ProductController extends Controller
   /**
    * Update the specified resource in storage.
    */
+
+
+
+
+
+
+  
+   
+
+
+
   public function update(Request $request, Product $product)
   {
     $request->validate([
@@ -226,12 +240,15 @@ class ProductController extends Controller
 
 
     $product->title = $request->input('title');
+    $product->delivery = $request->input('delivery');
     $product->short_desc = $request->input('short_desc');
     $product->web_points = $request->input('web_points');
 
     $product->content = $request->input('content');
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');
+    $product->cp = $request->input('cp');
+
     $product->points = $request->input('points');
     $product->availablestock = $request->input('availablestock');
 

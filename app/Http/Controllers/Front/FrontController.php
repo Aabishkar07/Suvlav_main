@@ -445,19 +445,19 @@ class FrontController extends Controller
         $results['home_banners'] = DB::table('banners')
             ->where(['status' => 1])
             ->orderBy('id', 'asc')
-            ->get();
+            ->inRandomOrder()->get();
 
         // New Products
         $results['home_prod_new_arrivals'] = DB::table('products')
             ->where(['status' => 1])
             // ->where(['prod_new_arrival' => '1'])
-            ->limit(24)
+            ->inRandomOrder()
             ->get();
 
         // Featured Products
         $results['home_prod_featured'] = DB::table('products')
             ->where(['status' => 1])
-            ->where(['prod_featured' => '1'])
+            ->where(['prod_featured' => '1'])->inRandomOrder()
             // ->limit(7)
             ->get();
 
@@ -879,7 +879,7 @@ class FrontController extends Controller
                 Mail::to($request->email)->send(new welcome('Thank You'));
 
 
-                Mail::to('aaviscar09@gmail.com')->send(new registerUser($member));
+                Mail::to('suvlav25@gmail.com')->send(new registerUser($member));
 
 
 
@@ -1082,6 +1082,7 @@ class FrontController extends Controller
         }
 
         $value = 0;
+        $status = "";
         $checkmember = "";
 
         $trackingid = rand(10000, 99999);
@@ -1134,6 +1135,7 @@ class FrontController extends Controller
                 if ($checkmember) {
                     if ($checkmember->id != $user_id) {
                         $value +=  $webpoint * $cc->quantity;
+                        $status = 'WebsiteShare';
                     }
                 }
             } else {
@@ -1179,6 +1181,7 @@ class FrontController extends Controller
                     'order_id' => $orderid,
                     'points' => $value,
                     'status' => "PENDING",
+                    'point_status' => $status
                 ]);
             }
         }
@@ -1247,14 +1250,14 @@ class FrontController extends Controller
 
         if ($user_id != 0) {
             DB::table('carts')->where('user_id', '=', $user_id)->delete();
-            // Mail::to("anupkasula5@gmail.com")->send(new MailOrder($maildata));
-            // Mail::to($request->email)->send(new MailOrder($maildata));
+            Mail::to("suvlav25@gmail.com")->send(new MailOrder($maildata));
+            Mail::to($request->email)->send(new MailOrder($maildata));
 
             return redirect()->route('member.myprofile')->with('success', 'Order has been Successfully Placed.');
         } else {
             DB::table('carts')->where('guest_id', '=', $guest_id)->delete();
-            // Mail::to("anupkasula5@gmail.com")->send(new MailOrder($maildata));
-            // Mail::to($request->email)->send(new MailOrder($maildata));
+            Mail::to("suvlav25@gmail.com")->send(new MailOrder($maildata));
+            Mail::to($request->email)->send(new MailOrder($maildata));
             return redirect()->route('home.index')->with('success', 'Order has been Successfully Placed.');
         }
     }

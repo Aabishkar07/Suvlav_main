@@ -226,7 +226,8 @@
                                 <div class="content">
                                     <div class="button">
                                         <!-- <a href="#" class="btn">proceed to checkout</a> -->
-                                        <input type="submit" class="btn" name="register" value="Checkout">
+                                        <input type="submit" class="bg-[#3b82f6] w-full py-3 text-white text-xl" style="background-color: #3b82f6" name="register" value="Checkout">
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -302,7 +303,7 @@
                         
                                     <!-- Redeem Button -->
                                     <div class="d-grid">
-                                        <button id="redeem-btn" class="btn btn-primary btn-lg">Redeem Points</button>
+                                        <button id="redeem-btn" class="bg-blue-500 px-2 py-2 text-white text-sm">Redeem Points</button>
                                     </div>
                                 </div>
                             </div>

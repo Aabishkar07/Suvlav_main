@@ -32,6 +32,18 @@
                         </div>
                     </div>
 
+
+                    <div class="form-group row">
+                        <label for="titleInput" class="col-sm-3 col-form-label">Delivery options</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="delivery" class="form-control" value="" id="titleInput"
+                                placeholder="Delivery options">
+                            @error('delivery')
+                                <span class="text-danger">* {{ $message }} </span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label for="short_descInput" class="col-sm-3 col-form-label">Short Description</label>
                         <div class="col-sm-9">
@@ -90,6 +102,22 @@
                                     placeholder="Sale Price" aria-label="Sale Price" aria-describedby="basic-addon1">
                             </div>
                             @error('sale_price')
+                                <span class="text-danger ">* {{ $message }} </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="sale_priceInput" class="col-sm-3 col-form-label">Cost Price</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">{{ $currencyName }}</span>
+                                </div>
+                                <input type="text" name="cp" class="form-control" id="sale_priceInput"
+                                    placeholder="Cost Price" aria-label="Cost Price" aria-describedby="basic-addon1">
+                            </div>
+                            @error('cp')
                                 <span class="text-danger ">* {{ $message }} </span>
                             @enderror
                         </div>

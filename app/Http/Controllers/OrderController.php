@@ -68,6 +68,7 @@ class OrderController extends Controller
             ->where('a.status', 'wanttoexchange')
             ->orWhere('a.status', 'exchanged')
             ->select("a.*","a.order_id as myorder_id","a.product_name as old_product_name","a.price as old_price","a.quantity as old_quantity", "b.*", "m.name","m.mobileno as mobile", "a.status as order_status")
+            ->orderBy('b.id', 'desc')
             ->paginate(siteSettings('posts_per_page'));
         return view('admin.order.exchange', compact('orders'));
     }
@@ -88,10 +89,14 @@ class OrderController extends Controller
 
         $orderid = $pid;
 
+      
+
         $orders = DB::table('orders as a')
             ->join('order_details as b', 'b.order_id', '=', 'a.id')
             ->where('a.id', $orderid)
             ->get()->toArray();
+
+          
 
         $user_id = $orders[0]->user_id;
 

@@ -39,6 +39,7 @@
                         @foreach ($products as $list)
                         @include('front.components.productcard', [
                                 'list' => $list,
+                                'index' => $loop->index,
                                 'slider' => '0',
                             ])
                         @endforeach

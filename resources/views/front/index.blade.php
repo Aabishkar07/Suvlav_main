@@ -3,31 +3,11 @@
     <!-- Main Banner  -->
 
 
-
-    @if (Session::has('success'))
-        <script>
-            Toast.fire({
-                icon: "success",
-                title: "{{ Session::get('popsuccess') }}"
-            })
-        </script>
-    @endif
-
-
-
-    <section class="hero-slider">
+    {{-- <section class="hero-slider">
         @foreach ($home_banners as $list)
             @include('front.components.bannerCol3Card', ['list' => $list, 'display_option' => '1'])
         @endforeach
-    </section>
-
-
-
-
-    <!--/ End Main Banner  -->
-
-
-
+    </section> --}}
     <!-- Start Most Popular -->
 
     {{-- <div class="product-area most-popular section ">
@@ -82,11 +62,7 @@
 
     <!-- End Most Popular Area -->
 
-    <!-- Start Product Area -->
-    <div class="product-area section">
-
-        <div class="container">
-            {{-- <div class="row">
+    {{-- <div class="row">
                 <div class="col-12">
                     <div class="section-title">
                         <h2>New Arrivals</h2>
@@ -94,7 +70,7 @@
                 </div>
             </div> --}}
 
-            {{-- <div class="container">
+    {{-- <div class="container">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
                  
                     <h2 class="text-2xl text-black New Arrivals text-start fs-3" style="font-weight: 600">
@@ -132,9 +108,9 @@
 
 
 
-            <div class="row">
+    {{-- <div class="row">
                 <div class="col-12">
-                    <div class="product-info" style="margin-top: -15px;">
+                    <div class="product-info" style="margin-top: -75px;">
                         <div class="row">
                             @foreach ($home_prod_new_arrivals as $list)
                                 @include('front.components.productcard', [
@@ -145,25 +121,103 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <a href="{{ route('newarrivals') }}" class="mt-4 text-decoration-none d-flex justify-content-center">
-                <div class="gap-2 d-flex align-items-center text-danger hover-underline">
-                    View All
-                    <div
-                        class="p-1 text-white bg-danger rounded-circle d-flex justify-content-center align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24"
-                            height="24">
-                            <path
-                                d="M12 2l.324 .005a10 10 0 1 1 -.648 0l.324 -.005zm.613 5.21a1 1 0 0 0 -1.32 1.497l2.291 2.293h-5.584l-.117 .007a1 1 0 0 0 .117 1.993h5.584l-2.291 2.293l-.083 .094a1 1 0 0 0 1.497 1.32l4 -4l.073 -.082l.064 -.089l.062 -.113l.044 -.11l.03 -.112l.017 -.126l.003 -.075l-.007 -.118l-.029 -.148l-.035 -.105l-.054 -.113l-.071 -.111a1.008 1.008 0 0 0 -.097 -.112l-4 -4z">
-                            </path>
-                        </svg>
+            </div> --}}
+
+    @if (Session::has('success'))
+        <script>
+            Toast.fire({
+                icon: "success",
+                title: "{{ Session::get('popsuccess') }}"
+            })
+        </script>
+    @endif
+
+
+
+
+
+
+    @include('front.components.bannerCol3Card')
+
+
+
+    <div class="product-area section overflow-hidden md:container md:mx-auto" id="product-section">
+        <div class="">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product-info" style="margin-top: -75px;">
+                        <div class="row" id="product-list">
+                            @foreach ($home_prod_new_arrivals as $list)
+                                @include('front.components.productcard', [
+                                    'list' => $list,
+                                    'index' => $loop->index,
+                                    'slider' => '0',
+                                ])
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-
-                
-            </a>
+            </div>
         </div>
     </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var products = $(".product-card");
+            var itemsToShow = 4; 
+            var itemsIncrement = 4; 
+            var totalItems = products.length;
+            var loading = false;
+    
+            function isMobile() {
+                return $(window).width() <= 768;
+            }
+    
+           
+            if (isMobile()) {
+                itemsToShow = 1; 
+                itemsIncrement = 1;
+            }
+    
+            products.hide();
+    
+            products.slice(0, itemsToShow).each(function (i) {
+                var delayTime = isMobile() ? i * 800 : i * 200; 
+                $(this).delay(delayTime).fadeIn(isMobile() ? 1000 : 400); 
+            });
+    
+            $(window).on("scroll", function () {
+                var sectionTop = $("#product-section").offset().top;
+                var sectionHeight = $("#product-section").outerHeight();
+                var viewportHeight = $(window).height();
+                var scrollPos = $(window).scrollTop() + viewportHeight;
+    
+                var triggerPoint = isMobile() ? sectionTop + sectionHeight * 0.2 : sectionTop + sectionHeight * 0.5;
+    
+                if (!loading && scrollPos >= triggerPoint) {
+                    loading = true;
+    
+                    setTimeout(function () {
+                        var newItems = products.slice(itemsToShow, itemsToShow + itemsIncrement);
+                        newItems.each(function (i) {
+                            var delayTime = isMobile() ? i * 800 : i * 200; 
+                            $(this).delay(delayTime).fadeIn(isMobile() ? 1000 : 400); 
+                        });
+    
+                        itemsToShow += itemsIncrement;
+                        loading = false;
+    
+                        if (itemsToShow >= totalItems) {
+                            $(window).off("scroll"); 
+                        }
+                    }, isMobile() ? 1200 : 500);
+                }
+            });
+        });
+    </script>
+    
+
 
 
 
@@ -174,18 +228,12 @@
                     <div class="section-title">
                         <h2>Latest Blogs</h2>
                     </div>
-                    <!-- <div class="section-title">-->
-                    <!--    <h2></h2>-->
-                    <!--</div>-->
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="product-info" style="margin-top: -15px;">
                         <div class="row">
-                            {{-- @foreach ($home_prod_new_arrivals as $list)
-							@include('front.components.productcard', ['list' => $list, 'slider' => '0'])
-							@endforeach									 --}}
 
                             @include('front.blog.index')
 
@@ -202,27 +250,13 @@
 
 
 
-    <!-- Start Product Categories  -->
-    <!-- <section class="shop-home-list section">
-                                  <div class="container">
-                                   <div class="row">
-                                    <div class="col-12">
-                                    <div class="shop-section-title">
-                                     <h1>Product categories</h1>
-                                    </div>
-                                      <div class="row">
-                                       @foreach ($categories as $list)
-    @include('front.components.productCatCard', ['list' => $list])
-    @endforeach
-                                      </div>
-                                    </div>
-                                   </div>
-                                  </div>
-                                 </section> -->
-    <!-- End Shop Home List  -->
+{{-- 
+    @foreach ($categories as $list)
+        @include('front.components.productCatCard', ['list' => $list])
+    @endforeach --}}
 
 
-    <!-- Start Shop Services Area -->
+
     <section class="shop-services section home">
         <div class="container">
             <div class="row">
@@ -265,7 +299,7 @@
             </div>
         </div>
     </section>
-    <!-- End Shop Services Area -->
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">

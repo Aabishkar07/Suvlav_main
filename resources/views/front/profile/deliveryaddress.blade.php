@@ -149,11 +149,11 @@
                                         <span>District</span> &nbsp; : &nbsp; {{ @$shippings[0]->district }}
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-12">
+                                {{-- <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
                                         <span>City</span> &nbsp; : &nbsp; {{ @$shippings[0]->city }}
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
                                         <span>Address.</span> &nbsp; : &nbsp; {{ @$shippings[0]->address }}
@@ -170,12 +170,12 @@
                                         <span>Tole.</span> &nbsp; : &nbsp; {{ @$shippings[0]->tole }}
                                     </div>
                                 </div>
-
+{{-- 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
                                         <span>House No.</span> &nbsp; : &nbsp; {{ @$shippings[0]->houseno }}
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">

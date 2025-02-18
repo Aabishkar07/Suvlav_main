@@ -244,7 +244,11 @@ class CartController extends Controller
             ->where("item_id", $request->item_id)
             ->update(['status' => "wanttoexchange"]);
         Exchange::create($data);
-        dd($data);
+        return response()->json([
+            "success" => true,
+            "message" => "Exchange Request sent to admin",
+
+        ]);
     }
 
 
