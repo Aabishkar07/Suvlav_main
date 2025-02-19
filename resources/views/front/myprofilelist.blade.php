@@ -807,15 +807,25 @@
 
                         <!--	 End login register fomr-->
 
-                        <div id="mypoints" class="tabcontent">
+                        <div id="mypoints" class="tabcontent max-sm:hidden">
                             <div style="background-color: orange" class="my-2 text-center text-white rounded card-header">
                                 <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">
                                     My Points </h4>
-                            </div>
-                            <label>Available Points</label>
-                            <div class="">{{ $userdata[0]->total_points ?? 0 }}</div>
+                           </div>
+                            {{--  <label>Available Points</label> --}}
+                            {{-- <div class="">{{ $userdata[0]->total_points ?? 0 }}</div> --}}
 
+
+                            <div class="container mt-5">
+                                <div class="text-center border-0 shadow-lg card" style="max-width: 400px; margin: auto;">
+                                    <div class="p-4 card-body">
+                                        <h5 class="font-semibold card-title text-uppercase text-secondary">Available Points</h5>
+                                        <div class="display-4 fw-bold text-primary">{{ $userdata[0]->total_points ?? 0 }}</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                      
 
                     </div>
 
