@@ -230,7 +230,12 @@ class CartController extends Controller
             'color' => $request->cartColor,
             'size' => $request->cartSize
         ];
+        $sale_price = $product->sale_price ? $product->sale_price : $product->regular_price;
+        $details = DB::table('order_details')
+            ->where("item_id", $request->item_id)->first();
 
+        $difference = abs($details->price * $details->quantity - $sale_price);
+      
         $data = [
             'new_product_id' => $product->id,
             'product_name' => $product->title,
@@ -239,6 +244,7 @@ class CartController extends Controller
             'item_id' =>  $request->item_id,
             'attribute' => json_encode($prod_attr),
             'status' => "pending",
+            'points' => $difference,
         ];
         $order_details = DB::table('order_details')
             ->where("item_id", $request->item_id)

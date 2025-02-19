@@ -490,17 +490,17 @@
                                                                         <hr>
                                                                         <p class="font-weight-bold">
                                                                             @if ($details->price * $details->quantity > $sale_price)
-                                                                                You will receive a refund:
-                                                                            @elseif ($details->price * $details->quantity == $sale_price)
+                                                                                Your excess amount will be added as Points:
+                                                                            {{-- @elseif ($details->price * $details->quantity == $sale_price)
                                                                                 No additional payment required.
                                                                             @else
-                                                                                You need to pay the Amount:
+                                                                                You need to pay the Amount: --}}
                                                                             @endif
 
                                                                             <span
                                                                                 class="{{ $details->price * $details->quantity > $sale_price ? 'text-danger' : 'text-success' }}">
-                                                                                Rs.
-                                                                                {{ abs($details->price * $details->quantity - $sale_price) }}
+                                                                                
+                                                                                {{ abs($details->price * $details->quantity - $sale_price) }} (Points)
                                                                             </span>
                                                                         </p>
                                                                     </div>

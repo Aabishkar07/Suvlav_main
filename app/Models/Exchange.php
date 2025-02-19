@@ -14,5 +14,6 @@ class Exchange extends Model
         'item_id',
         'attribute',
         'status',
+        'points',
     ];
 }
