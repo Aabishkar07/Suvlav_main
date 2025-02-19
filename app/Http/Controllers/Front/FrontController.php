@@ -10,6 +10,7 @@ use App\Mail\welcome;
 use App\Models\AffiliatePoint;
 use App\Models\Blog;
 use App\Models\Contact;
+use App\Models\Exchange;
 use App\Models\Faq;
 use App\Models\Member;
 use App\Models\Order;
@@ -254,17 +255,40 @@ class FrontController extends Controller
     }
 
     public function exchangestatus(Request $request, $item_id)
-{
-    $request->validate([
-        'status' => 'required',
-    ]);
+    {
+        $request->validate([
+            'status' => 'required',
+        ]);
 
-    DB::table('order_details')
-        ->where('item_id', $item_id)
-        ->update(['status' => $request->status]); // Use associative array for update
+        $orders = DB::table('orders as a')
+            ->join('order_details as b', 'b.order_id', '=', 'a.id')
+            ->where('b.item_id', $item_id)
+            ->first();
 
-    return redirect()->back()->with('success', 'Order status updated successfully');
-}
+        $exchange = Exchange::where("item_id", $item_id)->first();
+        $exchange->status = "exchanged";
+        $exchange->save();
+        // dd($orders->user_id);
+        AffiliatePoint::create([
+            "user_id" => $orders->user_id,
+            "order_id" => $orders->user_id,
+            "points" => $exchange->points ?? 0,
+            "status" => "COMPLETED",
+            "point_status" => "exchange"
+        ]);
+
+
+        $customer = Member::where('id', $orders->user_id)->first();
+        // dd($customer);
+        $customer->total_points += $exchange->points ?? 0;
+        $customer->save();
+
+        DB::table('order_details')
+            ->where('item_id', $item_id)
+            ->update(['status' => $request->status]); // Use associative array for update
+
+        return redirect()->back()->with('success', 'Order status updated successfully');
+    }
 
     public function updatepassword()
     {
@@ -696,13 +720,17 @@ class FrontController extends Controller
     {
         $cartItems = $this->cartdata;
         $categories = $this->categories;
+        $item_id = request()->details;
+
+        $check = DB::table('order_details')
+            ->where('item_id', $item_id)
+            ->first();
 
         $results['home_prod_featured'] = DB::table('products')
-            ->where(['status' => 1])
-            // ->where(['prod_new_arrival' => '1'])
+            ->where('status', 1)
+            ->whereRaw("regular_price - sale_price <= ?", [$check->price])
+            ->where('sale_price', '<=', $check->price)
             ->get();
-
-
 
 
         $title = "Products";
@@ -1775,6 +1803,7 @@ class FrontController extends Controller
 
         $orders = DB::table('orders as a')
             ->join('order_details as b', 'b.order_id', '=', 'a.id')
+            ->select('a.*', 'b.*', 'a.status as order_status')
             ->where('a.id', $orderid)
             ->get()->toArray();
 

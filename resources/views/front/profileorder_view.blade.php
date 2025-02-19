@@ -107,12 +107,13 @@
                                     <p class="mb-1"><strong>Order Date:</strong></p>
                                     <p>{{ $orders[0]->created_at }}</p>
                                 </div>
+                                
                                 <!-- Order Status -->
                                 <div class="mb-3 col-lg-3 col-md-4 col-sm-6 col-12">
                                     <p class="mb-1"><strong>Order Status:</strong></p>
                                     <span
-                                        class="badge text-lg bg-{{ strtolower($orders[0]->status) == 'completed' ? 'success' : 'warning' }}">
-                                        {{ $orders[0]->status }}
+                                        class="badge text-lg bg-{{ strtolower($orders[0]->order_status) == 'completed' ? 'success' : 'warning' }}">
+                                        {{ $orders[0]->order_status }}
                                     </span>
                                 </div>
                             </div>
