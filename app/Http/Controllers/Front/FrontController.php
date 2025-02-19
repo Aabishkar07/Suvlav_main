@@ -1057,15 +1057,14 @@ class FrontController extends Controller
     public function checkoutsmt(Request $request)
     {
 
-
-
+        
         // dd(vars: $request->email);
-
-        $cartItems = $this->cartdata;
+        
+        $DatacartItems = $this->cartdata;
         $categories = $this->categories;
 
 
-        if (count($cartItems) == 0) {
+        if (count($DatacartItems) == 0) {
             return redirect('/view-cart')->with('message', 'Cart is empty');
         }
 
@@ -1077,44 +1076,44 @@ class FrontController extends Controller
             $guest_id = $_COOKIE['guest_auth_token'];
             Cookie::queue('suvdata', $guest_id, 60 * 24 * 365); // 1 year
             $cartItems = DB::table('carts')
-                ->where('guest_id', $guest_id)
-                ->get()->toArray();
+            ->where('guest_id', $guest_id)
+            ->get()->toArray();
         } else {
             $cartItems = DB::table('carts')
-                ->where('user_id', $user_id)
-                ->get()->toArray();
+            ->where('user_id', $user_id)
+            ->get()->toArray();
             $member = Member::findOrFail($user_id);
         }
-
+        
         // dd(session('suvcode'));
         $webcode = session('websuvcode');
         // dd($webcode);
         $code = session('suvcode');
         $session_product_id = session('suvproduct');
         // dd($session_product_id);
-
-
-
-
+        
+        
+        
+        
         $item_count = 0;
         $totalprice = 0;
         $totalqnty = 0;
-
-
-
-
-        foreach ($cartItems as $cc) {
+        
+        
+        
+        
+        foreach ($DatacartItems as $cc) {
             $item_count++;
             $totalprice = $totalprice + $cc->price * $cc->quantity;
             $totalqnty = $totalqnty + $cc->quantity;
         }
-
+        
         $value = 0;
         $status = "";
         $checkmember = "";
-
+        
         $trackingid = rand(10000, 99999);
-
+        
         $cart_order = [
             'user_id' => $user_id,
             'total_amt' => $totalprice,
@@ -1131,12 +1130,12 @@ class FrontController extends Controller
             // 'houseno' => $request->house_del,
             'tracking_code' => $trackingid,
             'created_at' => @date('Y-m-d H:i')
-
+            
         ];
-
+        
         if ($request->redeem_point == 1) {
             $points = $member->total_points;
-
+            
             if ($totalprice <= $points) {
                 $usedPoints = $totalprice;
                 $remainingPoints = $points - $totalprice;
@@ -1149,12 +1148,13 @@ class FrontController extends Controller
             $member->total_points -= $usedPoints;
             $member->save();
         }
-
-
+        
+        
         $orderid =  DB::table('orders')->insertGetId($cart_order);
+        // dd("alala");
 
 
-        foreach ($cartItems as $cc) {
+        foreach ($DatacartItems as $cc) {
 
             if ($webcode) {
                 $product = Product::where("id", $cc->product_id)->first();
@@ -1198,6 +1198,7 @@ class FrontController extends Controller
                 'price' => $cc->price,
                 'created_at' => @date('Y-m-d H:i')
             ];
+            // dd($cart_orders);
 
             DB::table('order_details')->insert($cart_orders);
         }
@@ -1253,6 +1254,7 @@ class FrontController extends Controller
             ->join('order_details as b', 'b.order_id', '=', 'a.id')
             ->where('a.id', $orderid)
             ->get()->toArray();
+        // dd($orderid);
 
         $user_id = $orders[0]->user_id;
 
