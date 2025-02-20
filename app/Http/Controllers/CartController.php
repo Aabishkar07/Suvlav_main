@@ -235,7 +235,9 @@ class CartController extends Controller
             ->where("item_id", $request->item_id)->first();
 
         $difference = abs($details->price * $details->quantity - $sale_price);
-      
+        // dd($details, $difference);
+
+
         $data = [
             'new_product_id' => $product->id,
             'product_name' => $product->title,

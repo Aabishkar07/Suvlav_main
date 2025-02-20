@@ -728,7 +728,7 @@ class FrontController extends Controller
 
         $results['home_prod_featured'] = DB::table('products')
             ->where('status', 1)
-            ->whereRaw("regular_price - sale_price <= ?", [$check->price])
+            // ->whereRaw("regular_price - sale_price <= ?", [$check->price])
             ->where('sale_price', '<=', $check->price)
             ->get();
 
