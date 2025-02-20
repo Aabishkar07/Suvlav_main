@@ -733,11 +733,15 @@ class FrontController extends Controller
             ->where('status', 1)
             ->where('sale_price', '<=', $check->price)
             ->get();
+        $myresults = DB::table('products')
+            ->where('status', 1)
+            ->where('sale_price', '<=', $check->price)
+            ->get();
 
 
         $title = "Products";
 
-        return view('front.products.exchangeproduct', $results, compact('title', 'cartItems', 'categories'));
+        return view('front.products.exchangeproduct', $results, compact('title', 'cartItems', 'categories', 'myresults'));
     }
 
     public function checkout()

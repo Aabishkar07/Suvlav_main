@@ -15,7 +15,7 @@
             <div class="col-12">
                 <div class="product-info" style="margin-top: -15px;">
                     <div class="row">
-                        @foreach ($home_prod_featured as $list)
+                        @foreach ($myresults as $list)
                             @include('front.components.productcard', [
                                 'list' => $list,
                                 'slider' => '0',
