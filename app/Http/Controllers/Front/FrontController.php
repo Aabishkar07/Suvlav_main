@@ -728,14 +728,15 @@ class FrontController extends Controller
         if (!$check) {
             abort(403);
         }
+        $checkedprice = (int) $check->price;
 
         $results['home_prod_featured'] = DB::table('products')
             ->where('status', 1)
-            ->where('sale_price', '<=', $check->price)
+            ->where('sale_price', '<=', $checkedprice)
             ->get();
         $myresults = DB::table('products')
             ->where('status', 1)
-            ->where('sale_price', '<=', $check->price)
+            ->where('sale_price', '<=', $checkedprice)
             ->get();
 
 
