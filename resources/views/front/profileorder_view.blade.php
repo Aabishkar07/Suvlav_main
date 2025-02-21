@@ -107,7 +107,7 @@
                                     <p class="mb-1"><strong>Order Date:</strong></p>
                                     <p>{{ $orders[0]->created_at }}</p>
                                 </div>
-                                
+
                                 <!-- Order Status -->
                                 <div class="mb-3 col-lg-3 col-md-4 col-sm-6 col-12">
                                     <p class="mb-1"><strong>Order Status:</strong></p>
@@ -145,11 +145,34 @@
                                                 alt="{{ $order->product_name }}" class="img-fluid" width="100"></td>
                                         <td>{{ $order->product_name }}</td>
                                         <td>{{ moneyFormat($order->price) }}</td>
-                                        <td class="">{{ $order->total_no_qnty }}</td>
-                                        <td>{{ moneyFormat($order->total_amt) }}</td>
+                                        <td class="">{{ $order->quantity }}</td>
+                                        <td>{{ moneyFormat($order->price * $order->quantity) }}
+                                        </td>
+                                        {{-- @dd($orders) --}}
+                                        
+                                    </tr>
+                                    <tr>
+
+                                       <td>
+                                        <div class="">
+                                            @if ($order->product_status == 'exchanged')
+                                                <div class="p-1 text-white bg-blue-500 rounded cursor-pointer">
+                                                    Exchanged
+                                                </div>
+                                            @elseif ($order->product_status == 'wanttoexchange')
+                                                <div class="p-1 text-white bg-yellow-600 rounded cursor-pointer">
+                                                    Exchange on pending
+                                                </div>
+                                            @endif
+                                        </div>
+                                       </td>
+                                       <td></td>
+                                       <td></td>
+                                       <td></td>
+                                       <td></td>
                                     </tr>
                                     @php
-                                        $totalAmount += $order->total_amt;
+                                        $totalAmount = $order->total_amt;
                                     @endphp
                                 @endforeach
                                 <tr>
@@ -160,7 +183,6 @@
                                     <tr>
                                         <td colspan="4" class="text-right"><strong>Point Use :</strong></td>
                                         <td><strong>{{ moneyFormat($order->use_point) }}</strong></td>
-
                                     </tr>
                                     <tr>
                                         <td colspan="4" class="text-right"><strong>To Be Paid :</strong></td>

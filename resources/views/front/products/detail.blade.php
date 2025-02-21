@@ -557,6 +557,8 @@
                                                                     );
                                                                     return; // Exit the function if quantity is invalid
                                                                 }
+                                                                let button = $(this);
+                                                                button.prop("disabled", true).text("Processing...");
                                                                 const itemId = this.getAttribute('detail-item-id');
                                                                 const productId = this.getAttribute('data-product-id');
                                                                 const csrfToken = this.getAttribute('data-csrf-token');
@@ -582,6 +584,7 @@
                                                                         const response = JSON.parse(xhr.responseText);
                                                                         console.log("test", response)
                                                                         if (response.success === true) { // Ensure it matches Laravel response
+                                                                            button.text("Exchanged!").css("background-color", "green");
                                                                             toastr.success(response.message, "Success");
                                                                             if (response.content) { // Ensure content exists before updating DOM
                                                                                 document.getElementById("js_cartInfo").innerHTML = response.content;
@@ -590,6 +593,7 @@
                                                                             isCartProcessing = false;
                                                                         } else {
                                                                             alert("aa");
+                                                                            button.prop("disabled", false).text("Exchange");
                                                                             toastr.error(response.message, "Error");
                                                                         }
                                                                     }
