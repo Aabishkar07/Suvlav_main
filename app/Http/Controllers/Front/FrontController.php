@@ -1812,7 +1812,7 @@ class FrontController extends Controller
 
         $orders = DB::table('orders as a')
             ->join('order_details as b', 'b.order_id', '=', 'a.id')
-            ->select('a.*', 'b.*', 'a.status as order_status')
+            ->select('a.*', 'b.*', 'a.status as order_status','b.status as product_status')
             ->where('a.id', $orderid)
             ->get()->toArray();
 
