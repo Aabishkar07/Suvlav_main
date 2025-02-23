@@ -3,6 +3,7 @@
     @php
         $setting = getSetting();
     @endphp
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfFAuAqAAAAAHitLbft9rSa7H6QVT8VNCzYW-K7"></script>
     <!-- Start Contact -->
     <section id="contact-us" class="contact-us section">
         <div class="container">
@@ -17,7 +18,7 @@
                                 <h4>Get in touch</h4>
                                 <h3>Write us a message</h3>
                             </div>
-                            <form class="form" method="post" action="{{ url('/contactmail') }}">
+                            <form id="submitform" class="form" method="post" action="{{ url('/contactmail') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-6 col-12">
@@ -26,6 +27,8 @@
                                             <input name="name" type="text" placeholder="" required>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="g-token" id="g-token" value="" />
+
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
                                             <label>Your Subjects<span>*</span></label>
@@ -52,11 +55,28 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group button">
-                                            <button type="submit" class="btn ">Send Message</button>
+                                            <button id="buttonsubmit" type="button" onclick="onClick()" class="btn ">Send Message</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
+
+                            <script>
+                                function onClick(e) {
+                                    alert("aa")
+        
+                                    grecaptcha.enterprise.ready(async () => {
+                                        const token = await grecaptcha.enterprise.execute('6LfFAuAqAAAAAHitLbft9rSa7H6QVT8VNCzYW-K7', {
+                                            action: 'LOGIN'
+                                        });
+        
+                                        console.log("token", token)
+                                      
+                                        document.getElementById("g-token").value = token;
+                                        document.getElementById("submitform").submit();
+                                    });
+                                }
+                            </script>
                         </div>
                     </div>
                     <div class="col-lg-4 col-12">
