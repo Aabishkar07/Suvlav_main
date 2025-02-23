@@ -121,6 +121,7 @@
     }(document, 'script', 'facebook-jssdk'));
 </script>
 @section('content')
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6LfFAuAqAAAAAHitLbft9rSa7H6QVT8VNCzYW-K7"></script>
     <style>
         /* General Styles */
         body {
@@ -231,9 +232,10 @@
                                 {{ $errors->first() }}
                             </div>
                         @endif
-                        <form action="{{ route('memberstore') }}" method="POST">
+                        <form id="buttonsubmit" action="{{ route('memberstore') }}" method="POST">
                             @csrf
                             <input type="hidden" name="prev_url" value="{{ url()->previous() }}">
+                            <input type="hidden" name="g-token" id="g-token" value="" />
 
                             <div class="form-group">
                                 <label for="fname">Full Name <span>*</span></label>
@@ -271,7 +273,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" id="" style="background-color: #125ee0;width:100%;color:white;padding: 10px 10px;">Register</button>
+                            <button id="buttonsubmit" type="button" onclick="onClick()" id="" style="background-color: #125ee0;width:100%;color:white;padding: 10px 10px;">Register</button>
 
 
                             <div class="w-full my-4 ">
@@ -329,6 +331,22 @@
                                 Have an account? <a href="{{ route('member.loginform') }}">Login</a>
                             </div>
                         </form>
+
+                        <script>
+                            function onClick(e) {
+                                
+                                grecaptcha.enterprise.ready(async () => {
+                                    const token = await grecaptcha.enterprise.execute('6LfFAuAqAAAAAHitLbft9rSa7H6QVT8VNCzYW-K7', {
+                                        action: 'LOGIN'
+                                    });
+    
+                                    console.log("token", token)
+                                  
+                                    document.getElementById("g-token").value = token;
+                                    document.getElementById("submitform").submit();
+                                });
+                            }
+                        </script>
 
 
                     </div>

@@ -63,8 +63,7 @@
 
                             <script>
                                 function onClick(e) {
-                                    alert("aa")
-        
+                                 
                                     grecaptcha.enterprise.ready(async () => {
                                         const token = await grecaptcha.enterprise.execute('6LfFAuAqAAAAAHitLbft9rSa7H6QVT8VNCzYW-K7', {
                                             action: 'LOGIN'
