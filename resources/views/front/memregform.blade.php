@@ -121,7 +121,9 @@
     }(document, 'script', 'facebook-jssdk'));
 </script>
 @section('content')
-<script src="https://www.google.com/recaptcha/enterprise.js?render=6LfFAuAqAAAAAHitLbft9rSa7H6QVT8VNCzYW-K7"></script>
+
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfD7uAqAAAAAPNME7Bgz6zRm-5RaYQLprGHSr9T"></script>
+    
     <style>
         /* General Styles */
         body {
@@ -273,7 +275,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <button id="buttonsubmit" type="button" onclick="onClick()" id="" style="background-color: #125ee0;width:100%;color:white;padding: 10px 10px;">Register</button>
+                            <button id="buttonsubmit" type="button" onclick="onClick()" id=""
+                                style="background-color: #125ee0;width:100%;color:white;padding: 10px 10px;">Register</button>
 
 
                             <div class="w-full my-4 ">
@@ -334,17 +337,18 @@
 
                         <script>
                             function onClick(e) {
-                                
+
                                 grecaptcha.enterprise.ready(async () => {
-                                    const token = await grecaptcha.enterprise.execute('6LfFAuAqAAAAAHitLbft9rSa7H6QVT8VNCzYW-K7', {
+                                    const token = await grecaptcha.enterprise.execute('6LfD7uAqAAAAAPNME7Bgz6zRm-5RaYQLprGHSr9T', {
                                         action: 'LOGIN'
                                     });
-    
-                                    console.log("token", token)
-                                  
-                                    document.getElementById("g-token").value = token;
-                                    document.getElementById("submitform").submit();
                                 });
+
+                                console.log("token", token)
+
+                                document.getElementById("g-token").value = token;
+                                document.getElementById("submitform").submit();
+                            });
                             }
                         </script>
 
