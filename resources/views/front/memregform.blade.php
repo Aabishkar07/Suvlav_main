@@ -122,7 +122,6 @@
 </script>
 @section('content')
 
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfD7uAqAAAAAPNME7Bgz6zRm-5RaYQLprGHSr9T"></script>
     
     <style>
         /* General Styles */
