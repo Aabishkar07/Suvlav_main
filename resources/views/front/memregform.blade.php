@@ -121,8 +121,6 @@
     }(document, 'script', 'facebook-jssdk'));
 </script>
 @section('content')
-
-    
     <style>
         /* General Styles */
         body {
@@ -335,21 +333,22 @@
                         </form>
 
                         <script>
-                            function onClick(e) {
-
-                                grecaptcha.enterprise.ready(async () => {
-                                    const token = await grecaptcha.enterprise.execute('6LfD7uAqAAAAAPNME7Bgz6zRm-5RaYQLprGHSr9T', {
-                                        action: 'LOGIN'
-                                    });
+                            function onClick() {
+                                grecaptcha.enterprise.ready(function () {
+                                    grecaptcha.enterprise.execute('6LfD7uAqAAAAAPNME7Bgz6zRm-5RaYQLprGHSr9T', { action: 'LOGIN' })
+                                        .then(function (token) {
+                                            console.log("token", token);
+                        
+                                            document.getElementById("g-token").value = token;
+                                            document.getElementById("submitform").submit();
+                                        })
+                                        .catch(function (error) {
+                                            console.error("reCAPTCHA error:", error);
+                                        });
                                 });
-
-                                console.log("token", token)
-
-                                document.getElementById("g-token").value = token;
-                                document.getElementById("submitform").submit();
-                            });
                             }
                         </script>
+                        
 
 
                     </div>
