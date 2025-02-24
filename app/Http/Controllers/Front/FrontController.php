@@ -896,6 +896,7 @@ class FrontController extends Controller
             'email'         => 'required|email|min:6|max:50',
             'password'      => 'required|min:6|max:50',
             'gender'      => 'required',
+            'g-token'      => 'required',
         ];
 
         $exist = DB::table('members')
