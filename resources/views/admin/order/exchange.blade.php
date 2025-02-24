@@ -54,11 +54,12 @@
                             <th> Product Name </th>
                             <th> Customer Name </th>
                             <th> Mobile </th>
+                            <th> Quantity </th>
                             <th> Amount </th>
                             <th> Status </th>
                             <th> Order Date </th>
 
-                            <th> Action </th>
+                            {{-- <th> Action </th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -75,15 +76,18 @@
                                     <td>{{ $order->name }}</td>
 
                                     <td>{{ $order->mobile }}</td>
+                                    <td>{{ $order->old_quantity }}</td>
+
                                     <td>
                                         <div class="">
                                             <div class="">
-
-                                                Rs. {{ $order->old_price }}
+                                                {{ $order->old_quantity }} * {{ $order->old_price }}=
+                                                Rs. {{ $order->old_price * $order->old_quantity }}
                                             </div>
 
                                         </div>
                                     </td>
+
 
                                     <td>
                                         @if ($order->status != 'exchanged')
@@ -172,17 +176,12 @@
                                     </td>
                                     <td>{{ $order->created_at }}</td>
 
-                                    <td>
+                                    {{-- <td>
                                         <div data-toggle="modal" data-target="#exampleModal2{{ $key }}"
                                             class="btn btn-success btn-sm"><i class="fa fa-eye"></i> </div>
-                                        {{-- <a href="<?php echo url('admin/order/showdetails/' . $order->id); ?>" class="btn btn-success btn-sm"><i
-                                                class="fa fa-eye"></i> </a> --}}
-                                        {{-- <a href="{{ route('order.edit', $order->id) }}" class="btn btn-success btn-sm"><i
-                                                class="fa fa-edit"></i> </a> --}}
+                                        
                                     </td>
-                                    {{-- @dd($order) --}}
-
-                                    <!-- Modal -->
+                               
                                     <div class="modal fade" id="exampleModal2{{ $key }}" tabindex="-1"
                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -201,10 +200,7 @@
                                                         <div class="">
                                                             <div class="">
                                                                 <div class="form-group row">
-                                                                    {{-- <label for="statusInput"
-                                                                        style="font-weight: bold;font-size:20px;color:green;text-decoration: underline"
-                                                                        class="col-form-label">Reason to
-                                                                        {{ $order->order_status }}</label> --}}
+                                                                   
                                                                     <div class="">
 
                                                                         <div class="py-2 font-weight-bold">Wants to
@@ -238,7 +234,7 @@
                                                                                     $attributes = json_decode(
                                                                                         $order->attribute,
                                                                                         true,
-                                                                                    ); // Decode as an associative array
+                                                                                    ); 
                                                                                 @endphp
 
                                                                                 @if (!empty($attributes))
@@ -270,7 +266,6 @@
                                                                             </p>
                                                                         </div>
 
-                                                                        {{-- {{ $order->reason }} --}}
 
                                                                     </div>
                                                                 </div>
@@ -286,7 +281,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
 
                                 </tr>

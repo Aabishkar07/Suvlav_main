@@ -728,21 +728,46 @@ class FrontController extends Controller
         if (!$check) {
             abort(403);
         }
-        $checkedprice = (int) $check->price;
-
-        $results['home_prod_featured'] = DB::table('products')
-            ->where('status', 1)
-            ->where('sale_price', '<=', $checkedprice)
-            ->get();
-        $myresults = DB::table('products')
-            ->where('status', 1)
-            ->where('sale_price', '<=', $checkedprice)
-            ->get();
+        // dd($check);
 
 
-        $title = "Products";
 
-        return view('front.products.exchangeproduct', $results, compact('title', 'cartItems', 'categories', 'myresults'));
+        $user_id = (Session::get(key: 'memeber_id_ss') != '') ? Session::get('memeber_id_ss') : 0;
+
+
+        $data = [
+            // 'new_product_id' => $product->id,
+            'product_name' => $check->product_name,
+            'price' => $check->price,
+            'user_id' => $user_id,
+            'item_id' =>  $item_id,
+            'attribute' => $check->attributes,
+            'status' => "pending",
+            'points' => $check->price * $check->quantity,
+        ];
+        $order_details = DB::table('order_details')
+            ->where("item_id", $item_id)
+            ->update(['status' => "wanttoexchange"]);
+        Exchange::create($data);
+
+        return redirect()->back()->with("success","Exchange sent for approval");
+
+
+        // $checkedprice = (int) $check->price;
+
+        // $results['home_prod_featured'] = DB::table('products')
+        //     ->where('status', 1)
+        //     ->where('sale_price', '<=', $checkedprice)
+        //     ->get();
+        // $myresults = DB::table('products')
+        //     ->where('status', 1)
+        //     ->where('sale_price', '<=', $checkedprice)
+        //     ->get();
+
+
+        // $title = "Products";
+
+        // return view('front.products.exchangeproduct', $results, compact('title', 'cartItems', 'categories', 'myresults'));
     }
 
     public function checkout()
@@ -1812,7 +1837,7 @@ class FrontController extends Controller
 
         $orders = DB::table('orders as a')
             ->join('order_details as b', 'b.order_id', '=', 'a.id')
-            ->select('a.*', 'b.*', 'a.status as order_status','b.status as product_status')
+            ->select('a.*', 'b.*', 'a.status as order_status', 'b.status as product_status')
             ->where('a.id', $orderid)
             ->get()->toArray();
 
