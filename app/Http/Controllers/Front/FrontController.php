@@ -750,7 +750,7 @@ class FrontController extends Controller
             ->update(['status' => "wanttoexchange"]);
         Exchange::create($data);
 
-        return redirect()->back()->with("success","Exchange sent for approval");
+        return redirect()->back()->with("success", "Exchange sent for approval");
 
 
         // $checkedprice = (int) $check->price;
@@ -1632,7 +1632,9 @@ class FrontController extends Controller
     {
 
 
-
+        $request->validate([
+            'g-token' => 'required'
+        ]);
 
         $user = Contact::create([
             'name' => $request->name,
