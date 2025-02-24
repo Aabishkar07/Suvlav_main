@@ -3,7 +3,6 @@
     @php
         $setting = getSetting();
     @endphp
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfFAuAqAAAAAHitLbft9rSa7H6QVT8VNCzYW-K7"></script>
     <!-- Start Contact -->
     <section id="contact-us" class="contact-us section">
         <div class="container">
@@ -62,17 +61,18 @@
                             </form>
 
                             <script>
-                                function onClick(e) {
-                                 
-                                    grecaptcha.enterprise.ready(async () => {
-                                        const token = await grecaptcha.enterprise.execute('6LfFAuAqAAAAAHitLbft9rSa7H6QVT8VNCzYW-K7', {
-                                            action: 'LOGIN'
-                                        });
-        
-                                        console.log("token", token)
-                                      
-                                        document.getElementById("g-token").value = token;
-                                        document.getElementById("submitform").submit();
+                                function onClick() {
+                                    grecaptcha.enterprise.ready(function () {
+                                        grecaptcha.enterprise.execute('6LfD7uAqAAAAAPNME7Bgz6zRm-5RaYQLprGHSr9T', { action: 'LOGIN' })
+                                            .then(function (token) {
+                                                console.log("token", token);
+                            
+                                                document.getElementById("g-token").value = token;
+                                                document.getElementById("submitform").submit();
+                                            })
+                                            .catch(function (error) {
+                                                console.error("reCAPTCHA error:", error);
+                                            });
                                     });
                                 }
                             </script>
