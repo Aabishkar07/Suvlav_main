@@ -66,8 +66,8 @@
         }
 
         /* .btn {
-                                                                                                                                                                                                                            background-color: #000 !important;
-                                                                                                                                                                                                                        } */
+                                                                                                                                                                                                                                                    background-color: #000 !important;
+                                                                                                                                                                                                                                                } */
 
         .changepw {
             margin: 0px auto;
@@ -381,7 +381,11 @@
                                                                         class="flex items-center justify-center px-3 py-1 fa fa-eye"></i>
                                                                 </div>
                                                             </a>
-                                                            @if ($order->status != 'Cancel' && $order->status != 'Exchange' && $order->status != 'Wanttoexchange' && $order->status != 'Delevered')
+                                                            @if (
+                                                                $order->status != 'Cancel' &&
+                                                                    $order->status != 'Exchange' &&
+                                                                    $order->status != 'Wanttoexchange' &&
+                                                                    $order->status != 'Delevered')
                                                                 <div id="openModalBtn-{{ $order->id }}"
                                                                     class="p-1 text-white bg-red-500 rounded cursor-pointer">
                                                                     Cancel
@@ -397,43 +401,44 @@
                                                         <div
                                                             class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative max-h-[80vh] overflow-y-auto">
                                                             <!-- Close Button -->
-    
-                                                            
-    
+
+
+
                                                             <!-- Modal Header -->
-                                                            <h2 class="mb-4 text-2xl font-semibold">Cancel or Exchange </h2>
-    
+                                                            <h2 class="mb-4 text-2xl font-semibold">Cancel or Exchange
+                                                            </h2>
+
                                                             <!-- Inquiry Form -->
                                                             <form id="inquiryForm" method="post"
                                                                 action="{{ route('member.statusupdate', $order->id) }}"
                                                                 class="space-y-4">
                                                                 <!-- Name -->
                                                                 @csrf
-    
-    
-    
-    
+
+
+
+
                                                                 <!-- Subject -->
                                                                 <div>
                                                                     <label
                                                                         class="block text-sm font-medium text-gray-700">Cancel
                                                                         /
                                                                         Exchange </label>
-    
+
                                                                     <select id="status" name="status" required
                                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                                                        <option value="" disabled >Choose an option
+                                                                        <option value="" disabled>Choose an option
                                                                         </option>
-    
-    
-    
-    
+
+
+
+
                                                                         @if ($order->status != 'Delevered')
                                                                             <option selected value="Cancel">Cancel</option>
                                                                         @endif
                                                                     </select>
-    
-    
+
+
                                                                     @error('status')
                                                                         <div class="text-sm text-red-400 invalid-feedback"
                                                                             style="display: block;">
@@ -441,7 +446,7 @@
                                                                         </div>
                                                                     @enderror
                                                                 </div>
-    
+
                                                                 <!-- Message -->
                                                                 <div>
                                                                     <label
@@ -456,15 +461,15 @@
                                                                         </div>
                                                                     @enderror
                                                                 </div>
-    
-    
-    
+
+
+
                                                                 <!-- Modal Footer -->
                                                                 <button id="confirmBtn" type="submit"
                                                                     class="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600">
                                                                     Confirm
                                                                 </button>
-    
+
                                                                 <button id="closeModalBtn-{{ $order->id }}"
                                                                     class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
                                                                     Close
@@ -472,28 +477,28 @@
                                                             </form>
                                                         </div>
                                                     </div>
-    
-    
+
+
                                                     <script>
                                                         // Get elements dynamically for each modal
                                                         const openModalBtn{{ $order->id }} = document.getElementById('openModalBtn-{{ $order->id }}');
                                                         const closeModalBtn{{ $order->id }} = document.getElementById('closeModalBtn-{{ $order->id }}');
                                                         const modal{{ $order->id }} = document.getElementById('customModal-{{ $order->id }}');
-    
+
                                                         // Open modal function
                                                         const openModal{{ $order->id }} = () => {
                                                             modal{{ $order->id }}.classList.remove('hidden');
                                                         };
-    
+
                                                         // Close modal function
                                                         const closeModal{{ $order->id }} = () => {
                                                             modal{{ $order->id }}.classList.add('hidden');
                                                         };
-    
+
                                                         // Event listeners
                                                         openModalBtn{{ $order->id }}.addEventListener('click', openModal{{ $order->id }});
                                                         closeModalBtn{{ $order->id }}.addEventListener('click', closeModal{{ $order->id }});
-    
+
                                                         // Close modal when clicking outside the content
                                                         window.addEventListener('click', (event) => {
                                                             if (event.target === modal{{ $order->id }}) {
@@ -501,11 +506,11 @@
                                                             }
                                                         });
                                                     </script>
-    
 
 
 
-                                                    
+
+
                                                     <?php foreach ($orderDetails as $detail) { ?>
                                                     <div class="flex items-start gap-4 pt-4 mt-4 border-t">
                                                         <img src="{{ asset('public/' . $detail->product_image) }}"
@@ -530,13 +535,21 @@
                                                                         Exchange on pending
                                                                     </div>
                                                                 @elseif ($order->status == 'Delevered')
-                                                                    <a
-                                                                        href="{{ route('exchange', ['details' => $detail->item_id]) }}">
-                                                                        <div
-                                                                            class="p-1 text-white bg-red-500 rounded cursor-pointer">
-                                                                            Want To Exchange
-                                                                        </div>
-                                                                    </a>
+                                                                    @php
+                                                                        $checkdate =
+                                                                            \Carbon\Carbon::parse(
+                                                                                $order->delivered_date,
+                                                                            )->addDays(7) >= \Carbon\Carbon::now();
+                                                                    @endphp
+                                                                    @if ($checkdate)
+                                                                        <a
+                                                                            href="{{ route('exchange', ['details' => $detail->item_id]) }}">
+                                                                            <div
+                                                                                class="p-1 text-white bg-red-500 rounded cursor-pointer">
+                                                                                Want To Exchange
+                                                                            </div>
+                                                                        </a>
+                                                                    @endif
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -566,7 +579,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
 
 
@@ -717,10 +730,10 @@
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                                                                          <div class="form-group">
-                                                                                                                                                                                                                                                                           <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
-                                                                                                                                                                                                                                                                           </div>
-                                                                                                                                                                                                                                                                       </div> -->
+                                                                                                                                                                                                                                                                                                  <div class="form-group">
+                                                                                                                                                                                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ @$shippings[0]->email }}
+                                                                                                                                                                                                                                                                                                   </div>
+                                                                                                                                                                                                                                                                                               </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -811,7 +824,7 @@
                             <div style="background-color: orange" class="my-2 text-center text-white rounded card-header">
                                 <h4 class="mb-0" style="font-size: 14px;font-weight: bold;">
                                     My Points </h4>
-                           </div>
+                            </div>
                             {{--  <label>Available Points</label> --}}
                             {{-- <div class="">{{ $userdata[0]->total_points ?? 0 }}</div> --}}
 
@@ -819,13 +832,15 @@
                             <div class="container mt-5">
                                 <div class="text-center border-0 shadow-lg card" style="max-width: 400px; margin: auto;">
                                     <div class="p-4 card-body">
-                                        <h5 class="font-semibold card-title text-uppercase text-secondary">Available Points</h5>
-                                        <div class="display-4 fw-bold text-primary">{{ $userdata[0]->total_points ?? 0 }}</div>
+                                        <h5 class="font-semibold card-title text-uppercase text-secondary">Available Points
+                                        </h5>
+                                        <div class="display-4 fw-bold text-primary">{{ $userdata[0]->total_points ?? 0 }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                      
+
 
                     </div>
 
@@ -1007,10 +1022,10 @@
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4 col-md-4 col-12">
-                                                                                                                                                                                                                                                                                   <div class="form-group">
-                                                                                                                                                                                                                                                                                   <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
-                                                                                                                                                                                                                                                                                   </div>
-                                                                                                                                                                                                                                                                                  </div> -->
+                                                                                                                                                                                                                                                                                                           <div class="form-group">
+                                                                                                                                                                                                                                                                                                           <span>Email</span> &nbsp; : &nbsp; {{ $userdata[0]->email }}
+                                                                                                                                                                                                                                                                                                           </div>
+                                                                                                                                                                                                                                                                                                          </div> -->
 
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
@@ -1243,5 +1258,4 @@
         document.getElementById("changepwTab").click();
     </script>
     <?php  } ?>
-    
 @endsection

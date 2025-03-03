@@ -7,6 +7,7 @@ use App\Models\Member;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -68,7 +69,7 @@ class OrderController extends Controller
             ->join('members as m', 'b.user_id', '=', 'm.id')
             ->where('a.status', 'wanttoexchange')
             ->orWhere('a.status', 'exchanged')
-            ->select("a.*","a.order_id as myorder_id","a.product_name as old_product_name","a.price as old_price","a.quantity as old_quantity", "b.*", "m.name","m.mobileno as mobile", "a.status as order_status")
+            ->select("a.*", "a.order_id as myorder_id", "a.product_name as old_product_name", "a.price as old_price", "a.quantity as old_quantity", "b.*", "m.name", "m.mobileno as mobile", "a.status as order_status")
             ->orderBy('b.id', 'desc')
             ->paginate(siteSettings('posts_per_page'));
         return view('admin.order.exchange', compact('orders'));
@@ -90,14 +91,14 @@ class OrderController extends Controller
 
         $orderid = $pid;
 
-      
+
 
         $orders = DB::table('orders as a')
             ->join('order_details as b', 'b.order_id', '=', 'a.id')
             ->where('a.id', $orderid)
             ->get()->toArray();
 
-          
+
 
         $user_id = $orders[0]->user_id;
 
@@ -138,16 +139,28 @@ class OrderController extends Controller
         if ($request->status == "Delevered") {
             $affiliate = AffiliatePoint::where("order_id", $order->id)->first();
             if ($affiliate) {
-                $member = Member::where("id", $affiliate->user_id)->first();
-                $member->total_points += $affiliate->points;
-                $member->save();
-                $affiliate->status = "COMPLETED";
+                // dd($affiliate);
+                $affiliate->delivered_date =  Carbon::now();
                 $affiliate->save();
+                // $member = Member::where("id", $affiliate->user_id)->first();
+                // $member->total_points += $affiliate->points;
+                // $member->save();
+                // $affiliate->status = "COMPLETED";
+                // $affiliate->save();
             }
         }
 
         $order->status = $request->input('status');
+        $order->delivered_date = Carbon::now();
         $order->update();
+
+        $ordersdetails = DB::table('orders as a')
+            ->join('order_details as b', 'b.order_id', '=', 'a.id')
+            ->where('a.id',  $order->id)
+            ->update([
+                "b.delivered_date" => Carbon::now()
+            ]);
+
         return redirect()->route('order.index')->with('success', 'Order status updated successfully');
     }
 

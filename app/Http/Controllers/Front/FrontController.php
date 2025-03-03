@@ -21,6 +21,7 @@ use App\Models\Review;
 use App\Models\SearchHistory;
 use App\Models\Setting;
 use App\Models\Wishlist;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -453,9 +454,25 @@ class FrontController extends Controller
 
         return redirect()->route('member.loginform')->with("status", "Password changed successfully!");
     }
+
+    public function checkpoints()
+    {
+        $affiliates = AffiliatePoint::where("status", "!=", "COMPLETED")->whereNotNull("delivered_date")->get();
+        foreach ($affiliates as $affiliate) {
+            if (Carbon::parse($affiliate->delivered_date)->addDays(7) <= Carbon::now()) {
+                $member = Member::where("id", $affiliate->user_id)->first();
+                $member->total_points += $affiliate->points;
+                $member->save();
+                $affiliate->status = "COMPLETED";
+                $affiliate->save();
+            }
+           
+        }
+    }
     public function index(Request $request)
     {
 
+        $this->checkpoints();
         $check_share = $request->websuvcode;
         // session()->forget('websuvcode');
 
