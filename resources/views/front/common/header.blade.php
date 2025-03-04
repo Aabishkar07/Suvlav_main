@@ -157,7 +157,7 @@
                     <a class="max-md:hidden">
                         <i class="ti-power-off"></i>
                         <?php if(Session::get('memeber_email_ss') == '') { ?>
-                        <a href="{{ url('/memberloginform') }}"  class="login-btn max-md:hidden">Logins</a>
+                        <a href="{{ url('/memberloginform') }}" class="login-btn max-md:hidden">Logins</a>
                         <?php } else { ?>
                         <a class="max-md:hidden" href="{{ url('/memberlogout') }}">Logout</a>
                         <?php } ?>
@@ -184,14 +184,13 @@
                             ?>
                             @foreach ($cartItems as $cartItem)
                                 <li>
-                                   
+
                                     <a href="javascript:void(0)" class="remove"
                                         onClick="deleteCartItem(<?php echo $csrf_token; ?>,<?php echo $cartItem->id; ?>, <?php echo $delete_url; ?>);"
                                         title="Remove this item"><i class="fa fa-remove"></i></a>
                                     <a class="cart-img" href="javascript:void(0);">
-                                        <img
-                                            src="{{ asset('public' . $cartItem->product_image) }}">
-                                        </a>
+                                        <img src="{{ asset('public' . $cartItem->product_image) }}">
+                                    </a>
                                     <h4><a
                                             href="{{ url('/product/' . $cartItem->product_slug) }}">{{ $cartItem->product_title }}</a>
                                     </h4>
@@ -201,20 +200,21 @@
                                 <?php $total_amt += $cartItem->quantity * $cartItem->price; ?>
                             @endforeach
                         </ul>
-                        <div class="bottom">
+                        <div class="bottom flex flex-col">
                             <div class="total mb-3">
                                 <span>Total</span>
                                 <span class="total-amount">{{ moneyFormat($total_amt) }}</span>
                             </div>
-                            <a href="{{ url('/checkout') }}" class="text-white px-5  py-2  animate bg-blue-500">Checkout</a>
+                            <a href="{{ url('/checkout') }}"
+                                class="text-white px-5  py-2  animate w-full bg-[#3b82f6]">Checkout</a>
                         </div>
                     </div>
                 </div>
-<div class="max-md:hidden">
-   <a href="{{ route('wishlist') }}">
-    <i class="ti-heart"> </i>
-   </a>
-</div>
+                <div class="max-md:hidden">
+                    <a href="{{ route('wishlist') }}">
+                        <i class="ti-heart"> </i>
+                    </a>
+                </div>
 
             </div>
 

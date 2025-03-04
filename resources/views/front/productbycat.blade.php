@@ -146,7 +146,7 @@
 									</div>
                                     <div class="quantity">
 										<!-- Input Order -->
-										<div class="input-group">
+										<div  class="input-group">
 											<div class="button minus">
 												<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
 													<i class="ti-minus"></i>
