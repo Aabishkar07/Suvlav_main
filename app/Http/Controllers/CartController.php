@@ -305,12 +305,12 @@ class CartController extends Controller
                         <a href="' .  route('view.cart') . '">View Cart</a>
                     </div>';
 
-                $btm_content = '<div class="bottom">
+                $btm_content = '<div class="bottom flex flex-col">
                                 <div class="total">
                                     <span>Total</span>
                                     <span class="total-amount">' . moneyFormat($total_amount) . '</span>
                                 </div>
-                                <a href="' . url('/checkout') . '" class="btn animate">Checkout</a>
+                                <a href="' . url('/checkout') . '" class="bg-[#3b82f6] text-center w-full  py-1.5 text-white text-lg animate">Checkout</a>
                             </div></div>';
                 $content = $top_content . $body_content . $btm_content;
             } else {
@@ -375,7 +375,7 @@ class CartController extends Controller
                 $content .= '</td>
 								<td class="price" data-title="Price"><span>' . moneyFormat($cartItem->price) . ' </span></td>
 								<td class="qty" data-title="Qty"><!-- Input Order -->
-									<div class="input-group">
+									<div style="width: 130px;" class="input-group">
 										<div class="button minus">
 											<button type="button" onClick="handleCartInputQuantities(' . $csrf_token . ', ' . $cartItem->id . ', ' . ($cartItem->quantity - 1) . ', ' . $update_url . ');" class="btn btn-primary btn-number" data-type="minus" data-field="quant[' . $cartItem->quantity . ']">
 												<i class="ti-minus"></i>
@@ -410,7 +410,7 @@ class CartController extends Controller
 									<div class="coupon">
 										<form action="#" target="_blank">
 											<input name="Coupon" placeholder="Enter Your Coupon">
-											<button class="btn">Apply</button>
+											<button class="bg-[#3b82f6] text-center px-2  py-1.5 text-white text-lg">Apply</button>
 										</form>
 									</div>
 									<div class="checkbox">
@@ -427,9 +427,9 @@ class CartController extends Controller
             $content .= '<li>Discount <span> - </span></li>';
             $content .= '<li class="last">Total<span>' . moneyFormat($total_amount) . '</span></li>';
             $content .= '</ul>
-									<div class="button5">
-										<a href="#" class="btn">Checkout</a>
-										<a href="#" class="btn">Continue shopping</a>
+									<div class="flex flex-col gap-y-2">
+										<a href="' . url('/checkout') . '" class="bg-[#3b82f6] text-center  py-1.5 text-white text-lg">Checkout</a>
+										<a href="' . url('/') . '" class="bg-[#214b8d] text-center  py-1.5 text-white text-lg">Continue shopping</a>
 									</div>
 								</div>
 							</div>
