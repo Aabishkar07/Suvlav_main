@@ -70,59 +70,74 @@
     </style>
 
     <!-- Start Checkout -->
-    <section class="shop checkout section">
+    <section class="shop checkout section max-sm:-mt-8">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-12">
                     <div class="checkout-form">
-                     
+
 
                         <div class="">
 
-                            <h2 >Make Your Checkout Here</h2>
+                            <h2>Make Your Checkout Here</h2>
                         </div>
                         {{-- <p>Please fill <b><i>delevery address</i></b> to checkout more quickly</p> --}}
                         <!-- Form -->
                         <form class="form" action="{{ route('cart.checkoutsmt') }}" method="POST">
                             @csrf
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -1px" class=" form-group">
-                                        <label>Full Name<span>*</span></label>
-                                        <input id="asd" type="text" name="name" value="{{ @$shippings[0]->fullname }}"
-                                            required="required">
+                                    <div style="margin-top: -1px" class="max-sm:flex max-sm:items-center  form-group">
+                                        <div class="w-32 ">
+
+                                            <label>Full Name :  <span>*</span></label>
+                                        </div>
+                                        <input id="asd" type="text" class="max-sm:ml-2" name="name"
+                                            value="{{ @$shippings[0]->fullname }}" required="required">
                                         {{-- <input type="hidden" readonly name="email"
                                             value="{{ Session::get('memeber_email_ss') }}" required="required"> --}}
                                     </div>
-                                    
+
                                 </div>
 
                                 <!-- <div class="col-lg-6 col-md-6 col-12">
-                                  <div class="form-group">
-                                   <label>Email<span>*</span></label>
-                                   <input type="email" readonly name="email" value="{{ Session::get('memeber_email_ss') }}" required="required">
-                                  </div>
-                                 </div> -->
+                                                                                          <div class="form-group">
+                                                                                           <label>Email<span>*</span></label>
+                                                                                           <input type="email" readonly name="email" value="{{ Session::get('memeber_email_ss') }}" required="required">
+                                                                                          </div>
+                                                                                         </div> -->
                                 <div style="margin-top: -15px" class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label>Mobile No.<span>*</span></label>
+                                    <div class="max-sm:flex max-sm:items-center  form-group">
+                                        <div class="w-32 ">
+
+
+                                            <label>Mobile No. : <span>*</span></label>
+                                        </div>
                                         <input type="number" name="mobileno" placeholder=""
                                             value="{{ @$shippings[0]->mobile }}" maxlength="10" required="required">
                                     </div>
                                 </div>
-                                <div style="margin-top: -15px" class="form-group col-12">
-                                    <label>Email<span>*</span></label>
+
+                                <div style="margin-top: -15px" class="max-sm:flex  col-12 max-sm:items-center  form-group">
+                                    <div class="w-32 ">
+
+                                        <label> Email : <span>*</span></label>
+                                    </div>
                                     <input type="text" name="email" value="{{ @$shippings[0]->email }}"
                                         required="required">
                                     {{-- <input type="hidden" readonly name="email"
                                         value="{{ Session::get('memeber_email_ss') }}" required="required"> --}}
                                 </div>
-                               
-                                <div  class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -15px" class="form-group">
-                                        <label>State<span>*</span></label>
-                                        <select id="province_data" class="form-control district" name="province_id"
-                                            required onchange="getDistrictsByState('<?php echo url('getdistricts'); ?>')">
+
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div style="margin-top: -15px" class="max-sm:flex   max-sm:items-center  form-group">
+                                        <div class="w-32">
+
+                                            <label>State : <span>*</span></label>
+                                        </div>
+
+                                        <select id="province_data" class="form-control district" name="province_id" required
+                                            onchange="getDistrictsByState('<?php echo url('getdistricts'); ?>')">
                                             <option value=''> --- Select State ---</option>
                                             <?php foreach($states_del as $dd){ ?>
                                             <option value="<?php echo $dd->id; ?>" <?php if ($dd->id == @$shippings[0]->province) {
@@ -134,8 +149,10 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -15px" class="form-group">
-                                        <label>District<span>*</span></label>
+                                    <div style="margin-top: -15px" class="max-sm:flex  max-sm:items-center  form-group">
+                                        <div class="w-32">
+                                            <label>District : <span>*</span></label>
+                                        </div>
                                         <select class="form-control" name="district" id="district_id" required>
                                             <option value=''> Select District </option>
                                             <?php
@@ -167,9 +184,11 @@
 
 
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -15px" class="form-group">
-                                        <span>Tole.</span> &nbsp;<input type="text" name="tole_del"
-                                            value="{{ @$shippings[0]->tole }}">
+                                    <div style="margin-top: -15px" class="max-sm:flex   max-sm:items-center  form-group">
+                                        <div class="w-32">
+                                            <span>Tole. : </span>
+                                        </div>
+                                        &nbsp;<input type="text" name="tole_del" value="{{ @$shippings[0]->tole }}">
                                     </div>
                                 </div>
 
@@ -181,24 +200,33 @@
                                 </div> --}}
 
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -15px" class="form-group">
-                                        <span>Gaupalika</span> &nbsp;<input type="text" name="gaupalika"
+                                    <div style="margin-top: -15px" class="max-sm:flex   max-sm:items-center  form-group">
+                                        <div class="w-32">
+                                            <span>Gaupalika : </span>
+                                        </div>
+                                        &nbsp;<input type="text" name="gaupalika"
                                             value="{{ @$shippings[0]->gaupalika }}">
                                     </div>
                                 </div>
 
 
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -15px" class="form-group">
-                                        <span>Nagarpalika</span> &nbsp;<input type="text" name="nagarpalika"
+                                    <div style="margin-top: -15px" class="max-sm:flex   max-sm:items-center  form-group">
+                                        <div class="w-32">
+
+                                            <span>Nagarpalika : </span>
+                                        </div>
+                                        &nbsp;<input type="text" name="nagarpalika"
                                             value="{{ @$shippings[0]->nagarpalika }}">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -15px" class="form-group">
-                                        <span>Ward no</span> &nbsp;<input type="text" name="wardno"
-                                            value="{{ @$shippings[0]->wardno }}">
+                                    <div style="margin-top: -15px" class="max-sm:flex   max-sm:items-center  form-group">
+                                        <div class="w-32">
+                                            <span>Ward no : </span>
+                                        </div>
+                                        &nbsp;<input type="text" name="wardno" value="{{ @$shippings[0]->wardno }}">
                                     </div>
                                 </div>
 
@@ -226,8 +254,9 @@
                                 <div class="content">
                                     <div class="button">
                                         <!-- <a href="#" class="btn">proceed to checkout</a> -->
-                                        <input type="submit" class="bg-[#3b82f6] w-full py-3 text-white text-xl" style="background-color: #3b82f6" name="register" value="Checkout">
-                                      
+                                        <input type="submit" class="bg-[#3b82f6] w-full py-3 text-white text-xl"
+                                            style="background-color: #3b82f6" name="register" value="Checkout">
+
                                     </div>
                                 </div>
                             </div>
@@ -294,21 +323,23 @@
                                             {{ $member->total_points ?? 0 }}
                                         </div>
                                     </div>
-                        
+
                                     <!-- Remaining Points Section -->
-                                    <div class="mb-3 remaining-points" id="remaining-points-container" style="display: none;">
+                                    <div class="mb-3 remaining-points" id="remaining-points-container"
+                                        style="display: none;">
                                         <label class="form-label text-muted">Remaining Points</label>
                                         <span id="remaining-points" class="fw-bold text-success">0</span>
                                     </div>
-                        
+
                                     <!-- Redeem Button -->
                                     <div class="d-grid">
-                                        <button id="redeem-btn" class="bg-blue-500 px-2 py-2 text-white text-sm">Redeem Points</button>
+                                        <button id="redeem-btn" class="bg-blue-500 px-2 py-2 text-white text-sm">Redeem
+                                            Points</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
 
 
 
@@ -321,7 +352,7 @@
                             // Attach event listener to the button
                             document.getElementById("redeem-btn").addEventListener("click", () => {
                                 if (totalPoints > 0) {
-									document.getElementById("redeem_point").value = 1;
+                                    document.getElementById("redeem_point").value = 1;
 
                                     if (totalAmount <= totalPoints) {
                                         // Deduct the entire total amount from points
