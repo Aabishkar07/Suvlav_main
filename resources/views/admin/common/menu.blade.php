@@ -67,6 +67,21 @@
         @endcan
 
 
+        <li class="">
+            <a class="nav-link  text-black   {{ request()->routeIs('province') ? 'bg-black text-white w-full ' : '' }}"
+                href="{{ route('province') }}">
+                <span class="menu-title ">
+                    <i class="fa fa-sliders menu-icon  py-2 {{ request()->routeIs('province') ? 'text-white' : 'text-black' }}  "
+                        style="font-size: 20px"></i>
+                    <span class="pb-1 ps-1">
+                        Address
+                    </span>
+                </span>
+            </a>
+        </li>
+
+
+
 
         @can('View Product')
             <li class="nav-item ">
@@ -76,7 +91,7 @@
                         Products</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="products">
+                <div class="" id="products">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('product.index') }}">Products</a>
