@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\NepalController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -174,6 +175,28 @@ Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'admin']), func
 
     Route::get('report/productwise', [ReportController::class, 'productindex'])->name('admin.report.product');
     Route::get('report/customerwise', [ReportController::class, 'customerindex'])->name('admin.report.customer');
+
+
+    Route::get('province', [NepalController::class, "index"])->name('province');
+    Route::get('province/create', [NepalController::class, "create"])->name('province.create');
+    Route::get('province/edit/{province}', [NepalController::class, "edit"])->name('province.edit');
+    Route::post('province', [NepalController::class, "store"])->name('province.store');
+    Route::put('province/{province}', [NepalController::class, "update"])->name('province.update');
+    Route::delete('province/{province}', [NepalController::class, "delete"])->name('province.delete');
+
+    Route::get('district/{province}', [NepalController::class, "district_index"])->name('district.index');
+    Route::get('district/create/{province}', [NepalController::class, "district_create"])->name('district.create');
+    Route::post('district/{province}', [NepalController::class, "district_store"])->name('district.store');
+    Route::get('district/edit/{district}', [NepalController::class, "district_edit"])->name('district.edit');
+    Route::put('district/{district}', [NepalController::class, "district_update"])->name('district.update');
+    Route::delete('district/{district}', [NepalController::class, "district_delete"])->name('district.delete');
+
+    Route::get('municipality/{district}', [NepalController::class, "municipality"])->name('municipality');
+    Route::get('municipality/create/{district}', [NepalController::class, "municipality_create"])->name('municipality.create');
+    Route::post('municipality/store/{district}', [NepalController::class, "municipality_store"])->name('municipality.store');
+    Route::get('municipality/edit/{municipality}', [NepalController::class, "municipality_edit"])->name('municipality.edit');
+    Route::put('municipality/{municipality}', [NepalController::class, "municipality_update"])->name('municipality.update');
+    Route::delete('municipality/{municipality}', [NepalController::class, "municipality_delete"])->name('municipality.delete');
 });
 
 Route::get('/clear', function () {
