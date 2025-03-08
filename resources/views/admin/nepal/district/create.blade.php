@@ -2,7 +2,7 @@
 @section('content')
     @php
         // Configure this page
-        $pageName = 'District/Add';
+        $pageName = $provinces->name . ' Province / Add District';
         $post_per_page = siteSettings('posts_per_page');
 
         $breadcrumbs = [
@@ -33,6 +33,10 @@
 
                     <div>
                         <button type="submit" class="btn btn-dark">Add</button>
+
+                        <a href="{{ route('district.index', $provinces->id) }}" class="bg-black border-0 btn btn-info ">
+                            Back
+                        </a>
                     </div>
                 </div>
             </form>

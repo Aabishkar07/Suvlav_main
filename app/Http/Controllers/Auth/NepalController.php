@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\District;
 use App\Models\Municipality;
 use App\Models\Province;
+use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -93,8 +94,9 @@ class NepalController extends Controller
 
     public function district_edit(District $district)
     {
+        $provinces = Province::findOrFail($district->province);
 
-        return view("admin.nepal.district.edit", compact("district"));
+        return view("admin.nepal.district.edit", compact("district", "provinces"));
     }
 
     public function district_update(Request $request, District $district)
@@ -126,7 +128,9 @@ class NepalController extends Controller
 
     public function municipality_create(District $district)
     {
-        return view("admin.nepal.municipality.create", compact("district"));
+        $title = Province::findOrFail($district->province)->name;
+
+        return view("admin.nepal.municipality.create", compact("district", "title"));
     }
 
     public function municipality_store(Request $request, District $district)
@@ -134,33 +138,64 @@ class NepalController extends Controller
         $request->validate([
             "name" => "required|unique:municipalities,name",
         ]);
-        Municipality::create([
+        $mun = Municipality::create([
             "name" => $request->name,
             "district" => $district->id,
             "province" => $district->province,
         ]);
+        if ($request->ward_to) {
+            for ($ward = 1; $ward <= $request->ward_to; $ward++) {
+                Ward::create([
+                    "number" => $ward,
+                    "municipality_id" => $mun->id
+                ]);
+            }
+
+            
+        }
+
 
         return redirect()->route("municipality", $district->id)->with("success", "Municipality Added");
     }
 
     public function municipality_edit(Municipality $municipality)
     {
-        return view("admin.nepal.municipality.edit", compact("municipality"));
+        $title = Province::findOrFail($municipality->province)->name;
+     
+
+        $ward = Ward::where("municipality_id", $municipality->id)->max("number");
+        return view("admin.nepal.municipality.edit", compact("municipality", 'ward', 'title'));
     }
 
     public function municipality_update(Request $request, Municipality $municipality)
     {
+
         $request->validate([
             "name" => "required|unique:municipalities,name," . $municipality->id,
         ]);
         $municipality->update([
             "name" => $request->name,
         ]);
+        $highward = Ward::where("municipality_id", $municipality->id)->max("number");
+
+        if ($request->ward_to) {
+            if ($request->ward_to != $highward) {
+                Ward::where("municipality_id", $municipality->id)->delete();
+
+                for ($ward = 1; $ward <= $request->ward_to; $ward++) {
+                    Ward::create([
+                        "number" => $ward,
+                        "municipality_id" => $municipality->id
+                    ]);
+                }
+            }
+        }
         return redirect()->route("municipality", $municipality->district)->with("success", "Municipality Added");
     }
 
     public function municipality_delete(Municipality $municipality)
     {
+        Ward::where("municipality_id", $municipality->id)->delete();
 
         $district = $municipality->district;
         $municipality->delete();
