@@ -4,7 +4,7 @@
 
     @php
         // Configure this page
-        $pageName = $title . ' / ' . ' District  ';
+        $pageName = $title . ' Province / ' . ' District  ';
         $post_per_page = siteSettings('posts_per_page');
 
         $breadcrumbs = [

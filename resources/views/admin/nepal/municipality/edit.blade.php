@@ -2,7 +2,9 @@
 @section('content')
     @php
 
-        $pageName = 'Municipality/Edit';
+        $pageName = $title . ' / ' . $municipality->getdistrict->district . ' / Edit Municipality';
+
+        // $pageName = 'Municipality/Edit';
         $post_per_page = siteSettings('posts_per_page');
 
         $breadcrumbs = [
@@ -17,7 +19,8 @@
         {{-- <div class="h4 fw-bold">Province</div> --}}
         <div class="p-4 mx-auto bg-white rounded shadow-lg " style="width: 80%">
 
-            <form method="post" action="{{ route('municipality.update', parameters: $municipality->id) }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('municipality.update', parameters: $municipality->id) }}"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mt-3">
@@ -32,8 +35,40 @@
                         @enderror
                     </div>
 
+                    <div class="">
+                        <label class="form-label fw-semibold">Add Ward Range</label>
+
+                        <div class="gap-4 d-flex place-content-center">
+
+                            <div class="mb-3">
+                                <input type="number" class="form-control" name="ward_from" placeholder="Eg.1"
+                                    value="1" disabled required>
+                                @error('name')
+                                    <div class="text-danger small">
+                                        * {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="pt-2">
+                                <label>to</label>
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" name="ward_to" placeholder="Eg.31"
+                                    value="{{ old('ward_to', $ward) }}" required>
+                                @error('name')
+                                    <div class="text-danger small">
+                                        * {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
                     <div>
                         <button type="submit" class="btn btn-dark">Update</button>
+                        <a href="{{ route('municipality', $municipality->district) }}"
+                            class="bg-black border-0 btn btn-info sfw"><i class="fa fa-back"></i> Back
+                        </a>
                     </div>
                 </div>
             </form>

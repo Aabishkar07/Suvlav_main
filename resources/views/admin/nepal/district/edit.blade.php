@@ -2,7 +2,8 @@
 @section('content')
     @php
 
-        $pageName = 'Municipality/Create';
+        $pageName = $provinces->name . ' Province / Edit District';
+
         $post_per_page = siteSettings('posts_per_page');
 
         $breadcrumbs = [
@@ -34,6 +35,9 @@
 
                     <div>
                         <button type="submit" class="btn btn-dark">Update</button>
+                        <a href="{{ route('district.index', $district->province) }}"
+                            class="bg-black border-0 btn btn-info sfw "><i class="fa fa-back"></i> Back
+                        </a>
                     </div>
                 </div>
             </form>
