@@ -74,7 +74,7 @@
                     <i class="fa fa-sliders menu-icon  py-2 {{ request()->routeIs('province') ? 'text-white' : 'text-black' }}  "
                         style="font-size: 20px"></i>
                     <span class="pb-1 ps-1">
-                        Address
+                        Manage Address
                     </span>
                 </span>
             </a>
