@@ -149,27 +149,27 @@
                                         <td>{{ moneyFormat($order->price * $order->quantity) }}
                                         </td>
                                         {{-- @dd($orders) --}}
-                                        
+
                                     </tr>
                                     <tr>
 
-                                       <td>
-                                        <div class="">
-                                            @if ($order->product_status == 'exchanged')
-                                                <div class="p-1 text-white bg-blue-500 rounded cursor-pointer">
-                                                    Exchanged
-                                                </div>
-                                            @elseif ($order->product_status == 'wanttoexchange')
-                                                <div class="p-1 text-white bg-yellow-600 rounded cursor-pointer">
-                                                    Exchange on pending
-                                                </div>
-                                            @endif
-                                        </div>
-                                       </td>
-                                       <td></td>
-                                       <td></td>
-                                       <td></td>
-                                       <td></td>
+                                        <td>
+                                            <div class="">
+                                                @if ($order->product_status == 'exchanged')
+                                                    <div class="p-1 text-white bg-blue-500 rounded cursor-pointer">
+                                                        Exchanged
+                                                    </div>
+                                                @elseif ($order->product_status == 'wanttoexchange')
+                                                    <div class="p-1 text-white bg-yellow-600 rounded cursor-pointer">
+                                                        Exchange on pending
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                     @php
                                         $totalAmount = $order->total_amt;
@@ -227,16 +227,24 @@
                             <strong>District:</strong> {{ @$shippings[0]->district }}
                         </div>
                     </div>
+
                     <div class="col-md-4">
+                        <div class="form-group">
+                            <strong>Nagarpalika:</strong> {{ @$shippings[0]->municipality_name }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <strong>Ward No.:</strong> {{ @$shippings[0]->wardnumber }}
+                        </div>
+                    </div>
+
+                    {{-- <div class="col-md-4">
                         <div class="form-group">
                             <strong>City:</strong> {{ @$shippings[0]->city }}
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <strong>Address:</strong> {{ @$shippings[0]->address }}
-                        </div>
-                    </div>
+                    </div> --}}
+
                 </div>
 
                 <div class="container row">
@@ -247,28 +255,22 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <strong>House No.:</strong> {{ @$shippings[0]->houseno }}
+                            <strong>Address:</strong> {{ @$shippings[0]->address }}
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
+                        <div class="form-group">
+                            <strong>House No.:</strong> {{ @$shippings[0]->houseno }}
+                        </div>
+                    </div> --}}
+                    {{-- <div class="col-md-4">
                         <div class="form-group">
                             <strong>Gaupalika:</strong> {{ @$shippings[0]->gaupalika }}
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
-                <div class="container row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <strong>Nagarpalika:</strong> {{ @$shippings[0]->nagarpalika }}
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <strong>Ward No.:</strong> {{ @$shippings[0]->wardno }}
-                        </div>
-                    </div>
-                </div>
+
 
                 <hr>
 

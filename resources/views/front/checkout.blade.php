@@ -85,12 +85,12 @@
                         <!-- Form -->
                         <form class="form" action="{{ route('cart.checkoutsmt') }}" method="POST">
                             @csrf
-                            <div class="row mt-2">
+                            <div class="mt-2 row">
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -1px" class="max-sm:flex max-sm:items-center  form-group">
+                                    <div style="margin-top: -1px" class="max-sm:flex max-sm:items-center form-group">
                                         <div class="w-32 ">
 
-                                            <label>Full Name :  <span>*</span></label>
+                                            <label>Full Name : <span>*</span></label>
                                         </div>
                                         <input id="asd" type="text" class="max-sm:ml-2" name="name"
                                             value="{{ @$shippings[0]->fullname }}" required="required">
@@ -101,13 +101,13 @@
                                 </div>
 
                                 <!-- <div class="col-lg-6 col-md-6 col-12">
-                                                                                          <div class="form-group">
-                                                                                           <label>Email<span>*</span></label>
-                                                                                           <input type="email" readonly name="email" value="{{ Session::get('memeber_email_ss') }}" required="required">
-                                                                                          </div>
-                                                                                         </div> -->
+                                                                                                                                                  <div class="form-group">
+                                                                                                                                                   <label>Email<span>*</span></label>
+                                                                                                                                                   <input type="email" readonly name="email" value="{{ Session::get('memeber_email_ss') }}" required="required">
+                                                                                                                                                  </div>
+                                                                                                                                                 </div> -->
                                 <div style="margin-top: -15px" class="col-lg-6 col-md-6 col-12">
-                                    <div class="max-sm:flex max-sm:items-center  form-group">
+                                    <div class="max-sm:flex max-sm:items-center form-group">
                                         <div class="w-32 ">
 
 
@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
 
-                                <div style="margin-top: -15px" class="max-sm:flex  col-12 max-sm:items-center  form-group">
+                                <div style="margin-top: -15px" class="max-sm:flex col-12 max-sm:items-center form-group">
                                     <div class="w-32 ">
 
                                         <label> Email : <span>*</span></label>
@@ -130,7 +130,7 @@
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -15px" class="max-sm:flex   max-sm:items-center  form-group">
+                                    <div style="margin-top: -15px" class="max-sm:flex max-sm:items-center form-group">
                                         <div class="w-32">
 
                                             <label>State : <span>*</span></label>
@@ -149,11 +149,12 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -15px" class="max-sm:flex  max-sm:items-center  form-group">
+                                    <div style="margin-top: -15px" class="max-sm:flex max-sm:items-center form-group">
                                         <div class="w-32">
                                             <label>District : <span>*</span></label>
                                         </div>
-                                        <select class="form-control" name="district" id="district_id" required>
+                                        <select class="form-control" name="district" id="district_id"
+                                            onchange="getMunicipalityByDistrict('<?php echo url('getmunicipalities'); ?>')" required>
                                             <option value=''> Select District </option>
                                             <?php
 											 if($districts != ''):
@@ -168,6 +169,53 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div style="margin-top: -15px" class="max-sm:flex max-sm:items-center form-group">
+                                        <div class="mb-2">
+                                            <div>Municipality (Nagarpalika) : <span class="text-red-500">*</span></div>
+                                        </div>
+                                        <select class="form-control" name="nagarpalika" id="municipality_id"
+                                            onchange="getWardByMunicipality('<?php echo url('getwards'); ?>')" required>
+                                            <option value=''> Select Municipality </option>
+                                            <?php
+                                                     if($municipalities != ''):
+                                                     foreach($municipalities as $dtmun): ?>
+                                            <option value="<?php echo $dtmun->id; ?>" <?php if ($dtmun->id == @$shippings[0]->nagarpalika) {
+                                                echo 'selected';
+                                            } ?>>
+                                                <?php echo $dtmun->name; ?>
+                                            </option>
+                                            <?php endforeach;
+                                                          endif;
+                                                    ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div style="margin-top: -15px" class="max-sm:flex max-sm:items-center form-group">
+                                        <div class="mb-2">
+                                            <div>Ward : <span class="text-red-500">*</span></div>
+                                        </div>
+                                        <select class="form-control" name="wardno" id="ward_id" required>
+                                            <option value=''> Select Ward </option>
+                                            <?php
+                                                     if($wards != ''):
+                                                     foreach($wards as $dt_wards): ?>
+                                            <option value="<?php echo $dt_wards->id; ?>" <?php if ($dt_wards->id == @$shippings[0]->wardno) {
+                                                echo 'selected';
+                                            } ?>>
+                                                <?php echo $dt_wards->number; ?>
+                                            </option>
+                                            <?php endforeach;
+                                                          endif;
+                                                    ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+
                                 {{-- <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-group">
                                         <label>City<span>*</span></label> &nbsp; <input type="text" name="city_del"
@@ -184,7 +232,7 @@
 
 
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -15px" class="max-sm:flex   max-sm:items-center  form-group">
+                                    <div style="margin-top: -15px" class="max-sm:flex max-sm:items-center form-group">
                                         <div class="w-32">
                                             <span>Tole. : </span>
                                         </div>
@@ -199,36 +247,27 @@
                                     </div>
                                 </div> --}}
 
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -15px" class="max-sm:flex   max-sm:items-center  form-group">
+                                {{-- <div class="col-lg-6 col-md-6 col-12">
+                                    <div style="margin-top: -15px" class="max-sm:flex max-sm:items-center form-group">
                                         <div class="w-32">
                                             <span>Gaupalika : </span>
                                         </div>
                                         &nbsp;<input type="text" name="gaupalika"
                                             value="{{ @$shippings[0]->gaupalika }}">
                                     </div>
-                                </div>
+                                </div> --}}
 
 
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -15px" class="max-sm:flex   max-sm:items-center  form-group">
-                                        <div class="w-32">
 
-                                            <span>Nagarpalika : </span>
-                                        </div>
-                                        &nbsp;<input type="text" name="nagarpalika"
-                                            value="{{ @$shippings[0]->nagarpalika }}">
-                                    </div>
-                                </div>
 
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div style="margin-top: -15px" class="max-sm:flex   max-sm:items-center  form-group">
+                                {{-- <div class="col-lg-6 col-md-6 col-12">
+                                    <div style="margin-top: -15px" class="max-sm:flex max-sm:items-center form-group">
                                         <div class="w-32">
                                             <span>Ward no : </span>
                                         </div>
                                         &nbsp;<input type="text" name="wardno" value="{{ @$shippings[0]->wardno }}">
                                     </div>
-                                </div>
+                                </div> --}}
 
 
 
@@ -333,7 +372,7 @@
 
                                     <!-- Redeem Button -->
                                     <div class="d-grid">
-                                        <button id="redeem-btn" class="bg-blue-500 px-2 py-2 text-white text-sm">Redeem
+                                        <button id="redeem-btn" class="px-2 py-2 text-sm text-white bg-blue-500">Redeem
                                             Points</button>
                                     </div>
                                 </div>
@@ -497,6 +536,42 @@
                 success: function(msg) {
                     // alert(msg);
                     $("#district_id").html(msg);
+
+                }
+            });
+
+        }
+
+        function getMunicipalityByDistrict(urlLink) {
+
+            var districtid = $("#district_id").val();
+
+            $.ajax({
+                type: "GET",
+                url: urlLink,
+                data: {
+                    district_id: districtid
+                },
+                success: function(msg) {
+                    $("#municipality_id").html(msg);
+
+                }
+            });
+
+        }
+
+        function getWardByMunicipality(urlLink) {
+
+            var municipalityid = $("#municipality_id").val();
+
+            $.ajax({
+                type: "GET",
+                url: urlLink,
+                data: {
+                    municipality_id: municipalityid
+                },
+                success: function(msg) {
+                    $("#ward_id").html(msg);
 
                 }
             });
