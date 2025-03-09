@@ -43,6 +43,8 @@ Route::post('/updatecart', [CartController::class, 'updateCart'])->name('cart.up
 Route::post('/removeitem', [CartController::class, 'removeCartItem'])->name('cart.remove');
 Route::get('/checkout', [FrontController::class, 'checkout'])->name('cart.checkout');
 Route::get('/getdistricts', [FrontController::class, 'getDistrictsByState']);
+Route::get('/getmunicipalities', [FrontController::class, 'getmunicipalitiesByDistrict']);
+Route::get('/getwards', [FrontController::class, 'getWardByMunicipality']);
 Route::post('/checkoutsmt', [FrontController::class, 'checkoutsmt'])->name('cart.checkoutsmt');
 
 Route::get('/profileorder', [FrontController::class, 'profileorder'])->name('profile.ordered');

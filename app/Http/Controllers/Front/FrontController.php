@@ -13,6 +13,7 @@ use App\Models\Contact;
 use App\Models\Exchange;
 use App\Models\Faq;
 use App\Models\Member;
+use App\Models\Municipality;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Page;
@@ -20,6 +21,7 @@ use App\Models\Product;
 use App\Models\Review;
 use App\Models\SearchHistory;
 use App\Models\Setting;
+use App\Models\Ward;
 use App\Models\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -466,7 +468,6 @@ class FrontController extends Controller
                 $affiliate->status = "COMPLETED";
                 $affiliate->save();
             }
-           
         }
     }
     public function index(Request $request)
@@ -813,6 +814,7 @@ class FrontController extends Controller
                 $shippings = DB::table('shippings')
                     ->where(['guest_id' => $cok_data])
                     ->get()->toArray();
+                // dd($shippings);
             }
         } else {
             $member = Member::findOrFail($user_id);
@@ -830,9 +832,24 @@ class FrontController extends Controller
         } else {
             $districts = '';
         }
+        
+        // dd($shippings[0]);
+        if (isset($shippings[0]->district_id)) {
+            $municipalities = Municipality::where('district', $shippings[0]->district_id)
+                ->get();
+        } else {
+            $municipalities = '';
+        }
+        if (isset($shippings[0]->nagarpalika)) {
+            $wards = Ward::where('municipality_id', $shippings[0]->nagarpalika)
+                ->get();
+        } else {
+            $wards = '';
+        }
 
 
-        return view('front.checkout', compact('cartItems', 'states_del', 'shippings', 'districts', 'categories', 'member'));
+
+        return view('front.checkout', compact('cartItems', 'states_del', 'wards', 'municipalities', 'shippings', 'districts', 'categories', 'member'));
     }
 
 
@@ -1090,6 +1107,29 @@ class FrontController extends Controller
 
         return view('front.ajax_load_district', compact('districts'));
     }
+
+    public function getmunicipalitiesByDistrict(Request $request)
+    {
+
+        $districtid = $request->input('district_id');
+
+        $municipalities = Municipality::where('district', $districtid)
+            ->get();
+
+        return view('front.ajax_load_municipality', compact('municipalities'));
+    }
+
+    public function getWardByMunicipality(Request $request)
+    {
+
+        $municipality_id = $request->input('municipality_id');
+
+        $wards = Ward::where('municipality_id', $municipality_id)
+            ->get();
+
+        return view('front.ajax_load_wards', compact('wards'));
+    }
+
     public function checkitemid()
     {
 

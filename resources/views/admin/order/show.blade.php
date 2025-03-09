@@ -225,14 +225,20 @@
                             </div>
                             <div class="col-lg-4 col-md-4 col-12">
                                 <div class="form-group">
-                                    <span>City</span> &nbsp; : &nbsp; {{ @$shippings[0]->city }}
+                                    <span>Nagarpalika</span> &nbsp; : &nbsp; {{ @$shippings[0]->municipality_name }}
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-12">
                                 <div class="form-group">
-                                    <span>Address.</span> &nbsp; : &nbsp; {{ @$shippings[0]->address }}
+                                    <span>Ward No.</span> &nbsp; : &nbsp; {{ @$shippings[0]->wardnumber }}
                                 </div>
                             </div>
+                            {{-- <div class="col-lg-4 col-md-4 col-12">
+                                <div class="form-group">
+                                    <span>City</span> &nbsp; : &nbsp; {{ @$shippings[0]->city }}
+                                </div>
+                            </div> --}}
+                           
 
 
                         </div>
@@ -245,31 +251,28 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-4 col-md-4 col-12">
+                            {{-- <div class="col-lg-4 col-md-4 col-12">
                                 <div class="form-group">
                                     <span>House No.</span> &nbsp; : &nbsp; {{ @$shippings[0]->houseno }}
                                 </div>
-                            </div>
+                            </div> --}}
 
 
 
-                            <div class="col-lg-4 col-md-4 col-12">
+                            {{-- <div class="col-lg-4 col-md-4 col-12">
                                 <div class="form-group">
                                     <span>Gaupalika</span> &nbsp; : &nbsp; {{ @$shippings[0]->gaupalika }}
                                 </div>
-                            </div>
+                            </div> --}}
 
+                            
+
+                           
                             <div class="col-lg-4 col-md-4 col-12">
                                 <div class="form-group">
-                                    <span>Nagarpalika</span> &nbsp; : &nbsp; {{ @$shippings[0]->nagarpalika }}
+                                    <span>Address.</span> &nbsp; : &nbsp; {{ @$shippings[0]->address }}
                                 </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-12">
-                                <div class="form-group">
-                                    <span>Ward No.</span> &nbsp; : &nbsp; {{ @$shippings[0]->wardno }}
-                                </div>
-                            </div>
+                            </div> 
 
                         </div>
 
