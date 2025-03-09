@@ -832,7 +832,7 @@ class FrontController extends Controller
         } else {
             $districts = '';
         }
-        
+
         // dd($shippings[0]);
         if (isset($shippings[0]->district_id)) {
             $municipalities = Municipality::where('district', $shippings[0]->district_id)
@@ -1913,9 +1913,13 @@ class FrontController extends Controller
         $shippings = DB::table('shippings')
             ->leftJoin('provinces', 'provinces.id', '=', 'shippings.province')
             ->leftJoin('districts', 'districts.id', '=', 'shippings.district_id')
-            ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
+            ->leftJoin('municipalities', 'municipalities.id', '=', 'shippings.nagarpalika')
+            ->leftJoin('wards', 'wards.id', '=', 'shippings.wardno')
+            ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'municipalities.name as municipality_name', 'districts.district', 'wards.number as wardnumber')
+            // ->select('shippings.*', 'provinces.name as statename', 'provinces.id as stateid', 'districts.district')
             ->where('member_id', $user_id)
             ->get()->toArray();
+
 
 
 
