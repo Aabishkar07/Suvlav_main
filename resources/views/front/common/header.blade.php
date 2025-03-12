@@ -112,7 +112,7 @@
                 
                     <!-- First-layer dropdown (Categories) -->
                     <ul id="dropdownMenu"
-                    class="hidden absolute mt-2 bg-white border border-gray-300 shadow-lg rounded-md w-48 z-50 group-hover:block">
+                    class="hidden absolute mt-2 max-sm:right-0 bg-white border border-gray-300 shadow-lg rounded-md w-48 z-50 group-hover:block">
                     @foreach ($categories as $category)
                     <li class="relative group">
                         <a href="{{ url('/productcategory/' . $category->id) }}"
@@ -120,7 +120,7 @@
                 
                         @if ($category->subcategories->count() > 0)
                         <!-- Second-layer dropdown (Subcategories) -->
-                        <ul class="hidden absolute  left-40 top-0 bg-white border border-gray-300 shadow-lg rounded-md w-48 z-50 group-hover:block">
+                        <ul class="hidden absolute  right-48 top-0 bg-white border border-gray-300 shadow-lg rounded-md w-48 z-50 group-hover:block">
                             @foreach ($category->subcategories as $subcategory)
                             <li>
                                 <a href="{{ url('/productcategory/' . $subcategory->id) }}"
