@@ -46,6 +46,8 @@
                         <tr>
                             <th> # </th>
                             <th> Name </th>
+                            <th> Status </th>
+
                             <th> Action </th>
 
                         </tr>
@@ -58,7 +60,41 @@
                                     <td>{{ $GLOBALS['counter']++ }}</td>
                                     <td>{{ $district->district }}</td>
 
+                                    <td class=" text-sm bg-white " style="width: 10px">
 
+                                        <form method="POST" action="{{ route('togleActivedistrict', $district->id) }}">
+                                            @csrf
+                                            <label class="inline-flex d-flex items-center cursor-pointer">
+                                                <div class="form-check d-flex form-switch">
+                                                    <div class="px-4">
+                                                        <input class=" form-check-input bigger-toggle" type="checkbox"
+                                                            role="switch" id="flexSwitchCheckChecked"
+                                                            onchange="this.form.submit()"
+                                                            {{ $district->is_active == '1' ? 'checked' : '' }}>
+                                                    </div>
+                                                </div>
+                                                <div class="pt-3">
+                                                    @if ($district->is_active == '1')
+                                                        <div class="px-4 py-1 text-white rounded bg-success">
+                                                            Active
+                                                        </div>
+                                                    @else
+                                                        <div class="px-4 py-1 text-white rounded bg-danger">
+                                                            InActive
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <style>
+                                                    .bigger-toggle {
+                                                        width: 50px !important;
+                                                        height: 25px !important;
+                                                    }
+                                                </style>
+
+
+                                            </label>
+                                        </form>
+                                    </td>
                                     <td>
                                         <a href="{{ route('municipality', $district->id) }} "
                                             class="btn btn-success btn-sm">Municipalities </a>

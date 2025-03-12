@@ -29,6 +29,31 @@ class NepalController extends Controller
         return view("admin.nepal.province.edit", compact("province"));
     }
 
+    public function togleActiveProvince(Province $province)
+    {
+     
+      if ($province->is_active == "1") {
+        $province->is_active = "0";
+      } else {
+        $province->is_active = "1";
+      }
+      $province->save();
+      return redirect()->back()->with("popsuccess", "Active Status Changed");
+    }
+
+    public function togleActivedistrict(District $district)
+    {
+     
+      if ($district->is_active == "1") {
+        $district->is_active = "0";
+      } else {
+        $district->is_active = "1";
+      }
+      $district->save();
+      return redirect()->back()->with("popsuccess", "Active Status Changed");
+    }
+
+
     public function store(Request $request)
     {
 

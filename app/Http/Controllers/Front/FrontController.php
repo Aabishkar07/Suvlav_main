@@ -802,7 +802,7 @@ class FrontController extends Controller
             return redirect('/view-cart')->with('message', 'Cart is empty');
         }
 
-        $states_del = DB::table('provinces')
+        $states_del = DB::table('provinces')->where('is_active', '1')
             ->get();
 
         $user_id = (Session::get('memeber_id_ss') != '') ? Session::get('memeber_id_ss') : 0;
@@ -826,7 +826,7 @@ class FrontController extends Controller
 
 
         if (isset($shippings[0]->province)) {
-            $districts = DB::table('districts')
+            $districts = DB::table('districts')->where('is_active', '1')
                 ->where('province', $shippings[0]->province)
                 ->get();
         } else {
@@ -1101,7 +1101,7 @@ class FrontController extends Controller
 
         $stateId = $request->input('state_id');
 
-        $districts = DB::table('districts')
+        $districts = DB::table('districts')->where('is_active',1)
             ->where('province', $stateId)
             ->get();
 

@@ -180,6 +180,8 @@ Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'admin']), func
 
 
     Route::get('province', [NepalController::class, "index"])->name('province');
+    Route::post('/province/{province}', [NepalController::class, 'togleActiveProvince'])->name('togleActiveProvince');
+
     Route::get('province/create', [NepalController::class, "create"])->name('province.create');
     Route::get('province/edit/{province}', [NepalController::class, "edit"])->name('province.edit');
     Route::post('province', [NepalController::class, "store"])->name('province.store');
@@ -187,6 +189,8 @@ Route::group(array('prefix' => 'admin', 'middleware' => ['auth', 'admin']), func
     Route::delete('province/{province}', [NepalController::class, "delete"])->name('province.delete');
 
     Route::get('district/{province}', [NepalController::class, "district_index"])->name('district.index');
+    Route::post('/district/{district}', [NepalController::class, 'togleActivedistrict'])->name('togleActivedistrict');
+
     Route::get('district/create/{province}', [NepalController::class, "district_create"])->name('district.create');
     Route::post('district/{province}', [NepalController::class, "district_store"])->name('district.store');
     Route::get('district/edit/{district}', [NepalController::class, "district_edit"])->name('district.edit');
