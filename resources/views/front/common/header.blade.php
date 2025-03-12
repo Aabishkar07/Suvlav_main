@@ -12,68 +12,12 @@
 
 
 
-
-
-
-
-
-                <?php
-                $listcates = [];
-                $i = 0;
-                foreach ($categories as $listcat) {
-                    // Handle child ID and create nested category structure
-                    $childid = $listcat->childid == '' ? 0 : $listcat->childid;
-                    $listcates[$listcat->catid . '~~~' . $listcat->title][$listcat->childid] = $listcat->childid . '~~~' . $listcat->child;
-                }
-                ?>
-
-                <!-- Dropdown Menu (Outside Navbar) -->
-                <div id="dropdownHover"
-                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 absolute mt-2 top-6 right-20">
-                    <ul class="py-2 text-sm text-black" aria-labelledby="dropdownHoverButton">
-                        <?php foreach($listcates as $key => $catvalue): 
-            // Split the category ID and title
-            $catnamepp = explode('~~~',$key); 
-            $hasChildren = false;
             
-            // Check if there are subcategories
-            foreach($catvalue as $mm){
-                if($mm != '~~~') {
-                    $hasChildren = true;
-                    break;
-                }
-            }
-            ?>
 
-                        <!-- If the category has subcategories -->
-                        <?php if($hasChildren): ?>
-                        <li class="relative">
-                            <a href="{{ url('/productcategory/' . $catnamepp[0]) }}"
-                                class="block px-4 py-2 hover:bg-gray-100"><?php echo $catnamepp[1]; ?></a>
 
-                            <ul class="sub-category pl-4 mt-2 hidden absolute left-0 bg-white shadow-lg z-20">
-                                <?php foreach($catvalue as $mm): 
-                            // Split child ID and title
-                            $catnamechild = explode('~~~',$mm);
-                            if($catnamechild[0] != '~~~'): ?>
-                                <li>
-                                    <a href="{{ url('/productcategory/' . $catnamechild[0]) }}"
-                                        class="block px-4 py-2 hover:bg-gray-100"><?php echo $catnamechild[1]; ?></a>
-                                </li>
-                                <?php endif; 
-                        endforeach; ?>
-                            </ul>
-                        </li>
-                        <?php else: ?>
-                        <li>
-                            <a href="{{ url('/productcategory/' . $catnamepp[0]) }}"
-                                class="block px-4 py-2 hover:bg-gray-100"><?php echo $catnamepp[1]; ?></a>
-                        </li>
-                        <?php endif; ?>
 
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+
+               
 
                 <!-- Add JavaScript for Hover Functionality -->
 
@@ -142,7 +86,21 @@
                 <div class="user-actions" style="display: flex; align-items: center; gap: 20px;">
 
 
-                    <button id="dropdownHoverButton" class="border-none p-0  h-6 w-6 mt-[1px]" type="button">
+
+
+                    @php
+                    use App\Models\ProductCategory;
+                    
+                    // Get all parent categories with subcategories
+                    $categories = ProductCategory::where('parent_id', 0)->with('subcategories')->get();
+                @endphp
+                
+                
+                <div class="relative inline-block">
+                  
+
+                    
+                    <button id="dropdownButton" class="border-none p-0  h-6 w-6 mt-[1px]" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black"
                             stroke-linecap="round" stroke-linejoin="round" width="24" height="24"
                             stroke-width="2">
@@ -150,6 +108,62 @@
                             <path d="M5 14h14"></path>
                         </svg>
                     </button>
+
+                
+                    <!-- First-layer dropdown (Categories) -->
+                    <ul id="dropdownMenu"
+                    class="hidden absolute mt-2 bg-white border border-gray-300 shadow-lg rounded-md w-48 z-50 group-hover:block">
+                    @foreach ($categories as $category)
+                    <li class="relative group">
+                        <a href="{{ url('/productcategory/' . $category->id) }}"
+                            class="block px-4 py-2 hover:bg-gray-100">{{ $category->title }}</a>
+                
+                        @if ($category->subcategories->count() > 0)
+                        <!-- Second-layer dropdown (Subcategories) -->
+                        <ul class="hidden absolute  left-40 top-0 bg-white border border-gray-300 shadow-lg rounded-md w-48 z-50 group-hover:block">
+                            @foreach ($category->subcategories as $subcategory)
+                            <li>
+                                <a href="{{ url('/productcategory/' . $subcategory->id) }}"
+                                    class="block px-4 py-2 hover:bg-gray-100">{{ $subcategory->title }}</a>
+                            </li>
+                            @endforeach
+                        </ul>
+                        @endif
+                    </li>
+                    @endforeach
+                </ul>
+                
+                </div>
+                
+                <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const dropdownButton = document.getElementById("dropdownButton");
+                    const dropdownMenu = document.getElementById("dropdownMenu");
+                
+                    // Show categories when hovering over the button
+                    dropdownButton.addEventListener("mouseenter", function () {
+                        dropdownMenu.classList.remove("hidden");
+                    });
+                
+                    // Hide categories when mouse leaves the dropdown area
+                    dropdownMenu.addEventListener("mouseleave", function () {
+                        dropdownMenu.classList.add("hidden");
+                    });
+                
+                    // Ensure clicking a category doesn't close the menu
+                    dropdownMenu.addEventListener("click", function (event) {
+                        event.stopPropagation();
+                    });
+                
+                    // Close menu when clicking outside
+                    document.addEventListener("click", function (event) {
+                        if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                            dropdownMenu.classList.add("hidden");
+                        }
+                    });
+                });
+                </script>
+
                     <a href="{{ url('/myprofile') }}">
                         <i class="ri-user-line"></i> Profile
                     </a>
@@ -157,7 +171,7 @@
                     <a class="max-md:hidden">
                         <i class="ti-power-off"></i>
                         <?php if(Session::get('memeber_email_ss') == '') { ?>
-                        <a href="{{ url('/memberloginform') }}" class="login-btn max-md:hidden">Logins</a>
+                        <a href="{{ url('/memberloginform') }}"  class="login-btn max-md:hidden">Logins</a>
                         <?php } else { ?>
                         <a class="max-md:hidden" href="{{ url('/memberlogout') }}">Logout</a>
                         <?php } ?>
@@ -184,13 +198,14 @@
                             ?>
                             @foreach ($cartItems as $cartItem)
                                 <li>
-
+                                   
                                     <a href="javascript:void(0)" class="remove"
                                         onClick="deleteCartItem(<?php echo $csrf_token; ?>,<?php echo $cartItem->id; ?>, <?php echo $delete_url; ?>);"
                                         title="Remove this item"><i class="fa fa-remove"></i></a>
                                     <a class="cart-img" href="javascript:void(0);">
-                                        <img src="{{ asset('public' . $cartItem->product_image) }}">
-                                    </a>
+                                        <img
+                                            src="{{ asset('public' . $cartItem->product_image) }}">
+                                        </a>
                                     <h4><a
                                             href="{{ url('/product/' . $cartItem->product_slug) }}">{{ $cartItem->product_title }}</a>
                                     </h4>
@@ -200,21 +215,20 @@
                                 <?php $total_amt += $cartItem->quantity * $cartItem->price; ?>
                             @endforeach
                         </ul>
-                        <div class="bottom flex flex-col">
+                        <div class="bottom">
                             <div class="total mb-3">
                                 <span>Total</span>
                                 <span class="total-amount">{{ moneyFormat($total_amt) }}</span>
                             </div>
-                            <a href="{{ url('/checkout') }}"
-                                class="text-white px-5  py-2  animate w-full bg-[#3b82f6]">Checkout</a>
+                            <a href="{{ url('/checkout') }}" class="text-white px-5  py-2  animate bg-blue-500">Checkout</a>
                         </div>
                     </div>
                 </div>
-                <div class="max-md:hidden">
-                    <a href="{{ route('wishlist') }}">
-                        <i class="ti-heart"> </i>
-                    </a>
-                </div>
+<div class="max-md:hidden">
+   <a href="{{ route('wishlist') }}">
+    <i class="ti-heart"> </i>
+   </a>
+</div>
 
             </div>
 
