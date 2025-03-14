@@ -1130,6 +1130,14 @@ class FrontController extends Controller
         return view('front.ajax_load_wards', compact('wards'));
     }
 
+
+
+    public function allcategory(){
+        $cartItems = $this->cartdata;
+        $categories = $this->categories;
+        return view('front.common.allcategory',compact('cartItems' , 'categories'));
+    }
+
     public function checkitemid()
     {
 
@@ -1142,6 +1150,9 @@ class FrontController extends Controller
         }
         return $item_id;
     }
+
+
+
 
 
     public function checkoutsmt(Request $request)
