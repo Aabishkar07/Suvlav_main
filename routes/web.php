@@ -46,6 +46,7 @@ Route::get('/getdistricts', [FrontController::class, 'getDistrictsByState']);
 Route::get('/getmunicipalities', [FrontController::class, 'getmunicipalitiesByDistrict']);
 Route::get('/getwards', [FrontController::class, 'getWardByMunicipality']);
 Route::post('/checkoutsmt', [FrontController::class, 'checkoutsmt'])->name('cart.checkoutsmt');
+Route::get('/allcategory', [FrontController::class, 'allcategory'])->name('allcategory');
 
 Route::get('/profileorder', [FrontController::class, 'profileorder'])->name('profile.ordered');
 

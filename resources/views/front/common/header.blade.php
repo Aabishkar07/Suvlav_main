@@ -99,8 +99,20 @@
                 <div class="relative inline-block">
                   
 
+
+                    <a href="{{ route('allcategory') }}">
+                    <button class="border-none p-0  h-6 w-6 mt-[1px] md:hidden" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black"
+                            stroke-linecap="round" stroke-linejoin="round" width="24" height="24"
+                            stroke-width="2">
+                            <path d="M5 10h14"></path>
+                            <path d="M5 14h14"></path>
+                        </svg>
+                    </button>
+                    </a>
+
                     
-                    <button id="dropdownButton" class="border-none p-0  h-6 w-6 mt-[1px]" type="button">
+                    <button id="dropdownButton" class="border-none p-0  h-6 w-6 mt-[1px] max-sm:hidden" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black"
                             stroke-linecap="round" stroke-linejoin="round" width="24" height="24"
                             stroke-width="2">
