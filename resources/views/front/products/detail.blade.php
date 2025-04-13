@@ -352,6 +352,7 @@
                                                                             toastr.success(response.msg, "Success");
                                                                             document.getElementById("js_cartInfo").innerHTML = response.content;
                                                                             isCartProcessing = false;
+                                                                            
                                                                         } else {
                                                                             toastr.error(response.message, "Error");
                                                                         }
