@@ -202,31 +202,31 @@
                             <span>{{ count($cartItems) !== null ? count($cartItems) : '0' }} Items</span>
                             <a href="{{ route('view.cart') }}">View Cart</a>
                         </div>
-                        <div id="js_cartInfo">
-                            <ul class="shopping-list">
-                                <?php
-                                $delete_url = "'" . route('cart.remove') . "'";
-                                $csrf_token = "'" . csrf_token() . "'";
-                                $total_amt = 0;
-                                ?>
-                                @foreach ($cartItems as $cartItem)
-                                    <li>
-                                        <a href="javascript:void(0)" class="remove"
-                                           onClick="deleteCartItem(<?php echo $csrf_token; ?>,<?php echo $cartItem->id; ?>, <?php echo $delete_url; ?>);"
-                                           title="Remove this item"><i class="fa fa-remove"></i></a>
-                                        <a class="cart-img" href="javascript:void(0);">
-                                            <img src="{{ asset('public' . $cartItem->product_image) }}">
+                        <ul class="shopping-list">
+                            <?php
+                            $delete_url = "'" . route('cart.remove') . "'";
+                            $csrf_token = "'" . csrf_token() . "'";
+                            $total_amt = 0;
+                            ?>
+                            @foreach ($cartItems as $cartItem)
+                                <li>
+                                   
+                                    <a href="javascript:void(0)" class="remove"
+                                        onClick="deleteCartItem(<?php echo $csrf_token; ?>,<?php echo $cartItem->id; ?>, <?php echo $delete_url; ?>);"
+                                        title="Remove this item"><i class="fa fa-remove"></i></a>
+                                    <a class="cart-img" href="javascript:void(0);">
+                                        <img
+                                            src="{{ asset('public' . $cartItem->product_image) }}">
                                         </a>
-                                        <h4>
-                                            <a href="{{ url('/product/' . $cartItem->product_slug) }}">{{ $cartItem->product_title }}</a>
-                                        </h4>
-                                        <p class="quantity">{{ $cartItem->quantity }} - <span class="amount">{{ moneyFormat($cartItem->price) }}</span></p>
-                                    </li>
-                                    <?php $total_amt += $cartItem->quantity * $cartItem->price; ?>
-                                @endforeach
-                            </ul>
-                        </div>
-                        
+                                    <h4><a
+                                            href="{{ url('/product/' . $cartItem->product_slug) }}">{{ $cartItem->product_title }}</a>
+                                    </h4>
+                                    <p class="quantity">{{ $cartItem->quantity }} - <span
+                                            class="amount">{{ moneyFormat($cartItem->price) }}</span></p>
+                                </li>
+                                <?php $total_amt += $cartItem->quantity * $cartItem->price; ?>
+                            @endforeach
+                        </ul>
                         <div class="bottom">
                             <div class="total mb-3">
                                 <span>Total</span>
