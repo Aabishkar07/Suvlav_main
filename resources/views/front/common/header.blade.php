@@ -216,7 +216,7 @@
                                         title="Remove this item"><i class="fa fa-remove"></i></a>
                                     <a class="cart-img" href="javascript:void(0);">
                                         <img
-                                            src="{{ asset( $cartItem->product_image) }}">
+                                            src="{{ asset('public' . $cartItem->product_image) }}">
                                         </a>
                                     <h4><a
                                             href="{{ url('/product/' . $cartItem->product_slug) }}">{{ $cartItem->product_title }}</a>
