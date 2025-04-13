@@ -68,8 +68,8 @@ class ReportController extends Controller
 
        
         $uniqueCount = DB::table('search_histories')
-        ->select('search_item', DB::raw('count(*) as count'))  // Count occurrences of each search_item
-        ->groupBy('search_item')  // Group by search_item to get counts
+        ->select('search_item', DB::raw('count(*) as count'))  
+        ->groupBy('search_item')->orderBy('count', 'desc')
         ->get();
     
 
