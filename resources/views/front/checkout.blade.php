@@ -335,7 +335,20 @@
                                                         width="50px"></a>
                                                 <h4>{{ $cartItem->product_title }}</a></h4>
                                                 <p class="quantity">{{ $cartItem->quantity }} - <span
-                                                        class="amount">{{ moneyFormat($cartItem->price) }}</span></p>
+                                                        class="amount">{{ moneyFormat($cartItem->price) }}</span>
+                                                    
+                                                    </p>
+                                                    @php
+$product = $products->firstWhere('id', $cartItem->product_id);
+$delivery = $product->delivery ?? null;
+                                                @endphp
+                                        
+                                                @if ($delivery)
+                                                    <p class="text-sm text-green-600 font-semibold">
+                                                        Delivery: {{ $delivery }}
+                                                    </p>
+                                                @endif
+                                                    
                                             </li>
                                             <?php $total_amt = $total_amt + $cartItem->quantity * $cartItem->price; ?>
                                         @endforeach

@@ -793,8 +793,12 @@ class FrontController extends Controller
         //$key = "bijay@123";
         //echo $enc = base64_encode ($key);
         $cartItems = $this->cartdata;
+        $productIds = array_column($cartItems, 'product_id');
+        $products = Product::whereIn('id', $productIds)->get();
+      
         $categories = $this->categories;
         $cok_data = Cookie::get('suvdata');
+    
 
         // Cookie::queue('suvdata', 1234, 60 * 24 * 365); // 1 year
 
@@ -849,7 +853,7 @@ class FrontController extends Controller
 
 
 
-        return view('front.checkout', compact('cartItems', 'states_del', 'wards', 'municipalities', 'shippings', 'districts', 'categories', 'member'));
+        return view('front.checkout', compact('cartItems', 'states_del', 'wards', 'municipalities', 'shippings', 'districts', 'categories', 'member','products'));
     }
 
 
