@@ -90,7 +90,7 @@
                                     <div style="margin-top: -1px" class="max-sm:flex max-sm:items-center form-group">
                                         <div class="w-32 ">
 
-                                            <label>Full Name : <span>*</span></label>
+                                            <label class="d-flex ">Full Name <div class="text-danger"> *</div>: </label>
                                         </div>
                                         <input id="asd" type="text" class="max-sm:ml-2" name="name"
                                             value="{{ @$shippings[0]->fullname }}" required="required">
@@ -111,7 +111,7 @@
                                         <div class="w-32 ">
 
 
-                                            <label>Mobile No. : <span>*</span></label>
+                                            <label class="d-flex">MobileNo.<div class="text-danger"> *</div>:</label>
                                         </div>
                                         <input type="number" name="mobileno" placeholder=""
                                             value="{{ @$shippings[0]->mobile }}" maxlength="10" required="required">
@@ -121,7 +121,7 @@
                                 <div style="margin-top: -15px" class="max-sm:flex col-12 max-sm:items-center form-group">
                                     <div class="w-32 ">
 
-                                        <label> Email : <span>*</span></label>
+                                        <label class="d-flex"> Email<div class="text-danger"> *</div> :</label>
                                     </div>
                                     <input type="text" name="email" value="{{ @$shippings[0]->email }}"
                                         required="required">
@@ -133,7 +133,7 @@
                                     <div style="margin-top: -15px" class="max-sm:flex max-sm:items-center form-group">
                                         <div class="w-32">
 
-                                            <label>State : <span>*</span></label>
+                                            <label class="d-flex">State<div class="text-danger"> *</div> :</label>
                                         </div>
 
                                         <select id="province_data" class="form-control district" name="province_id" required
@@ -152,7 +152,7 @@
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div style="margin-top: -15px" class="max-sm:flex max-sm:items-center form-group">
                                         <div class="w-32">
-                                            <label>District : <span>*</span></label>
+                                            <label class="d-flex">District<div class="text-danger"> *</div> :</label>
                                         </div>
                                         <select class="form-control" name="district" id="district_id"
                                             onchange="getMunicipalityByDistrict('<?php echo url('getmunicipalities'); ?>')" required>
@@ -174,7 +174,7 @@
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div style="margin-top: -15px" class="max-sm:flex max-sm:items-center form-group">
                                         <div class="mb-2">
-                                            <div>Municipality (Nagarpalika) : <span class="text-red-500">*</span></div>
+                                            <div class="d-flex">Municipality <div class="text-danger"> *</div>:</div>
                                         </div>
                                         <select class="form-control" name="nagarpalika" id="municipality_id"
                                             onchange="getWardByMunicipality('<?php echo url('getwards'); ?>')" required>
@@ -197,9 +197,9 @@
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div style="margin-top: -15px" class="max-sm:flex max-sm:items-center form-group">
                                         <div class="mb-2">
-                                            <div>Ward : <span class="text-red-500">*</span></div>
+                                            <div class="d-flex">Ward<div class="text-danger"> *</div>:</div>
                                         </div>
-                                        <select class="form-control" name="wardno" id="ward_id" required>
+                                        <select class="form-control max-sm:ml-11" name="wardno" id="ward_id" required>
                                             <option value=''> Select Ward </option>
                                             <?php
                                                      if($wards != ''):
