@@ -18,7 +18,8 @@ class CartController extends Controller
     {
 
         $cart = new Cart;
-        $guest_id = $_COOKIE['guest_auth_token'];
+        $guest_id = isset($_COOKIE['guest_auth_token']) ? $_COOKIE['guest_auth_token'] : '';
+        // $guest_id = $_COOKIE['guest_auth_token'];
         $user_id = (Session::get('memeber_id_ss') != '') ? Session::get('memeber_id_ss') : 0;
 
         $cartItems = Cart::where('user_id', $user_id)
