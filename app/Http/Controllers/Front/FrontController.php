@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Front;
+
 use App\Http\Controllers\Controller;
 use App\Mail\Order as MailOrder;
 use App\Mail\otp;
