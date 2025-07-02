@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Mail;
 
 class UserAuthController extends Controller
@@ -176,7 +177,9 @@ class UserAuthController extends Controller
 
     public function checkotp(Request $request, Member $member)
     {
+        error_log("Checking OTP: ");
         // error_log("Checking OTP for request: " . json_encode($member));
+
         $rules = [
             'otp' => 'required',
         ];
@@ -203,4 +206,98 @@ class UserAuthController extends Controller
         ], 400);
     }
 
+
+    public function forgotpasswords(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:members,email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Email Not found',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $member = Member::where('email', $request->email)->first();
+
+        $otp = rand(1000, 9999);
+
+        $member->otp = $otp;
+        $member->save();
+
+        Mail::to($member->email)->send(new otp($otp));
+
+
+
+        return response()->json([
+            'message' => 'OTP sent to your email address',
+            'member_id' => $member->id
+
+        ], 200);
+    }
+
+
+   public function resendOtp(Request $request)
+{
+    $request->validate([
+        'member_id' => 'required|exists:members,id',
+    ]);
+
+    $member = Member::find($request->member_id);
+    $otp = rand(1000, 9999);
+    $member->otp = $otp;
+    $member->save();
+
+    Mail::to($member->email)->send(new otp($otp));
+
+    return response()->json([
+        'message' => 'OTP resent successfully',
+        'member_id' => $member->id
+    ], 200);
+}
+
+
+
+
+
+    public function changePassword(Request $request)
+    {
+        $rules = [
+            'member_id' => 'required|exists:members,id',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/[a-z]/',
+                'regex:/[A-Z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*#?&]/',
+            ],
+            'confirm_password' => 'required|same:password',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation Error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $member = Member::find($request->member_id);
+        $hashedpw = base64_encode($request->password);
+
+        $member->passwrd = $hashedpw;
+
+        $member->save();
+
+        return response()->json([
+            'message' => 'Password updated successfully'
+        ], 200);
+    }
 }
