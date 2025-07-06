@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductSize;
+use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Number;
 
 class ApiProductController extends Controller
@@ -24,8 +26,7 @@ class ApiProductController extends Controller
 
     public function singlepage($product)
     {
-        $products = Product::where("id", (int) $product)->first();
-
+        $product = Product::where("id", (int) $product)->first();
         // Product Sizes
         $prod_sizes = [];
         if ($product->prod_sizes != '') {
@@ -36,6 +37,7 @@ class ApiProductController extends Controller
                 ->get();
         }
 
+
         // Product Colors
         $prod_colors = [];
         if ($product->prod_colors != '') {
@@ -45,12 +47,49 @@ class ApiProductController extends Controller
                 ->get();
         }
 
+        return response()->json([
+            'status' => '200',
+            'prod_sizes' => $prod_sizes,
+            'prod_colors' => $prod_colors,
+            'data' => $product
+        ], 200);
+    }
+
+    public function productreview($product, $user)
+    {
+        $productreview = Review::with("user")->where("product_id", (int) $product)->get();
+        error_log($productreview);
+        $hasOrdered = DB::table('order_details')->join('orders', 'orders.id', '=', 'order_details.order_id')
+            ->where('orders.user_id', '=', $user)
+            ->where('order_details.product_id', $product)
+            ->exists();
+
+        $hasreviewed = Review::where('user_id', '=', $user)->where('product_id', '=', $product)->exists();
 
         return response()->json([
             'status' => '200',
-            'data' => $products,
-            'prod_sizes' => $prod_sizes,
-            'prod_colors' => $prod_colors,
+            'data' => $productreview,
+            'hasOrdered' => (bool) $hasOrdered,
+            'hasreviewed' => (bool) $hasreviewed
         ], 200);
     }
+
+    public function postproductreview(Request $request, $product, $user)
+    {
+        Review::create([
+            'rating' => $request->rating,
+            'review_detail' => $request->review_detail,
+            'product_id' => $product,
+            'user_id' => $user,
+        ]);
+        return response()->json([
+            'status' => '200',
+            'messsgae' => "Review Successfull"
+
+        ], 200);
+
+
+    }
+
+
 }
