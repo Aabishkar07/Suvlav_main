@@ -27,6 +27,7 @@ class ApiProductController extends Controller
     public function singlepage($product)
     {
         $product = Product::where("id", (int) $product)->first();
+        $productreviews = Review::with("user")->where("product_id", $product->id)->get();
         // Product Sizes
         $prod_sizes = [];
         if ($product->prod_sizes != '') {
@@ -51,7 +52,8 @@ class ApiProductController extends Controller
             'status' => '200',
             'prod_sizes' => $prod_sizes,
             'prod_colors' => $prod_colors,
-            'data' => $product
+            'data' => $product,
+            'productreviews' => $productreviews,
         ], 200);
     }
 
