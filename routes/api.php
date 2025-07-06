@@ -24,6 +24,8 @@ Route::post('/getemail', [ApiSupportController::class, 'getemail'])->name('getem
 
 Route::get('/allproduct', [ApiProductController::class, 'allproduct']);
 Route::get('/product/{product}', [ApiProductController::class, 'singlepage']);
+Route::get('/review/{product}/{user}', [ApiProductController::class, 'productreview']);
+Route::post('/review/{product}/{user}', [ApiProductController::class, 'postproductreview']);
 Route::get('/allcategory', [ApiCategoryController::class, 'allcategory']);
 Route::get('/category/{category}', [ApiCategoryController::class, 'singlecategory']);
 Route::get('/categorywiseproduct/{category}', [ApiCategoryController::class, 'categorywiseproduct']);
