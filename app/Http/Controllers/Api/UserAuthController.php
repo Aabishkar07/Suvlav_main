@@ -240,24 +240,25 @@ class UserAuthController extends Controller
     }
 
 
-   public function resendOtp(Request $request)
-{
-    $request->validate([
-        'member_id' => 'required|exists:members,id',
-    ]);
+    public function resendOtp(Request $request)
+    {
+        $request->validate([
+            'member_id' => 'required|exists:members,id',
+        ]);
 
-    $member = Member::find($request->member_id);
-    $otp = rand(1000, 9999);
-    $member->otp = $otp;
-    $member->save();
+        $member = Member::find($request->member_id);
+        $otp = rand(1000, 9999);
+        $member->otp = $otp;
+        $member->save();
 
-    Mail::to($member->email)->send(new otp($otp));
+        Mail::to($member->email)->send(new otp($otp));
 
-    return response()->json([
-        'message' => 'OTP resent successfully',
-        'member_id' => $member->id
-    ], 200);
-}
+        return response()->json([
+            'message' => 'OTP resent successfully',
+            'member_id' => $member->id
+        ], 200);
+    }
+
 
 
 
@@ -300,4 +301,33 @@ class UserAuthController extends Controller
             'message' => 'Password updated successfully'
         ], 200);
     }
+
+
+
+
+
+
+public function getuserdata($id)
+{
+    $member = Member::find($id);
+
+    if (!$member) {
+        return response()->json([
+            'message' => 'User not found',
+        ], 404);
+    }
+
+    return response()->json([
+        'message' => 'User data fetched successfully',
+        'data' => [
+            'id' => $member->id,
+            'name' => $member->name,
+            'email' => $member->email,
+            'mobileno' => $member->mobileno,
+            'gender' => $member->gender,
+            'address' => $member->address,
+        ]
+    ], 200);
+}
+
 }
