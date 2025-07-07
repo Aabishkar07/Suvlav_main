@@ -82,5 +82,21 @@ public function gettermsandcondition()
         'data' => $termsandcondition
     ], 200);
 }
+public function aboutus()
+{
+    $aboutus = Page::where('id', 5)->first();
+
+    if (!$aboutus) {
+        return response()->json([
+            'status' => 404,
+            'message' => 'Aboutus not found'
+        ], 404);
+    }
+
+    return response()->json([
+        'status' => 200,
+        'data' => $aboutus
+    ], 200);
+}
 
 }
