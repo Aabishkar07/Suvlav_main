@@ -21,6 +21,8 @@ Route::post('/resendotp', [UserAuthController::class, 'resendOtp'])->name('resen
 Route::get('/getuserdata/{id}', [UserAuthController::class, 'getuserdata'])->name('getuserdata');
 Route::get('/getsupport', [ApiSupportController::class, 'getsupport'])->name('getsupport');
 Route::post('/getemail', [ApiSupportController::class, 'getemail'])->name('getemail');
+Route::get('/getprivacypolicy', [ApiSupportController::class, 'getprivacypolicy']);
+Route::get('/gettermsandcondition', [ApiSupportController::class, 'gettermsandcondition']);
 
 Route::get('/allproduct', [ApiProductController::class, 'allproduct']);
 Route::get('/product/{product}', [ApiProductController::class, 'singlepage']);
