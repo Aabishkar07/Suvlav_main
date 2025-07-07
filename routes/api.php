@@ -23,6 +23,7 @@ Route::get('/getsupport', [ApiSupportController::class, 'getsupport'])->name('ge
 Route::post('/getemail', [ApiSupportController::class, 'getemail'])->name('getemail');
 Route::get('/getprivacypolicy', [ApiSupportController::class, 'getprivacypolicy']);
 Route::get('/gettermsandcondition', [ApiSupportController::class, 'gettermsandcondition']);
+Route::get('/aboutus', [ApiSupportController::class, 'aboutus']);
 
 Route::get('/allproduct', [ApiProductController::class, 'allproduct']);
 Route::get('/product/{product}', [ApiProductController::class, 'singlepage']);
