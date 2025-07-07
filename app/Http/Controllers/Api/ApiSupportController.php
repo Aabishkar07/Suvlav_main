@@ -66,4 +66,21 @@ public function getprivacypolicy()
 }
 
 
+public function gettermsandcondition()
+{
+    $termsandcondition = Page::where('id', 3)->first();
+
+    if (!$termsandcondition) {
+        return response()->json([
+            'status' => 404,
+            'message' => 'TermsandCondition not found'
+        ], 404);
+    }
+
+    return response()->json([
+        'status' => 200,
+        'data' => $termsandcondition
+    ], 200);
+}
+
 }
