@@ -99,4 +99,24 @@ public function aboutus()
     ], 200);
 }
 
+
+
+
+public function exchangepolicies()
+{
+    $exchangepolicies = Page::where('id', 6)->first();
+
+    if (!$exchangepolicies) {
+        return response()->json([
+            'status' => 404,
+            'message' => 'Exchange Policies not found'
+        ], 404);
+    }
+
+    return response()->json([
+        'status' => 200,
+        'data' => $exchangepolicies
+    ], 200);
+}
+
 }
