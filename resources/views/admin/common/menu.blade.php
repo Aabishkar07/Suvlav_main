@@ -56,8 +56,8 @@
                 <a class="nav-link  text-black   {{ request()->routeIs('banner.index') ? 'bg-black text-white w-full ' : '' }}"
                     href="{{ route('banner.index') }}">
                     <span class="menu-title ">
-                        <i class="fa fa-sliders menu-icon  py-2 {{ request()->routeIs('banner.index') ? 'text-white' : 'text-black' }}  "
-                            style="font-size: 20px"></i>
+                        <i class="fa  fa-picture-o menu-icon  py-2 {{ request()->routeIs('banner.index') ? 'text-white' : 'text-black' }}  "
+                            style="font-size: 18px"></i>
                         <span class="pb-1 ps-1">
                             Banner
                         </span>
@@ -121,7 +121,7 @@
         @can('View Page')
             <li class="nav-item ">
                 <a class="nav-link" data-bs-toggle="collapse" href="#pages" aria-expanded="false" aria-controls="pages">
-                    <span class="menu-title"><i class="p-1 pt-1 text-black fa fa-pagelines menu-icon"></i> Pages</span>
+                    <span class="menu-title"><i class="p-1 pt-1 text-black fa fa-file-text menu-icon"></i> Pages</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="collapse" id="pages">
