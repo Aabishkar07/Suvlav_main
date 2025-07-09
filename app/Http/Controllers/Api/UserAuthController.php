@@ -324,6 +324,7 @@ public function getuserdata($id)
             'mobileno' => $member->mobileno,
             'gender' => $member->gender,
             'address' => $member->address,
+            'total_points' => $member->total_points,
         ]
     ], 200);
 }
