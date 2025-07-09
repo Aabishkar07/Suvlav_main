@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\ApiAddressContoller;
 use App\Http\Controllers\Api\ApiCategoryController;
+use App\Http\Controllers\Api\ApiCheckoutController;
 use App\Http\Controllers\Api\ApiProductController;
-use App\Http\Controllers\Api\ApiSupoortController;
 use App\Http\Controllers\Api\ApiSupportController;
 use App\Http\Controllers\Api\UserAuthController;
 use Illuminate\Http\Request;
@@ -35,3 +36,6 @@ Route::post('/review/{product}/{user}', [ApiProductController::class, 'postprodu
 Route::get('/allcategory', [ApiCategoryController::class, 'allcategory']);
 Route::get('/category/{category}', [ApiCategoryController::class, 'singlecategory']);
 Route::get('/categorywiseproduct/{category}', [ApiCategoryController::class, 'categorywiseproduct']);
+
+Route::get('/alladdress', [ApiAddressContoller::class, 'getaddress']);
+Route::post('/placeorder', [ApiCheckoutController::class, 'placeorder']);
