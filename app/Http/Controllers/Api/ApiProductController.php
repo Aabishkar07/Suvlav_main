@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductSize;
 use App\Models\Review;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Number;
@@ -92,6 +93,98 @@ class ApiProductController extends Controller
 
 
     }
+
+
+
+public function wishlist(Request $request)
+{
+    $request->validate([
+        'product_id' => 'required',
+        'user_id' => 'required',
+    ]);
+
+    $existing = Wishlist::where('product_id', $request->product_id)
+                        ->where('user_id', $request->user_id)
+                        ->first();
+
+    if ($existing) {
+        $existing->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Product removed from wishlist',
+            'data' => null
+        ]);
+    } else {
+        $wishlist = Wishlist::create([
+            'product_id' => $request->product_id,
+            'user_id' => $request->user_id,
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Product added to wishlist',
+            'data' => $wishlist
+        ], 200);
+    }
+}
+
+
+public function checkWishlist(Request $request)
+{
+    $request->validate([
+        'product_id' => 'required',
+        'user_id' => 'required',
+    ]);
+
+    $isWishlisted = Wishlist::where('product_id', $request->product_id)
+                            ->where('user_id', $request->user_id)
+                            ->exists();
+
+    return response()->json([
+        'status' => true,
+        'wishlisted' => $isWishlisted,
+    ]);
+}
+
+
+// Add to ApiProductController
+public function getWishlistProducts($userId)
+{
+    $wishlistProductIds = Wishlist::where('user_id', $userId)->pluck('product_id');
+
+    $products = Product::whereIn('id', $wishlistProductIds)->get();
+
+    return response()->json([
+        'status' => true,
+        'products' => $products
+    ]);
+}
+
+
+// public function checkWishlist(Request $request)
+// {
+//     $request->validate([
+//         'product_id' => 'required',
+//         'user_id' => 'required',
+//     ]);
+
+//     $product = Product::find($request->product_id);
+//     $isWishlisted = false;
+
+//     if ($product) {
+//         $isWishlisted = Wishlist::where('product_id', $product->id)
+//                                 ->where('user_id', $request->user_id)
+//                                 ->exists();
+//     }
+
+//     return response()->json([
+//         'status' => true,
+//         'wishlisted' => $isWishlisted,
+//         'product' => $product,
+//     ]);
+// }
+
 
 
 }
