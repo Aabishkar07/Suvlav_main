@@ -262,8 +262,6 @@ class UserAuthController extends Controller
 
 
 
-
-
     public function changePassword(Request $request)
     {
         $rules = [
@@ -330,5 +328,55 @@ public function getuserdata($id)
         ]
     ], 200);
 }
+
+
+
+
+
+
+public function updateuserdata(Request $request, $id)
+{
+    $member = Member::find($id);
+
+    if (!$member) {
+        return response()->json([
+            'message' => 'User not found',
+        ], 404);
+    }
+
+    $rules = [];
+
+    if ($request->has('name')) {
+        $rules['name'] = 'required|string|max:255';
+    }
+
+    if ($request->has('email')) {
+        $rules['email'] = 'required|email|unique:members,email,' . $id;
+    }
+
+    if ($request->has('mobileno')) {
+        $rules['mobileno'] = 'required|string|max:20';
+    }
+
+    if ($request->has('gender')) {
+        $rules['gender'] = 'nullable|string';
+    }
+
+    if ($request->has('address')) {
+        $rules['address'] = 'nullable|string|max:255';
+    }
+
+    $validatedData = $request->validate($rules);
+
+    $member->update($validatedData);
+
+    return response()->json([
+        'message' => 'User data updated successfully',
+        'data' => $member,
+    ], 200);
+}
+
+
+
 
 }
