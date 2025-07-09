@@ -32,7 +32,7 @@ Route::get('/allproduct', [ApiProductController::class, 'allproduct']);
 Route::get('/product/{product}', [ApiProductController::class, 'singlepage']);
 Route::get('/review/{product}/{user}', [ApiProductController::class, 'productreview']);
 Route::post('/review/{product}/{user}', [ApiProductController::class, 'postproductreview']);
-Route::post('/wishlist', [ApiProductController::class, 'wishlist'])->name('wishlist');
+Route::post('/wishlist', [ApiProductController::class, 'wishlist']);
 Route::get('/wishlist/check', [ApiProductController::class, 'checkWishlist']);
 Route::get('/wishlist/products/{userId}', [ApiProductController::class, 'getWishlistProducts']);
 
