@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ApiAddressContoller;
 use App\Http\Controllers\Api\ApiCategoryController;
 use App\Http\Controllers\Api\ApiCheckoutController;
+use App\Http\Controllers\Api\ApiOrderController;
 use App\Http\Controllers\Api\ApiProductController;
 use App\Http\Controllers\Api\ApiSupportController;
 use App\Http\Controllers\Api\UserAuthController;
@@ -36,6 +37,8 @@ Route::post('/review/{product}/{user}', [ApiProductController::class, 'postprodu
 Route::post('/wishlist', [ApiProductController::class, 'wishlist']);
 Route::get('/wishlist/check', [ApiProductController::class, 'checkWishlist']);
 Route::get('/wishlist/products/{userId}', [ApiProductController::class, 'getWishlistProducts']);
+
+Route::get('/order/{userId}', [ApiOrderController::class, 'order']);
 
 Route::get('/allcategory', [ApiCategoryController::class, 'allcategory']);
 Route::get('/category/{category}', [ApiCategoryController::class, 'singlecategory']);
