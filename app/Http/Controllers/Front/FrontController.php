@@ -76,8 +76,6 @@ class FrontController extends Controller
             return redirect('/memberloginform');
         } else {
             $user_id = Session::get('memeber_id_ss');
-
-
             $userdata = DB::table('members')
                 ->leftJoin('provinces', 'provinces.id', '=', 'members.state')
                 ->leftJoin('districts', 'districts.id', '=', 'members.district_id')
@@ -810,7 +808,7 @@ class FrontController extends Controller
             ->get();
 
         $user_id = (Session::get('memeber_id_ss') != '') ? Session::get('memeber_id_ss') : 0;
-        $shippings = "";
+        $shippings = "";    
         $member = "";
         $guest_id = 0;
         if ($user_id == 0) {
