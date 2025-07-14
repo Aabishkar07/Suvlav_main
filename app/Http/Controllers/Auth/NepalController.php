@@ -31,26 +31,26 @@ class NepalController extends Controller
 
     public function togleActiveProvince(Province $province)
     {
-     
-      if ($province->is_active == "1") {
-        $province->is_active = "0";
-      } else {
-        $province->is_active = "1";
-      }
-      $province->save();
-      return redirect()->back()->with("popsuccess", "Active Status Changed");
+
+        if ($province->is_active == "1") {
+            $province->is_active = "0";
+        } else {
+            $province->is_active = "1";
+        }
+        $province->save();
+        return redirect()->back()->with("popsuccess", "Active Status Changed");
     }
 
     public function togleActivedistrict(District $district)
     {
-     
-      if ($district->is_active == "1") {
-        $district->is_active = "0";
-      } else {
-        $district->is_active = "1";
-      }
-      $district->save();
-      return redirect()->back()->with("popsuccess", "Active Status Changed");
+
+        if ($district->is_active == "1") {
+            $district->is_active = "0";
+        } else {
+            $district->is_active = "1";
+        }
+        $district->save();
+        return redirect()->back()->with("popsuccess", "Active Status Changed");
     }
 
 
@@ -96,16 +96,18 @@ class NepalController extends Controller
 
         $title = Province::findOrFail($province)->name;
         $districts = District::where("province", $province)->get();
-        return view("admin.nepal.district.index", compact("districts", "title"));
+        return view("admin.nepal.district.index", compact("districts", "title", "province"));
     }
     public function district_create($province)
     {
+
         $provinces = Province::findOrFail($province);
         return view("admin.nepal.district.create", compact("provinces"));
     }
 
     public function district_store(Request $request, $province)
     {
+        // dd("aa");
         // dd($request);
         $request->validate([
             "name" => "required|unique:districts,district",
@@ -176,7 +178,7 @@ class NepalController extends Controller
                 ]);
             }
 
-            
+
         }
 
 
@@ -186,7 +188,7 @@ class NepalController extends Controller
     public function municipality_edit(Municipality $municipality)
     {
         $title = Province::findOrFail($municipality->province)->name;
-     
+
 
         $ward = Ward::where("municipality_id", $municipality->id)->max("number");
         return view("admin.nepal.municipality.edit", compact("municipality", 'ward', 'title'));

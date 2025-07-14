@@ -45,4 +45,6 @@ Route::get('/category/{category}', [ApiCategoryController::class, 'singlecategor
 Route::get('/categorywiseproduct/{category}', [ApiCategoryController::class, 'categorywiseproduct']);
 
 Route::get('/alladdress', [ApiAddressContoller::class, 'getaddress']);
+Route::get('/shippingaddress/{userid}', [ApiAddressContoller::class, 'shippingaddress']);
+Route::post('/shippingaddress/{userid}', [ApiAddressContoller::class, 'updateshippingaddress']);
 Route::post('/placeorder', [ApiCheckoutController::class, 'placeorder']);
