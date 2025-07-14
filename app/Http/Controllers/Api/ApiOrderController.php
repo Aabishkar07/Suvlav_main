@@ -22,4 +22,44 @@ public function order($userId)
         'orders' => $orders
     ]);
 }
+
+
+public function ongoingorder($userId)
+{
+    $ongoingorder = Order::with('orderDetails')
+                   ->where('user_id', $userId)->where('status' , 'Ongoing')
+                   ->get();
+
+    return response()->json([
+        'status' => true,
+        'order' => $ongoingorder
+    ]);
+}
+
+
+public function deliveredorder($userId)
+{
+    $ongoingorder = Order::with('orderDetails')
+                   ->where('user_id', $userId)->where('status' , 'Delevered')
+                   ->get();
+
+    return response()->json([
+        'status' => true,
+        'order' => $ongoingorder
+    ]);
+}
+
+public function cancelledorder($userId)
+{
+    $ongoingorder = Order::with('orderDetails')
+                   ->where('user_id', $userId)->where('status' , 'Cancel')
+                   ->get();
+
+    return response()->json([
+        'status' => true,
+        'order' => $ongoingorder
+    ]);
+}
+
+
 }

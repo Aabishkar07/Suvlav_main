@@ -39,6 +39,12 @@ Route::get('/wishlist/check', [ApiProductController::class, 'checkWishlist']);
 Route::get('/wishlist/products/{userId}', [ApiProductController::class, 'getWishlistProducts']);
 
 Route::get('/order/{userId}', [ApiOrderController::class, 'order']);
+Route::get('/ongoingorder/{userId}', [ApiOrderController::class, 'ongoingorder']);
+Route::get('/deliveredorder/{userId}', [ApiOrderController::class, 'deliveredorder']);
+Route::get('/cancelledorder/{userId}', [ApiOrderController::class, 'cancelledorder']);
+
+
+
 
 Route::get('/allcategory', [ApiCategoryController::class, 'allcategory']);
 Route::get('/category/{category}', [ApiCategoryController::class, 'singlecategory']);
