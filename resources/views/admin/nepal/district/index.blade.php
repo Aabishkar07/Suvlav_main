@@ -32,7 +32,7 @@
 
                 <div class="mb-4 row margin-bottom-30">
                     <div class="mt-2 col-sm-6">
-                        <a href="{{ route('district.create', $districts[0]->province) }}"
+                        <a href="{{ route('district.create', $province) }}"
                             class="bg-black border-0 btn btn-info sfw btn-sm"><i class="fa fa-plus"></i> Add New
                         </a>
                         <a href="{{ route('province') }}" class="bg-black border-0 btn btn-info sfw btn-sm"><i
