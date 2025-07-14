@@ -11,9 +11,9 @@
 @endphp
 {!! $slider == '0' ? '<div class="col-xl-3 col-lg-4 col-md-4 col-12">' : '' !!}
 
-<div class="border rounded shadow single-product product-card"
+<div class="border rounded shadow single-product product-card" style="height: 700px"
     @if (isset($index)) style="{{ $index >= 4 ? 'display: none;' : '' }}" @endif>
-    <div class="justify-between p-1 bg-white d-flex">
+    <div class="justify-between p-1 bg-white d-flex" >
         <a class="font-bold text-black text-[14px]" style="color: black"
             href="{{ $exchange ? route('productdetails', ['slug' => $list->slug, 'details' => $exchange]) : url('product/' . $list->slug) }}">{{ $list->title }}</a>
         @php
