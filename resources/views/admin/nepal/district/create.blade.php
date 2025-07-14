@@ -32,7 +32,7 @@
                     </div>
 
                     <div>
-                        <button type="submit" class="btn btn-dark">Add</button>
+                        <button type="submit"  class="btn btn-dark">Add</button>
 
                         <a href="{{ route('district.index', $provinces->id) }}" class="bg-black border-0 btn btn-info ">
                             Back
