@@ -55,8 +55,6 @@
                                 <tr>
                                     <td>{{ $GLOBALS['counter']++ }}</td>
                                     <td>{{ $municipality->name }}</td>
-
-
                                     <td>
                                         {{-- <a href="{{ route('district.index', $municipality->id) }} "
                                             class="btn btn-success btn-sm">Municipalities </a> --}}
@@ -73,9 +71,6 @@
                                             </button>
                                         </form>
                                     </td>
-
-
-
                                 </tr>
                             @endforeach
                         @else
@@ -87,9 +82,6 @@
                         @endif
                     </tbody>
                 </table>
-
-
-
             </div>
         </div>
     </div>
