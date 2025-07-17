@@ -27,6 +27,7 @@ class Member extends Authenticatable
         'otp',
         'googleauth_id',
         'fbauth_id',
+        'unique_id',
         'total_points'
 
     ];

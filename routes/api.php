@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ApiCheckoutController;
 use App\Http\Controllers\Api\ApiOrderController;
 use App\Http\Controllers\Api\ApiProductController;
 use App\Http\Controllers\Api\ApiSupportController;
+use App\Http\Controllers\Api\ApiTransactionController;
 use App\Http\Controllers\Api\UserAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -54,3 +55,12 @@ Route::get('/alladdress', [ApiAddressContoller::class, 'getaddress']);
 Route::get('/shippingaddress/{userid}', [ApiAddressContoller::class, 'shippingaddress']);
 Route::post('/shippingaddress/{userid}', [ApiAddressContoller::class, 'updateshippingaddress']);
 Route::post('/placeorder', [ApiCheckoutController::class, 'placeorder']);
+
+// transaction pin 
+Route::post('/addpin/{id}', [ApiTransactionController::class, 'addpin']);
+Route::get('/checkpin/{id}', [ApiTransactionController::class, 'checkpin']);
+Route::post('/changepin/{id}', [ApiTransactionController::class, 'changepin']);
+Route::post('/checkuser/{unique_id}', [ApiTransactionController::class, 'checkuser']);
+Route::post('/transferpoint/{id}', [ApiTransactionController::class, 'transferpoint']);
+Route::post('/checkuserpin/{id}', [ApiTransactionController::class, 'checkuserpin']);
+
