@@ -42,15 +42,14 @@ Route::get('/order/{userId}', [ApiOrderController::class, 'order']);
 Route::get('/ongoingorder/{userId}', [ApiOrderController::class, 'ongoingorder']);
 Route::get('/deliveredorder/{userId}', [ApiOrderController::class, 'deliveredorder']);
 Route::get('/cancelledorder/{userId}', [ApiOrderController::class, 'cancelledorder']);
-
-
+Route::post('/exchangeupdate', [ApiOrderController::class, 'exchangeupdate']);
 
 
 Route::get('/allcategory', [ApiCategoryController::class, 'allcategory']);
 Route::get('/category/{category}', [ApiCategoryController::class, 'singlecategory']);
 Route::get('/categorywiseproduct/{category}', [ApiCategoryController::class, 'categorywiseproduct']);
-
 Route::get('/alladdress', [ApiAddressContoller::class, 'getaddress']);
 Route::get('/shippingaddress/{userid}', [ApiAddressContoller::class, 'shippingaddress']);
 Route::post('/shippingaddress/{userid}', [ApiAddressContoller::class, 'updateshippingaddress']);
 Route::post('/placeorder', [ApiCheckoutController::class, 'placeorder']);
+
