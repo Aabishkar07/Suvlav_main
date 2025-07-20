@@ -43,6 +43,7 @@ Route::get('/order/{userId}', [ApiOrderController::class, 'order']);
 Route::get('/ongoingorder/{userId}', [ApiOrderController::class, 'ongoingorder']);
 Route::get('/deliveredorder/{userId}', [ApiOrderController::class, 'deliveredorder']);
 Route::get('/cancelledorder/{userId}', [ApiOrderController::class, 'cancelledorder']);
+Route::get('/exchange/{userId}', [ApiOrderController::class, 'exchange']);
 Route::post('/exchangeupdate', [ApiOrderController::class, 'exchangeupdate']);
 
 
