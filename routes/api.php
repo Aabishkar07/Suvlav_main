@@ -63,3 +63,4 @@ Route::post('/checkuser/{unique_id}', [ApiTransactionController::class, 'checkus
 Route::post('/transferpoint/{id}', [ApiTransactionController::class, 'transferpoint']);
 Route::post('/checkuserpin/{id}', [ApiTransactionController::class, 'checkuserpin']);
 
+Route::get('/getnotification/{user_id}', [ApiTransactionController::class, 'getnotification']);

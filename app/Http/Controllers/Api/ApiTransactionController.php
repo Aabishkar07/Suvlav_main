@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Member;
+use App\Models\Notification;
 use App\Models\Transaction;
 use App\Models\TransactionPin;
 use Illuminate\Http\Request;
@@ -210,6 +211,27 @@ class ApiTransactionController extends Controller
             $gain_member->save();
             error_log(json_encode($gain_member));
 
+            Notification::create(attributes: [
+                'user_id' => $user_member->id,
+                'message' => 'You has transferred Rs.' . $all['coinamount'] . ' coins to ' . $gain_member->name,
+                'transferById' => $user_member->id,
+                'gainById' => $gain_member->id,
+                'transferBy' => $user_member->name,
+                'gainBy' => $gain_member->name,
+                'status' => 'unread',
+                'check' => 0,
+            ]);
+            Notification::create(attributes: [
+                'user_id' => $gain_member->id,
+                'message' => $user_member->name . ' has transferred ' . $all['coinamount'] . ' coins to you.',
+                'transferById' => $user_member->id,
+                'gainById' => $gain_member->id,
+                'transferBy' => $user_member->name,
+                'gainBy' => $gain_member->name,
+                'status' => 'unread',
+                'check' => 0,
+            ]);
+
 
             return response()->json([
                 'status' => 'success',
@@ -225,4 +247,33 @@ class ApiTransactionController extends Controller
         }
 
     }
+
+    public function getnotification($user_id)
+    {
+        try {
+            $notifications = Notification::where('user_id', $user_id)->get();
+
+            if ($notifications->isEmpty()) {
+                return response()->json([
+                    'success' => false,
+                    'status' => 'error',
+                    'message' => 'No notifications found for this user',
+                ], 404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'status' => 'success',
+                'notifications' => $notifications,
+            ], 200);
+        } catch (\Exception $e) {
+            error_log(json_encode($e->getMessage()));
+
+            return response()->json([
+                'message' => 'An error occurred while processing your request.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
 }
