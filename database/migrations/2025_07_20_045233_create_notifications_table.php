@@ -10,11 +10,16 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('transaction_pins', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->string('user_id')->nullable();
-            $table->string('pin')->nullable();
+            $table->longText('message')->nullable();
+            $table->string('transferById')->nullable();
+            $table->string('gainById')->nullable();
+            $table->string('transferBy')->nullable();
+            $table->string('gainBy')->nullable();
             $table->string('status')->nullable();
+            $table->string('check')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('transaction_pins');
+        Schema::dropIfExists('notifications');
     }
 };
