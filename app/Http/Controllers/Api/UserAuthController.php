@@ -87,6 +87,16 @@ class UserAuthController extends Controller
         return $mycode;
     }
 
+    public function checkuniqueid()
+    {
+        $randomNumber = random_int(10000, 99999);
+        $checkold = Member::where("affilate_code", $randomNumber)->first();
+        if ($checkold) {
+            $this->checkuniqueid();
+        }
+        return $randomNumber;
+    }
+
     public function register(Request $request)
     {
         // Log the incoming request data
@@ -305,76 +315,76 @@ class UserAuthController extends Controller
 
 
 
-public function getuserdata($id)
-{
-    $member = Member::find($id);
+    public function getuserdata($id)
+    {
+        $member = Member::find($id);
 
-    if (!$member) {
+        if (!$member) {
+            return response()->json([
+                'message' => 'User not found',
+            ], 404);
+        }
+
         return response()->json([
-            'message' => 'User not found',
-        ], 404);
+            'message' => 'User data fetched successfully',
+            'data' => [
+                'id' => $member->id,
+                'name' => $member->name,
+                'email' => $member->email,
+                'mobileno' => $member->mobileno,
+                'gender' => $member->gender,
+                'address' => $member->address,
+                'total_points' => $member->total_points,
+            ]
+        ], 200);
     }
 
-    return response()->json([
-        'message' => 'User data fetched successfully',
-        'data' => [
-            'id' => $member->id,
-            'name' => $member->name,
-            'email' => $member->email,
-            'mobileno' => $member->mobileno,
-            'gender' => $member->gender,
-            'address' => $member->address,
-            'total_points' => $member->total_points,
-        ]
-    ], 200);
-}
 
 
 
 
 
+    public function updateuserdata(Request $request, $id)
+    {
+        $member = Member::find($id);
 
-public function updateuserdata(Request $request, $id)
-{
-    $member = Member::find($id);
+        if (!$member) {
+            return response()->json([
+                'message' => 'User not found',
+            ], 404);
+        }
 
-    if (!$member) {
+        $rules = [];
+
+        if ($request->has('name')) {
+            $rules['name'] = 'required|string|max:255';
+        }
+
+        if ($request->has('email')) {
+            $rules['email'] = 'required|email|unique:members,email,' . $id;
+        }
+
+        if ($request->has('mobileno')) {
+            $rules['mobileno'] = 'required|string|max:20';
+        }
+
+        if ($request->has('gender')) {
+            $rules['gender'] = 'nullable|string';
+        }
+
+        if ($request->has('address')) {
+            $rules['address'] = 'nullable|string|max:255';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        $member->update($validatedData);
+
         return response()->json([
-            'message' => 'User not found',
-        ], 404);
+            'message' => 'User data updated successfully',
+            'data' => $member,
+        ], 200);
     }
-
-    $rules = [];
-
-    if ($request->has('name')) {
-        $rules['name'] = 'required|string|max:255';
-    }
-
-    if ($request->has('email')) {
-        $rules['email'] = 'required|email|unique:members,email,' . $id;
-    }
-
-    if ($request->has('mobileno')) {
-        $rules['mobileno'] = 'required|string|max:20';
-    }
-
-    if ($request->has('gender')) {
-        $rules['gender'] = 'nullable|string';
-    }
-
-    if ($request->has('address')) {
-        $rules['address'] = 'nullable|string|max:255';
-    }
-
-    $validatedData = $request->validate($rules);
-
-    $member->update($validatedData);
-
-    return response()->json([
-        'message' => 'User data updated successfully',
-        'data' => $member,
-    ], 200);
-}
 
 
 

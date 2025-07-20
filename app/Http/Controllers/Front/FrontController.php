@@ -734,6 +734,7 @@ class FrontController extends Controller
 
     public function exchange()
     {
+        
         $cartItems = $this->cartdata;
         $categories = $this->categories;
         $item_id = request()->details;
