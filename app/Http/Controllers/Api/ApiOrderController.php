@@ -63,6 +63,20 @@ class ApiOrderController extends Controller
     }
 
 
+
+public function exchange($userId)
+{
+    $ongoingOrders = Order::with('orderDetails')
+        ->where('user_id', $userId)
+        ->get();
+
+    return response()->json([
+        'status' => true,
+        'order' => $ongoingOrders
+    ]);
+}
+
+
     public function exchangeupdate(Request $request)
     {
         $request->validate([
