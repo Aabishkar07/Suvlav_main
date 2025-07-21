@@ -23,6 +23,7 @@ Route::post('/changepassword', [UserAuthController::class, 'changepassword'])->n
 Route::post('/resendotp', [UserAuthController::class, 'resendOtp'])->name('resendotp');
 Route::get('/getuserdata/{id}', [UserAuthController::class, 'getuserdata'])->name('getuserdata');
 Route::put('/updateuserdata/{id}', [UserAuthController::class, 'updateuserdata'])->name('updateuserdata');
+Route::post('/updatepassword/{id}', [UserAuthController::class, 'updatePassword']);
 
 Route::get('/getsupport', [ApiSupportController::class, 'getsupport'])->name('getsupport');
 Route::post('/getemail', [ApiSupportController::class, 'getemail'])->name('getemail');
