@@ -388,5 +388,39 @@ class UserAuthController extends Controller
 
 
 
+public function updatePassword(Request $request, $id)
+{
+    $member = Member::find($id);
+
+    if (!$member) {
+        return response()->json([
+            'message' => 'User not found',
+        ], 404);
+    }
+
+    $request->validate([
+        'passwrd' => 'required',
+        'new_password' => 'required|min:8|confirmed',
+    ]);
+
+// error_log("Current password: " . $member->passwrd);
+
+    if (base64_encode($request->passwrd) !== $member->passwrd) {
+        return response()->json([
+            'message' => 'Current password does not match.',
+        ], 400);
+    }
+
+    $member->passwrd = base64_encode($request->new_password);
+    $member->save();
+
+    return response()->json([
+        'message' => 'Password updated successfully.',
+    ], 200);
+}
+
+
+
+
 
 }
