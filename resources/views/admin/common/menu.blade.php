@@ -19,11 +19,6 @@
             </a>
         </li>
 
-
-
-
-
-
         @can('View Dashboard')
             <li class="">
                 <a class="nav-link text-black   {{ request()->routeIs('dashboard') ? 'bg-black text-white w-full ' : '' }}"
