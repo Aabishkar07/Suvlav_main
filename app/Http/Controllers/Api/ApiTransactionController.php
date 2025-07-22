@@ -253,13 +253,13 @@ class ApiTransactionController extends Controller
         try {
             $notifications = Notification::where('user_id', $user_id)->get();
 
-            if ($notifications->isEmpty()) {
-                return response()->json([
-                    'success' => false,
-                    'status' => 'error',
-                    'message' => 'No notifications found for this user',
-                ], 404);
-            }
+            // if ($notifications->isEmpty()) {
+            //     return response()->json([
+            //         'success' => false,
+            //         'status' => 'error',
+            //         'message' => 'No notifications found for this user',
+            //     ], 404);
+            // }
 
             return response()->json([
                 'success' => true,
