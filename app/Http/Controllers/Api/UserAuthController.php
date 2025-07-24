@@ -388,38 +388,97 @@ class UserAuthController extends Controller
 
 
 
-public function updatePassword(Request $request, $id)
-{
-    $member = Member::find($id);
+    public function updatePassword(Request $request, $id)
+    {
+        $member = Member::find($id);
 
-    if (!$member) {
+        if (!$member) {
+            return response()->json([
+                'message' => 'User not found',
+            ], 404);
+        }
+
+        $request->validate([
+            'passwrd' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+        // error_log("Current password: " . $member->passwrd);
+
+        if (base64_encode($request->passwrd) !== $member->passwrd) {
+            return response()->json([
+                'message' => 'Current password does not match.',
+            ], 400);
+        }
+
+        $member->passwrd = base64_encode($request->new_password);
+        $member->save();
+
         return response()->json([
-            'message' => 'User not found',
-        ], 404);
+            'message' => 'Password updated successfully.',
+        ], 200);
     }
 
-    $request->validate([
-        'passwrd' => 'required',
-        'new_password' => 'required|min:8|confirmed',
-    ]);
 
-// error_log("Current password: " . $member->passwrd);
+    public function googlelogin(Request $request)
+    {
+        // Log the incoming request data
+        error_log("Google login request: " . json_encode($request->all()));
 
-    if (base64_encode($request->passwrd) !== $member->passwrd) {
-        return response()->json([
-            'message' => 'Current password does not match.',
-        ], 400);
+        $data = $request->all();
+
+        // Check if a user with this email already exists
+        $exist = Member::where('email', $data["email"])->first();
+
+        if ($exist) {
+            // Check if this Google account is already linked to a user
+            $user = Member::where('googleauth_id', $data["id"])->first();
+
+            if (!$user) {
+                // Google account is not linked to this user, but email exists for another user
+                return response()->json([
+                    'status' => '400',
+                    'message' => 'Google account already exists. Please Login with your email and password.',
+                ], 400);
+            }
+
+            // Google account is linked, login successful
+            return response()->json([
+                'status' => '200',
+                'message' => 'Login Successful.',
+                'member' => $user // Optionally return user data
+            ], 200);
+        } else {
+            // Register new user
+            $pd = rand(100000, 999999);
+            $hashedpw = base64_encode($pd);
+
+            $code = $this->check($data["name"]);
+            $memberData = [
+                'name' => $data["name"],
+                'email' => $data["email"],
+                'mobileno' => "",
+                'googleauth_id' => $data["id"],
+                'passwrd' => $hashedpw,
+                'gender' => "",
+                'status' => 1,
+                'affilate_code' => $code,
+                'created_at' => now()
+            ];
+            $new_user = Member::create($memberData);
+
+            // Send registration email
+            Mail::to('anupkasula012@gmail.com')->send(new registerUser($new_user));
+
+            // Mail::to('suvlav25@gmail.com')->send(new registerUser($new_user));
+
+            return response()->json([
+                'status' => '200',
+                'message' => 'Login Successful.',
+                'member' => $new_user // Optionally return user data
+            ], 200);
+        }
     }
-
-    $member->passwrd = base64_encode($request->new_password);
-    $member->save();
-
-    return response()->json([
-        'message' => 'Password updated successfully.',
-    ], 200);
-}
-
-
 
 
 
