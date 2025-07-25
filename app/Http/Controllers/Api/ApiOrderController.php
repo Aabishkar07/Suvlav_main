@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\AffiliatePoint;
 use App\Models\Exchange;
+use App\Models\Member;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -106,4 +108,82 @@ public function exchange($userId)
             'message' => 'Exchange request submitted successfully.',
         ]);
     }
+
+
+public function referralcode(Request $request)
+{
+    $request->validate([
+        'webcode' => 'required|string',
+    ]);
+
+    $webcode = $request->input('webcode');
+
+    // Check if a member exists with the given affiliate code and verified status
+    $checkmember = Member::where('affilate_code', $webcode)
+                        ->where('share_status', 'verified')
+                        ->first();
+
+    if (!$checkmember) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid or unverified affiliate code.',
+        ], 404);
+    }
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Affiliate code is valid and verified.',
+        'member_id' => $checkmember->id // optional: return member ID
+    ]);
+}
+
+
+
+
+// public function referralcode(Request $request)
+// {
+//     $request->validate([
+//         'webcode' => 'required|string',
+//         'order_id' => 'required|numeric',
+//         'points' => 'required|numeric',
+//         'point_status' => 'required|string',
+//     ]);
+
+//     $webcode = $request->input('webcode');
+//     $orderId = $request->input('order_id');
+//     $points = $request->input('points');
+//     $pointStatus = $request->input('point_status');
+
+//     // Check member from affiliate code
+//     $checkmember = Member::where("affilate_code", $webcode)
+//                     ->where("share_status", "verified")
+//                     ->first();
+
+//     if (!$checkmember) {
+//         return response()->json([
+//             'success' => false,
+//             'message' => 'Invalid or unverified affiliate code.',
+//         ], 404);
+//     }
+
+//     // Create affiliate point record
+//     $affiliate = AffiliatePoint::create([
+//         'user_id' => $checkmember->id,
+//         'order_id' => $orderId,
+//         'points' => $points,
+//         'status' => "PENDING",
+//         'point_status' => $pointStatus,
+//     ]);
+
+//     return response()->json([
+//         'success' => true,
+//         'message' => 'Affiliate points stored successfully.',
+//         'data' => $affiliate
+//     ]);
+// }
+
+
+
+
+
 }

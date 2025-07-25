@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use function GuzzleHttp\json_decode;
 use App\Mail\Order as MailOrder;
+use App\Models\AffiliatePoint;
 
 class ApiCheckoutController extends Controller
 {
@@ -27,7 +28,7 @@ class ApiCheckoutController extends Controller
 
     public function placeorder(Request $request)
     {
-        error_log("placeorder");
+        error_log("placeorder123456");
 
         $allData = $request->all();
         if (empty($allData)) {
@@ -49,13 +50,14 @@ class ApiCheckoutController extends Controller
             $member = $user_id != 0 ? Member::findOrFail($user_id) : null;
 
             $item_count = $totalprice = $totalqnty = 0;
-
+            
             foreach ($DatacartItems as $cc) {
                 $item_count++;
                 $totalprice += $cc["price"] * $cc["quantity"];
                 $totalqnty += $cc["quantity"];
             }
-
+            
+            error_log("pppppppp");
             // Apply Redeem Points
             if (isset($allData["redeem_points"]) && $member) {
                 error_log("aaaaaaaabbb");
@@ -86,6 +88,44 @@ class ApiCheckoutController extends Controller
 
 
             $orderid = DB::table('orders')->insertGetId($cart_order);
+
+
+            // $referrer_id = $allData['referrerId'] ?? null;
+
+            // if ($referrer_id) {
+            //     AffiliatePoint::create([
+            //         'user_id' => $referrer_id,
+            //         'order_id' => $orderid,
+            //         'points' => 50,
+            //         'status' => 'PENDING',
+            //         'delivered_date' => null,
+            //         'point_status' => null
+            //     ]);
+
+            //     session()->forget('referrer_id');
+            // }
+
+            $referrerCode = $allData['referrerId'] ?? null;
+
+if ($referrerCode) {
+    $referrerMember = Member::where('affilate_code', $referrerCode)
+        ->where('share_status', 'verified')
+        ->first();
+
+    if ($referrerMember) {
+        AffiliatePoint::create([
+            'user_id' => $referrerMember->id,
+            'order_id' => $orderid,
+            'points' => 50,
+            'status' => 'PENDING',
+            'delivered_date' => null,
+            'point_status' => null
+        ]);
+
+        session()->forget('referrer_id');
+    }
+}
+
 
             foreach ($DatacartItems as $cc) {
 
@@ -157,9 +197,6 @@ class ApiCheckoutController extends Controller
                 'message' => 'Order successfully Placed',
                 'status' => 200
             ]);
-
         }
-
-
     }
 }
