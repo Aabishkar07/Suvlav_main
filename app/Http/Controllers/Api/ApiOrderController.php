@@ -66,17 +66,17 @@ class ApiOrderController extends Controller
 
 
 
-public function exchange($userId)
-{
-    $ongoingOrders = Order::with('orderDetails')
-        ->where('user_id', $userId)
-        ->get();
+    public function exchange($userId)
+    {
+        $ongoingOrders = Order::with('orderDetails')
+            ->where('user_id', $userId)
+            ->get();
 
-    return response()->json([
-        'status' => true,
-        'order' => $ongoingOrders
-    ]);
-}
+        return response()->json([
+            'status' => true,
+            'order' => $ongoingOrders
+        ]);
+    }
 
 
     public function exchangeupdate(Request $request)
@@ -110,37 +110,49 @@ public function exchange($userId)
     }
 
 
-public function referralcode(Request $request)
-{
-    $request->validate([
-        'webcode' => 'required|string',
-    ]);
+    public function referralcode(Request $request, $userId)
+    {
+        error_log("Referral code called2");
 
-    $webcode = $request->input('webcode');
+        $member = Member::find($userId);
+        error_log(json_encode($member));
+        $request->validate([
+            'webcode' => 'required|string',
+        ]);
 
-    // Check if a member exists with the given affiliate code and verified status
-    $checkmember = Member::where('affilate_code', $webcode)
-                        ->where('share_status', 'verified')
-                        ->first();
+        $webcode = $request->input('webcode');
+        error_log(json_encode($webcode));
 
-    if (!$checkmember) {
+        // Check if a member exists with the given affiliate code and verified status
+        $checkmember = Member::where('affilate_code', $webcode)->first();
+        error_log(json_encode($checkmember));
+
+        if (!$checkmember) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid or unverified affiliate code.',
+            ], 200);
+        }
+        if ($member->id == $checkmember->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You cannot refer yourself.',
+            ], 200);
+
+        }
+
+
         return response()->json([
-            'success' => false,
-            'message' => 'Invalid or unverified affiliate code.',
-        ], 404);
+            'success' => true,
+            'message' => 'Affiliate code Successfully Applied.',
+            'member_id' => $checkmember->id // optional: return member ID
+        ]);
     }
 
-    return response()->json([
-        'success' => true,
-        'message' => 'Affiliate code is valid and verified.',
-        'member_id' => $checkmember->id // optional: return member ID
-    ]);
-}
 
 
 
-
-// public function referralcode(Request $request)
+    // public function referralcode(Request $request)
 // {
 //     $request->validate([
 //         'webcode' => 'required|string',
@@ -149,24 +161,24 @@ public function referralcode(Request $request)
 //         'point_status' => 'required|string',
 //     ]);
 
-//     $webcode = $request->input('webcode');
+    //     $webcode = $request->input('webcode');
 //     $orderId = $request->input('order_id');
 //     $points = $request->input('points');
 //     $pointStatus = $request->input('point_status');
 
-//     // Check member from affiliate code
+    //     // Check member from affiliate code
 //     $checkmember = Member::where("affilate_code", $webcode)
 //                     ->where("share_status", "verified")
 //                     ->first();
 
-//     if (!$checkmember) {
+    //     if (!$checkmember) {
 //         return response()->json([
 //             'success' => false,
 //             'message' => 'Invalid or unverified affiliate code.',
 //         ], 404);
 //     }
 
-//     // Create affiliate point record
+    //     // Create affiliate point record
 //     $affiliate = AffiliatePoint::create([
 //         'user_id' => $checkmember->id,
 //         'order_id' => $orderId,
@@ -175,7 +187,7 @@ public function referralcode(Request $request)
 //         'point_status' => $pointStatus,
 //     ]);
 
-//     return response()->json([
+    //     return response()->json([
 //         'success' => true,
 //         'message' => 'Affiliate points stored successfully.',
 //         'data' => $affiliate

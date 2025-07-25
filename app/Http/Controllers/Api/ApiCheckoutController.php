@@ -50,13 +50,13 @@ class ApiCheckoutController extends Controller
             $member = $user_id != 0 ? Member::findOrFail($user_id) : null;
 
             $item_count = $totalprice = $totalqnty = 0;
-            
+
             foreach ($DatacartItems as $cc) {
                 $item_count++;
                 $totalprice += $cc["price"] * $cc["quantity"];
                 $totalqnty += $cc["quantity"];
             }
-            
+
             error_log("pppppppp");
             // Apply Redeem Points
             if (isset($allData["redeem_points"]) && $member) {
@@ -69,10 +69,11 @@ class ApiCheckoutController extends Controller
                 $allData["redeem_points"] = $usedPoints;
             }
 
+
             $trackingid = rand(10000, 99999);
 
             $cart_order = [
-                'user_id' => $user_id,
+                'user_id' => $user_id ?? 0,
                 'total_amt' => $totalprice,
                 'total_items' => $item_count,
                 'total_no_qnty' => $totalqnty,
@@ -86,7 +87,7 @@ class ApiCheckoutController extends Controller
                 'created_at' => now()
             ];
 
-
+            error_log(json_encode($cart_order));
             $orderid = DB::table('orders')->insertGetId($cart_order);
 
 
@@ -107,24 +108,24 @@ class ApiCheckoutController extends Controller
 
             $referrerCode = $allData['referrerId'] ?? null;
 
-if ($referrerCode) {
-    $referrerMember = Member::where('affilate_code', $referrerCode)
-        ->where('share_status', 'verified')
-        ->first();
+            if ($referrerCode) {
+                $referrerMember = Member::where('affilate_code', $referrerCode)
+                    ->where('share_status', 'verified')
+                    ->first();
 
-    if ($referrerMember) {
-        AffiliatePoint::create([
-            'user_id' => $referrerMember->id,
-            'order_id' => $orderid,
-            'points' => 50,
-            'status' => 'PENDING',
-            'delivered_date' => null,
-            'point_status' => null
-        ]);
+                if ($referrerMember) {
+                    AffiliatePoint::create([
+                        'user_id' => $referrerMember->id,
+                        'order_id' => $orderid,
+                        'points' => 50,
+                        'status' => 'PENDING',
+                        'delivered_date' => null,
+                        'point_status' => null
+                    ]);
 
-        session()->forget('referrer_id');
-    }
-}
+                    session()->forget('referrer_id');
+                }
+            }
 
 
             foreach ($DatacartItems as $cc) {
@@ -147,7 +148,7 @@ if ($referrerCode) {
             // Handle shipping
             $existingShipping = DB::table('shippings')->where('member_id', $user_id)->first();
             $memberData = [
-                'member_id' => $user_id,
+                'member_id' => $user_id ?? 0,
                 'guest_id' => $guest_id,
                 'fullname' => $details["name"],
                 'email' => $details["email"],
@@ -162,10 +163,12 @@ if ($referrerCode) {
             if (!$existingShipping) {
                 error_log("exists");
                 $memberData['created_at'] = now();
+                error_log(json_encode($memberData));
                 DB::table('shippings')->insert($memberData);
             } else {
                 DB::table('shippings')->where('id', $existingShipping->id)->update($memberData);
             }
+
 
             // Email
             $orders = DB::table('orders as a')

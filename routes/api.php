@@ -48,7 +48,7 @@ Route::get('/deliveredorder/{userId}', [ApiOrderController::class, 'deliveredord
 Route::get('/cancelledorder/{userId}', [ApiOrderController::class, 'cancelledorder']);
 Route::get('/exchange/{userId}', [ApiOrderController::class, 'exchange']);
 Route::post('/exchangeupdate', [ApiOrderController::class, 'exchangeupdate']);
-Route::post('/referralcode', [ApiOrderController::class, 'referralcode'])->name('referralcode');
+Route::post('/referralcode/{userId}', [ApiOrderController::class, 'referralcode'])->name('referralcode');
 
 
 Route::get('/allcategory', [ApiCategoryController::class, 'allcategory']);
