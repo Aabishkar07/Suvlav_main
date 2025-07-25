@@ -25,6 +25,8 @@ Route::get('/getuserdata/{id}', [UserAuthController::class, 'getuserdata'])->nam
 Route::put('/updateuserdata/{id}', [UserAuthController::class, 'updateuserdata'])->name('updateuserdata');
 Route::post('/updatepassword/{id}', [UserAuthController::class, 'updatePassword']);
 
+Route::post('/googlelogin', [UserAuthController::class, 'googlelogin']);
+
 Route::get('/getsupport', [ApiSupportController::class, 'getsupport'])->name('getsupport');
 Route::post('/getemail', [ApiSupportController::class, 'getemail'])->name('getemail');
 Route::get('/getprivacypolicy', [ApiSupportController::class, 'getprivacypolicy']);
@@ -46,6 +48,7 @@ Route::get('/deliveredorder/{userId}', [ApiOrderController::class, 'deliveredord
 Route::get('/cancelledorder/{userId}', [ApiOrderController::class, 'cancelledorder']);
 Route::get('/exchange/{userId}', [ApiOrderController::class, 'exchange']);
 Route::post('/exchangeupdate', [ApiOrderController::class, 'exchangeupdate']);
+Route::post('/referralcode/{userId}', [ApiOrderController::class, 'referralcode'])->name('referralcode');
 
 
 Route::get('/allcategory', [ApiCategoryController::class, 'allcategory']);
