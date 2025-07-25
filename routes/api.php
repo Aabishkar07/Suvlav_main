@@ -25,6 +25,8 @@ Route::get('/getuserdata/{id}', [UserAuthController::class, 'getuserdata'])->nam
 Route::put('/updateuserdata/{id}', [UserAuthController::class, 'updateuserdata'])->name('updateuserdata');
 Route::post('/updatepassword/{id}', [UserAuthController::class, 'updatePassword']);
 
+Route::post('/googlelogin', [UserAuthController::class, 'googlelogin']);
+
 Route::get('/getsupport', [ApiSupportController::class, 'getsupport'])->name('getsupport');
 Route::post('/getemail', [ApiSupportController::class, 'getemail'])->name('getemail');
 Route::get('/getprivacypolicy', [ApiSupportController::class, 'getprivacypolicy']);
