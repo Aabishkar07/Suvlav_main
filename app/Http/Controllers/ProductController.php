@@ -76,6 +76,7 @@ class ProductController extends Controller
       'regular_price' => 'required|string',
       'status' => 'required',
       'availablestock' => 'required',
+      'sold' => 'nullable|string',
       'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
@@ -120,6 +121,7 @@ class ProductController extends Controller
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');
     $product->cp = $request->input('cp');
+    $product->sold = $request->input('sold');
 
     $product->points = $request->input('points');
 
@@ -186,6 +188,7 @@ class ProductController extends Controller
       'regular_price' => 'required|string',
       'status' => 'required',
       'availablestock' => 'required',
+      'sold' => 'nullable|string',
       'image' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
     ]);
 
@@ -248,6 +251,8 @@ class ProductController extends Controller
     $product->regular_price = $request->input('regular_price');
     $product->sale_price = $request->input('sale_price');
     $product->cp = $request->input('cp');
+    $product->sold = $request->input('sold');
+
 
     $product->points = $request->input('points');
     $product->availablestock = $request->input('availablestock');
