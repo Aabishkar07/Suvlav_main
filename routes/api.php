@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ApiCategoryController;
 use App\Http\Controllers\Api\ApiCheckoutController;
 use App\Http\Controllers\Api\ApiOrderController;
 use App\Http\Controllers\Api\ApiProductController;
+use App\Http\Controllers\Api\ApiSearchController;
 use App\Http\Controllers\Api\ApiSupportController;
 use App\Http\Controllers\Api\ApiTransactionController;
 use App\Http\Controllers\Api\UserAuthController;
@@ -68,3 +69,7 @@ Route::post('/transferpoint/{id}', [ApiTransactionController::class, 'transferpo
 Route::post('/checkuserpin/{id}', [ApiTransactionController::class, 'checkuserpin']);
 
 Route::get('/getnotification/{user_id}', [ApiTransactionController::class, 'getnotification']);
+
+Route::get('/getSearchData', [ApiSearchController::class, 'getSearchData']);
+Route::post('/postSearchData', [ApiSearchController::class, 'postSearchData']);
+Route::post('/postmoreData/{id}', [ApiSearchController::class, 'postmoreData']);
