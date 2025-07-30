@@ -423,7 +423,7 @@
                         <div class="col-sm-9">
                             <input type="number" name="sold" class="form-control"
                                 value="{{ old('sold', $product->sold) }}" id="titleInput"
-                                placeholder="Enter available stock">
+                                placeholder="Enter total number of sold products">
                             @error('sold')
                                 <span class="text-danger ">* {{ $message }} </span>
                             @enderror
