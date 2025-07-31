@@ -672,7 +672,7 @@ class FrontController extends Controller
 
 
 
-        $user_id =   (Session::get('memeber_id_ss'));
+        $user_id = (Session::get('memeber_id_ss'));
 
 
 
@@ -734,7 +734,7 @@ class FrontController extends Controller
 
     public function exchange()
     {
-        
+
         $cartItems = $this->cartdata;
         $categories = $this->categories;
         $item_id = request()->details;
@@ -757,7 +757,7 @@ class FrontController extends Controller
             'product_name' => $check->product_name,
             'price' => $check->price,
             'user_id' => $user_id,
-            'item_id' =>  $item_id,
+            'item_id' => $item_id,
             'attribute' => $check->attributes,
             'status' => "pending",
             'points' => $check->price * $check->quantity,
@@ -794,10 +794,10 @@ class FrontController extends Controller
         $cartItems = $this->cartdata;
         $productIds = array_column($cartItems, 'product_id');
         $products = Product::whereIn('id', $productIds)->get();
-      
+
         $categories = $this->categories;
         $cok_data = Cookie::get('suvdata');
-    
+
 
         // Cookie::queue('suvdata', 1234, 60 * 24 * 365); // 1 year
 
@@ -809,7 +809,7 @@ class FrontController extends Controller
             ->get();
 
         $user_id = (Session::get('memeber_id_ss') != '') ? Session::get('memeber_id_ss') : 0;
-        $shippings = "";    
+        $shippings = "";
         $member = "";
         $guest_id = 0;
         if ($user_id == 0) {
@@ -852,7 +852,7 @@ class FrontController extends Controller
 
 
 
-        return view('front.checkout', compact('cartItems', 'states_del', 'wards', 'municipalities', 'shippings', 'districts', 'categories', 'member','products'));
+        return view('front.checkout', compact('cartItems', 'states_del', 'wards', 'municipalities', 'shippings', 'districts', 'categories', 'member', 'products'));
     }
 
 
@@ -929,11 +929,11 @@ class FrontController extends Controller
         //$member = DB::table('members')->find($id);
 
         $rules = [
-            'fname'          => 'required|min:3|max:50',
-            'email'         => 'required|email|min:6|max:50',
-            'password'      => 'required|min:6|max:50',
-            'gender'      => 'required',
-            'g-token'      => 'required',
+            'fname' => 'required|min:3|max:50',
+            'email' => 'required|email|min:6|max:50',
+            'password' => 'required|min:6|max:50',
+            'gender' => 'required',
+            'g-token' => 'required',
         ];
 
         $exist = DB::table('members')
@@ -955,7 +955,7 @@ class FrontController extends Controller
             $code = $this->check($name);
             $memberData = [
                 'name' => $request->fname,
-                'email' =>  $request->email,
+                'email' => $request->email,
                 'mobileno' => $request->mobileno,
                 'passwrd' => $hashedpw,
                 'gender' => $request->gender,
@@ -965,7 +965,7 @@ class FrontController extends Controller
             ];
 
             if (empty($member)) {
-                $memberid =  DB::table('members')->insertGetId($memberData);
+                $memberid = DB::table('members')->insertGetId($memberData);
 
                 $request->session()->put('memeber_name_ss', $request->fname);
                 $request->session()->put('memeber_email_ss', $request->email);
@@ -1094,7 +1094,8 @@ class FrontController extends Controller
                 $url = '/memberloginform';
             }
 
-            return redirect($url)->withErrors(['msg' => 'Email or Password is not match. Please put correct data.']);;
+            return redirect($url)->withErrors(['msg' => 'Email or Password is not match. Please put correct data.']);
+            ;
         }
     }
 
@@ -1104,7 +1105,7 @@ class FrontController extends Controller
 
         $stateId = $request->input('state_id');
 
-        $districts = DB::table('districts')->where('is_active',1)
+        $districts = DB::table('districts')->where('is_active', 1)
             ->where('province', $stateId)
             ->get();
 
@@ -1135,10 +1136,11 @@ class FrontController extends Controller
 
 
 
-    public function allcategory(){
+    public function allcategory()
+    {
         $cartItems = $this->cartdata;
         $categories = $this->categories;
-        return view('front.common.allcategory',compact('cartItems' , 'categories'));
+        return view('front.common.allcategory', compact('cartItems', 'categories'));
     }
 
     public function checkitemid()
@@ -1224,7 +1226,7 @@ class FrontController extends Controller
             'total_items' => $item_count,
             'total_no_qnty' => $totalqnty,
             'fullname' => $request->name,
-            'email' =>  $request->email,
+            'email' => $request->email,
             'mobile' => $request->mobileno,
             'province' => $request->province_id,
             'district_id' => $request->district,
@@ -1254,7 +1256,7 @@ class FrontController extends Controller
         }
 
 
-        $orderid =  DB::table('orders')->insertGetId($cart_order);
+        $orderid = DB::table('orders')->insertGetId($cart_order);
         // dd("alala");
 
 
@@ -1266,7 +1268,7 @@ class FrontController extends Controller
                 $checkmember = Member::where("affilate_code", $webcode)->where("share_status", "verified")->first();
                 if ($checkmember) {
                     if ($checkmember->id != $user_id) {
-                        $value +=  $webpoint * $cc->quantity;
+                        $value += $webpoint * $cc->quantity;
                         $status = 'WebsiteShare';
                     }
                 }
@@ -1280,7 +1282,7 @@ class FrontController extends Controller
                             if ($checkmember) {
                                 if ($session_product_id) {
                                     if ($checkmember->id != $user_id) {
-                                        $value +=  $product->points ?? 0 * $cc->quantity;
+                                        $value += $product->points ?? 0 * $cc->quantity;
                                     }
                                 }
                             }
@@ -1329,6 +1331,7 @@ class FrontController extends Controller
         $memberData = [
             'member_id' => $user_id,
             'guest_id' => $guest_id,
+            'order_id' => $orderid,
             'fullname' => $request->name,
             'email' => $request->email,
             'mobile' => $request->mobileno,
@@ -1468,7 +1471,7 @@ class FrontController extends Controller
             Mail::to($email)->send(new otp($otp));
 
 
-            return view('front.otp', ['email' => $email],  compact('cartItems', 'categories'));
+            return view('front.otp', ['email' => $email], compact('cartItems', 'categories'));
         }
     }
 
@@ -1645,7 +1648,7 @@ class FrontController extends Controller
 
             if ($oldpw == $oldpwdb) {
                 //$newpass = base64_encode($this->request->getVar('password'));
-                $newpass =  base64_encode($request->new_password);
+                $newpass = base64_encode($request->new_password);
                 $memdata = [
                     'passwrd' => $newpass,
                 ];
