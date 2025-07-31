@@ -415,6 +415,22 @@
                         </div>
                     </div>
 
+
+
+
+                     <div class="form-group row">
+                        <label for="availablestockInput" class="col-sm-3 col-form-label">Total Sold</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="sold" class="form-control"
+                                value="{{ old('sold', $product->sold) }}" id="titleInput"
+                                placeholder="Enter total number of sold products">
+                            @error('sold')
+                                <span class="text-danger ">* {{ $message }} </span>
+                            @enderror
+                        </div>
+                    </div>
+
+
                     <button type="submit" class="btn btn-info sfw">{{ $addEdit }}</button>
                     <a href="{{ route('product.index') }}" class="btn btn-info sfw"><i class="fa fa-mail-reply"></i>
                         Cancel </a>
