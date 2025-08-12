@@ -190,6 +190,9 @@ class ApiOrderController extends Controller
     public function checkexchange($item_id)
     {
 
+        // error_log("helloooff" , $item_id);
+        error_log(json_encode("helloooff" , $item_id));
+
         $checkexchange = Exchange::where("item_id", $item_id)->first();
 
         if ($checkexchange) {
