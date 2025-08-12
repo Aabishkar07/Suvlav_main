@@ -16,8 +16,14 @@ class ApiOrderController extends Controller
 
     public function order($userId)
     {
-        $orders = Order::with('orderDetails')
-            ->where('user_id', $userId)->where('status', 'Pending')
+        $orders = Order::with([
+            'orderDetails',
+            'shipping.getMunicipality',
+            'shipping.getprovince',
+            'shipping.getDistrict'
+        ])
+            ->where('user_id', $userId)
+            ->where('status', 'Pending')
             ->get();
 
         return response()->json([
@@ -29,9 +35,19 @@ class ApiOrderController extends Controller
 
     public function ongoingorder($userId)
     {
-        $ongoingorder = Order::with('orderDetails')
-            ->where('user_id', $userId)->where('status', 'Ongoing')
+
+        $ongoingorder = Order::with([
+            'orderDetails',
+            'shipping.getMunicipality',
+            'shipping.getprovince',
+            'shipping.getDistrict'
+        ])
+            ->where('user_id', $userId)
+            ->where('status', 'Ongoing')
             ->get();
+        // $ongoingorder = Order::with('orderDetails')
+        //     ->where('user_id', $userId)->where('status', 'Ongoing')
+        //     ->get();
 
         return response()->json([
             'status' => true,
@@ -42,9 +58,20 @@ class ApiOrderController extends Controller
 
     public function deliveredorder($userId)
     {
-        $ongoingorder = Order::with('orderDetails')
-            ->where('user_id', $userId)->where('status', 'Delevered')
+
+        $ongoingorder = Order::with([
+            'orderDetails',
+            'shipping.getMunicipality',
+            'shipping.getprovince',
+            'shipping.getDistrict'
+        ])
+            ->where('user_id', $userId)
+            ->where('status', 'Delevered')
             ->get();
+
+        // $ongoingorder = Order::with('orderDetails')
+        //     ->where('user_id', $userId)->where('status', 'Delevered')
+        //     ->get();
 
         return response()->json([
             'status' => true,
@@ -54,8 +81,16 @@ class ApiOrderController extends Controller
 
     public function cancelledorder($userId)
     {
-        $ongoingorder = Order::with('orderDetails')
-            ->where('user_id', $userId)->where('status', 'Cancel')
+
+
+        $ongoingorder = Order::with([
+            'orderDetails',
+            'shipping.getMunicipality',
+            'shipping.getprovince',
+            'shipping.getDistrict'
+        ])
+            ->where('user_id', $userId)
+            ->where('status', 'Cancel')
             ->get();
 
         return response()->json([
@@ -68,41 +103,43 @@ class ApiOrderController extends Controller
 
     public function exchange($userId)
     {
-        $ongoingOrders = Order::with('orderDetails')
-            ->where('user_id', $userId)
-            ->get();
+        $ongoingOrders = Exchange::with("orderDetails", "orderDetails.order")->where("user_id", $userId)->orderBy("id","desc")->get();
+        error_log(json_encode($ongoingOrders));
+
+        // $ongoingOrders = Order::with('orderDetails')
+        //     ->where('user_id', $userId)
+        //     ->get();
 
         return response()->json([
             'status' => true,
-            'order' => $ongoingOrders
+            'data' => $ongoingOrders
         ]);
     }
 
 
     public function exchangeupdate(Request $request)
     {
-        $request->validate([
-            'exchanges' => 'required|array',
-            'exchanges.*.item_id' => 'required|integer',
-            'exchanges.*.user_id' => 'required|integer',
-            'exchanges.*.product_name' => 'required|string',
-            'exchanges.*.price' => 'required|numeric',
+        error_log("aa");
+        $exchange = $request->exchanges;
+
+        $order_details = DB::table('order_details')
+            ->where("item_id", $exchange['item_id'])
+            ->update(['status' => "wanttoexchange"]);
+
+        // error_log("aabishkar" , $order_details);
+        error_log(json_encode("aabishkar" , $order_details));
+
+        Exchange::create(attributes: [
+            'item_id' => $exchange['item_id'],
+            // 'new_product_id' => $exchange['new_product_id'] ?? null,
+            'product_name' => $exchange['product_name'],
+            'price' => $exchange['price'],
+            'user_id' => $exchange['user_id'],
+            'attribute' => $exchange['attribute'] ?? '',
+            'status' => $exchange['status'] ?? 'pending',
+            'points' => ($exchange['quantity']) * ($exchange['price']),
         ]);
 
-        foreach ($request->exchanges as $exchangeData) {
-            \App\Models\Exchange::create([
-                'item_id' => $exchangeData['item_id'],
-                // 'new_product_id' => $exchangeData['new_product_id'] ?? null,
-                'product_name' => $exchangeData['product_name'],
-                'price' => $exchangeData['price'],
-                'user_id' => $exchangeData['user_id'],
-                'attribute' => $exchangeData['attribute'] ?? '',
-                'status' => $exchangeData['status'] ?? 'pending',
-                // 'points' => $exchangeData['price'] ?? 0,
-                'points' => ($exchangeData['quantity']) * ($exchangeData['price']),
-
-            ]);
-        }
         return response()->json([
             'status' => true,
             'message' => 'Exchange request submitted successfully.',
@@ -150,7 +187,30 @@ class ApiOrderController extends Controller
     }
 
 
+    public function checkexchange($item_id)
+    {
 
+        $checkexchange = Exchange::where("item_id", $item_id)->first();
+
+        if ($checkexchange) {
+            if ($checkexchange->status == "pending") {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Exchange on pending ',
+                ], 200);
+            }
+            if ($checkexchange->status == "exchanged") {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product Exchanged ',
+                ], 200);
+            }
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'No product Found.',
+        ]);
+    }
 
     // public function referralcode(Request $request)
 // {

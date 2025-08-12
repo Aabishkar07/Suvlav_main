@@ -150,6 +150,7 @@ class ApiCheckoutController extends Controller
             $memberData = [
                 'member_id' => $user_id ?? 0,
                 'guest_id' => $guest_id,
+                'order_id' => $orderid,
                 'fullname' => $details["name"],
                 'email' => $details["email"],
                 'mobile' => $details["phone"],

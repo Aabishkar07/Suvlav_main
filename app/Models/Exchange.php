@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Exchange extends Model
 {
 
-        protected $table = 'orders'; 
-
+    
 
     protected $fillable = [
         'new_product_id',
@@ -21,8 +20,8 @@ class Exchange extends Model
         'points',
     ];
 
-        public function orderDetails()
-{
-    return $this->hasMany(OrderDetail::class, 'order_id', 'id');
-}
+    public function orderDetails()
+    {
+        return $this->hasOne(OrderDetail::class, 'item_id', 'item_id');
+    }
 }

@@ -10,7 +10,30 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-    
+
+    protected $fillable = [
+        "user_id",
+        "discount",
+        "tax",
+        "total_amt",
+        "total_items",
+        "total_no_qnty",
+        "fullname",
+        "mobile",
+        "email",
+        "address",
+        "province",
+        "country",
+        "district_id",
+        "city",
+        "tole",
+        "houseno",
+        "delivered_date",
+        "tracking_code",
+        "status",
+        "use_point",
+        "is_shipping_different"
+    ];
     // public function user(){
     //     return $this->belongsTo(User::class);
     // }
@@ -28,8 +51,12 @@ class Order extends Model
     // }
 
     public function orderDetails()
-{
-    return $this->hasMany(OrderDetail::class, 'order_id', 'id');
-}
-    
+    {
+        return $this->hasMany(OrderDetail::class, 'order_id', 'id');
+    }
+    public function shipping()
+    {
+        return $this->hasOne(Shipping::class, "order_id", "id");
+    }
+
 }
