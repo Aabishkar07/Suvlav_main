@@ -126,6 +126,9 @@ class ApiOrderController extends Controller
             ->where("item_id", $exchange['item_id'])
             ->update(['status' => "wanttoexchange"]);
 
+        // error_log("aabishkar" , $order_details);
+        error_log(json_encode("aabishkar" , $order_details));
+
         Exchange::create(attributes: [
             'item_id' => $exchange['item_id'],
             // 'new_product_id' => $exchange['new_product_id'] ?? null,
