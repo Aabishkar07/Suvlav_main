@@ -87,6 +87,15 @@ class UserAuthController extends Controller
         return $mycode;
     }
 
+    public function checkCoinuniqueid()
+    {
+        $randomNumber = random_int(10000, 99999);
+        $checkold = Member::where("unique_id", $randomNumber)->first();
+        if ($checkold) {
+            $this->checkCoinuniqueid();
+        }
+        return $randomNumber;
+    }
     public function checkuniqueid()
     {
         $randomNumber = random_int(10000, 99999);
@@ -150,6 +159,7 @@ class UserAuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'otp' => $otp,
+            'unique_id' => $this->checkCoinuniqueid(),
             'mobileno' => $request->mobileno,
             'passwrd' => $hashedPassword,
             'gender' => $request->gender,
@@ -329,6 +339,7 @@ class UserAuthController extends Controller
             'message' => 'User data fetched successfully',
             'data' => [
                 'id' => $member->id,
+                'unique_id' => $member->unique_id,
                 'name' => $member->name,
                 'email' => $member->email,
                 'mobileno' => $member->mobileno,
@@ -420,6 +431,7 @@ class UserAuthController extends Controller
     }
 
 
+
     public function googlelogin(Request $request)
     {
         // Log the incoming request data
@@ -463,6 +475,7 @@ class UserAuthController extends Controller
                 'gender' => "",
                 'status' => 1,
                 'affilate_code' => $code,
+                'unique_id' => $this->checkCoinuniqueid(),
                 'created_at' => now()
             ];
             $new_user = Member::create($memberData);

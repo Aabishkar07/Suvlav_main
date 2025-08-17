@@ -53,7 +53,15 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
-
+    public function checkCoinuniqueid()
+    {
+        $randomNumber = random_int(10000, 99999);
+        $checkold = Member::where("unique_id", $randomNumber)->first();
+        if ($checkold) {
+            $this->checkCoinuniqueid();
+        }
+        return $randomNumber;
+    }
     public function redirectToGmail()
     {
         return Socialite::driver('google')->redirect();
@@ -90,13 +98,14 @@ class AuthenticatedSessionController extends Controller
             $code = $this->check($googleUser->name);
             $memberData = [
                 'name' => $googleUser->name,
-                'email' =>  $googleUser->email,
+                'email' => $googleUser->email,
                 'mobileno' => "",
                 'googleauth_id' => $googleUser->id,
                 'passwrd' => $hashedpw,
                 'gender' => "",
                 'status' => 1,
                 'affilate_code' => $code,
+                'unique_id' => $this->checkCoinuniqueid(),
                 'created_at' => @date('Y-m-d H:i')
             ];
             $new_user = Member::create($memberData);
@@ -164,7 +173,7 @@ class AuthenticatedSessionController extends Controller
                 $code = $this->check($facebook_user->getName());
                 $memberData = [
                     'name' => $facebook_user->getName(),
-                    'email' =>  $facebook_user->getEmail(),
+                    'email' => $facebook_user->getEmail(),
                     'mobileno' => "",
                     'fbauth_id' => $facebook_user->getId(),
                     'passwrd' => $hashedpw,
@@ -177,7 +186,7 @@ class AuthenticatedSessionController extends Controller
                 $request->session()->put('memeber_name_ss', $new_user->name);
                 $request->session()->put('memeber_email_ss', $new_user->email);
                 $request->session()->put('memeber_id_ss', $new_user->id);
-                 Mail::to('suvlav25@gmail.com')->send(new registerUser($new_user));
+                Mail::to('suvlav25@gmail.com')->send(new registerUser($new_user));
 
                 \Auth::guard('member')->login($new_user);
                 return redirect("/");

@@ -921,6 +921,15 @@ class FrontController extends Controller
         }
         return $mycode;
     }
+    public function checkCoinuniqueid()
+    {
+        $randomNumber = random_int(10000, 99999);
+        $checkold = Member::where("unique_id", $randomNumber)->first();
+        if ($checkold) {
+            $this->checkCoinuniqueid();
+        }
+        return $randomNumber;
+    }
 
     public function memberstore(Request $request)
     {
@@ -961,6 +970,7 @@ class FrontController extends Controller
                 'gender' => $request->gender,
                 'status' => 1,
                 'affilate_code' => $code,
+                'unique_id' => $this->checkCoinuniqueid(),
                 'created_at' => @date('Y-m-d H:i')
             ];
 
