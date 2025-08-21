@@ -164,6 +164,7 @@ class UserAuthController extends Controller
             'passwrd' => $hashedPassword,
             'gender' => $request->gender,
             'status' => 0,
+            'used_referral' => $request->referral_code,
             'affilate_code' => $code,
             'created_at' => now()
         ];
