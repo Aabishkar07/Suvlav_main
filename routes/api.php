@@ -52,6 +52,7 @@ Route::post('/exchangeupdate', [ApiOrderController::class, 'exchangeupdate']);
 Route::post('/referralcode/{userId}', [ApiOrderController::class, 'referralcode'])->name('referralcode');
 
 Route::get('/checkexchange/{item_id}', [ApiOrderController::class, 'checkexchange']);
+Route::post('/checkreferralcode', [ApiOrderController::class, 'checkreferralcode']);
 
 
 Route::get('/allcategory', [ApiCategoryController::class, 'allcategory']);

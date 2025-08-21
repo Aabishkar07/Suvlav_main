@@ -215,6 +215,41 @@ class ApiOrderController extends Controller
         ]);
     }
 
+
+
+
+
+public function checkreferralcode(Request $request)
+{
+    $request->validate([
+        'referral_code' => 'required|string'
+    ]);
+
+    $exists = Member::where('affilate_code', $request->referral_code)->exists();
+
+    if ($exists) {
+        return response()->json([
+            'status' => true,
+            'message' => 'Referral code is valid.'
+        ], 200);
+    } else {
+        return response()->json([
+            'status' => false,
+            'message' => 'Referral code not found.'
+        ], 404);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
     // public function referralcode(Request $request)
 // {
 //     $request->validate([

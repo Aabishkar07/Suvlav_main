@@ -28,7 +28,8 @@ class Member extends Authenticatable
         'googleauth_id',
         'fbauth_id',
         'unique_id',
-        'total_points'
+        'total_points',
+        'used_referral'
 
     ];
 }
