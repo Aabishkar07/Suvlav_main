@@ -37,6 +37,7 @@ Route::get('/aboutus', [ApiSupportController::class, 'aboutus']);
 
 Route::get('/allproduct', [ApiProductController::class, 'allproduct']);
 Route::get('/product/{product}', [ApiProductController::class, 'singlepage']);
+
 Route::get('/review/{product}/{user}', [ApiProductController::class, 'productreview']);
 Route::post('/review/{product}/{user}', [ApiProductController::class, 'postproductreview']);
 Route::post('/wishlist', [ApiProductController::class, 'wishlist']);

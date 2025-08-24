@@ -25,38 +25,82 @@ class ApiProductController extends Controller
         ], 200);
     }
 
+    // public function singlepage($product)
+    // {
+    //     $product = Product::where("id", (int) $product)->first();
+    //     $productreviews = Review::with("user")->where("product_id", $product->id)->get();
+    //     // Product Sizes
+    //     $prod_sizes = [];
+    //     if ($product->prod_sizes != '') {
+    //         $prod_sizeIds = json_decode($product->prod_sizes, true);
+    //         $prod_sizes = ProductSize::whereIn('id', $prod_sizeIds)
+    //             ->where('status', '1')
+    //             ->orderBy('order', 'asc')
+    //             ->get();
+    //     }
+
+
+    //     // Product Colors
+    //     $prod_colors = [];
+    //     if ($product->prod_colors != '') {
+    //         $prod_colorIds = json_decode($product->prod_colors, true);
+    //         $prod_colors = ProductColor::whereIn('id', $prod_colorIds)
+    //             ->where('status', '1')
+    //             ->get();
+    //     }
+
+    //     return response()->json([
+    //         'status' => '200',
+    //         'prod_sizes' => $prod_sizes,
+    //         'prod_colors' => $prod_colors,
+    //         'data' => $product,
+    //         'productreviews' => $productreviews,
+    //     ], 200);
+    // }
+
     public function singlepage($product)
-    {
-        $product = Product::where("id", (int) $product)->first();
-        $productreviews = Review::with("user")->where("product_id", $product->id)->get();
-        // Product Sizes
-        $prod_sizes = [];
-        if ($product->prod_sizes != '') {
-            $prod_sizeIds = json_decode($product->prod_sizes, true);
-            $prod_sizes = ProductSize::whereIn('id', $prod_sizeIds)
-                ->where('status', '1')
-                ->orderBy('order', 'asc')
-                ->get();
-        }
+{
+    $product = Product::where("id", (int) $product)->first();
 
-
-        // Product Colors
-        $prod_colors = [];
-        if ($product->prod_colors != '') {
-            $prod_colorIds = json_decode($product->prod_colors, true);
-            $prod_colors = ProductColor::whereIn('id', $prod_colorIds)
-                ->where('status', '1')
-                ->get();
-        }
-
-        return response()->json([
-            'status' => '200',
-            'prod_sizes' => $prod_sizes,
-            'prod_colors' => $prod_colors,
-            'data' => $product,
-            'productreviews' => $productreviews,
-        ], 200);
+    if (!$product) {
+        return response()->json(['status' => '404', 'message' => 'Product not found'], 404);
     }
+
+    // Other products
+    $otherproducts = Product::where("id", '!=', (int) $product->id)->get();
+
+    // Product Reviews
+    $productreviews = Review::with("user")->where("product_id", $product->id)->get();
+
+    // Product Sizes
+    $prod_sizes = [];
+    if ($product->prod_sizes != '') {
+        $prod_sizeIds = json_decode($product->prod_sizes, true);
+        $prod_sizes = ProductSize::whereIn('id', $prod_sizeIds)
+            ->where('status', '1')
+            ->orderBy('order', 'asc')
+            ->get();
+    }
+
+    // Product Colors
+    $prod_colors = [];
+    if ($product->prod_colors != '') {
+        $prod_colorIds = json_decode($product->prod_colors, true);
+        $prod_colors = ProductColor::whereIn('id', $prod_colorIds)
+            ->where('status', '1')
+            ->get();
+    }
+
+    return response()->json([
+        'status' => '200',
+        'data' => $product,
+        'otherproducts' => $otherproducts,
+        'productreviews' => $productreviews,
+        'prod_sizes' => $prod_sizes,
+        'prod_colors' => $prod_colors,
+    ], 200);
+}
+
 
     public function productreview($product, $user)
     {
