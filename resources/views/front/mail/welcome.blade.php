@@ -86,7 +86,7 @@
     <p>Dear User,</p>
     <p>We are thrilled to have you join Suvlav, your trusted platform for seamless experiences. By joining us, you're opening the door to endless possibilities and opportunities tailored just for you.</p>
     <p>If you have any questions, feel free to reach out to our support team. We’re here to help you every step of the way.</p>
-    <a href="https://suvlav.com/dashboard" class="button">Visit us</a>
+    <a href="https://suvlav.com" class="button">Visit us</a>
   </div>
   <div class="footer">
     <p>&copy; 2024 Suvlav. All Rights Reserved.</p>
