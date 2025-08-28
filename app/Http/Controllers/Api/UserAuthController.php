@@ -340,6 +340,7 @@ class UserAuthController extends Controller
             'message' => 'User data fetched successfully',
             'data' => [
                 'id' => $member->id,
+                'refferal_code' => $member->affilate_code,
                 'unique_id' => $member->unique_id,
                 'name' => $member->name,
                 'email' => $member->email,
