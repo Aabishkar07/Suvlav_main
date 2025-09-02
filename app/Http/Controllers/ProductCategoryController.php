@@ -11,21 +11,34 @@ use Intervention\Image\Laravel\Facades\Image;
 class ProductCategoryController extends Controller
 {
     //
-    public function index(Request $request) {
-        $productcats = new ProductCategory;
-        $search = $productcats->query();
-        if($request->search == 'search'){
-            if($request->title) {
-                  $search->where('title', 'like', '%'.$request->title.'%');
-            }          
+    // public function index(Request $request) {
+    //     $productcats = new ProductCategory;
+    //     $search = $productcats->query();
+    //     if($request->search == 'search'){
+    //         if($request->title) {
+    //               $search->where('title', 'like', '%'.$request->title.'%');
+    //         }          
             
-          } else{
-            $search->where('parent_id', 0);
-          } 
+    //       } else{
+    //         $search->where('parent_id', 0);
+    //       } 
 
-        $productcats = $search->latest()->paginate(3);        
-        return view('admin.productcat.index',compact('productcats','request'));
+    //     $productcats = $search->latest()->paginate(3);        
+    //     return view('admin.productcat.index',compact('productcats','request'));
+    // }
+
+    public function index(Request $request) {
+    $productcats = ProductCategory::query();
+
+    if($request->search == 'search' && $request->title) {
+        $productcats->where('title', 'like', '%'.$request->title.'%');
     }
+
+    $productcats = $productcats->latest()->paginate(3);
+
+    return view('admin.productcat.index', compact('productcats', 'request'));
+}
+
 
     // Get Product Categories
     public function getAllCategories($parent_id = 0){
