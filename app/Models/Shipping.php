@@ -43,4 +43,8 @@ class Shipping extends Model
     {
         return $this->belongsTo(Municipality::class, 'nagarpalika');
     }
+    public function getWard()
+    {
+        return $this->belongsTo(Ward::class, 'wardno');
+    }
 }
