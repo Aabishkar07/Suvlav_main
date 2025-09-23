@@ -20,7 +20,8 @@ class ApiOrderController extends Controller
             'orderDetails',
             'shipping.getMunicipality',
             'shipping.getprovince',
-            'shipping.getDistrict'
+            'shipping.getDistrict',
+            'shipping.getWard'
         ])
             ->where('user_id', $userId)
             ->where('status', 'Pending')
@@ -103,7 +104,7 @@ class ApiOrderController extends Controller
 
     public function exchange($userId)
     {
-        $ongoingOrders = Exchange::with("orderDetails", "orderDetails.order")->where("user_id", $userId)->orderBy("id","desc")->get();
+        $ongoingOrders = Exchange::with("orderDetails", "orderDetails.order")->where("user_id", $userId)->orderBy("id", "desc")->get();
         error_log(json_encode($ongoingOrders));
 
         // $ongoingOrders = Order::with('orderDetails')
@@ -127,7 +128,7 @@ class ApiOrderController extends Controller
             ->update(['status' => "wanttoexchange"]);
 
         // error_log("aabishkar" , $order_details);
-        error_log(json_encode("aabishkar" , $order_details));
+        error_log(json_encode("aabishkar", $order_details));
 
         Exchange::create(attributes: [
             'item_id' => $exchange['item_id'],
@@ -191,7 +192,7 @@ class ApiOrderController extends Controller
     {
 
         // error_log("helloooff" , $item_id);
-        error_log(json_encode("helloooff" , $item_id));
+        error_log(json_encode("helloooff", $item_id));
 
         $checkexchange = Exchange::where("item_id", $item_id)->first();
 
@@ -219,26 +220,26 @@ class ApiOrderController extends Controller
 
 
 
-public function checkreferralcode(Request $request)
-{
-    $request->validate([
-        'referral_code' => 'required|string'
-    ]);
+    public function checkreferralcode(Request $request)
+    {
+        $request->validate([
+            'referral_code' => 'required|string'
+        ]);
 
-    $exists = Member::where('affilate_code', $request->referral_code)->exists();
+        $exists = Member::where('affilate_code', $request->referral_code)->exists();
 
-    if ($exists) {
-        return response()->json([
-            'status' => true,
-            'message' => 'Referral code is valid.'
-        ], 200);
-    } else {
-        return response()->json([
-            'status' => false,
-            'message' => 'Referral code not found.'
-        ], 404);
+        if ($exists) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Referral code is valid.'
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Referral code not found.'
+            ], 404);
+        }
     }
-}
 
 
 
