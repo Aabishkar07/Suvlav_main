@@ -36,7 +36,7 @@ class ApiCheckoutController extends Controller
         } else {
             error_log(json_encode($allData));
 
-
+            // return false;
             if (count($allData["cart"]) == 0) {
                 return redirect('/view-cart')->with('message', 'Cart is empty');
             }
@@ -62,11 +62,18 @@ class ApiCheckoutController extends Controller
             if (isset($allData["redeem_points"]) && $member) {
                 error_log("aaaaaaaabbb");
                 $points = $member->total_points;
+                if ($allData["redeem_points"] > $points) {
+                    return response()->json([
+                        'message' => 'You have not enough points',
+                        'status' => 400
+                    ]);
+                }
+
                 $usedPoints = min($totalprice, $points);
-                $totalprice -= $usedPoints;
-                $member->total_points -= $usedPoints;
+                // $totalprice -= $allData["redeem_points"];
+                $member->total_points -= $allData["redeem_points"];
                 $member->save();
-                $allData["redeem_points"] = $usedPoints;
+                // $allData["redeem_points"] = $usedPoints;
             }
 
 
@@ -76,6 +83,7 @@ class ApiCheckoutController extends Controller
                 'user_id' => $user_id ?? 0,
                 'total_amt' => $totalprice,
                 'total_items' => $item_count,
+                'use_point' => $allData["redeem_points"] ?? 0,
                 'total_no_qnty' => $totalqnty,
                 'fullname' => $details["name"],
                 'email' => $details["email"],
@@ -117,7 +125,7 @@ class ApiCheckoutController extends Controller
                     AffiliatePoint::create([
                         'user_id' => $referrerMember->id,
                         'order_id' => $orderid,
-                        'points' => 50,
+                        'points' => 10,
                         'status' => 'PENDING',
                         'delivered_date' => null,
                         'point_status' => null
