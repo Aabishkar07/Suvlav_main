@@ -299,7 +299,8 @@
                                         @endswitch
 
                                     </td>
-                                    <td>{{ $order->created_at->format('Y/m/d H:i') }}</td>
+                                    <td>{{ $order->created_at->timezone('Asia/Kathmandu')->format('Y/m/d H:i') }}</td>
+
 
                                     <td><a href="<?php echo url('admin/order/showdetails/' . $order->id); ?>" class="btn btn-success btn-sm"><i
                                                 class="fa fa-eye"></i> </a>
